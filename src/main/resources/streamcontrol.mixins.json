@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "nl.townsandkingdoms.streamcontrol.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "WaterFlowMixin",
+    "BakedFlowMixin",
+    "GridFlowMixin",
+    "ClientGridMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

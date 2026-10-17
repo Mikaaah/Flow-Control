@@ -1,0 +1,21 @@
+{
+  "itemGroup.streamcontrol": "Streams Flow Control",
+  "item.streamcontrol.flow_wand": "Flow Wand",
+  "block.streamcontrol.current_generator": "Current Generator",
+  "block.streamcontrol.stillwater_anchor": "Stillwater Anchor",
+  "mode.streamcontrol.0": "Direct flow",
+  "mode.streamcontrol.1": "Still water",
+  "mode.streamcontrol.2": "Restore natural flow",
+  "message.streamcontrol.mode": "Wand mode: %s",
+  "message.streamcontrol.radius": "Wand radius: %s blocks",
+  "message.streamcontrol.controller": "Controller radius: %s blocks (redstone disables)",
+  "message.streamcontrol.applied": "%s applied within %s blocks",
+  "message.streamcontrol.restored": "Natural flow restored.",
+  "message.streamcontrol.none": "No flow edit here.",
+  "message.streamcontrol.remove_block": "Break or power the controller to restore its water.",
+  "message.streamcontrol.denied": "You cannot edit this area.",
+  "message.streamcontrol.limit": "Flow edit limit reached. Restore old edits first.",
+  "tooltip.streamcontrol.mode": "Mode: %s",
+  "tooltip.streamcontrol.wand": "Use on water: apply the selected mode. Direction follows your view.",
+  "tooltip.streamcontrol.wand_air": "Aim at sky: use to change radius; sneak-use to change mode."
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "streamcontrol:block/current_generator_bottom",
+    "up": "streamcontrol:block/current_generator_top",
+    "north": "streamcontrol:block/current_generator_side",
+    "south": "streamcontrol:block/current_generator_side",
+    "east": "streamcontrol:block/current_generator_side",
+    "west": "streamcontrol:block/current_generator_side",
+    "particle": "streamcontrol:block/current_generator_side"
+  }
+}

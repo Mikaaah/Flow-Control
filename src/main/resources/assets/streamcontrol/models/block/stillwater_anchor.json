@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "streamcontrol:block/stillwater_anchor_bottom",
+    "up": "streamcontrol:block/stillwater_anchor_top",
+    "north": "streamcontrol:block/stillwater_anchor_side",
+    "south": "streamcontrol:block/stillwater_anchor_side",
+    "east": "streamcontrol:block/stillwater_anchor_side",
+    "west": "streamcontrol:block/stillwater_anchor_side",
+    "particle": "streamcontrol:block/stillwater_anchor_side"
+  }
+}

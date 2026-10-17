@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "streamcontrol:block/current_generator",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "streamcontrol:block/current_generator",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "streamcontrol:block/current_generator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "streamcontrol:block/current_generator",
+      "y": 270
+    }
+  }
+}

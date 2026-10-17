@@ -1,0 +1,24 @@
+name: Bug report
+description: Report a flow, block, wand or multiplayer problem.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions
+      description: Minecraft, NeoForge, Streams Reflowing and Streams Flow Control versions.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps and expected behavior
+      description: Include wand mode, radius, controller placement, redstone and overlapping areas.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs and screenshots
+      description: Attach latest.log or the crash report and relevant screenshots. Remove private information.

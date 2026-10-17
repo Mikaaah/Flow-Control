@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "streamcontrol:current_generator",
+    "streamcontrol:stillwater_anchor"
+  ]
+}

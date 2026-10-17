@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "streamcontrol:block/stillwater_anchor",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "streamcontrol:block/stillwater_anchor",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "streamcontrol:block/stillwater_anchor",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "streamcontrol:block/stillwater_anchor",
+      "y": 270
+    }
+  }
+}
