@@ -4,7 +4,7 @@ license="GPL-3.0-only"
 issueTrackerURL="https://github.com/Mikaaah/Streams-Flow-Control/issues"
 [[mods]]
 modId="streamcontrol"
-version="0.1.0-beta"
+version="0.1.1-beta"
 displayName="Streams Flow Control"
 authors="Mikaaah / Towns & Kingdoms"
 displayURL="https://github.com/Mikaaah/Streams-Flow-Control"

@@ -44,6 +44,14 @@ public final class IntegrationChecks {
             check(StreamFlowGrid.angleForEntityPush(level,16,120,16) == StreamFlowGrid.encode(1,0),"Vessel direction hook");
             check(StreamFlowGrid.speedForPhysics(level,16,120,16) == 0.75,"Vessel strength hook");
             results.put("vanillaWaterAndVesselFlow",true);
+            for(int dx=-4;dx<=4;dx++) if(dx!=0) {
+                int top=dx>0?123:117;
+                for(int y=116;y<=124;y++) level.setBlock(new BlockPos(16+dx,y,16),
+                    y<=top?Blocks.WATER.defaultBlockState():Blocks.AIR.defaultBlockState(),2);
+            }
+            flow=level.getFluidState(p).getFlow(level,p);
+            check(flow.x>0.7 && Math.abs(flow.z)<0.01,"Explicit Flow Wand direction was overridden by automatic downhill correction: "+flow);
+            results.put("manualDirectionRetainsPriorityOverDownhillGuard",true);
             level.setBlock(p, StreamFluids.STREAM_BLOCK.get().defaultBlockState().setValue(dev.streamsreflowing.neoforge.fluid.StreamLiquidBlock.FLOW, 4),3);
             flow = level.getFluidState(p).getFlow(level,p);
             check(flow.x > 0.7 && Math.abs(flow.z) < 0.01,"Baked stream direction: " + flow);

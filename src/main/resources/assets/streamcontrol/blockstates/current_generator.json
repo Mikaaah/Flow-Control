@@ -2,19 +2,19 @@
   "variants": {
     "facing=north": {
       "model": "streamcontrol:block/current_generator",
-      "y": 0
+      "y": 270
     },
     "facing=east": {
       "model": "streamcontrol:block/current_generator",
-      "y": 90
+      "y": 0
     },
     "facing=south": {
       "model": "streamcontrol:block/current_generator",
-      "y": 180
+      "y": 90
     },
     "facing=west": {
       "model": "streamcontrol:block/current_generator",
-      "y": 270
+      "y": 180
     }
   }
 }

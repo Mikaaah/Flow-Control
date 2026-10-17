@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.148'
 }
-version = '0.1.0-beta'
+version = '0.1.1-beta'
 group = 'nl.townsandkingdoms.streamcontrol'
 base.archivesName = 'streams-flow-control'
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -25,7 +25,7 @@ dependencies {
     // Optional local compatibility test fixtures, never included in the published jar.
     if (providers.gradleProperty('withUtf').isPresent()) {
         runtimeOnly files('libs/ultraterraforged-1.0.2+1.21.1-neoforge.jar',
-            'libs/ultraterraforged-streams-currents-0.2.0-beta.jar')
+            'libs/ultraterraforged-streams-currents-0.2.1-beta.jar')
     }
 }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 21 }

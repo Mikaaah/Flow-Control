@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1-beta
+
+- Replace the Flow Wand, generator top, anchor top, shared sides and shared bottoms with the supplied textures, unchanged.
+- Align the generator model with the supplied arrow orientation.
+
+
 ## 0.1.0-beta
 
 - Flow Wand with directed, still and restore modes; configurable circular radius and current strength.
