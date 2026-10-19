@@ -2,7 +2,7 @@
 
 Control water around docks, canals and builds without replacing river terrain.
 A NeoForge 1.21.1 addon for **Streams Reflowing 2.15.2**. Install on both client and server.
-[Download 0.1.1-beta](downloads/streams-flow-control-0.1.1-beta-neoforge-1.21.1.jar?raw=true) · [Report a bug](https://github.com/Mikaaah/Streams-Flow-Control/issues/new?template=bug_report.yml)
+[CurseForge](https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon) · [Download GitHub build 0.1.1-beta](downloads/streams-flow-control-0.1.1-beta-neoforge-1.21.1.jar?raw=true) · [Report a bug](https://github.com/Mikaaah/Streams-Flow-Control/issues/new?template=bug_report.yml)
 
 UltraTerraForged is **not** required; the addon can also be used with UltraTerraForged Streams Currents.
 
