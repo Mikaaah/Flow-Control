@@ -8,3 +8,6 @@ Build with Java 21 and the exact dependency jar documented in README.md.
 Changes to flow behavior should include a meaningful integration regression check.
 The integration harness is opt-in and must be run in a disposable world.
 Do not commit third-party dependency jars, development worlds or credentials.
+
+
+Build instructions and technical checks are in [the contributor reference](docs/DEVELOPMENT.md).

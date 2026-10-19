@@ -1,81 +1,39 @@
-# Streams Flow Control
+<p align="center"><img src="docs/assets/banner.png" alt="Flow Control" width="100%"></p>
 
-Control water around docks, canals and builds without replacing river terrain.
-A NeoForge 1.21.1 addon for **Streams Reflowing 2.15.2**. Install on both client and server.
-[CurseForge](https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon) · [Download GitHub build 0.1.1-beta](downloads/streams-flow-control-0.1.1-beta-neoforge-1.21.1.jar?raw=true) · [Report a bug](https://github.com/Mikaaah/Streams-Flow-Control/issues/new?template=bug_report.yml)
+<p align="center"><a href="https://github.com/Mikaaah/Streams-Flow-Control"><img src="docs/assets/logo.png" alt="Flow Control logo" width="160"></a></p>
 
-UltraTerraForged is **not** required; the addon can also be used with UltraTerraForged Streams Currents.
+<h1 align="center">Flow Control</h1>
 
-## Items and controls
+<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon">CurseForge</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/wiki">Wiki</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/blob/main/CHANGELOG.md">Changelog</a></p>
 
-All three items are in the **Streams Flow Control** creative tab and have survival crafting recipes.
+<p align="center"><img alt="Minecraft 1.21.1" src="https://img.shields.io/badge/Minecraft-1.21.1-568736?style=flat-square"> <img alt="NeoForge" src="https://img.shields.io/badge/Loader-NeoForge-d77828?style=flat-square"></p>
 
-| Item | Action |
+Shape currents and create calm water around docks, canals and builds. A **Minecraft 1.21.1 / NeoForge** addon for **Streams Reflowing 2.15.2**.
+
+[Download 0.1.1-beta](downloads/streams-flow-control-0.1.1-beta-neoforge-1.21.1.jar?raw=true)
+
+## Make water work for your build
+
+| Item | What it does |
 | --- | --- |
-| **Flow Wand** | Use on water to apply the selected mode within a circular area. Directed water follows your horizontal view. |
-| Wand modes | Aim at the sky and **sneak-use** to cycle **Direct flow → Still water → Restore natural flow**. |
-| Wand radius | Aim at the sky and **use** to cycle the radius, or run `/streamcontrol radius <blocks>` while holding the wand. |
-| Wand strength | `/streamcontrol strength <0.05–2>` while holding the wand. Server limits apply. |
-| **Current Generator** | Place under or beside water. Its top arrow points in the current direction. Use with an empty hand to rotate clockwise. |
-| **Stillwater Anchor** | Place under or beside your dock to cancel water currents in its area. |
-| Controller radius | Sneak-use with an empty hand to increase the radius. Use a wand to copy its radius, strength and your facing to the controller. |
-| Redstone | A powered controller is **disabled**. Remove power to enable it again. |
-| Remove block control | Break the block; its region is removed immediately and underlying flow returns. |
+| **Flow Wand** | Direct flow, still water or restore natural flow in a chosen area. |
+| **Current Generator** | Maintain a directional current; rotate its top arrow to steer the flow. |
+| **Stillwater Anchor** | Calm currents around a dock or mooring. |
 
-A radius of four means a horizontal circular area four blocks from the selected water or controller.
-The default vertical reach is four blocks above and below it. Only water in that volume is affected.
-Flow strength changes current velocity; it does not pump water into empty blocks or move the water surface.
+All three items have survival recipes. Controller radius and strength are adjustable; redstone power disables a controller. Break it to restore the underlying current.
 
-For a dock, place a Stillwater Anchor in the riverbed within four blocks of the moored boats. Adjust its radius if needed.
-Stillness stops water-induced drift. It does not lock a boat against steering, collisions, wind from other mods or existing momentum.
+## Install and start
 
-## Overlapping areas
+Install this addon and **Streams Reflowing 2.15.2** on client and server, using **Minecraft 1.21.1, NeoForge and Java 21**. **UltraTerraForged is not required.**
 
-Block controllers have priority over wand edits. Within the same category, stillness wins over directed flow;
-otherwise the newest edit wins. Removing an override reveals any lower-priority area before natural flow.
-The wand's Restore mode removes the selected **wand** area; it cannot remove a block controller.
-Wand edits belong to their creator. Other players cannot replace or remove them without operator permission.
+For a dock, place a Stillwater Anchor under or beside the water within four blocks of the boats. Sneak-use with an empty hand to increase its radius. Use the Flow Wand for temporary or shaped areas.
 
-Regions are saved separately in each dimension and synchronized to joining players and players changing dimension.
-They affect both ordinary water and Streams' baked stream blocks, including the extra Streams boat drift path.
-No terrain is rewritten and no chunks are forced to load. Controller regions remain active while their block's chunk is unloaded.
-Areas are geometric volumes: separate pools within the same volume are affected too.
+Flow changes velocity rather than moving water blocks or changing river terrain. Calm water removes current-induced drift; it does not prevent steering, collisions or momentum.
 
-## Configuration
+## Guides
 
-Server configuration is at `<world>/serverconfig/streamcontrol-server.toml`.
-For modpacks, place desired defaults in `defaultconfigs/streamcontrol-server.toml` before creating a world.
+[Items and controls](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Items-and-Controls) · [Overlapping areas](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Overlapping-Areas) · [Configuration](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Configuration) · [Troubleshooting](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Troubleshooting)
 
-| Option | Default | Meaning |
-| --- | --- | --- |
-| `enabled` | `true` | Master override switch. Saved wand edits remain available. |
-| `wandEnabled` | `true` | Allow wand edits and wand controller setup. |
-| `wandRequiresOperator` | `false` | Restrict wand editing to operators. |
-| `showWandFeedbackParticles` | `true` | Show a brief ring when applying an edit. |
-| `defaultRadius` | `4` | Initial controller and wand radius. |
-| `maxRadius` | `16` | Maximum radius, up to 32 blocks. |
-| `verticalReach` | `4` | Vertical distance above and below the center, up to 16. |
-| `defaultStrength` | `1.0` | Default directed current strength. |
-| `maxStrength` | `2.0` | Maximum selectable strength. |
-| `maxRegionsPerDimension` | `2048` | Bounds saved regions and synchronization work. |
-| `maxWandRegionsPerPlayer` | `256` | Per-player wand edit limit. |
+## Credits and license
 
-`/streamcontrol status` reports the number of regions and the override at your position.
-Operators can run `/streamcontrol clear` to remove all wand edits in their current dimension. Blocks are preserved.
-Standard build permissions are checked before wand edits; protection-mod behavior should be verified with the specific claim mod.
-
-## Build and validation
-
-Requires Java 21. Put `StreamsReflowing-1.21.1-neoforge-2.15.2.jar` in `libs/`, then run `./gradlew build`.
-Dependency jars are not redistributed. Output is in `build/libs/`.
-
-The opt-in dedicated-server integration harness checks actual ordinary/baked water flow, boat current APIs,
-radius and height boundaries, overlapping regions, save/load and network codec round trips, dimension isolation,
-redstone disable/re-enable and block-removal cleanup. It runs only with `-Dstreamcontrol.integrationTest=true`
-and stops the test server afterward. Use a disposable development world.
-
-Client visuals and full modpack playtesting remain necessary before calling this a stable release.
-
-## License
-
-GPL-3.0-only. This addon does not redistribute Streams Reflowing code or textures.
+By **Towns & Kingdoms**. [GPL-3.0-only](LICENSE). Requires Streams Reflowing; no dependency code or textures are redistributed.
