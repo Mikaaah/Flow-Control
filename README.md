@@ -1,7 +1,5 @@
 <p align="center"><img src="docs/assets/banner.png" alt="Flow Control" width="100%"></p>
 
-<p align="center"><a href="https://github.com/Mikaaah/Streams-Flow-Control"><img src="docs/assets/logo.png" alt="Flow Control logo" width="160"></a></p>
-
 <h1 align="center">Flow Control</h1>
 
 <p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon">CurseForge</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/wiki">Wiki</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/blob/main/CHANGELOG.md">Changelog</a></p>
