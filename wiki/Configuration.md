@@ -1,7 +1,7 @@
 # Configuration
 
-Server configuration is at `<world>/serverconfig/streamcontrol-server.toml`.
-For modpacks, place desired defaults in `defaultconfigs/streamcontrol-server.toml` before creating a world.
+Server configuration is at `config/streamcontrol-synced.toml`.
+For modpacks, place desired defaults in `config/streamcontrol-synced.toml` before creating a world.
 
 | Option | Default | Meaning |
 | --- | --- | --- |

@@ -1,10 +1,10 @@
 modLoader="javafml"
-loaderVersion="[4,)"
+loaderVersion="[1,)"
 license="GPL-3.0-only"
 issueTrackerURL="https://github.com/Mikaaah/Streams-Flow-Control/issues"
 [[mods]]
 modId="streamcontrol"
-version="0.1.1-beta"
+version="0.1.2"
 displayName="Streams Flow Control"
 authors="Mikaaah / Towns & Kingdoms"
 displayURL="https://github.com/Mikaaah/Streams-Flow-Control"
@@ -14,13 +14,13 @@ config="streamcontrol.mixins.json"
 [[dependencies.streamcontrol]]
 modId="minecraft"
 type="required"
-versionRange="[1.21.1,1.21.2)"
+versionRange="[26.3,26.4)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.streamcontrol]]
 modId="neoforge"
 type="required"
-versionRange="[21.1.219,21.2)"
+versionRange="[26.3.0.95,26.4)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.streamcontrol]]

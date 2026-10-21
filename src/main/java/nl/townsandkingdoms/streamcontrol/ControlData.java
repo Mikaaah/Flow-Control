@@ -8,19 +8,21 @@ public final class ControlData extends SavedData {
     private final Map<Long, FlowRegion> regions = new LinkedHashMap<>();
     private volatile RegionIndex index = new RegionIndex(List.of());
     private long sequence;
+    public static final net.minecraft.world.level.saveddata.SavedDataType<ControlData> TYPE = new net.minecraft.world.level.saveddata.SavedDataType<>(net.minecraft.resources.Identifier.fromNamespaceAndPath(StreamControl.ID, "regions"), ControlData::new, CompoundTag.CODEC.xmap(ControlData::load, ControlData::save), null);
     public static ControlData get(ServerLevel level) {
-        return level.getDataStorage().computeIfAbsent(new Factory<>(ControlData::new, ControlData::load), "streamcontrol_regions");
+        return level.getDataStorage().computeIfAbsent(TYPE);
     }
-    public static ControlData load(CompoundTag tag, HolderLookup.Provider provider) {
+    public static ControlData load(CompoundTag tag) {
         var data = new ControlData();
-        var list = tag.getList("Regions", Tag.TAG_COMPOUND);
+        var list = tag.getListOrEmpty("Regions");
         for (int i = 0; i < Math.min(list.size(), 8192); i++) {
-            var r = FlowRegion.load(list.getCompound(i)); data.regions.put(r.key(), r);
+            var r = FlowRegion.load(list.getCompoundOrEmpty(i)); data.regions.put(r.key(), r);
             data.sequence = Math.max(data.sequence, r.sequence());
         }
         data.reindex(); return data;
     }
-    @Override public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
+    public CompoundTag save() {
+        var tag = new CompoundTag();
         var list = new ListTag(); for (var r : regions.values()) list.add(r.save()); tag.put("Regions", list); return tag;
     }
     public Collection<FlowRegion> all() { return List.copyOf(regions.values()); }

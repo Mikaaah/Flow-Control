@@ -6,10 +6,12 @@
   "mixins": [
     "WaterFlowMixin",
     "BakedFlowMixin",
-    "GridFlowMixin",
-    "ClientGridMixin"
+    "GridFlowMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "ClientGridMixin"
+  ]
 }

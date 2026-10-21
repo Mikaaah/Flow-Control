@@ -10,13 +10,13 @@ public final class ClientUpdates {
         FlowRegion previous = FlowOverrides.clientByKey(region == null ? update.remove() : region.key());
         FlowOverrides.receive(update.dimension(), update.reset(), region, update.remove());
         var mc = Minecraft.getInstance();
-        if (mc.level == null || !mc.level.dimension().location().toString().equals(update.dimension())) return;
-        if (update.reset()) { mc.levelRenderer.allChanged(); return; }
+        if (mc.level == null || !mc.level.dimension().identifier().toString().equals(update.dimension())) return;
+        if (update.reset()) { mc.levelExtractor.allChanged(); return; }
         dirty(previous); dirty(region);
     }
     private static void dirty(FlowRegion region) {
         if (region == null) return;
         var c = region.center(); int r = region.radius()+1, y = region.vertical()+1;
-        Minecraft.getInstance().levelRenderer.setBlocksDirty(c.getX()-r,c.getY()-y,c.getZ()-r,c.getX()+r,c.getY()+y,c.getZ()+r);
+        Minecraft.getInstance().levelExtractor.setBlocksDirty(c.getX()-r,c.getY()-y,c.getZ()-r,c.getX()+r,c.getY()+y,c.getZ()+r);
     }
 }

@@ -1,6 +1,7 @@
 {
   "pack": {
-    "pack_format": 34,
-    "description": "Streams Flow Control resources"
+    "description": "Streams Flow Control resources",
+    "min_format": 97,
+    "max_format": 121
   }
 }
