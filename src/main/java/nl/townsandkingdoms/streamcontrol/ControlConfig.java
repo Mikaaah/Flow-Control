@@ -1,12 +1,12 @@
 package nl.townsandkingdoms.streamcontrol;
-import net.neoforged.neoforge.common.ModConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec;
 public final class ControlConfig {
-    public static final ModConfigSpec SPEC;
-    public static final ModConfigSpec.BooleanValue ENABLED, WAND_ENABLED, OP_ONLY, PARTICLES;
-    public static final ModConfigSpec.IntValue MAX_RADIUS, DEFAULT_RADIUS, VERTICAL, MAX_REGIONS, MAX_PLAYER_REGIONS;
-    public static final ModConfigSpec.DoubleValue SPEED, MAX_SPEED;
+    public static final ForgeConfigSpec SPEC;
+    public static final ForgeConfigSpec.BooleanValue ENABLED, WAND_ENABLED, OP_ONLY, PARTICLES;
+    public static final ForgeConfigSpec.IntValue MAX_RADIUS, DEFAULT_RADIUS, VERTICAL, MAX_REGIONS, MAX_PLAYER_REGIONS;
+    public static final ForgeConfigSpec.DoubleValue SPEED, MAX_SPEED;
     static {
-        var b = new ModConfigSpec.Builder();
+        var b = new ForgeConfigSpec.Builder();
         ENABLED = b.comment("Master switch. Overrides remain saved when disabled.").define("enabled", true);
         WAND_ENABLED = b.define("wandEnabled", true);
         OP_ONLY = b.define("wandRequiresOperator", false);
@@ -20,6 +20,6 @@ public final class ControlConfig {
         MAX_PLAYER_REGIONS = b.defineInRange("maxWandRegionsPerPlayer", 256, 1, 2048);
         SPEC = b.build();
     }
-    public static int radius(int value) { return Math.clamp(value, 1, MAX_RADIUS.get()); }
-    public static double strength(double value) { return Double.isFinite(value) ? Math.clamp(value, 0.05, MAX_SPEED.get()) : Math.min(1, MAX_SPEED.get()); }
+    public static int radius(int value) { return Math.max(1, Math.min(MAX_RADIUS.get(), value)); }
+    public static double strength(double value) { return Double.isFinite(value) ? Math.max(0.05, Math.min(MAX_SPEED.get(), value)) : Math.min(1, MAX_SPEED.get()); }
 }

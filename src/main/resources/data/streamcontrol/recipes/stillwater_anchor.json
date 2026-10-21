@@ -15,7 +15,7 @@
     }
   },
   "result": {
-    "id": "streamcontrol:stillwater_anchor",
-    "count": 1
+    "count": 1,
+    "item": "streamcontrol:stillwater_anchor"
   }
 }

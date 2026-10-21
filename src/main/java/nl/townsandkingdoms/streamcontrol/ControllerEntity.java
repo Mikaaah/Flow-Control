@@ -18,8 +18,8 @@ public final class ControllerEntity extends BlockEntity {
         if (level != null) level.setBlock(worldPosition, getBlockState().setValue(ControllerBlock.FACING,d),3);
         setChanged(); refresh();
     }
-    @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registry) { super.saveAdditional(tag,registry); tag.putInt("Radius",radius); tag.putDouble("Strength",strength); }
-    @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registry) { super.loadAdditional(tag,registry); radius = tag.contains("Radius") ? tag.getInt("Radius") : -1; strength = tag.contains("Strength") ? tag.getDouble("Strength") : -1; }
+    @Override protected void saveAdditional(CompoundTag tag) { super.saveAdditional(tag); tag.putInt("Radius",radius); tag.putDouble("Strength",strength); }
+    @Override public void load(CompoundTag tag) { super.load(tag); radius = tag.contains("Radius") ? tag.getInt("Radius") : -1; strength = tag.contains("Strength") ? tag.getDouble("Strength") : -1; }
     public static void tick(Level l, BlockPos p, BlockState s, ControllerEntity be) {
         if (!be.initialized || l.getGameTime() % 20 == 0) { be.initialized = true; be.refresh(); }
     }
