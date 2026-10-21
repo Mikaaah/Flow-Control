@@ -1,32 +1,20 @@
-plugins {
-    id 'java-library'
-    id 'net.neoforged.moddev' version '2.0.148'
-}
-version = '0.1.1-beta'
-group = 'nl.townsandkingdoms.streamcontrol'
-base.archivesName = 'streams-flow-control'
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+plugins { id 'fabric-loom' version '1.11.8'; id 'maven-publish' }
+version='0.1.2'
+group='nl.townsandkingdoms.streamcontrol'
+base.archivesName='streams-flow-control-fabric-1.20.1'
+repositories { mavenCentral() }
+java.toolchain.languageVersion=JavaLanguageVersion.of(17)
 java.withSourcesJar()
-neoForge {
-    version = '21.1.219'
-    runs {
-        server {
-            server()
-            programArgument '--nogui'
-            jvmArgument '-Xmx3G'
-            gameDirectory = file('run')
-            systemProperty 'streamcontrol.integrationTest', System.getProperty('streamcontrol.integrationTest', 'false')
-        }
-    }
-    mods { streamcontrol { sourceSet sourceSets.main } }
+loom {
+ mixin { defaultRefmapName='streamcontrol.refmap.json' }
+ runs { server { server(); runDir 'run'; vmArg '-Dstreamcontrol.integrationTest='+System.getProperty('streamcontrol.integrationTest','false'); vmArg '-Xmx3G'; programArg '--nogui' } }
 }
 dependencies {
-    implementation files('libs/StreamsReflowing-1.21.1-neoforge-2.15.2.jar')
-    // Optional local compatibility test fixtures, never included in the published jar.
-    if (providers.gradleProperty('withUtf').isPresent()) {
-        runtimeOnly files('libs/ultraterraforged-1.0.2+1.21.1-neoforge.jar',
-            'libs/ultraterraforged-streams-currents-0.2.1-beta.jar')
-    }
+ minecraft 'com.mojang:minecraft:1.20.1'
+ mappings loom.officialMojangMappings()
+ modImplementation 'net.fabricmc:fabric-loader:0.18.4'
+ modImplementation 'net.fabricmc.fabric-api:fabric-api:0.92.12+1.20.1'
+ modImplementation files('libs/StreamsReflowing-1.20.1-fabric-2.15.2.jar')
 }
-tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 21 }
+tasks.withType(JavaCompile).configureEach { options.encoding='UTF-8'; options.release=17 }
 tasks.named('jar') { from('LICENSE') }

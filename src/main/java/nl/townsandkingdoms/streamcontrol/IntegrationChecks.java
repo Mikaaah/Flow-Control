@@ -2,35 +2,24 @@ package nl.townsandkingdoms.streamcontrol;
 
 import com.google.gson.GsonBuilder;
 import dev.streamsreflowing.flow.StreamFlowGrid;
-import dev.streamsreflowing.neoforge.fluid.StreamFluids;
+import dev.streamsreflowing.fabric.fluid.StreamFluids;
 import io.netty.buffer.Unpooled;
 import java.nio.file.Files;
 import java.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.fml.loading.FMLPaths;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
 /** Opt-in dedicated-server test; never runs in a player's normal world. */
 public final class IntegrationChecks {
-    public static void register() {
-        if (Boolean.getBoolean("streamcontrol.integrationTest")) {
-            NeoForge.EVENT_BUS.addListener(IntegrationChecks::prepare);
-            NeoForge.EVENT_BUS.addListener(IntegrationChecks::run);
-        }
-    }
-    private static void prepare(net.neoforged.neoforge.event.server.ServerAboutToStartEvent event) {
-        event.getServer().getWorldData().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_SPAWN_CHUNK_RADIUS).set(0, null);
-    }
+    public static void register() { if(Boolean.getBoolean("streamcontrol.integrationTest")) net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(IntegrationChecks::run); }
     private static void check(boolean condition, String message) { if (!condition) throw new AssertionError(message); }
-    private static void run(ServerStartedEvent event) {
-        var server = event.getServer(); var level = server.overworld(); var results = new LinkedHashMap<String,Object>();
+    private static void run(net.minecraft.server.MinecraftServer server) {
+        var level = server.overworld(); var results = new LinkedHashMap<String,Object>();
         var data = ControlData.get(level); var owner = UUID.randomUUID(); var p = new BlockPos(16, 120, 16);
         try {
             level.setBlock(p.below(), Blocks.STONE.defaultBlockState(), 3);
@@ -52,7 +41,7 @@ public final class IntegrationChecks {
             flow=level.getFluidState(p).getFlow(level,p);
             check(flow.x>0.7 && Math.abs(flow.z)<0.01,"Explicit Flow Wand direction was overridden by automatic downhill correction: "+flow);
             results.put("manualDirectionRetainsPriorityOverDownhillGuard",true);
-            level.setBlock(p, StreamFluids.STREAM_BLOCK.get().defaultBlockState().setValue(dev.streamsreflowing.neoforge.fluid.StreamLiquidBlock.FLOW, 4),3);
+            level.setBlock(p, StreamFluids.STREAM_BLOCK.defaultBlockState().setValue(dev.streamsreflowing.fabric.fluid.StreamLiquidBlock.FLOW, 4),3);
             flow = level.getFluidState(p).getFlow(level,p);
             check(flow.x > 0.7 && Math.abs(flow.z) < 0.01,"Baked stream direction: " + flow);
             var still = new FlowRegion(102,p,3,2,1,0,1,true,true,owner,data.next());
@@ -63,21 +52,21 @@ public final class IntegrationChecks {
             check(data.at(20,120,16).key() == directed.key(),"Stillness leaked beyond radius");
             results.put("bakedWaterStillnessAndOverlap",true);
             for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++)
-                level.setBlock(p.offset(x,0,z),StreamFluids.STREAM_BLOCK.get().defaultBlockState()
-                    .setValue(dev.streamsreflowing.neoforge.fluid.StreamLiquidBlock.FLOW,4),3);
+                level.setBlock(p.offset(x,0,z),StreamFluids.STREAM_BLOCK.defaultBlockState()
+                    .setValue(dev.streamsreflowing.fabric.fluid.StreamLiquidBlock.FLOW,4),3);
             var boat = new net.minecraft.world.entity.vehicle.Boat(level,16.5,120.2,16.5);
             level.addFreshEntity(boat);
             for (int tick = 0; tick < 20; tick++) boat.tick();
             check(Math.abs(boat.getX()-16.5) < 0.01 && Math.abs(boat.getZ()-16.5) < 0.01,
                 "Boat drifted inside still region: " + boat.position());
             boat.discard(); results.put("mooredBoatTwentyTicks",true);
-            var reloaded = ControlData.load(data.save(new CompoundTag(),level.registryAccess()),level.registryAccess());
+            var reloaded = ControlData.load(data.save(new CompoundTag()));
             check(reloaded.at(16,120,16).still() && reloaded.at(20,120,16).strength() == 0.75,"Saved data round trip");
             results.put("savedDataRoundTrip",true);
-            var buf = new RegistryFriendlyByteBuf(Unpooled.buffer(),level.registryAccess());
+            var buf = new FriendlyByteBuf(Unpooled.buffer());
             try {
-                var packet = new ControlNetwork.Update(level.dimension().location().toString(),false,directed.save(),0);
-                ControlNetwork.Update.CODEC.encode(buf,packet); var decoded = ControlNetwork.Update.CODEC.decode(buf);
+                var packet = new ControlNetwork.Update(level.dimension().location().toString(),false,directed.save(),0,ControlConfig.ENABLED.get());
+                ControlNetwork.encode(packet,buf); var decoded = ControlNetwork.decode(buf);
                 check(FlowRegion.load(decoded.region()).equals(directed),"Network codec round trip");
             } finally { buf.release(); }
             results.put("networkCodecRoundTrip",true);
@@ -104,7 +93,7 @@ public final class IntegrationChecks {
             results.put("passed",true);
         } catch (Throwable t) { results.put("passed",false);results.put("error",t.toString()); t.printStackTrace(); }
         finally { data.remove(level,101);data.remove(level,102); }
-        try { Files.writeString(FMLPaths.GAMEDIR.get().resolve("streamcontrol-integration-results.json"),new GsonBuilder().setPrettyPrinting().create().toJson(results)); }
+        try { Files.writeString(net.fabricmc.loader.api.FabricLoader.getInstance().getGameDir().resolve("streamcontrol-integration-results.json"),new GsonBuilder().setPrettyPrinting().create().toJson(results)); }
         catch (Exception e) { e.printStackTrace(); }
         System.out.println("STREAMCONTROL_TEST " + results); server.halt(false);
     }

@@ -1,7 +1,6 @@
 package nl.townsandkingdoms.streamcontrol;
 import java.util.List;
 import net.minecraft.core.*;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -10,14 +9,14 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.core.particles.ParticleTypes;
 public final class FlowWand extends Item {
     public FlowWand(Properties properties) { super(properties); }
-    public static CompoundTag settings(ItemStack stack) { return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag(); }
+    public static CompoundTag settings(ItemStack stack) { return stack.hasTag() ? stack.getTag().copy() : new CompoundTag(); }
+    public static void saveSettings(ItemStack stack, CompoundTag n) { stack.setTag(n); }
     private static void message(Player p, String key, Object... args) { p.displayClientMessage(Component.translatable(key, args), true); }
     @Override public InteractionResult useOn(UseOnContext context) {
         var p = context.getPlayer(); if (p == null) return InteractionResult.PASS;
@@ -46,7 +45,7 @@ public final class FlowWand extends Item {
         if (hit.getType() == HitResult.Type.MISS) {
             if (p.isShiftKeyDown()) { mode = (mode + 1) % 3; n.putInt("Mode", mode); message(p, "message.streamcontrol.mode", Component.translatable("mode.streamcontrol." + mode)); }
             else { radius = radius % ControlConfig.MAX_RADIUS.get() + 1; n.putInt("Radius", radius); message(p, "message.streamcontrol.radius", radius); }
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(n)); return InteractionResultHolder.success(stack);
+            saveSettings(stack,n); return InteractionResultHolder.success(stack);
         }
         BlockPos pos = hit.getBlockPos();
         if (!world.getFluidState(pos).is(FluidTags.WATER)) return InteractionResultHolder.pass(stack);
@@ -78,7 +77,7 @@ public final class FlowWand extends Item {
         }
         p.getCooldowns().addCooldown(this, 5); return InteractionResultHolder.success(stack);
     }
-    @Override public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> lines, TooltipFlag flag) {
+    @Override public void appendHoverText(ItemStack stack, Level context, List<Component> lines, TooltipFlag flag) {
         var n = settings(stack); lines.add(Component.translatable("tooltip.streamcontrol.mode", Component.translatable("mode.streamcontrol." + Math.floorMod(n.getInt("Mode"), 3))));
         lines.add(Component.translatable("tooltip.streamcontrol.wand")); lines.add(Component.translatable("tooltip.streamcontrol.wand_air"));
     }

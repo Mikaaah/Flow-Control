@@ -18,7 +18,7 @@
     }
   },
   "result": {
-    "id": "streamcontrol:flow_wand",
-    "count": 1
+    "count": 1,
+    "item": "streamcontrol:flow_wand"
   }
 }

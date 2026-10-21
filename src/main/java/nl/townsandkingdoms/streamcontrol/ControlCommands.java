@@ -1,21 +1,18 @@
 package nl.townsandkingdoms.streamcontrol;
 import com.mojang.brigadier.arguments.*;
 import net.minecraft.commands.Commands;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.component.CustomData;
-import net.neoforged.neoforge.event.RegisterCommandsEvent;
 public final class ControlCommands {
-    public static void register(RegisterCommandsEvent e) {
-        e.getDispatcher().register(Commands.literal("streamcontrol")
+    public static void register(com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack> dispatcher) {
+        dispatcher.register(Commands.literal("streamcontrol")
             .then(Commands.literal("radius").then(Commands.argument("blocks",IntegerArgumentType.integer(1,32)).executes(c -> {
                 var p = c.getSource().getPlayerOrException(); var s = p.getMainHandItem();
                 if (!s.is(StreamControl.WAND.get())) return 0;
-                var n = FlowWand.settings(s); n.putInt("Radius",ControlConfig.radius(IntegerArgumentType.getInteger(c,"blocks"))); s.set(DataComponents.CUSTOM_DATA,CustomData.of(n)); return 1;
+                var n = FlowWand.settings(s); n.putInt("Radius",ControlConfig.radius(IntegerArgumentType.getInteger(c,"blocks"))); FlowWand.saveSettings(s,n); return 1;
             })))
             .then(Commands.literal("strength").then(Commands.argument("value",DoubleArgumentType.doubleArg(0.05,2)).executes(c -> {
                 var p = c.getSource().getPlayerOrException(); var s = p.getMainHandItem(); if (!s.is(StreamControl.WAND.get())) return 0;
-                var n = FlowWand.settings(s); n.putDouble("Strength",ControlConfig.strength(DoubleArgumentType.getDouble(c,"value"))); s.set(DataComponents.CUSTOM_DATA,CustomData.of(n)); return 1;
+                var n = FlowWand.settings(s); n.putDouble("Strength",ControlConfig.strength(DoubleArgumentType.getDouble(c,"value"))); FlowWand.saveSettings(s,n); return 1;
             })))
             .then(Commands.literal("status").executes(c -> {
                 var p = net.minecraft.core.BlockPos.containing(c.getSource().getPosition()); var data = ControlData.get(c.getSource().getLevel()); var r = data.at(p.getX(),p.getY(),p.getZ());

@@ -15,7 +15,7 @@
     }
   },
   "result": {
-    "id": "streamcontrol:current_generator",
-    "count": 1
+    "count": 1,
+    "item": "streamcontrol:current_generator"
   }
 }

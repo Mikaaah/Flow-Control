@@ -1,6 +1,5 @@
 package nl.townsandkingdoms.streamcontrol;
 import java.util.*;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -9,9 +8,9 @@ public final class ControlData extends SavedData {
     private volatile RegionIndex index = new RegionIndex(List.of());
     private long sequence;
     public static ControlData get(ServerLevel level) {
-        return level.getDataStorage().computeIfAbsent(new Factory<>(ControlData::new, ControlData::load), "streamcontrol_regions");
+        return level.getDataStorage().computeIfAbsent(ControlData::load, ControlData::new, "streamcontrol_regions");
     }
-    public static ControlData load(CompoundTag tag, HolderLookup.Provider provider) {
+    public static ControlData load(CompoundTag tag) {
         var data = new ControlData();
         var list = tag.getList("Regions", Tag.TAG_COMPOUND);
         for (int i = 0; i < Math.min(list.size(), 8192); i++) {
@@ -20,7 +19,7 @@ public final class ControlData extends SavedData {
         }
         data.reindex(); return data;
     }
-    @Override public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
+    @Override public CompoundTag save(CompoundTag tag) {
         var list = new ListTag(); for (var r : regions.values()) list.add(r.save()); tag.put("Regions", list); return tag;
     }
     public Collection<FlowRegion> all() { return List.copyOf(regions.values()); }
