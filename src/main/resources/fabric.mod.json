@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "streamcontrol",
+  "version": "0.1.2",
+  "name": "Streams Flow Control",
+  "description": "Redirect currents and create calm water with a Flow Wand, Current Generators and Stillwater Anchors.",
+  "authors": [
+    "Mikaaah"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Mikaaah/Streams-Flow-Control",
+    "sources": "https://github.com/Mikaaah/Streams-Flow-Control",
+    "issues": "https://github.com/Mikaaah/Streams-Flow-Control/issues"
+  },
+  "license": "GPL-3.0-only",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "nl.townsandkingdoms.streamcontrol.StreamControl"
+    ],
+    "client": [
+      "nl.townsandkingdoms.streamcontrol.client.StreamControlClient"
+    ]
+  },
+  "mixins": [
+    "streamcontrol.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "fabric-api": "*",
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "streamsreflowing": "=2.15.0"
+  }
+}

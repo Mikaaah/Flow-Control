@@ -4,10 +4,9 @@ import net.minecraft.commands.Commands;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.component.CustomData;
-import net.neoforged.neoforge.event.RegisterCommandsEvent;
 public final class ControlCommands {
-    public static void register(RegisterCommandsEvent e) {
-        e.getDispatcher().register(Commands.literal("streamcontrol")
+    public static void register(com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack> dispatcher) {
+        dispatcher.register(Commands.literal("streamcontrol")
             .then(Commands.literal("radius").then(Commands.argument("blocks",IntegerArgumentType.integer(1,32)).executes(c -> {
                 var p = c.getSource().getPlayerOrException(); var s = p.getMainHandItem();
                 if (!s.is(StreamControl.WAND.get())) return 0;

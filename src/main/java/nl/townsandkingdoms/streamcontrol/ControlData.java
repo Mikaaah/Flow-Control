@@ -9,7 +9,7 @@ public final class ControlData extends SavedData {
     private volatile RegionIndex index = new RegionIndex(List.of());
     private long sequence;
     public static ControlData get(ServerLevel level) {
-        return level.getDataStorage().computeIfAbsent(new Factory<>(ControlData::new, ControlData::load), "streamcontrol_regions");
+        return level.getDataStorage().computeIfAbsent(new Factory<>(ControlData::new, ControlData::load, null), "streamcontrol_regions");
     }
     public static ControlData load(CompoundTag tag, HolderLookup.Provider provider) {
         var data = new ControlData();
