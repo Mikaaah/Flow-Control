@@ -1,37 +1,26 @@
-<p align="center"><img src="docs/assets/banner.png" alt="Flow Control" width="100%"></p>
+# Streams Flow Control — NeoForge 1.21.11
 
-<h1 align="center">Flow Control</h1>
+Flow Wand, Current Generator and Stillwater Anchor for Streams Reflowing.
 
-<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon">CurseForge</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/wiki">Wiki</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/blob/main/CHANGELOG.md">Changelog</a></p>
+## Requirements
 
-<p align="center"><img alt="Minecraft 1.21.1" src="https://img.shields.io/badge/Minecraft-1.21.1-568736?style=flat-square"> <img alt="NeoForge" src="https://img.shields.io/badge/Loader-NeoForge-d77828?style=flat-square"></p>
+- Minecraft 1.21.11, NeoForge 21.11.48 or newer in the 21.11 series, Java 21.
+- Streams Reflowing 2.15.2. Install both mods on client and server.
 
-Shape currents and create calm water around docks, canals and builds. A **Minecraft 1.21.1 / NeoForge** addon for **Streams Reflowing 2.15.2**.
+## Controls
 
-[Download 0.1.1-beta](downloads/streams-flow-control-0.1.1-beta-neoforge-1.21.1.jar?raw=true)
+- Use the wand on water to apply a circular flow region. Directed flow follows your horizontal view.
+- Aim at the sky: use to cycle radius; sneak-use to cycle Direct Flow, Still Water and Restore Natural Flow.
+- Empty-hand use rotates a Current Generator; sneak-use increases a controller's radius.
+- Use a wand on a controller to copy radius, strength and facing.
+- Redstone power disables controllers. Breaking one removes its region.
+- `/streamcontrol radius <blocks>` and `/streamcontrol strength <value>` configure the held wand.
+- `/streamcontrol status` inspects your region; operator-only `/streamcontrol clear` removes wand regions in the current dimension.
 
-## Make water work for your build
+## Configuration
 
-| Item | What it does |
-| --- | --- |
-| **Flow Wand** | Direct flow, still water or restore natural flow in a chosen area. |
-| **Current Generator** | Maintain a directional current; rotate its top arrow to steer the flow. |
-| **Stillwater Anchor** | Calm currents around a dock or mooring. |
+`<world>/serverconfig/streamcontrol-server.toml` controls radius, vertical reach, current strength, permissions and region limits. Supply modpack defaults through `defaultconfigs/streamcontrol-server.toml`.
 
-All three items have survival recipes. Controller radius and strength are adjustable; redstone power disables a controller. Break it to restore the underlying current.
+Regions persist per dimension. Block controllers take priority over wand edits; within a category stillness wins, then the newest edit. Water outside the selected volume remains unchanged. Stillness stops water currents, not steering or collisions. No water or terrain is created.
 
-## Install and start
-
-Install this addon and **Streams Reflowing 2.15.2** on client and server, using **Minecraft 1.21.1, NeoForge and Java 21**. **UltraTerraForged is not required.**
-
-For a dock, place a Stillwater Anchor under or beside the water within four blocks of the boats. Sneak-use with an empty hand to increase its radius. Use the Flow Wand for temporary or shaped areas.
-
-Flow changes velocity rather than moving water blocks or changing river terrain. Calm water removes current-induced drift; it does not prevent steering, collisions or momentum.
-
-## Guides
-
-[Items and controls](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Items-and-Controls) · [Overlapping areas](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Overlapping-Areas) · [Configuration](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Configuration) · [Troubleshooting](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Troubleshooting)
-
-## Credits and license
-
-By **Towns & Kingdoms**. [GPL-3.0-only](LICENSE). Requires Streams Reflowing; no dependency code or textures are redistributed.
+[Full documentation](https://github.com/Mikaaah/Streams-Flow-Control/wiki) · [Report a bug](https://github.com/Mikaaah/Streams-Flow-Control/issues)

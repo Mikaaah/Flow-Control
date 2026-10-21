@@ -18,7 +18,7 @@ public final class FlowOverrides {
     public static FlowRegion at(BlockGetter level, int x, int y, int z) {
         if (!ControlConfig.ENABLED.get() || y == Integer.MIN_VALUE) return null;
         if (level instanceof ServerLevel server) return ControlData.get(server).at(x, y, z);
-        if (level instanceof Level world && !world.dimension().location().toString().equals(dimension)) return null;
+        if (level instanceof Level world && !world.dimension().identifier().toString().equals(dimension)) return null;
         if (!(level instanceof Level) && !(level instanceof BlockAndTintGetter)) return null;
         return client.at(x, y, z);
     }

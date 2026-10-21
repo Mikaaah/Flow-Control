@@ -21,12 +21,8 @@ import net.neoforged.neoforge.event.server.ServerStartedEvent;
 public final class IntegrationChecks {
     public static void register() {
         if (Boolean.getBoolean("streamcontrol.integrationTest")) {
-            NeoForge.EVENT_BUS.addListener(IntegrationChecks::prepare);
             NeoForge.EVENT_BUS.addListener(IntegrationChecks::run);
         }
-    }
-    private static void prepare(net.neoforged.neoforge.event.server.ServerAboutToStartEvent event) {
-        event.getServer().getWorldData().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_SPAWN_CHUNK_RADIUS).set(0, null);
     }
     private static void check(boolean condition, String message) { if (!condition) throw new AssertionError(message); }
     private static void run(ServerStartedEvent event) {
@@ -65,18 +61,18 @@ public final class IntegrationChecks {
             for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++)
                 level.setBlock(p.offset(x,0,z),StreamFluids.STREAM_BLOCK.get().defaultBlockState()
                     .setValue(dev.streamsreflowing.neoforge.fluid.StreamLiquidBlock.FLOW,4),3);
-            var boat = new net.minecraft.world.entity.vehicle.Boat(level,16.5,120.2,16.5);
-            level.addFreshEntity(boat);
+            var boat = net.minecraft.world.entity.EntityType.OAK_BOAT.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
+            boat.setPos(16.5,120.2,16.5); level.addFreshEntity(boat);
             for (int tick = 0; tick < 20; tick++) boat.tick();
             check(Math.abs(boat.getX()-16.5) < 0.01 && Math.abs(boat.getZ()-16.5) < 0.01,
                 "Boat drifted inside still region: " + boat.position());
             boat.discard(); results.put("mooredBoatTwentyTicks",true);
-            var reloaded = ControlData.load(data.save(new CompoundTag(),level.registryAccess()),level.registryAccess());
+            var reloaded = ControlData.load(data.save());
             check(reloaded.at(16,120,16).still() && reloaded.at(20,120,16).strength() == 0.75,"Saved data round trip");
             results.put("savedDataRoundTrip",true);
             var buf = new RegistryFriendlyByteBuf(Unpooled.buffer(),level.registryAccess());
             try {
-                var packet = new ControlNetwork.Update(level.dimension().location().toString(),false,directed.save(),0);
+                var packet = new ControlNetwork.Update(level.dimension().identifier().toString(),false,directed.save(),0);
                 ControlNetwork.Update.CODEC.encode(buf,packet); var decoded = ControlNetwork.Update.CODEC.decode(buf);
                 check(FlowRegion.load(decoded.region()).equals(directed),"Network codec round trip");
             } finally { buf.release(); }

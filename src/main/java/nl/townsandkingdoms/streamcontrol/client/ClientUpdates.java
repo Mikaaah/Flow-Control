@@ -10,7 +10,7 @@ public final class ClientUpdates {
         FlowRegion previous = FlowOverrides.clientByKey(region == null ? update.remove() : region.key());
         FlowOverrides.receive(update.dimension(), update.reset(), region, update.remove());
         var mc = Minecraft.getInstance();
-        if (mc.level == null || !mc.level.dimension().location().toString().equals(update.dimension())) return;
+        if (mc.level == null || !mc.level.dimension().identifier().toString().equals(update.dimension())) return;
         if (update.reset()) { mc.levelRenderer.allChanged(); return; }
         dirty(previous); dirty(region);
     }
