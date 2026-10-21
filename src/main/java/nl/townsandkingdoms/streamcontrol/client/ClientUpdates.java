@@ -6,11 +6,12 @@ import nl.townsandkingdoms.streamcontrol.*;
 /** Loaded only by the clientbound packet handler. */
 public final class ClientUpdates {
     public static void apply(ControlNetwork.Update update) {
+        ControlConfig.ENABLED.set(update.enabled());
         FlowRegion region = update.region() == null ? null : FlowRegion.load(update.region());
         FlowRegion previous = FlowOverrides.clientByKey(region == null ? update.remove() : region.key());
         FlowOverrides.receive(update.dimension(), update.reset(), region, update.remove());
         var mc = Minecraft.getInstance();
-        if (mc.level == null || !mc.level.dimension().location().toString().equals(update.dimension())) return;
+        if (mc.level == null || !mc.level.dimension().identifier().toString().equals(update.dimension())) return;
         if (update.reset()) { mc.levelRenderer.allChanged(); return; }
         dirty(previous); dirty(region);
     }

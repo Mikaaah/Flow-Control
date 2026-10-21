@@ -7,15 +7,9 @@
     "S  "
   ],
   "key": {
-    "A": {
-      "item": "minecraft:amethyst_shard"
-    },
-    "C": {
-      "item": "minecraft:copper_ingot"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "A": "minecraft:amethyst_shard",
+    "C": "minecraft:copper_ingot",
+    "S": "minecraft:stick"
   },
   "result": {
     "id": "streamcontrol:flow_wand",

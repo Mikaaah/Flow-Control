@@ -1,32 +1,20 @@
-plugins {
-    id 'java-library'
-    id 'net.neoforged.moddev' version '2.0.148'
-}
-version = '0.1.1-beta'
-group = 'nl.townsandkingdoms.streamcontrol'
-base.archivesName = 'streams-flow-control'
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+plugins { id 'net.fabricmc.fabric-loom' version '1.15.5'; id 'maven-publish' }
+version='0.1.2'
+group='nl.townsandkingdoms.streamcontrol'
+base.archivesName='streams-flow-control-fabric-26.1.2'
+repositories { mavenCentral() }
+java.toolchain.languageVersion=JavaLanguageVersion.of(25)
 java.withSourcesJar()
-neoForge {
-    version = '21.1.219'
-    runs {
-        server {
-            server()
-            programArgument '--nogui'
-            jvmArgument '-Xmx3G'
-            gameDirectory = file('run')
-            systemProperty 'streamcontrol.integrationTest', System.getProperty('streamcontrol.integrationTest', 'false')
-        }
-    }
-    mods { streamcontrol { sourceSet sourceSets.main } }
+loom {
+ 
+ runs { server { server(); runDir 'run'; vmArg '-Dstreamcontrol.integrationTest='+System.getProperty('streamcontrol.integrationTest','false'); vmArg '-Xmx3G'; programArg '--nogui' } }
 }
 dependencies {
-    implementation files('libs/StreamsReflowing-1.21.1-neoforge-2.15.2.jar')
-    // Optional local compatibility test fixtures, never included in the published jar.
-    if (providers.gradleProperty('withUtf').isPresent()) {
-        runtimeOnly files('libs/ultraterraforged-1.0.2+1.21.1-neoforge.jar',
-            'libs/ultraterraforged-streams-currents-0.2.1-beta.jar')
-    }
+ minecraft 'com.mojang:minecraft:26.1.2'
+ 
+ implementation 'net.fabricmc:fabric-loader:0.18.4'
+ implementation 'net.fabricmc.fabric-api:fabric-api:0.155.3+26.1.2'
+ implementation files('libs/StreamsReflowing-26.1.2-fabric-2.15.2.jar')
 }
-tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 21 }
+tasks.withType(JavaCompile).configureEach { options.encoding='UTF-8'; options.release=25 }
 tasks.named('jar') { from('LICENSE') }

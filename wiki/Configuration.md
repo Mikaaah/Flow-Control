@@ -1,7 +1,7 @@
 # Configuration
 
-Server configuration is at `<world>/serverconfig/streamcontrol-server.toml`.
-For modpacks, place desired defaults in `defaultconfigs/streamcontrol-server.toml` before creating a world.
+Server configuration is at `<world>/serverconfig/streamcontrol-server.json`.
+For modpacks, place desired defaults in `defaultconfigs/streamcontrol-server.json` before creating a world.
 
 | Option | Default | Meaning |
 | --- | --- | --- |
@@ -22,3 +22,5 @@ Operators can run `/streamcontrol clear` to remove all wand edits in their curre
 Standard build permissions are checked before wand edits; protection-mod behavior should be verified with the specific claim mod.
 
 [← Wiki home](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Home)
+
+Fabric configuration is JSON and is loaded when the server starts.

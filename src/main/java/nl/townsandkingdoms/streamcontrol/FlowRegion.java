@@ -18,15 +18,16 @@ public record FlowRegion(long key, BlockPos center, int radius, int vertical, do
         var n = new CompoundTag(); n.putLong("Key", key); n.putLong("Pos", center.asLong());
         n.putInt("Radius", radius); n.putInt("Vertical", vertical); n.putDouble("DX", dx); n.putDouble("DZ", dz);
         n.putDouble("Strength", strength); n.putBoolean("Still", still); n.putBoolean("Controller", controller);
-        n.putUUID("Owner", owner); n.putLong("Sequence", sequence); return n;
+        n.putString("Owner", owner.toString()); n.putLong("Sequence", sequence); return n;
     }
+    private static UUID owner(CompoundTag n) { try { return UUID.fromString(n.getStringOr("Owner", "")); } catch (IllegalArgumentException e) { return new UUID(0,0); } }
     public static FlowRegion load(CompoundTag n) {
-        double dx = n.getDouble("DX"), dz = n.getDouble("DZ"), length = Math.hypot(dx, dz);
+        double dx = n.getDoubleOr("DX", 0), dz = n.getDoubleOr("DZ", 0), length = Math.hypot(dx, dz);
         if (!Double.isFinite(length) || length < 1e-6) { dx = 1; dz = 0; length = 1; }
-        double speed = n.getDouble("Strength");
-        return new FlowRegion(n.getLong("Key"), BlockPos.of(n.getLong("Pos")), Math.clamp(n.getInt("Radius"), 1, 32),
-            Math.clamp(n.getInt("Vertical"), 0, 16), dx / length, dz / length,
-            Double.isFinite(speed) ? Math.clamp(speed, 0.05, 2) : 1, n.getBoolean("Still"), n.getBoolean("Controller"),
-            n.hasUUID("Owner") ? n.getUUID("Owner") : new UUID(0, 0), n.getLong("Sequence"));
+        double speed = n.getDoubleOr("Strength", 0);
+        return new FlowRegion(n.getLongOr("Key", 0L), BlockPos.of(n.getLongOr("Pos", 0L)), Math.clamp(n.getIntOr("Radius", 0), 1, 32),
+            Math.clamp(n.getIntOr("Vertical", 0), 0, 16), dx / length, dz / length,
+            Double.isFinite(speed) ? Math.clamp(speed, 0.05, 2) : 1, n.getBooleanOr("Still", false), n.getBooleanOr("Controller", false),
+            owner(n), n.getLongOr("Sequence", 0L));
     }
 }
