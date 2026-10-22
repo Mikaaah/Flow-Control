@@ -60,6 +60,12 @@ public final class IntegrationChecks {
             check(data.at(16,120,16).still(),"Still block precedence");
             check(level.getFluidState(p).getFlow(level,p).lengthSqr() < 1e-10,"Stillness did not cancel baked stream flow");
             check(StreamFlowGrid.speedForPhysics(level,16,120,16) == 0,"Stillness did not cancel vessel drift");
+            check(FlowOverrides.visualAngle(still) == StreamFlowGrid.encode(0,0),
+                "Stillwater client direction was not neutral");
+            check(StreamFlowGrid.angleForPhysics(level,16,120,16) == StreamFlowGrid.encode(0,0),
+                "Stillwater vessel direction was not neutral");
+            check(FlowOverrides.visualAngle(directed) == StreamFlowGrid.encode(1,0),
+                "Directed water client direction changed");
             check(data.at(20,120,16).key() == directed.key(),"Stillness leaked beyond radius");
             results.put("bakedWaterStillnessAndOverlap",true);
             for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++)
