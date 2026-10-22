@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — NeoForge 1.21.1 (stillwater rendering fix)
+## 0.1.3-beta — NeoForge 1.21.1 (test build)
 
 - Prevent Streams Reflowing from emitting new surface bubbles, leaves, sticks and adjacent-current spray from water cells controlled by Still Water or a Stillwater Anchor.
 - Add a shared controller settings GUI: clearly labeled radius and diameter, vertical reach, Current Generator speed and facing, and an optional **Connected water only** toggle.
