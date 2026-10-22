@@ -84,7 +84,10 @@ public final class ControllerScreen extends Screen {
     @Override public boolean isPauseScreen() { return false; }
 
     @Override public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
-        super.renderBackground(g, mouseX, mouseY, partialTick);
+        // The vanilla background shader is deferred on this Minecraft version:
+        // it can blur our panel and labels while the widgets remain sharp.
+        // Use a simple dim overlay so every part of this custom GUI stays crisp.
+        g.fill(0, 0, width, height, 0xB0101722);
         g.fill(left, top, left + PANEL_W, top + PANEL_H, 0xF4222C36);
         g.fill(left, top, left + PANEL_W, top + 3, snapshot.still() ? WATER : COPPER);
         g.renderOutline(left, top, PANEL_W, PANEL_H, 0xFF64717A);

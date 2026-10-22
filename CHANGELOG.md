@@ -1,6 +1,8 @@
 # Changelog
 
-## 0.1.3-beta — NeoForge 1.21.1 (test build)
+## 0.1.3-beta.2 — NeoForge 1.21.1 (test build)
+
+- Keep the controller's panel and labels crisp by replacing the deferred vanilla background blur with a translucent dim overlay.
 
 - Prevent Streams Reflowing from emitting new surface bubbles, leaves, sticks and adjacent-current spray from water cells controlled by Still Water or a Stillwater Anchor.
 - Add a shared controller settings GUI: clearly labeled radius and diameter, vertical reach, Current Generator speed and facing, and an optional **Connected water only** toggle.
