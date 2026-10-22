@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — NeoForge 1.21.1 (stillwater rendering fix)
+
+- Apply final stillwater/current overrides at `FluidState.getFlow`, including client render lookups, so a later fluid implementation cannot reintroduce directional movement in the rendered flow vector.
+- Use a direction-neutral angle for stillwater in both Streams' client grid and vessel grid, rather than preserving the Flow Wand or Stillwater Anchor facing while speed is zero.
+- Allow client flow-grid lookups on chunk rendering threads without a thread-group logical-side gate.
+- Add regression assertions for stillwater and directed current angle behavior.
+- **Testing:** server-side integration check and in-game client visual verification are required before publishing a JAR.
+
 ## 0.1.1-beta
 
 - Replace the Flow Wand, generator top, anchor top, shared sides and shared bottoms with the supplied textures, unchanged.
