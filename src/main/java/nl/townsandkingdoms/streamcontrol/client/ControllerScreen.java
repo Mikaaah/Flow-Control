@@ -83,6 +83,10 @@ public final class ControllerScreen extends Screen {
 
     @Override public boolean isPauseScreen() { return false; }
 
+    @Override public void renderBackground(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
+        // Prevent Screen.render() from applying the deferred vanilla blur over labels.
+    }
+
     @Override public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
         // The vanilla background shader is deferred on this Minecraft version:
         // it can blur our panel and labels while the widgets remain sharp.
