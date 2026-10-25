@@ -6,13 +6,15 @@
   "mixins": [
     "WaterFlowMixin",
     "BakedFlowMixin",
-    "GridFlowMixin"
+    "GridFlowMixin",
+    "FluidStateFlowMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "ClientGridMixin"
+    "ClientGridMixin",
+    "SurfaceParticlesMixin"
   ],
   "refmap": "streamcontrol.refmap.json"
 }
