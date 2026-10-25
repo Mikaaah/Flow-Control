@@ -38,16 +38,14 @@ public final class ControllerBlock extends BaseEntityBlock implements SimpleWate
     @Override protected void neighborChanged(BlockState s, Level level, BlockPos pos, Block block, net.minecraft.world.level.redstone.Orientation orientation, boolean moving) {
         if (!level.isClientSide()) {
             boolean powered = level.hasNeighborSignal(pos);
-            if (powered != s.getValue(POWERED)) { level.setBlock(pos, s.setValue(POWERED, powered), 3); if (level.getBlockEntity(pos) instanceof ControllerEntity be) be.refresh(); }
+            if (powered != s.getValue(POWERED)) level.setBlock(pos, s.setValue(POWERED, powered), 3);
+            if (level.getBlockEntity(pos) instanceof ControllerEntity be) be.waterChanged();
         }
     }
     @Override protected InteractionResult useWithoutItem(BlockState s, Level level, BlockPos pos, Player p, BlockHitResult hit) {
         if (!p.mayBuild() || !level.mayInteract(p,pos)) return InteractionResult.FAIL;
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof ControllerEntity be) {
-            if (p.isShiftKeyDown()) be.setRadius(be.radius() % ControlConfig.MAX_RADIUS.get() + 1);
-            else if (!still) level.setBlock(pos, s.setValue(FACING, s.getValue(FACING).getClockWise()), 3);
-            be.refresh(); if (p instanceof net.minecraft.server.level.ServerPlayer sp) sp.sendSystemMessage(Component.translatable("message.streamcontrol.controller", be.radius()), true);
-        }
+        if (!level.isClientSide() && p instanceof net.minecraft.server.level.ServerPlayer player
+            && level.getBlockEntity(pos) instanceof ControllerEntity be) ControlNetwork.open(player, be);
         return InteractionResult.SUCCESS;
     }
     @Override protected void affectNeighborsAfterRemoval(BlockState old, ServerLevel level, BlockPos pos, boolean moving) {

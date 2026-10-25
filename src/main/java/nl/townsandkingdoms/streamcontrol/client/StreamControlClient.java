@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.networking.v1.*;
 import nl.townsandkingdoms.streamcontrol.*;
 public final class StreamControlClient implements ClientModInitializer {
  @Override public void onInitializeClient(){ClientPlayNetworking.registerGlobalReceiver(ControlNetwork.Update.TYPE,(p,context)->context.client().execute(()->ClientUpdates.apply(p)));
+ ClientPlayNetworking.registerGlobalReceiver(ControlNetwork.Open.TYPE,(packet,context)->context.client().execute(()->ControllerScreen.open(packet)));
  ClientPlayConnectionEvents.DISCONNECT.register((handler,client)->FlowOverrides.receive("",true,null,0));
  }
 }
