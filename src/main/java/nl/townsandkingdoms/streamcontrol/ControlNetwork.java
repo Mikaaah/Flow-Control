@@ -80,7 +80,7 @@ public final class ControlNetwork {
             ControlConfig.MAX_RADIUS.get(), be.connectedOnly(), ((ControllerBlock)state.getBlock()).still,
             state.getValue(ControllerBlock.POWERED), state.getValue(ControllerBlock.FACING).get3DDataValue()));
     }
-    public static void sendConfigure(Configure p) { PacketDistributor.sendToServer(p); }
+    public static void sendConfigure(Configure p) { net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(p); }
     public static void update(ServerLevel level, FlowRegion r) { PacketDistributor.sendToPlayersInDimension(level, new Update(level.dimension().identifier().toString(), false, r.save(), 0)); }
     public static void remove(ServerLevel level, long key) { PacketDistributor.sendToPlayersInDimension(level, new Update(level.dimension().identifier().toString(), false, null, key)); }
     public static void sync(ServerPlayer player) {
