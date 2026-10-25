@@ -26,7 +26,8 @@ jobs:
         run: bash gradlew --no-daemon clean build
       - name: Prepare disposable regression world
         run: |
-          mkdir -p run
+          mkdir -p run/config
+          echo 'forceBakedFluid=true' > run/config/streamsreflowing.properties
           echo 'eula=true' > run/eula.txt
           printf 'level-type=minecraft:flat\ngenerate-structures=false\nonline-mode=false\nview-distance=2\nsimulation-distance=2\n' > run/server.properties
       - name: Dedicated server regression
