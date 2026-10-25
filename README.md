@@ -12,21 +12,21 @@ Shape currents and create calm water around docks, canals and builds. An addon f
 
 ## Versions and downloads
 
-Use the branch and JAR matching your Minecraft version and loader. The seven ports below are version **0.1.2**.
+Use the branch and JAR matching your Minecraft version and loader. The seven ports below are version **0.1.3-beta.3**.
 
 | Minecraft | Loader | Streams Reflowing | Java | Source and download |
 | --- | --- | --- | --- | --- |
-| 1.21.11 | NeoForge | 2.15.2 | 21 | [neoforge/1.21.11](https://github.com/Mikaaah/Streams-Flow-Control/tree/neoforge/1.21.11) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/1.21.11/downloads/streams-flow-control-neoforge-1.21.11-0.1.2.jar) |
-| 26.1.2 | NeoForge | 2.15.2 | 25 | [neoforge/26.1.2](https://github.com/Mikaaah/Streams-Flow-Control/tree/neoforge/26.1.2) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.1.2/downloads/streams-flow-control-neoforge-26.1.2-0.1.2.jar) |
-| 26.3 | NeoForge | 2.15.2 | 25 | [neoforge/26.3](https://github.com/Mikaaah/Streams-Flow-Control/tree/neoforge/26.3) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.3/downloads/streams-flow-control-neoforge-26.3-0.1.2.jar) |
-| 1.20.1 | Forge | 2.13.7 | 17 | [forge/1.20.1](https://github.com/Mikaaah/Streams-Flow-Control/tree/forge/1.20.1) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/forge/1.20.1/downloads/streams-flow-control-forge-1.20.1-0.1.2.jar) |
-| 1.20.1 | Fabric | 2.15.2 | 17 | [fabric/1.20.1](https://github.com/Mikaaah/Streams-Flow-Control/tree/fabric/1.20.1) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.20.1/downloads/streams-flow-control-fabric-1.20.1-0.1.2.jar) |
-| 1.21.1 | Fabric | 2.15.0 | 21 | [fabric/1.21.1](https://github.com/Mikaaah/Streams-Flow-Control/tree/fabric/1.21.1) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.21.1/downloads/streams-flow-control-fabric-1.21.1-0.1.2.jar) |
-| 26.1.2 | Fabric | 2.15.2 | 25 | [fabric/26.1.2](https://github.com/Mikaaah/Streams-Flow-Control/tree/fabric/26.1.2) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/26.1.2/downloads/streams-flow-control-fabric-26.1.2-0.1.2.jar) |
+| 1.21.11 | NeoForge | 2.15.2 | 21 | [neoforge/1.21.11](https://github.com/Mikaaah/Streams-Flow-Control/tree/neoforge/1.21.11) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/1.21.11/downloads/streams-flow-control-neoforge-1.21.11-0.1.3-beta.3.jar) |
+| 26.1.2 | NeoForge | 2.15.2 | 25 | [neoforge/26.1.2](https://github.com/Mikaaah/Streams-Flow-Control/tree/neoforge/26.1.2) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.1.2/downloads/streams-flow-control-neoforge-26.1.2-0.1.3-beta.3.jar) |
+| 26.3 | NeoForge | 2.15.2 | 25 | [neoforge/26.3](https://github.com/Mikaaah/Streams-Flow-Control/tree/neoforge/26.3) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.3/downloads/streams-flow-control-neoforge-26.3-0.1.3-beta.3.jar) |
+| 1.20.1 | Forge | 2.15.2 | 17 | [forge/1.20.1](https://github.com/Mikaaah/Streams-Flow-Control/tree/forge/1.20.1) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/forge/1.20.1/downloads/streams-flow-control-forge-1.20.1-0.1.3-beta.3.jar) |
+| 1.20.1 | Fabric | 2.15.2 | 17 | [fabric/1.20.1](https://github.com/Mikaaah/Streams-Flow-Control/tree/fabric/1.20.1) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.20.1/downloads/streams-flow-control-fabric-1.20.1-0.1.3-beta.3.jar) |
+| 1.21.1 | Fabric | 2.15.2 | 21 | [fabric/1.21.1](https://github.com/Mikaaah/Streams-Flow-Control/tree/fabric/1.21.1) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.21.1/downloads/streams-flow-control-fabric-1.21.1-0.1.3-beta.3.jar) |
+| 26.1.2 | Fabric | 2.15.2 | 25 | [fabric/26.1.2](https://github.com/Mikaaah/Streams-Flow-Control/tree/fabric/26.1.2) · [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/26.1.2/downloads/streams-flow-control-fabric-26.1.2-0.1.3-beta.3.jar) |
 
 Install on both client and server. Fabric also requires Fabric API. Each branch documents its exact loader requirements. NeoForge and Forge use TOML server configuration; Fabric uses `<world>/serverconfig/streamcontrol-server.json` and accepts defaults from `defaultconfigs/streamcontrol-server.json`.
 
-Dedicated-server checks passed for all seven ports: ordinary and baked water, boat stillness, save/load, packet encoding, dimension isolation, redstone and controller removal. Client rendering, shaders and full modpack behavior require in-game playtesting.
+Compilation and dedicated-server checks passed for all seven 0.1.3-beta.3 ports: ordinary and baked water, boat stillness, save/load, GUI packet encoding, connected-water isolation, settings replacement, dimension isolation, redstone and controller removal. Each branch includes the verified JAR, checksums and regression results. Client rendering, shaders and full modpack behavior require in-game playtesting.
 
 ## Make water work for your build
 

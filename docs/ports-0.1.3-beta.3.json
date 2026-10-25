@@ -1,0 +1,63 @@
+{
+  "version": "0.1.3-beta.3",
+  "streams_version": "2.15.2",
+  "client_visual_playtest": "pending",
+  "ports": [
+    {
+      "branch": "fabric/1.20.1",
+      "sha": "8fa11b145525cdb40138ddf5777674cad1eb34a5",
+      "tree": "b859df4ac897d24d37aaf61da64988abd837c7d6",
+      "tested_sha": "e3173838f5704f77ca23cfb3e77c75009a9dadd2",
+      "run": 40172848169,
+      "workflow_url": "https://github.com/Mikaaah/Streams-Flow-Control/actions/runs/40172848169"
+    },
+    {
+      "branch": "fabric/1.21.1",
+      "sha": "201bfe0e535592c2c4ffbd0514cf8ff09754848b",
+      "tree": "b99de23a5e699f9b468386822a12a15f3ea909fd",
+      "tested_sha": "1306d07846ccc6b6dfddc5b44f4233a3970b7708",
+      "run": 40172850379,
+      "workflow_url": "https://github.com/Mikaaah/Streams-Flow-Control/actions/runs/40172850379"
+    },
+    {
+      "branch": "fabric/26.1.2",
+      "sha": "1196580547e0ad0cb364b6943cc4f2497ff7b992",
+      "tree": "4982ed2a987942aff80ac5b6b6ac4942dfb2d9af",
+      "tested_sha": "d0b17b4adf36ae9118a993d9ec4408782981576a",
+      "run": 40172853013,
+      "workflow_url": "https://github.com/Mikaaah/Streams-Flow-Control/actions/runs/40172853013"
+    },
+    {
+      "branch": "forge/1.20.1",
+      "sha": "c85fec9dc2ec9aa07b46460741eeaad99e695c72",
+      "tree": "5b14ca305433da72c2af7402cecd3eae728db953",
+      "tested_sha": "0c0229403a7ea737dbb7bdd35b6120c894fac5b2",
+      "run": 40172701560,
+      "workflow_url": "https://github.com/Mikaaah/Streams-Flow-Control/actions/runs/40172701560"
+    },
+    {
+      "branch": "neoforge/1.21.11",
+      "sha": "ff4bb1f386118a5ff0873b7d8af1b1d675f7c32f",
+      "tree": "fe613344d9e6739af01f12f399c58af936fb2412",
+      "tested_sha": "390819ecfccb390e8664551ea3aba544d7bb3bc6",
+      "run": 40172703937,
+      "workflow_url": "https://github.com/Mikaaah/Streams-Flow-Control/actions/runs/40172703937"
+    },
+    {
+      "branch": "neoforge/26.1.2",
+      "sha": "207502787b8bb1b450156c42f968602cfb17ccf8",
+      "tree": "f1bc58fe787f0a76cffa5683cdb03323811880e4",
+      "tested_sha": "af76e6d7da13891a901e19af77e330369ee4726b",
+      "run": 40172705938,
+      "workflow_url": "https://github.com/Mikaaah/Streams-Flow-Control/actions/runs/40172705938"
+    },
+    {
+      "branch": "neoforge/26.3",
+      "sha": "135f0dcc4f23918e8aca4f76243d4bc0bc5acc10",
+      "tree": "1f2624444b891b86b16e427ab3f5e2311306877d",
+      "tested_sha": "7cf240d427893c093ffe2b288f5111a6952504c0",
+      "run": 40172737771,
+      "workflow_url": "https://github.com/Mikaaah/Streams-Flow-Control/actions/runs/40172737771"
+    }
+  ]
+}

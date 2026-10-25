@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.3-beta.3 — all supported ports
+
+- Port the new controller GUI, connected-water settings, stillwater particle suppression and render-refresh fixes to all seven additional version branches.
+- Compile and pass the dedicated-server regression suite on every port; commit matching JARs, checksums and test evidence.
+- All seven ports now use Streams Reflowing 2.15.2. Client visuals still require in-game playtesting.
+
+
 ## 0.1.3-beta.2 — NeoForge 1.21.1 (test build)
 
 - Keep the controller's panel and labels crisp by replacing the deferred vanilla background blur with a translucent dim overlay.
