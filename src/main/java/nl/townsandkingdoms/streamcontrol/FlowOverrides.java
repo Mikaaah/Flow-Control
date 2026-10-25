@@ -25,6 +25,9 @@ public final class FlowOverrides {
     public static FlowRegion clientAt(int x, int y, int z) {
         return ControlConfig.ENABLED.get() ? client.at(x, y, z) : null;
     }
+    public static byte visualAngle(FlowRegion region) {
+        return region.still() ? StreamFlowGrid.encode(0,0) : StreamFlowGrid.encode(region.dx(),region.dz());
+    }
     public static Vec3 apply(Vec3 original, BlockGetter level, BlockPos pos, FluidState state) {
         if (!state.is(FluidTags.WATER)) return original;
         var r = at(level, pos.getX(), pos.getY(), pos.getZ()); return r == null ? original : r.vector();

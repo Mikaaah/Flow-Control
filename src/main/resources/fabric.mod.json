@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "streamcontrol",
-  "version": "0.1.2",
+  "version": "0.1.3-beta.3",
   "name": "Streams Flow Control",
   "description": "Redirect currents and create calm water with a Flow Wand, Current Generators and Stillwater Anchors.",
   "authors": [
@@ -30,6 +30,6 @@
     "fabric-api": "*",
     "minecraft": "1.21.1",
     "java": ">=21",
-    "streamsreflowing": "=2.15.0"
+    "streamsreflowing": "=2.15.2"
   }
 }
