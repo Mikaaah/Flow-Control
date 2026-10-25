@@ -97,6 +97,7 @@ public final class IntegrationChecks {
             level.removeBlock(block,false);check(data.byKey(block.asLong())==null,"Breaking controller left ghost region");
             results.put("controllerRedstoneAndRemoval",true);
             check(server.getCommands().getDispatcher().execute("streamcontrol status",server.createCommandSourceStack())==1,"Status command");
+            ControllerRegressionChecks.run(level); results.put("controllerGuiAndConnectedWaterRegression",true);
             results.put("passed",true);
         } catch (Throwable t) { results.put("passed",false);results.put("error",t.toString()); t.printStackTrace(); }
         finally { data.remove(level,101);data.remove(level,102); }
