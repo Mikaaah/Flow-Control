@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.4 — Controller GUI redesign
+
+- Replace the mixed dark panel and vanilla controls with one warm parchment, walnut and brass style inspired by the Unidentified Loot counters.
+- Custom matching buttons, sliders, compass selectors and connected-water switch, including hover and keyboard focus feedback.
+- Add a schematic water-area preview, clear radius/diameter/height values, and a dedicated stillwater summary.
+- Keep redstone status, apply/cancel behavior, connected-water settings and server validation intact.
+- No changes to water physics or particle suppression.
+
+
+
 ## 0.1.3-beta.3 — neoforge 26.3
 
 - Port the controller settings GUI with radius, flow speed, facing, and connected-water-only controls.
