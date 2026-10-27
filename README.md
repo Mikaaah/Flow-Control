@@ -12,23 +12,23 @@ Shape currents and create calm water around docks, canals and builds. An addon f
 
 ## Versions and downloads
 
-Version **0.1.4** includes the new parchment controller GUI on all eight versions.
+Version **0.1.5** includes the parchment controller GUI and an eight-way compass on all eight versions. Diagonal currents keep the selected speed, and controller arrows follow the chosen heading.
 
-![Controller GUI](docs/assets/controller-gui-0.1.4.png)
+![Controller GUI](docs/assets/controller-gui-0.1.5.png)
 
 | Minecraft | Loader | Streams Reflowing | Java | Download |
 | --- | --- | --- | --- | --- |
-| 1.21.1 | Neoforge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/main/downloads/flow-control-0.1.4-neoforge-1.21.1.jar) |
-| 1.20.1 | Fabric | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.20.1/downloads/flow-control-0.1.4-fabric-1.20.1.jar) |
-| 1.21.1 | Fabric | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.21.1/downloads/flow-control-0.1.4-fabric-1.21.1.jar) |
-| 26.1.2 | Fabric | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/26.1.2/downloads/flow-control-0.1.4-fabric-26.1.2.jar) |
-| 1.20.1 | Forge | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/forge/1.20.1/downloads/flow-control-0.1.4-forge-1.20.1.jar) |
-| 1.21.11 | Neoforge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/1.21.11/downloads/flow-control-0.1.4-neoforge-1.21.11.jar) |
-| 26.1.2 | Neoforge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.1.2/downloads/flow-control-0.1.4-neoforge-26.1.2.jar) |
-| 26.3 | Neoforge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.3/downloads/flow-control-0.1.4-neoforge-26.3.jar) |
+| 1.21.1 | Neoforge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/main/downloads/flow-control-0.1.5-neoforge-1.21.1.jar) |
+| 1.20.1 | Fabric | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.20.1/downloads/flow-control-0.1.5-fabric-1.20.1.jar) |
+| 1.21.1 | Fabric | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.21.1/downloads/flow-control-0.1.5-fabric-1.21.1.jar) |
+| 26.1.2 | Fabric | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/26.1.2/downloads/flow-control-0.1.5-fabric-26.1.2.jar) |
+| 1.20.1 | Forge | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/forge/1.20.1/downloads/flow-control-0.1.5-forge-1.20.1.jar) |
+| 1.21.11 | Neoforge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/1.21.11/downloads/flow-control-0.1.5-neoforge-1.21.11.jar) |
+| 26.1.2 | Neoforge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.1.2/downloads/flow-control-0.1.5-neoforge-26.1.2.jar) |
+| 26.3 | Neoforge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.3/downloads/flow-control-0.1.5-neoforge-26.3.jar) |
 
 Install matching JARs on client and server. Fabric also requires Fabric API.
-All eight builds passed. The seven additional ports passed dedicated-server regressions; the NeoForge 1.21.1 client was launched and all three controller-screen states were visually checked.
+All eight builds and dedicated-server regression suites passed, including eight-way flow, equal diagonal speed, persistence and packet checks; the NeoForge 1.21.1 client was launched and all three controller-screen states were visually checked.
 
 ## Make water work for your build
 

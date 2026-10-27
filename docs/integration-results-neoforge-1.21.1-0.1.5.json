@@ -1,0 +1,14 @@
+{
+  "vanillaWaterAndVesselFlow": true,
+  "manualDirectionRetainsPriorityOverDownhillGuard": true,
+  "bakedWaterStillnessAndOverlap": true,
+  "mooredBoatTwentyTicks": true,
+  "savedDataRoundTrip": true,
+  "connectedWaterIsolationAndPersistence": true,
+  "networkCodecRoundTrip": true,
+  "dimensionIsolation": true,
+  "masterSwitch": true,
+  "controllerRedstoneAndRemoval": true,
+  "eightHeadingPhysicsPersistenceAndPackets": true,
+  "passed": true
+}
