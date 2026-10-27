@@ -57,5 +57,18 @@
   "gui.streamcontrol.short_north": "N",
   "gui.streamcontrol.short_east": "E",
   "gui.streamcontrol.short_south": "S",
-  "gui.streamcontrol.short_west": "W"
+  "gui.streamcontrol.short_west": "W",
+  "gui.streamcontrol.heading_compact": "Direction",
+  "gui.streamcontrol.northeast": "Northeast",
+  "gui.streamcontrol.southeast": "Southeast",
+  "gui.streamcontrol.southwest": "Southwest",
+  "gui.streamcontrol.northwest": "Northwest",
+  "gui.streamcontrol.short_n": "N",
+  "gui.streamcontrol.short_ne": "NE",
+  "gui.streamcontrol.short_e": "E",
+  "gui.streamcontrol.short_se": "SE",
+  "gui.streamcontrol.short_s": "S",
+  "gui.streamcontrol.short_sw": "SW",
+  "gui.streamcontrol.short_w": "W",
+  "gui.streamcontrol.short_nw": "NW"
 }

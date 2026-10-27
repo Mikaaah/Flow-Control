@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.148'
 }
-version = '0.1.4'
+version = '0.1.5'
 group = 'nl.townsandkingdoms.streamcontrol'
 base.archivesName = 'flow-control'
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -40,4 +40,4 @@ dependencies {
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 21 }
 tasks.named('jar') { from('LICENSE') }
 
-tasks.named("jar") { archiveFileName = "flow-control-0.1.4-neoforge-1.21.1.jar" }
+tasks.named("jar") { archiveFileName = "flow-control-0.1.5-neoforge-1.21.1.jar" }

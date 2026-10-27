@@ -39,9 +39,31 @@ jobs:
       - name: Upload test JAR
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.1.4-neoforge-1.21.1
+          name: flow-control-0.1.5-neoforge-1.21.1
           path: build/libs/flow-control-*.jar
           if-no-files-found: error
+
+      - name: Check eight-way flow on the dedicated server
+        run: |
+          mkdir -p run/config
+          echo 'eula=true' > run/eula.txt
+          echo 'forceBakedFluid=true' > run/config/streamsreflowing.properties
+          printf 'level-type=minecraft:flat\ngenerate-structures=false\nonline-mode=false\nview-distance=2\nsimulation-distance=2\n' > run/server.properties
+          timeout 300 ./gradlew --no-daemon -Dstreamcontrol.integrationTest=true runServer
+          python3 - <<'CHECK'
+          import json
+          data=json.load(open('run/streamcontrol-integration-results.json'))
+          assert data.get('passed') is True, data
+          assert data.get('eightHeadingPhysicsPersistenceAndPackets') is True, data
+          CHECK
+      - name: Upload regression results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flow-control-0.1.5-neoforge-1.21.1-checks
+          path: |
+            run/streamcontrol-integration-results.json
+            run/logs/latest.log
 
       - name: Capture the actual controller GUIs
         run: |
@@ -55,7 +77,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.1.4-client-preview
+          name: flow-control-0.1.5-client-preview
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log

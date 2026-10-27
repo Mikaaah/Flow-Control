@@ -4,7 +4,7 @@ import java.io.File;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.core.Direction;
+import nl.townsandkingdoms.streamcontrol.FlowHeading;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -38,6 +38,6 @@ public final class ControllerPreview {
     private static void open() {
         boolean still = phase == 2;
         ControllerScreen.open(new ControlNetwork.Open(0, still ? 6 : 4, 4, 0.75, 2, 16,
-            phase != 0 && phase != 1, still, phase == 3, Direction.EAST.get3DDataValue()));
+            phase != 0 && phase != 1, still, phase == 3, FlowHeading.NORTH_EAST.id()));
     }
 }

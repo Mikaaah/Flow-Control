@@ -16,14 +16,18 @@ public final class ControllerEntity extends BlockEntity {
     public ControllerEntity(BlockPos p, BlockState s) { super(StreamControl.CONTROLLER.get(), p, s); }
     public int radius() { return ControlConfig.radius(radius < 1 ? ControlConfig.DEFAULT_RADIUS.get() : radius); }
     public double strength() { return ControlConfig.strength(strength < 0 ? ControlConfig.SPEED.get() : strength); }
+    public FlowHeading heading() { return FlowHeading.fromState(getBlockState()); }
     public boolean connectedOnly() { return connectedOnly; }
     public void setRadius(int r) { radius = ControlConfig.radius(r); connectivityDirty = true; setChanged(); refresh(); }
     public void configure(Direction d, int r, double speed) { configure(d, r, speed, connectedOnly); }
     public void configure(Direction d, int r, double speed, boolean onlyConnected) {
+        configure(FlowHeading.fromDirection(d), r, speed, onlyConnected);
+    }
+    public void configure(FlowHeading heading, int r, double speed, boolean onlyConnected) {
         radius = ControlConfig.radius(r); strength = ControlConfig.strength(speed);
         connectedOnly = onlyConnected;
         connectivityDirty = true;
-        if (level != null) level.setBlock(worldPosition, getBlockState().setValue(ControllerBlock.FACING,d),3);
+        if (level != null) level.setBlock(worldPosition, heading.apply(getBlockState()),3);
         setChanged(); refresh();
     }
     @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registry) { super.saveAdditional(tag,registry); tag.putInt("Radius",radius); tag.putDouble("Strength",strength); tag.putBoolean("ConnectedOnly",connectedOnly); }
@@ -36,7 +40,8 @@ public final class ControllerEntity extends BlockEntity {
         if (!(level instanceof ServerLevel server)) return;
         var data = ControlData.get(server); long key = worldPosition.asLong();
         if (getBlockState().getValue(ControllerBlock.POWERED) || !ControlConfig.ENABLED.get()) { data.remove(server,key); return; }
-        Direction d = getBlockState().getValue(ControllerBlock.FACING);
+        FlowHeading heading = heading();
+        Direction d = heading.cardinal();
         boolean still = ((ControllerBlock)getBlockState().getBlock()).still;
         double sp = strength();
         var old = data.byKey(key);
@@ -49,9 +54,9 @@ public final class ControllerEntity extends BlockEntity {
         }
         connectivityDirty = false;
         if (old != null && old.radius() == radius() && old.vertical() == ControlConfig.VERTICAL.get()
-            && old.dx() == d.getStepX() && old.dz() == d.getStepZ() && old.strength() == sp && old.still() == still
+            && old.dx() == heading.dx() && old.dz() == heading.dz() && old.strength() == sp && old.still() == still
             && old.connectedOnly() == connectedOnly && Arrays.equals(old.connectedMask(), mask)) return;
         data.put(server, new FlowRegion(key, worldPosition.immutable(), radius(), ControlConfig.VERTICAL.get(),
-            d.getStepX(), d.getStepZ(), sp, still, true, new UUID(0,0), data.next(), connectedOnly, mask));
+            heading.dx(), heading.dz(), sp, still, true, new UUID(0,0), data.next(), connectedOnly, mask));
     }
 }
