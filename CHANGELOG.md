@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.5 — Eight-way current compass
+
+- Add N, NE, E, SE, S, SW, W and NW selections in a clickable compass.
+- Normalize diagonal currents to preserve the selected speed.
+- Save compass directions in block states; preserve old cardinal directions and handle rotations/mirrors.
+- Update server validation and networking for all eight headings.
+
+
 ## 0.1.4 — Controller GUI redesign
 
 - Replace the mixed dark panel and vanilla controls with one warm parchment, walnut and brass style inspired by the Unidentified Loot counters.

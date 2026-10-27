@@ -15,13 +15,14 @@ import net.minecraft.server.level.ServerLevel;
 public final class ControllerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty DIAGONAL = BooleanProperty.create("diagonal");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public final boolean still;
     public ControllerBlock(boolean still, Properties p) {
         super(p); this.still = still;
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(POWERED, false));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(DIAGONAL, false).setValue(WATERLOGGED, false).setValue(POWERED, false));
     }
-    @Override public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(FACING, WATERLOGGED, POWERED); }
+    @Override public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(FACING, WATERLOGGED, POWERED, DIAGONAL); }
     @Override public BlockState getStateForPlacement(BlockPlaceContext c) { return defaultBlockState().setValue(FACING, c.getHorizontalDirection()).setValue(WATERLOGGED, c.getLevel().getFluidState(c.getClickedPos()).is(net.minecraft.tags.FluidTags.WATER)).setValue(POWERED, c.getLevel().hasNeighborSignal(c.getClickedPos())); }
     @Override public RenderShape getRenderShape(BlockState s) { return RenderShape.MODEL; }
     @Override public BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new ControllerEntity(pos, state); }
@@ -46,6 +47,6 @@ public final class ControllerBlock extends BaseEntityBlock implements SimpleWate
         if (!old.is(next.getBlock()) && level instanceof ServerLevel server) ControlData.get(server).remove(server, pos.asLong());
         super.onRemove(old,level,pos,next,moving);
     }
-    @Override public BlockState rotate(BlockState s, Rotation r) { return s.setValue(FACING, r.rotate(s.getValue(FACING))); }
-    @Override public BlockState mirror(BlockState s, Mirror m) { return rotate(s, m.getRotation(s.getValue(FACING))); }
+    @Override public BlockState rotate(BlockState s, Rotation r) { return FlowHeading.fromState(s).rotate(r).apply(s); }
+    @Override public BlockState mirror(BlockState s, Mirror m) { return FlowHeading.fromState(s).mirror(m).apply(s); }
 }

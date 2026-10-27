@@ -40,12 +40,13 @@ jobs:
           data=json.load(open('run/streamcontrol-integration-results.json'))
           assert data.get('passed') is True, data
           assert data.get('controllerGuiAndConnectedWaterRegression') is True, data
+          assert data.get('eightHeadingPhysicsPersistenceAndPackets') is True, data
           CHECK
       - name: Upload JARs and regression evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-fabric-1.20.1-0.1.4
+          name: flow-control-fabric-1.20.1-0.1.5
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json

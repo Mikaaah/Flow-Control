@@ -16,16 +16,15 @@ public final class ControlNetwork {
         if (player.blockPosition().distSqr(pos) > 64 || !player.mayBuild()
             || !player.level().mayInteract(player,pos)) return;
         if (!(player.level().getBlockEntity(pos) instanceof ControllerEntity be)) return;
-        if (p.facing() < 0 || p.facing() > 5) return;
-        var direction = net.minecraft.core.Direction.from3DDataValue(p.facing());
-        if (!direction.getAxis().isHorizontal()) return;
+        var direction = FlowHeading.fromId(p.facing());
+        if (direction == null) return;
         be.configure(direction, ControlConfig.radius(p.radius()), ControlConfig.strength(p.strength()),p.connectedOnly());
     }
 
  public static final ResourceLocation ID=new ResourceLocation(StreamControl.ID,"region");
  public record Update(String dimension,boolean reset,CompoundTag region,long remove,boolean enabled){}
- public static final ResourceLocation OPEN_ID=new ResourceLocation(StreamControl.ID,"open_controller");
- public static final ResourceLocation CONFIGURE_ID=new ResourceLocation(StreamControl.ID,"configure_controller");
+ public static final ResourceLocation OPEN_ID=new ResourceLocation(StreamControl.ID,"open_controller_v2");
+ public static final ResourceLocation CONFIGURE_ID=new ResourceLocation(StreamControl.ID,"configure_controller_v2");
  public static void register(){ServerPlayNetworking.registerGlobalReceiver(CONFIGURE_ID,(server,player,handler,buf,sender)->{var packet=decodeConfigure(buf);server.execute(()->configure(player,packet));});}
  public static Update decode(FriendlyByteBuf b){return new Update(b.readUtf(256),b.readBoolean(),b.readNbt(),b.readLong(),b.readBoolean());}
  public static void encode(Update p,FriendlyByteBuf b){b.writeUtf(p.dimension(),256);b.writeBoolean(p.reset());b.writeNbt(p.region());b.writeLong(p.remove());b.writeBoolean(p.enabled());}
@@ -33,7 +32,7 @@ public final class ControlNetwork {
  public static void open(ServerPlayer player,ControllerEntity be) {var b=PacketByteBufs.create();encodeOpen(new Open(be.getBlockPos().asLong(),be.radius(),ControlConfig.VERTICAL.get(),
             be.strength(),ControlConfig.MAX_SPEED.get(),ControlConfig.MAX_RADIUS.get(),be.connectedOnly(),
             ((ControllerBlock)be.getBlockState().getBlock()).still,be.getBlockState().getValue(ControllerBlock.POWERED),
-            be.getBlockState().getValue(ControllerBlock.FACING).get3DDataValue()),b);ServerPlayNetworking.send(player,OPEN_ID,b);}
+            be.heading().id()),b);ServerPlayNetworking.send(player,OPEN_ID,b);}
  public static void sendConfigure(Configure packet) {var b=PacketByteBufs.create();encodeConfigure(packet,b);net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(CONFIGURE_ID,b);}
  public static void update(ServerLevel l,FlowRegion r){for(var p:l.players())send(p,new Update(l.dimension().location().toString(),false,r.save(),0,ControlConfig.ENABLED.get()));}
  public static void remove(ServerLevel l,long key){for(var p:l.players())send(p,new Update(l.dimension().location().toString(),false,null,key,ControlConfig.ENABLED.get()));}
