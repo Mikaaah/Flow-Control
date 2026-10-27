@@ -16,7 +16,7 @@ public final class ControlNetwork {
     public record Open(long pos, int radius, int vertical, double strength, double maxStrength,
                        int maxRadius, boolean connectedOnly, boolean still, boolean powered, int facing)
         implements CustomPacketPayload {
-        public static final Type<Open> TYPE = new Type<>(Identifier.fromNamespaceAndPath(StreamControl.ID, "open_controller"));
+        public static final Type<Open> TYPE = new Type<>(Identifier.fromNamespaceAndPath(StreamControl.ID, "open_controller_v2"));
         public static final StreamCodec<RegistryFriendlyByteBuf, Open> CODEC = new StreamCodec<>() {
             public Open decode(RegistryFriendlyByteBuf b) {
                 return new Open(b.readLong(), b.readVarInt(), b.readVarInt(), b.readDouble(), b.readDouble(),
@@ -34,7 +34,7 @@ public final class ControlNetwork {
     /** Never trust client-supplied dimensions, speed or access rights. */
     public record Configure(long pos, int radius, double strength, boolean connectedOnly, int facing)
         implements CustomPacketPayload {
-        public static final Type<Configure> TYPE = new Type<>(Identifier.fromNamespaceAndPath(StreamControl.ID, "configure_controller"));
+        public static final Type<Configure> TYPE = new Type<>(Identifier.fromNamespaceAndPath(StreamControl.ID, "configure_controller_v2"));
         public static final StreamCodec<RegistryFriendlyByteBuf, Configure> CODEC = new StreamCodec<>() {
             public Configure decode(RegistryFriendlyByteBuf b) {
                 return new Configure(b.readLong(), b.readVarInt(), b.readDouble(), b.readBoolean(), b.readVarInt());
@@ -56,7 +56,7 @@ public final class ControlNetwork {
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
     public static void register(RegisterPayloadHandlersEvent event) {
-        var registrar = event.registrar("2");
+        var registrar = event.registrar("3");
         registrar.playToClient(Update.TYPE, Update.CODEC, (p, context) -> context.enqueueWork(() -> {
             nl.townsandkingdoms.streamcontrol.client.ClientUpdates.apply(p);
         }));
@@ -68,8 +68,8 @@ public final class ControlNetwork {
             if (!(player.level() instanceof ServerLevel) || player.blockPosition().distSqr(pos) > 64
                 || !player.mayBuild() || !player.level().mayInteract(player, pos)) return;
             if (!(player.level().getBlockEntity(pos) instanceof ControllerEntity be)) return;
-            Direction d = Direction.from3DDataValue(p.facing());
-            if (!d.getAxis().isHorizontal()) return;
+            FlowHeading d = FlowHeading.fromId(p.facing());
+            if (d == null) return;
             be.configure(d, ControlConfig.radius(p.radius()), ControlConfig.strength(p.strength()), p.connectedOnly());
         }));
     }
@@ -78,7 +78,7 @@ public final class ControlNetwork {
         PacketDistributor.sendToPlayer(player, new Open(be.getBlockPos().asLong(), be.radius(),
             ControlConfig.VERTICAL.get(), be.strength(), ControlConfig.MAX_SPEED.get(),
             ControlConfig.MAX_RADIUS.get(), be.connectedOnly(), ((ControllerBlock)state.getBlock()).still,
-            state.getValue(ControllerBlock.POWERED), state.getValue(ControllerBlock.FACING).get3DDataValue()));
+            state.getValue(ControllerBlock.POWERED), be.heading().id()));
     }
     public static void sendConfigure(Configure p) { net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(p); }
     public static void update(ServerLevel level, FlowRegion r) { PacketDistributor.sendToPlayersInDimension(level, new Update(level.dimension().identifier().toString(), false, r.save(), 0)); }
