@@ -1,0 +1,6 @@
+{
+  "parent": "streamcontrol:block/current_generator",
+  "textures": {
+    "up": "streamcontrol:block/current_generator_top_diagonal"
+  }
+}

@@ -1,5 +1,5 @@
 plugins { id 'net.fabricmc.fabric-loom' version '1.15.5'; id 'maven-publish' }
-version = '0.1.4'
+version = '0.1.5'
 group='nl.townsandkingdoms.streamcontrol'
 base.archivesName='streams-flow-control-fabric-26.1.2'
 repositories { mavenCentral() }
@@ -19,4 +19,4 @@ dependencies {
 tasks.withType(JavaCompile).configureEach { options.encoding='UTF-8'; options.release=25 }
 tasks.named('jar') { from('LICENSE') }
 
-tasks.named("jar") { archiveFileName = "flow-control-0.1.4-fabric-26.1.2.jar" }
+tasks.named("jar") { archiveFileName = "flow-control-0.1.5-fabric-26.1.2.jar" }
