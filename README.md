@@ -2,7 +2,7 @@
 
 Flow Wand, Current Generator and Stillwater Anchor for Streams Reflowing.
 
-Version **0.1.4** — [Download JAR](downloads/flow-control-0.1.4-neoforge-26.3.jar).
+Version **0.1.5** — [Download JAR](downloads/flow-control-0.1.5-neoforge-26.3.jar).
 
 Stillwater areas suppress newly emitted Streams bubbles and floating debris. Water textures refresh when controller settings change, redstone disables a controller, or a controller is removed. The NeoForge 1.21.1 GUI was visually checked in the Minecraft client; rendering on this port should still be confirmed in-game.
 
@@ -14,6 +14,10 @@ Stillwater areas suppress newly emitted Streams bubbles and floating debris. Wat
 ## Controller GUI
 
 One consistent parchment, dark brown and brass style, with custom sliders, buttons, compass selectors, a connected-water switch and a schematic water-area preview.
+
+## Eight-way flow
+
+Current Generators support N, NE, E, SE, S, SW, W and NW. Diagonal flow keeps the selected speed. The controller top arrow follows the chosen heading; existing cardinal settings are preserved.
 
 ## Controls
 
