@@ -2,14 +2,18 @@
 
 Flow Wand, Current Generator and Stillwater Anchor for Streams Reflowing.
 
-Version **0.1.3-beta.3** — [Download JAR](downloads/streams-flow-control-neoforge-1.21.11-0.1.3-beta.3.jar).
+Version **0.1.4** — [Download JAR](downloads/flow-control-0.1.4-neoforge-1.21.11.jar).
 
-Stillwater areas suppress newly emitted Streams bubbles and floating debris. Water textures refresh when controller settings change, redstone disables a controller, or a controller is removed. Client visuals still require in-game playtesting.
+Stillwater areas suppress newly emitted Streams bubbles and floating debris. Water textures refresh when controller settings change, redstone disables a controller, or a controller is removed. The NeoForge 1.21.1 GUI was visually checked in the Minecraft client; rendering on this port should still be confirmed in-game.
 
 ## Requirements
 
 - Minecraft 1.21.11, NeoForge 21.11.48 or newer in the 21.11 series, Java 21.
 - Streams Reflowing 2.15.2. Install both mods on client and server.
+
+## Controller GUI
+
+One consistent parchment, dark brown and brass style, with custom sliders, buttons, compass selectors, a connected-water switch and a schematic water-area preview.
 
 ## Controls
 
