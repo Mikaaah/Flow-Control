@@ -17,11 +17,11 @@ public final class ControllerRegressionChecks {
   level.setBlock(center.east(3),Blocks.WATER.defaultBlockState(),3);
   var buf=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
   try {
-   var edit=new ControlNetwork.Configure(center.asLong(),4,.5,true,Direction.EAST.get3DDataValue());
+   var edit=new ControlNetwork.Configure(center.asLong(),4,.5,true,FlowHeading.EAST.id());
    ControlNetwork.encodeConfigure(edit,buf);
    check(ControlNetwork.decodeConfigure(buf).equals(edit),"GUI configure packet round trip");
    buf.clear();
-   var snapshot=new ControlNetwork.Open(center.asLong(),4,0,.5,2,16,true,false,false,Direction.EAST.get3DDataValue());
+   var snapshot=new ControlNetwork.Open(center.asLong(),4,0,.5,2,16,true,false,false,FlowHeading.EAST.id());
    ControlNetwork.encodeOpen(snapshot,buf);
    check(ControlNetwork.decodeOpen(buf).equals(snapshot),"GUI open packet round trip");
   } finally {buf.release();}

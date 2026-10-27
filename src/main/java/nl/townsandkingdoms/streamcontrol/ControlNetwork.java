@@ -18,14 +18,13 @@ public final class ControlNetwork {
         if (player.blockPosition().distSqr(pos) > 64 || !player.mayBuild()
             || !player.level().mayInteract(player,pos)) return;
         if (!(player.level().getBlockEntity(pos) instanceof ControllerEntity be)) return;
-        if (p.facing() < 0 || p.facing() > 5) return;
-        var direction = net.minecraft.core.Direction.from3DDataValue(p.facing());
-        if (!direction.getAxis().isHorizontal()) return;
+        var direction = FlowHeading.fromId(p.facing());
+        if (direction == null) return;
         be.configure(direction, ControlConfig.radius(p.radius()), ControlConfig.strength(p.strength()),p.connectedOnly());
     }
 
  public record Update(String dimension,boolean reset,CompoundTag region,long remove){}
- private static final String VERSION="2";
+ private static final String VERSION="3";
  private static final SimpleChannel CHANNEL=NetworkRegistry.newSimpleChannel(new ResourceLocation(StreamControl.ID,"region"),()->VERSION,VERSION::equals,VERSION::equals);
  public static Update decode(FriendlyByteBuf b){return new Update(b.readUtf(256),b.readBoolean(),b.readNbt(),b.readLong());}
  public static void encode(Update p,FriendlyByteBuf b){b.writeUtf(p.dimension(),256);b.writeBoolean(p.reset());b.writeNbt(p.region());b.writeLong(p.remove());}
@@ -38,7 +37,7 @@ public final class ControlNetwork {
  public static void open(ServerPlayer player,ControllerEntity be){CHANNEL.send(PacketDistributor.PLAYER.with(()->player),new Open(be.getBlockPos().asLong(),be.radius(),ControlConfig.VERTICAL.get(),
             be.strength(),ControlConfig.MAX_SPEED.get(),ControlConfig.MAX_RADIUS.get(),be.connectedOnly(),
             ((ControllerBlock)be.getBlockState().getBlock()).still,be.getBlockState().getValue(ControllerBlock.POWERED),
-            be.getBlockState().getValue(ControllerBlock.FACING).get3DDataValue()));}
+            be.heading().id()));}
  public static void update(ServerLevel l,FlowRegion r){CHANNEL.send(PacketDistributor.DIMENSION.with(l::dimension),new Update(l.dimension().location().toString(),false,r.save(),0));}
  public static void remove(ServerLevel l,long key){CHANNEL.send(PacketDistributor.DIMENSION.with(l::dimension),new Update(l.dimension().location().toString(),false,null,key));}
  public static void sync(ServerPlayer p){var l=p.serverLevel();String dim=l.dimension().location().toString();CHANNEL.send(PacketDistributor.PLAYER.with(()->p),new Update(dim,true,null,0));for(var r:ControlData.get(l).all())CHANNEL.send(PacketDistributor.PLAYER.with(()->p),new Update(dim,false,r.save(),0));}
