@@ -11,7 +11,7 @@ public final class ControlNetwork {
     public record Open(long pos, int radius, int vertical, double strength, double maxStrength,
                        int maxRadius, boolean connectedOnly, boolean still, boolean powered, int facing)
         implements CustomPacketPayload {
-        public static final Type<Open> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(StreamControl.ID, "open_controller"));
+        public static final Type<Open> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(StreamControl.ID, "open_controller_v2"));
         public static final StreamCodec<RegistryFriendlyByteBuf, Open> CODEC = new StreamCodec<>() {
             public Open decode(RegistryFriendlyByteBuf b) {
                 return new Open(b.readLong(), b.readVarInt(), b.readVarInt(), b.readDouble(), b.readDouble(),
@@ -29,7 +29,7 @@ public final class ControlNetwork {
     /** Never trust client-supplied dimensions, speed or access rights. */
     public record Configure(long pos, int radius, double strength, boolean connectedOnly, int facing)
         implements CustomPacketPayload {
-        public static final Type<Configure> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(StreamControl.ID, "configure_controller"));
+        public static final Type<Configure> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(StreamControl.ID, "configure_controller_v2"));
         public static final StreamCodec<RegistryFriendlyByteBuf, Configure> CODEC = new StreamCodec<>() {
             public Configure decode(RegistryFriendlyByteBuf b) {
                 return new Configure(b.readLong(), b.readVarInt(), b.readDouble(), b.readBoolean(), b.readVarInt());
@@ -47,9 +47,8 @@ public final class ControlNetwork {
         if (player.blockPosition().distSqr(pos) > 64 || !player.mayBuild()
             || !player.level().mayInteract(player,pos)) return;
         if (!(player.level().getBlockEntity(pos) instanceof ControllerEntity be)) return;
-        if (p.facing() < 0 || p.facing() > 5) return;
-        var direction = net.minecraft.core.Direction.from3DDataValue(p.facing());
-        if (!direction.getAxis().isHorizontal()) return;
+        var direction = FlowHeading.fromId(p.facing());
+        if (direction == null) return;
         be.configure(direction, ControlConfig.radius(p.radius()), ControlConfig.strength(p.strength()),p.connectedOnly());
     }
 
@@ -68,7 +67,7 @@ public final class ControlNetwork {
  public static void open(ServerPlayer player, ControllerEntity be) { ServerPlayNetworking.send(player,new Open(be.getBlockPos().asLong(),be.radius(),ControlConfig.VERTICAL.get(),
             be.strength(),ControlConfig.MAX_SPEED.get(),ControlConfig.MAX_RADIUS.get(),be.connectedOnly(),
             ((ControllerBlock)be.getBlockState().getBlock()).still,be.getBlockState().getValue(ControllerBlock.POWERED),
-            be.getBlockState().getValue(ControllerBlock.FACING).get3DDataValue())); }
+            be.heading().id())); }
  public static void sendConfigure(Configure packet) { net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(packet); }
  public static void update(ServerLevel l,FlowRegion r){for(var p:l.players())ServerPlayNetworking.send(p,new Update(l.dimension().location().toString(),false,r.save(),0,ControlConfig.ENABLED.get()));}
  public static void remove(ServerLevel l,long key){for(var p:l.players())ServerPlayNetworking.send(p,new Update(l.dimension().location().toString(),false,null,key,ControlConfig.ENABLED.get()));}
