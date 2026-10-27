@@ -11,4 +11,4 @@
 Run `/streamcontrol status` at the affected position. Include the versions, dimension, controller type, radius and a short recording in bug reports.
 
 
-[← Wiki home](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Home)
+[← Wiki home](https://github.com/Mikaaah/Flow-Control/wiki/Home)

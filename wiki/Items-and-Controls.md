@@ -24,4 +24,4 @@ Stillwater regions also suppress Streams Reflowing's newly emitted surface bubbl
 For a dock, place a Stillwater Anchor in the riverbed within four blocks of the moored boats. Adjust its radius if needed.
 Stillness stops water-induced drift. It does not lock a boat against steering, collisions, wind from other mods or existing momentum.
 
-[← Wiki home](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Home)
+[← Wiki home](https://github.com/Mikaaah/Flow-Control/wiki/Home)

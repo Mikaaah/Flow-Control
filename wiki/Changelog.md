@@ -21,4 +21,4 @@
 Targets Minecraft 1.21.1, NeoForge 21.1.219 and Streams Reflowing 2.15.2.
 
 
-[← Wiki home](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Home)
+[← Wiki home](https://github.com/Mikaaah/Flow-Control/wiki/Home)

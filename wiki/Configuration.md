@@ -21,4 +21,4 @@ For modpacks, place desired defaults in `defaultconfigs/streamcontrol-server.tom
 Operators can run `/streamcontrol clear` to remove all wand edits in their current dimension. Blocks are preserved.
 Standard build permissions are checked before wand edits; protection-mod behavior should be verified with the specific claim mod.
 
-[← Wiki home](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Home)
+[← Wiki home](https://github.com/Mikaaah/Flow-Control/wiki/Home)

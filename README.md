@@ -2,7 +2,7 @@
 
 <h1 align="center">Flow Control</h1>
 
-<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon">CurseForge</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/wiki">Wiki</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Streams-Flow-Control/blob/main/CHANGELOG.md">Changelog</a></p>
+<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon">CurseForge</a> · <a href="https://github.com/Mikaaah/Flow-Control/wiki">Wiki</a> · <a href="https://github.com/Mikaaah/Flow-Control/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Flow-Control/blob/main/CHANGELOG.md">Changelog</a></p>
 
 <p align="center"><img alt="Minecraft 1.21.1" src="https://img.shields.io/badge/Minecraft-1.21.1-568736?style=flat-square"> <img alt="NeoForge" src="https://img.shields.io/badge/Loader-NeoForge-d77828?style=flat-square"></p>
 
@@ -16,14 +16,14 @@ Version **0.1.5** includes the parchment controller GUI and an eight-way compass
 
 | Minecraft | Loader | Streams Reflowing | Java | Download |
 | --- | --- | --- | --- | --- |
-| 1.21.1 | NeoForge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/main/downloads/flow-control-0.1.5-neoforge-1.21.1.jar) |
-| 1.20.1 | Fabric | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.20.1/downloads/flow-control-0.1.5-fabric-1.20.1.jar) |
-| 1.21.1 | Fabric | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.21.1/downloads/flow-control-0.1.5-fabric-1.21.1.jar) |
-| 26.1.2 | Fabric | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/26.1.2/downloads/flow-control-0.1.5-fabric-26.1.2.jar) |
-| 1.20.1 | Forge | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/forge/1.20.1/downloads/flow-control-0.1.5-forge-1.20.1.jar) |
-| 1.21.11 | NeoForge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/1.21.11/downloads/flow-control-0.1.5-neoforge-1.21.11.jar) |
-| 26.1.2 | NeoForge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.1.2/downloads/flow-control-0.1.5-neoforge-26.1.2.jar) |
-| 26.3 | NeoForge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.3/downloads/flow-control-0.1.5-neoforge-26.3.jar) |
+| 1.21.1 | NeoForge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/main/downloads/flow-control-0.1.5-neoforge-1.21.1.jar) |
+| 1.20.1 | Fabric | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/fabric/1.20.1/downloads/flow-control-0.1.5-fabric-1.20.1.jar) |
+| 1.21.1 | Fabric | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/fabric/1.21.1/downloads/flow-control-0.1.5-fabric-1.21.1.jar) |
+| 26.1.2 | Fabric | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/fabric/26.1.2/downloads/flow-control-0.1.5-fabric-26.1.2.jar) |
+| 1.20.1 | Forge | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/forge/1.20.1/downloads/flow-control-0.1.5-forge-1.20.1.jar) |
+| 1.21.11 | NeoForge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/neoforge/1.21.11/downloads/flow-control-0.1.5-neoforge-1.21.11.jar) |
+| 26.1.2 | NeoForge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/neoforge/26.1.2/downloads/flow-control-0.1.5-neoforge-26.1.2.jar) |
+| 26.3 | NeoForge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/neoforge/26.3/downloads/flow-control-0.1.5-neoforge-26.3.jar) |
 
 Install matching JARs on client and server. Fabric also requires Fabric API.
 All eight builds and dedicated-server regression suites passed, including eight-way flow, equal diagonal speed, persistence and packet checks; the NeoForge 1.21.1 client was launched and all three controller-screen states were visually checked.
@@ -48,7 +48,7 @@ Flow changes velocity rather than moving water blocks or changing river terrain.
 
 ## Guides
 
-[Items and controls](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Items-and-Controls) · [Overlapping areas](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Overlapping-Areas) · [Configuration](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Configuration) · [Troubleshooting](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Troubleshooting)
+[Items and controls](https://github.com/Mikaaah/Flow-Control/wiki/Items-and-Controls) · [Overlapping areas](https://github.com/Mikaaah/Flow-Control/wiki/Overlapping-Areas) · [Configuration](https://github.com/Mikaaah/Flow-Control/wiki/Configuration) · [Troubleshooting](https://github.com/Mikaaah/Flow-Control/wiki/Troubleshooting)
 
 ## Credits and license
 

@@ -10,4 +10,4 @@ They affect both ordinary water and Streams' baked stream blocks, including the 
 No terrain is rewritten and no chunks are forced to load. Controller regions remain active while their block's chunk is unloaded.
 Areas are geometric volumes: separate pools within the same volume are affected too.
 
-[← Wiki home](https://github.com/Mikaaah/Streams-Flow-Control/wiki/Home)
+[← Wiki home](https://github.com/Mikaaah/Flow-Control/wiki/Home)
