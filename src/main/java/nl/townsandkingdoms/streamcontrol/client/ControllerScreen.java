@@ -210,7 +210,7 @@ public final class ControllerScreen extends Screen {
         protected void drawLabel(GuiGraphicsExtractor g, int color) {
             centered(g, getMessage(), getX() + getWidth() / 2, getY() + (getHeight() - 8) / 2, color);
         }
-        @Override public void extractWidgetRenderState(GuiGraphicsExtractor g, int mx, int my, float partialTick) {
+        @Override public void extractContents(GuiGraphicsExtractor g, int mx, int my, float partialTick) {
             boolean highlight = isHoveredOrFocused();
             int color = primary || selected() ? (highlight ? 0xFF498F89 : TEAL)
                 : (highlight ? 0xFFEED4A0 : 0xFFD2B47F);
