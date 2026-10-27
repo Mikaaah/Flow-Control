@@ -7,7 +7,7 @@ import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.Direction;
+import nl.townsandkingdoms.streamcontrol.FlowHeading;
 import net.minecraft.network.chat.Component;
 import nl.townsandkingdoms.streamcontrol.ControlNetwork;
 
@@ -20,7 +20,7 @@ public final class ControllerScreen extends Screen {
     private int radius;
     private double speed;
     private boolean connected;
-    private Direction facing;
+    private FlowHeading facing;
     private int left, top;
 
     public static void open(ControlNetwork.Open packet) {
@@ -34,8 +34,8 @@ public final class ControllerScreen extends Screen {
         radius = Math.max(1, Math.min(packet.maxRadius(), packet.radius()));
         speed = Math.max(0.05, Math.min(packet.maxStrength(), packet.strength()));
         connected = packet.connectedOnly();
-        facing = Direction.from3DDataValue(packet.facing());
-        if (!facing.getAxis().isHorizontal()) facing = Direction.NORTH;
+        facing = FlowHeading.fromId(packet.facing());
+        if (facing == null) facing = FlowHeading.NORTH;
     }
 
     private static Component tr(String key, Object... args) {
@@ -50,16 +50,15 @@ public final class ControllerScreen extends Screen {
         radiusSlider.setTooltip(Tooltip.create(tr("radius_help")));
         if (!snapshot.still()) {
             addRenderableWidget(new SpeedSlider(left + 134, top + 110, 166));
-            int i = 0;
-            for (Direction d : new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST}) {
-                final Direction direction = d;
-                var button = new ParchmentButton(left + 134 + i * 43, top + 145, 37, 19,
-                    tr("short_" + d.getName()), b -> facing = direction, false) {
+            for (FlowHeading d : FlowHeading.values()) {
+                final FlowHeading direction = d;
+                var button = new ParchmentButton(left + 218 + (d.stepX() + 1) * 28,
+                    top + 125 + (d.stepZ() + 1) * 15, 26, 14,
+                    tr("short_" + d.abbreviation()), b -> facing = direction, false) {
                     @Override protected boolean selected() { return facing == direction; }
                 };
-                button.setTooltip(Tooltip.create(tr("direction", tr(d.getName()))));
+                button.setTooltip(Tooltip.create(tr("direction", tr(d.key()))));
                 addRenderableWidget(button);
-                i++;
             }
         }
         var waterToggle = new ParchmentButton(left + 14, top + 174, 286, 22,
@@ -86,7 +85,7 @@ public final class ControllerScreen extends Screen {
 
     private void apply() {
         ControlNetwork.sendConfigure(new ControlNetwork.Configure(snapshot.pos(), radius, speed,
-            connected, facing.get3DDataValue()));
+            connected, facing.id()));
         onClose();
     }
 
@@ -117,8 +116,10 @@ public final class ControllerScreen extends Screen {
             g.text(font, tr("speed_label"), left + 134, top + 96, INK, false);
             right(g, Component.literal(String.format(Locale.ROOT, "%d%%", Math.round(speed * 100))),
                 left + 300, top + 96, TEAL);
-            g.text(font, tr("heading_label"), left + 134, top + 132, INK, false);
-            right(g, tr(facing.getName()), left + 300, top + 132, MUTED);
+            g.text(font, tr("heading_compact"), left + 134, top + 132, INK, false);
+            g.text(font, tr(facing.key()), left + 134, top + 148, MUTED, false);
+            bevel(g, left + 246, top + 140, 26, 14, 0xFFB79C6C, false);
+            g.fill(left + 257, top + 144, left + 261, top + 150, GOLD);
         }
         // Keep status within the frame, including when redstone disables the controller.
         centered(g, tr(snapshot.powered() ? "powered_status" : "apply_hint"),
@@ -187,14 +188,14 @@ public final class ControllerScreen extends Screen {
             g.fill(cx - 2, cy - 2, cx + 2, cy + 2, EDGE);
         } else {
             for (int n = -5; n <= 5; n++) {
-                int px = cx + facing.getStepX() * n, py = cy + facing.getStepZ() * n;
+                int px = cx + facing.stepX() * n, py = cy + facing.stepZ() * n;
                 g.fill(px, py, px + 2, py + 2, CREAM);
             }
-            int ax = cx + facing.getStepX() * 5, ay = cy + facing.getStepZ() * 5;
-            Direction wing = facing.getClockWise();
+            int ax = cx + facing.stepX() * 5, ay = cy + facing.stepZ() * 5;
+            FlowHeading wing = facing.clockwise();
             for (int n = 0; n <= 3; n++) for (int sign : new int[]{-1, 1}) {
-                int px = ax - facing.getStepX() * n + wing.getStepX() * n * sign;
-                int py = ay - facing.getStepZ() * n + wing.getStepZ() * n * sign;
+                int px = ax - facing.stepX() * n + wing.stepX() * n * sign;
+                int py = ay - facing.stepZ() * n + wing.stepZ() * n * sign;
                 g.fill(px, py, px + 2, py + 2, CREAM);
             }
         }
