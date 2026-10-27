@@ -211,7 +211,7 @@ public final class ControllerScreen extends Screen {
         protected void drawLabel(GuiGraphics g, int color) {
             centered(g, getMessage(), getX() + getWidth() / 2, getY() + (getHeight() - 8) / 2, color);
         }
-        @Override protected void renderWidget(GuiGraphics g, int mx, int my, float partialTick) {
+        @Override public void renderWidget(GuiGraphics g, int mx, int my, float partialTick) {
             boolean highlight = isHoveredOrFocused();
             int color = primary || selected() ? (highlight ? 0xFF498F89 : TEAL)
                 : (highlight ? 0xFFEED4A0 : 0xFFD2B47F);
@@ -226,7 +226,7 @@ public final class ControllerScreen extends Screen {
 
     private abstract class ParchmentSlider extends AbstractSliderButton {
         ParchmentSlider(int x, int y, int w, double value) { super(x, y, w, 16, Component.empty(), value); }
-        @Override protected void renderWidget(GuiGraphics g, int mx, int my, float partialTick) {
+        @Override public void renderWidget(GuiGraphics g, int mx, int my, float partialTick) {
             int x = getX(), y = getY(), w = getWidth();
             bevel(g, x, y + 4, w, 8, 0xFF9E8157, false);
             int handle = x + 3 + (int)Math.round(value * (w - 12));
