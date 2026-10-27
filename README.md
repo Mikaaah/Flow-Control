@@ -8,8 +8,6 @@
 
 Shape currents and create calm water around docks, canals and builds. An addon for **Streams Reflowing**, available for NeoForge, Forge and Fabric.
 
-[Download the original NeoForge 1.21.1 release](downloads/streams-flow-control-0.1.1-beta-neoforge-1.21.1.jar?raw=true)
-
 ## Versions and downloads
 
 Version **0.1.5** includes the parchment controller GUI and an eight-way compass on all eight versions. Diagonal currents keep the selected speed, and controller arrows follow the chosen heading.
@@ -18,14 +16,14 @@ Version **0.1.5** includes the parchment controller GUI and an eight-way compass
 
 | Minecraft | Loader | Streams Reflowing | Java | Download |
 | --- | --- | --- | --- | --- |
-| 1.21.1 | Neoforge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/main/downloads/flow-control-0.1.5-neoforge-1.21.1.jar) |
+| 1.21.1 | NeoForge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/main/downloads/flow-control-0.1.5-neoforge-1.21.1.jar) |
 | 1.20.1 | Fabric | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.20.1/downloads/flow-control-0.1.5-fabric-1.20.1.jar) |
 | 1.21.1 | Fabric | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/1.21.1/downloads/flow-control-0.1.5-fabric-1.21.1.jar) |
 | 26.1.2 | Fabric | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/fabric/26.1.2/downloads/flow-control-0.1.5-fabric-26.1.2.jar) |
 | 1.20.1 | Forge | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/forge/1.20.1/downloads/flow-control-0.1.5-forge-1.20.1.jar) |
-| 1.21.11 | Neoforge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/1.21.11/downloads/flow-control-0.1.5-neoforge-1.21.11.jar) |
-| 26.1.2 | Neoforge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.1.2/downloads/flow-control-0.1.5-neoforge-26.1.2.jar) |
-| 26.3 | Neoforge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.3/downloads/flow-control-0.1.5-neoforge-26.3.jar) |
+| 1.21.11 | NeoForge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/1.21.11/downloads/flow-control-0.1.5-neoforge-1.21.11.jar) |
+| 26.1.2 | NeoForge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.1.2/downloads/flow-control-0.1.5-neoforge-26.1.2.jar) |
+| 26.3 | NeoForge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Streams-Flow-Control/raw/refs/heads/neoforge/26.3/downloads/flow-control-0.1.5-neoforge-26.3.jar) |
 
 Install matching JARs on client and server. Fabric also requires Fabric API.
 All eight builds and dedicated-server regression suites passed, including eight-way flow, equal diagonal speed, persistence and packet checks; the NeoForge 1.21.1 client was launched and all three controller-screen states were visually checked.
@@ -42,7 +40,7 @@ All three items have survival recipes. Right-click either controller to open its
 
 ## Install and start
 
-Install this addon and **Streams Reflowing 2.15.2** on client and server, using **Minecraft 1.21.1, NeoForge and Java 21**. **UltraTerraForged is not required.**
+Choose a matching Minecraft and loader build from the table above, then install this addon and **Streams Reflowing 2.15.2** on client and server. Use the Java version listed for that build; Fabric also requires Fabric API. **UltraTerraForged is not required.**
 
 For a dock, place a Stillwater Anchor under or beside the water within four blocks of the boats. Right-click to adjust its radius; if there are multiple nearby ponds, enable *Connected water only*. Use the Flow Wand for temporary or shaped areas.
 
