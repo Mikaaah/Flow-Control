@@ -39,6 +39,23 @@ jobs:
       - name: Upload test JAR
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-neoforge-1.21.1-stillwater-test
-          path: build/libs/streams-flow-control-*.jar
+          name: flow-control-0.1.4-neoforge-1.21.1
+          path: build/libs/flow-control-*.jar
           if-no-files-found: error
+
+      - name: Capture the actual controller GUIs
+        run: |
+          mkdir -p run-client
+          printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
+          timeout 360 xvfb-run -a ./gradlew --no-daemon -Dstreamcontrol.uiPreview=true runClient
+          test -s run-client/screenshots/flow-control-current-generator.png
+          test -s run-client/screenshots/flow-control-stillwater-anchor.png
+          test -s run-client/screenshots/flow-control-redstone-paused.png
+      - name: Upload GUI screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flow-control-0.1.4-client-preview
+          path: |
+            run-client/screenshots/*.png
+            run-client/logs/latest.log
