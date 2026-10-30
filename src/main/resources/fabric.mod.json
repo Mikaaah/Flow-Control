@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "streamcontrol",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "name": "Streams Flow Control",
   "description": "Redirect currents and create calm water with a Flow Wand, Current Generators and Stillwater Anchors.",
   "authors": [
