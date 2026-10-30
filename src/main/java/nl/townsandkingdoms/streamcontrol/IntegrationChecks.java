@@ -89,7 +89,8 @@ public final class IntegrationChecks {
             BlockPos block = p.offset(32,0,0);
             level.setBlock(block,StreamControl.ANCHOR.get().defaultBlockState(),3);
             var be = (ControllerEntity)level.getBlockEntity(block); be.refresh();
-            check(data.at(block.getX(),block.getY(),block.getZ()).still(),"Anchor registration");
+            var anchorRegion = data.at(block.getX(),block.getY(),block.getZ());
+            check(anchorRegion != null && anchorRegion.still(),"Anchor registration: enabled=" + ControlConfig.ENABLED.get() + ", powered=" + be.getBlockState().getValue(ControllerBlock.POWERED) + ", sameData=" + (data == ControlData.get(level)) + ", entityLevel=" + be.getLevel() + ", region=" + data.byKey(block.asLong()));
             level.setBlock(block,level.getBlockState(block).setValue(ControllerBlock.POWERED,true),3);be.refresh();
             check(data.byKey(block.asLong())==null,"Redstone disable");
             level.setBlock(block,level.getBlockState(block).setValue(ControllerBlock.POWERED,false),3);be.refresh();
