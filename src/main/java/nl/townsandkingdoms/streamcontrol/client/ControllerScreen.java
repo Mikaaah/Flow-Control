@@ -96,7 +96,7 @@ public final class ControllerScreen extends Screen {
     }
 
     @Override public boolean isPauseScreen() { return false; }
-    @Override public void renderBackground(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
+    @Override public void renderBackground(GuiGraphics g) {
         // Vanilla deferred background blur must never cover our panel or its lettering.
     }
 
