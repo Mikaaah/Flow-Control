@@ -1,7 +1,7 @@
 name: neoforge 1.21.11 build and regression
 on:
   push:
-    branches: ['neoforge/1.21.11']
+    branches: ["gui/**", 'neoforge/1.21.11']
   pull_request:
     branches: ['neoforge/1.21.11']
   workflow_dispatch:
@@ -43,7 +43,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-neoforge-1.21.11-0.1.5
+          name: flow-control-neoforge-1.21.11-0.1.6
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
