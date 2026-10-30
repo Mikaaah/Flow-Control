@@ -1,3 +1,14 @@
+## 0.1.6 — TNK GUI Rework
+
+![Flow Control](https://i.imgur.com/JGT2lvz.png)
+
+- Restyled Current Generator and Stillwater Anchor using the latest TNK Loot / Progression menu design.
+- Slate-blue frames, white outer outlines, inset copper panels and a raised title plate.
+- Matching textured buttons, compass selections and slider controls, with visible keyboard focus.
+- Embedded the supplied mixed-case menu font for titles; retained Minecraft text for settings and values.
+- Preserved eight compass directions, normalized diagonal current strength, connected-water mode, redstone behavior and Apply/Cancel.
+- Existing saves, config limits and network packet formats remain compatible with 0.1.5.
+
 # Changelog
 
 ## 0.1.5 — Eight-way current compass
