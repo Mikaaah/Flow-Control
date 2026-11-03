@@ -46,6 +46,10 @@ public final class UtilityBlock extends BaseEntityBlock implements SimpleWaterlo
             if(l.getBlockEntity(p) instanceof MooringEntity mooring && on) mooring.release();
         }
     }
+    @Override protected ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack stack,BlockState state,Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit) {
+        // Let the Calibrator's item handler run before the ordinary configure interaction.
+        return stack.is(StreamControl.WAND.get()) ? ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION : super.useItemOn(stack,state,level,pos,player,hand,hit);
+    }
     @Override protected InteractionResult useWithoutItem(BlockState s,Level l,BlockPos p,Player player,BlockHitResult hit) {
         if(!player.mayBuild() || !l.mayInteract(player,p)) return InteractionResult.FAIL;
         if(player instanceof ServerPlayer server && l.getBlockEntity(p) instanceof UtilityAccess utility) ControlNetwork.openUtility(server,utility);

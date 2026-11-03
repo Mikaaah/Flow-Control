@@ -46,5 +46,6 @@ public final class StreamControl {
         NeoForge.EVENT_BUS.addListener(ControlNetwork::respawn);
         NeoForge.EVENT_BUS.addListener(ControlCommands::register);
         IntegrationChecks.register();
+        ClientTestWorld.register();
     }
 }
