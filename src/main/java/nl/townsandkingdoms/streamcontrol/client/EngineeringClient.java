@@ -98,7 +98,7 @@ public final class EngineeringClient {
     private static void line(PoseStack.Pose pose,VertexConsumer out,double x,double y,double z,double bx,double by,double bz) {
         double length=Math.sqrt((bx-x)*(bx-x)+(by-y)*(by-y)+(bz-z)*(bz-z));
         float nx=(float)((bx-x)/length),ny=(float)((by-y)/length),nz=(float)((bz-z)/length);
-        out.addVertex(pose.pose(),(float)x,(float)y,(float)z).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose,nx,ny,nz);
-        out.addVertex(pose.pose(),(float)bx,(float)by,(float)bz).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose,nx,ny,nz);
+        out.addVertex(pose.pose(),(float)x,(float)y,(float)z).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose,nx,ny,nz).setLineWidth(2.0f);
+        out.addVertex(pose.pose(),(float)bx,(float)by,(float)bz).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose,nx,ny,nz).setLineWidth(2.0f);
     }
 }
