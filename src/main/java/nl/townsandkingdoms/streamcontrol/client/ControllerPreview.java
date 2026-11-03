@@ -20,15 +20,15 @@ public final class ControllerPreview {
     private static boolean captured;
     private static final String[] NAMES={"current-generator","stillwater-anchor","redstone-paused","automation","flow-sensor","mooring-post","block-models","mechanical-controller"};
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
-        if(!Boolean.getBooleanOr("streamcontrol.uiPreview",false)) return;
+        if(!Boolean.getBoolean("streamcontrol.uiPreview")) return;
         var mc=Minecraft.getInstance();
         if(phase==0) {
-            if(!(mc.screen instanceof TitleScreen) || mc.getOverlay()!=null) return;
+            if(!(mc.gui.screen() instanceof TitleScreen) || mc.gui.overlay()!=null) return;
             open();phase=1;ticks=0;
         }
         if(++ticks<25) return;
         String name="flow-control-"+NAMES[phase-1]+".png";
-        if(!captured) { Screenshot.grab(mc.gameDirectory,name,mc.getMainRenderTarget(),1,message->{});captured=true;return; }
+        if(!captured) { Screenshot.grab(mc.gameDirectory,name,mc.gameRenderer.mainRenderTarget(),1,message->{});captured=true;return; }
         if(!new File(mc.gameDirectory,"screenshots/"+name).isFile()) return;
         if(phase==NAMES.length) { mc.stop();return; }
         phase++;ticks=0;captured=false;open();
@@ -48,9 +48,9 @@ public final class ControllerPreview {
         n.putInt("RedstoneMode",name.equals("automation")?4:0);
         ControllerScreen.open(new ControlNetwork.Open(0,4,4,.75,2,16,false,still,name.equals("redstone-paused"),FlowHeading.NORTH_EAST.id(),n));
         if(name.equals("automation")) {
-            var button=mc.screen.children().stream().filter(c->c instanceof Button b && b.getMessage().equals(Component.translatable("engineering.streamcontrol.automation_tab")))
+            var button=mc.gui.screen().children().stream().filter(c->c instanceof Button b && b.getMessage().equals(Component.translatable("engineering.streamcontrol.automation_tab")))
                 .map(c->(Button)c).findFirst().orElseThrow();button.onPress(null);
-            var profile=mc.screen.children().stream().filter(c->c instanceof Button b && b.getMessage().equals(Component.translatable("engineering.streamcontrol.profile_b")))
+            var profile=mc.gui.screen().children().stream().filter(c->c instanceof Button b && b.getMessage().equals(Component.translatable("engineering.streamcontrol.profile_b")))
                 .map(c->(Button)c).findFirst().orElseThrow();profile.onPress(null);
         }
     }

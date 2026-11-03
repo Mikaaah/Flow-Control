@@ -69,7 +69,7 @@ public final class MooringEntity extends BlockEntity implements UtilityAccess {
             if(!(entity instanceof AbstractBoat boat) || !boat.isAlive() || boat.isVehicle() || !inRange(boat)
                 || Math.hypot(boat.getX()-moorX,boat.getZ()-moorZ)>1.5 || !claim(server,boat)) { release();return; }
             // Preserve vertical bobbing; horizontal momentum is canceled while moored.
-            var velocity=boat.getDeltaMovement();boat.setDeltaMovement(0,velocity.y,0);boat.setPos(moorX,boat.getY(),moorZ);boat.hasImpulse=true;
+            var velocity=boat.getDeltaMovement();boat.setDeltaMovement(0,velocity.y,0);boat.setPos(moorX,boat.getY(),moorZ);boat.hurtMarked=true;
             return;
         }
         if(Math.floorMod(server.getGameTime()+worldPosition.asLong(),10)!=0) return;

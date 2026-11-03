@@ -3,6 +3,7 @@ package nl.townsandkingdoms.streamcontrol;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.*;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
@@ -17,15 +18,12 @@ import net.minecraft.world.phys.BlockHitResult;
 
 /** Same waterlogged model family as the original controllers. */
 public final class UtilityBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<UtilityBlock> SENSOR_CODEC = simpleCodec(p -> new UtilityBlock(true,p));
-    public static final MapCodec<UtilityBlock> MOORING_CODEC = simpleCodec(p -> new UtilityBlock(false,p));
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED, POWERED = BlockStateProperties.POWERED;
     public final boolean sensor;
     public UtilityBlock(boolean sensor,Properties p) {
         super(p);this.sensor=sensor;
         registerDefaultState(stateDefinition.any().setValue(WATERLOGGED,false).setValue(POWERED,false));
     }
-    @Override protected MapCodec<? extends BaseEntityBlock> codec() { return sensor ? SENSOR_CODEC : MOORING_CODEC; }
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> b) { b.add(WATERLOGGED,POWERED); }
     @Override public BlockState getStateForPlacement(BlockPlaceContext c) { return defaultBlockState().setValue(WATERLOGGED,c.getLevel().getFluidState(c.getClickedPos()).is(FluidTags.WATER)).setValue(POWERED,c.getLevel().hasNeighborSignal(c.getClickedPos())); }
     @Override protected RenderShape getRenderShape(BlockState s) { return RenderShape.MODEL; }
@@ -56,7 +54,7 @@ public final class UtilityBlock extends BaseEntityBlock implements SimpleWaterlo
         return InteractionResult.SUCCESS;
     }
     @Override protected boolean hasAnalogOutputSignal(BlockState s) { return sensor; }
-    @Override protected int getAnalogOutputSignal(BlockState s,Level l,BlockPos p) { return l.getBlockEntity(p) instanceof FlowSensorEntity be ? be.output() : 0; }
+    @Override protected int getAnalogOutputSignal(BlockState s,Level l,BlockPos p,Direction side) { return l.getBlockEntity(p) instanceof FlowSensorEntity be ? be.output() : 0; }
     @Override protected void affectNeighborsAfterRemoval(BlockState old,ServerLevel l,BlockPos p,boolean moving) {
         if(sensor) l.updateNeighbourForOutputSignal(p,this);super.affectNeighborsAfterRemoval(old,l,p,moving);
     }

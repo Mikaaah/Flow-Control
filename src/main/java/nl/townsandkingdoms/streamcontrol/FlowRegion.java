@@ -60,6 +60,6 @@ public record FlowRegion(long key, BlockPos center, int radius, int vertical, do
             Math.clamp(n.getIntOr("Vertical", 0), 0, 16), dx / length, dz / length,
             Double.isFinite(speed) ? Math.clamp(speed, 0, 2) : 1, n.getBooleanOr("Still", false), n.getBooleanOr("Controller", false),
             owner(n), n.getLongOr("Sequence", 0L),
-            n.getBooleanOr("ConnectedOnly", false), n.getLongArray("WaterMask").orElse(new long[0]).orElseGet(() -> new long[0]));
+            n.getBooleanOr("ConnectedOnly", false), n.getLongArray("WaterMask").orElseGet(() -> new long[0]));
     }
 }

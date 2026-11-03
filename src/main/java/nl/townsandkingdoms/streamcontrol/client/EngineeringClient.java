@@ -36,7 +36,7 @@ public final class EngineeringClient {
     }
     private static void update() {
         var mc=Minecraft.getInstance();var stack=tool(mc);
-        if(mc.level==null || stack.isEmpty() || mc.screen!=null || mc.options.hideGui) { readout=null;lastTick=Long.MIN_VALUE;return; }
+        if(mc.level==null || stack.isEmpty() || mc.gui.screen()!=null || mc.gui.hud.isHidden()) { readout=null;lastTick=Long.MIN_VALUE;return; }
         long tick=mc.level.getGameTime();if(tick==lastTick) return;lastTick=tick;
         var start=mc.player.getEyePosition();var end=start.add(mc.player.getLookAngle().scale(mc.player.blockInteractionRange()));
         var hit=mc.level.clip(new ClipContext(start,end,ClipContext.Block.OUTLINE,ClipContext.Fluid.ANY,mc.player));
@@ -81,7 +81,7 @@ public final class EngineeringClient {
         if(readout==null || !readout.bounds) return;
         var mc=Minecraft.getInstance();var pose=e.getPoseStack();var camera=e.getLevelRenderState().cameraRenderState.pos;
         pose.pushPose();pose.translate(-camera.x,-camera.y,-camera.z);
-        var buffers=mc.renderBuffers().bufferSource();var vertices=buffers.getBuffer(net.minecraft.client.renderer.rendertype.RenderTypes.LINES);
+        var buffers=mc.gameRenderer.renderBuffers().bufferSource();var vertices=buffers.getBuffer(net.minecraft.client.renderer.rendertype.RenderTypes.LINES);
         double x=readout.center.getX()+.5,z=readout.center.getZ()+.5,r=readout.radius+.5;
         double low=readout.center.getY()-readout.vertical,high=readout.center.getY()+readout.vertical+1;
         for(int i=0;i<64;i++) {
