@@ -26,13 +26,13 @@ jobs:
           java-version: '21'
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
-      - name: Fetch Streams Reflowing 2.15.2 (build dependency)
+      - name: Fetch Streams Reflowing 2.16.2 (build dependency)
         run: |
           mkdir -p libs
           curl --fail --location --retry 3 \
-            --output libs/StreamsReflowing-1.21.1-neoforge-2.15.2.jar \
-            https://cdn.modrinth.com/data/oLS8HdJ1/versions/vbJ5meb8/StreamsReflowing-1.21.1-neoforge-2.15.2.jar
-          test -s libs/StreamsReflowing-1.21.1-neoforge-2.15.2.jar
+            --output libs/StreamsReflowing-1.21.1-neoforge-2.16.2.jar \
+            https://mediafilez.forgecdn.net/files/9376/530/StreamsReflowing-1.21.1-neoforge-2.16.2.jar
+          test -s libs/StreamsReflowing-1.21.1-neoforge-2.16.2.jar
       - name: Compile and package addon
         run: |
           chmod +x gradlew

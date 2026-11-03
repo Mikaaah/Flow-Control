@@ -30,7 +30,7 @@ neoForge {
     mods { streamcontrol { sourceSet sourceSets.main } }
 }
 dependencies {
-    implementation files('libs/StreamsReflowing-1.21.1-neoforge-2.15.2.jar')
+    implementation files('libs/StreamsReflowing-1.21.1-neoforge-2.16.2.jar')
     // Optional local compatibility test fixtures, never included in the published jar.
     if (providers.gradleProperty('withUtf').isPresent()) {
         runtimeOnly files('libs/ultraterraforged-1.0.2+1.21.1-neoforge.jar',
