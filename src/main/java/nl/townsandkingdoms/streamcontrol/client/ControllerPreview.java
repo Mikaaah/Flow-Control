@@ -17,13 +17,20 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(modid="streamcontrol",value=Dist.CLIENT)
 public final class ControllerPreview {
     private static int phase,ticks;
-    private static boolean captured;
+    private static boolean captured,connecting;
     private static final String[] NAMES={"current-generator","stillwater-anchor","redstone-paused","automation","flow-sensor","mooring-post","block-models","mechanical-controller"};
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if(!Boolean.getBoolean("streamcontrol.uiPreview")) return;
         var mc=Minecraft.getInstance();
         if(phase==0) {
-            if(!(mc.gui.screen() instanceof TitleScreen) || mc.gui.overlay()!=null) return;
+            if(mc.level==null) {
+                if(!connecting && mc.gui.screen() instanceof TitleScreen && mc.gui.overlay()==null) {
+                    connecting=true;
+                    net.minecraft.client.gui.screens.ConnectScreen.startConnecting(mc.gui.screen(),mc,net.minecraft.client.multiplayer.resolver.ServerAddress.parseString("127.0.0.1:25565"),new net.minecraft.client.multiplayer.ServerData("Flow preview","127.0.0.1:25565",net.minecraft.client.multiplayer.ServerData.Type.OTHER),false,null);
+                }
+                return;
+            }
+            if(mc.player==null || mc.gui.overlay()!=null) return;
             open();phase=1;ticks=0;
         }
         if(++ticks<25) return;

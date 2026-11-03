@@ -54,6 +54,14 @@ jobs:
         run: |
           mkdir -p run-client
           printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
+          bash gradlew --no-daemon runServer > client-preview-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" $(jobs -pr) 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 120); do
+            if rg -q 'Done \(' client-preview-server.log; then break; fi
+            if ! kill -0 "$SERVER_PID" 2>/dev/null; then tail -n 40 client-preview-server.log; exit 1; fi
+            sleep 1
+          done
           timeout 360 xvfb-run -a bash gradlew --no-daemon -Dstreamcontrol.uiPreview=true runClient
           test -s run-client/screenshots/flow-control-block-models.png
       - name: Upload client screenshots
@@ -64,3 +72,4 @@ jobs:
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log
+            client-preview-server.log

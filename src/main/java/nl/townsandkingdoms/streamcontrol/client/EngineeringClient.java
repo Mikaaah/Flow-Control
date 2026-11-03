@@ -23,9 +23,12 @@ import nl.townsandkingdoms.streamcontrol.*;
 public final class EngineeringClient {
     private record Readout(BlockPos center,int radius,int vertical,List<Component> lines,boolean bounds) {}
     private static Readout readout;
+    private static final net.minecraft.util.context.ContextKey<Readout> KEY=new net.minecraft.util.context.ContextKey<>(Identifier.fromNamespaceAndPath(StreamControl.ID,"calibrator_bounds"));
+    private static void extract(ExtractLevelRenderStateEvent e) { update();if(readout!=null)e.getRenderState().setRenderData(KEY,readout); }
     private static long lastTick=Long.MIN_VALUE;
     public static void register(IEventBus bus) {
         bus.addListener(EngineeringClient::layers);
+        NeoForge.EVENT_BUS.addListener(EngineeringClient::extract);
         NeoForge.EVENT_BUS.addListener(EngineeringClient::world);
     }
     private static Component tr(String key,Object...args) { return Component.translatable("engineering.streamcontrol."+key,args); }
@@ -76,26 +79,26 @@ public final class EngineeringClient {
         g.fill(x,y,x+2,y+readout.lines.size()*11+12,0xFFC09473);
         for(int i=0;i<readout.lines.size();i++) g.text(mc.font,readout.lines.get(i),x+8,y+6+i*11,i==0?0xFFF4EBE5:0xFFA9D2CD,false);
     }
-    private static void world(RenderLevelStageEvent.AfterTranslucentParticles e) {
-        update();
-        if(readout==null || !readout.bounds) return;
+    private static void world(SubmitCustomGeometryEvent e) {
+        var snapshot=e.getLevelRenderState().getRenderData(KEY);
+        if(snapshot==null || !snapshot.bounds) return;
         var mc=Minecraft.getInstance();var pose=e.getPoseStack();var camera=e.getLevelRenderState().cameraRenderState.pos;
         pose.pushPose();pose.translate(-camera.x,-camera.y,-camera.z);
-        var buffers=mc.gameRenderer.renderBuffers().bufferSource();var vertices=buffers.getBuffer(net.minecraft.client.renderer.rendertype.RenderTypes.LINES);
-        double x=readout.center.getX()+.5,z=readout.center.getZ()+.5,r=readout.radius+.5;
-        double low=readout.center.getY()-readout.vertical,high=readout.center.getY()+readout.vertical+1;
+        e.getSubmitNodeCollector().submitCustomGeometry(pose,net.minecraft.client.renderer.rendertype.RenderTypes.lines(),(matrix,vertices)->{
+        double x=snapshot.center.getX()+.5,z=snapshot.center.getZ()+.5,r=snapshot.radius+.5;
+        double low=snapshot.center.getY()-snapshot.vertical,high=snapshot.center.getY()+snapshot.vertical+1;
         for(int i=0;i<64;i++) {
             double a=i*Math.PI/32,b=(i+1)*Math.PI/32;
             double ax=x+Math.cos(a)*r,az=z+Math.sin(a)*r,bx=x+Math.cos(b)*r,bz=z+Math.sin(b)*r;
-            line(pose,vertices,ax,low,az,bx,low,bz);line(pose,vertices,ax,high,az,bx,high,bz);
-            if(i%8==0) line(pose,vertices,ax,low,az,ax,high,az);
+            line(matrix,vertices,ax,low,az,bx,low,bz);line(matrix,vertices,ax,high,az,bx,high,bz);
+            if(i%8==0) line(matrix,vertices,ax,low,az,ax,high,az);
         }
-        buffers.endBatch(net.minecraft.client.renderer.rendertype.RenderTypes.LINES);pose.popPose();
+        });pose.popPose();
     }
-    private static void line(PoseStack pose,VertexConsumer out,double x,double y,double z,double bx,double by,double bz) {
+    private static void line(PoseStack.Pose pose,VertexConsumer out,double x,double y,double z,double bx,double by,double bz) {
         double length=Math.sqrt((bx-x)*(bx-x)+(by-y)*(by-y)+(bz-z)*(bz-z));
         float nx=(float)((bx-x)/length),ny=(float)((by-y)/length),nz=(float)((bz-z)/length);
-        out.addVertex(pose.last().pose(),(float)x,(float)y,(float)z).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose.last(),nx,ny,nz);
-        out.addVertex(pose.last().pose(),(float)bx,(float)by,(float)bz).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose.last(),nx,ny,nz);
+        out.addVertex(pose.pose(),(float)x,(float)y,(float)z).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose,nx,ny,nz);
+        out.addVertex(pose.pose(),(float)bx,(float)by,(float)bz).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose,nx,ny,nz);
     }
 }
