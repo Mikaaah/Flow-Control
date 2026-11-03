@@ -22,6 +22,7 @@ public final class ClientTestWorld {
         NeoForge.EVENT_BUS.addListener(ClientTestWorld::prepare);
         NeoForge.EVENT_BUS.addListener(ClientTestWorld::login);
         NeoForge.EVENT_BUS.addListener(ClientTestWorld::commands);
+        NeoForge.EVENT_BUS.addListener(ClientTestWorld::interaction);
     }
     private static void prepare(ServerStartedEvent e) {
         var l=e.getServer().overworld();l.setDayTime(6000);l.setWeatherParameters(100000,0,false,false);
@@ -40,7 +41,7 @@ public final class ClientTestWorld {
         for(var d:net.minecraft.core.Direction.Plane.HORIZONTAL) l.setBlock(SENSOR.above(6).relative(d),Blocks.GLASS.defaultBlockState(),3);
         l.setBlock(SENSOR.above(5),Blocks.GLASS.defaultBlockState(),3);
         ControlData.get(l).put(l,new FlowRegion(9001,SENSOR.above(6),1,0,1,0,2,false,false,new java.util.UUID(0,0),ControlData.get(l).next()));
-        var boat=new Boat(l,.5,100.1,4.5);l.addFreshEntity(boat);
+        var boat=new Boat(l,.5,100.8,4.5);l.addFreshEntity(boat);
         if(net.neoforged.fml.ModList.get().isLoaded("create")) nl.townsandkingdoms.streamcontrol.compat.create.CreateClientFixture.prepare(l);
         try { java.nio.file.Files.writeString(net.neoforged.fml.loading.FMLPaths.GAMEDIR.get().resolve("client-test-ready"),"ready"); }
         catch(java.io.IOException ex) { throw new RuntimeException(ex); }
@@ -52,6 +53,9 @@ public final class ClientTestWorld {
         p.getAttribute(Attributes.ENTITY_INTERACTION_RANGE).setBaseValue(8);
         p.getInventory().setItem(0,new ItemStack(StreamControl.WAND.get()));
         p.getInventory().selected=0;p.inventoryMenu.broadcastChanges();
+    }
+    private static void interaction(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract e) {
+        if(e.getTarget() instanceof Boat b) System.out.println("FLOW_BOARD_INPUT boat="+b.position()+" underwater="+b.isUnderWater()+" eyeFluid="+b.getEyeInFluidType()+" passengers="+b.getPassengers().size()+" hand="+e.getItemStack()+" crouch="+e.getEntity().isShiftKeyDown()+" player="+e.getEntity().position());
     }
     private static void commands(RegisterCommandsEvent e) {
         e.getDispatcher().register(literal("flowclient").then(literal("power").executes(c->{

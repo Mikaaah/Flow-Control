@@ -98,7 +98,7 @@ public final class ClientGameplayChecks {
         add("real player boarding releases mooring",()->{
             mc().player.getInventory().selected=1;
             var boat=mc().level.getEntitiesOfClass(Boat.class,new AABB(MOORING).inflate(5)).getFirst();
-            mc().gameMode.interact(mc().player,boat,InteractionHand.MAIN_HAND);
+            System.out.println("FLOW_BOARD_CLIENT boat="+boat.position()+" underwater="+boat.isUnderWater()+" result="+mc().gameMode.interact(mc().player,boat,InteractionHand.MAIN_HAND));
         },()->mc().player.isPassenger() && !utility(MOORING).settings().getBoolean("Secured"));
         add("dismount",()->mc().options.keyShift.setDown(true),()->{if(ticks>10)mc().options.keyShift.setDown(false);return ticks>12 && !mc().player.isPassenger();});
         add("stillwater anchor live GUI",()->{mc().player.getInventory().selected=0;use(ANCHOR);},()->mc().screen instanceof ControllerScreen);
