@@ -1,5 +1,14 @@
 ![Flow Control](https://i.imgur.com/JGT2lvz.png)
 
+## 0.2.1 — Barrel and Create Model Refinement
+
+- Kept the original control lid on the Mechanical Current Generator and replaced its entire body with native Create Andesite Casing textures.
+- Added a recessed bottom shaft socket and matched the inventory shaft to Create's actual shaft geometry and end texture.
+- Rebuilt the Mooring Post as a compact barrel with straight staves, native barrel hoops, a wooden lid and subtly chamfered corners.
+- Removed the old recolored machine textures from the Mooring Post.
+- Preserved all water-control, sensor, mooring and Create behavior.
+
+
 ## 0.2.0 — Water Engineering
 
 - Repurposed the Flow Wand as the Flow Calibrator: inspect currents, show horizontal/vertical reach, copy and paste settings, and link controllers.

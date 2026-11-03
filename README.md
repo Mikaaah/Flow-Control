@@ -8,21 +8,21 @@
 
 Shape currents and create calm water around docks, canals and builds. An addon for **Streams Reflowing**, available for NeoForge, Forge and Fabric.
 
-## Water Engineering — 0.2.0
+## Water Engineering — 0.2.1
 
 Turn waterways into configurable transport and docking systems. The Flow Calibrator inspects currents, displays reach, copies settings and links controllers. Two saved profiles add analog redstone control, reversal and automatic switching. Flow Sensors detect current strength, direction or boats through configurable horizontal and vertical ranges. Mooring Posts secure empty boats and release them when boarded or powered.
 
 With **Create** installed, the **Mechanical Current Generator** accepts a bottom shaft: RPM sets strength, rotation direction reverses flow, and stopped or overstressed drives release their override. The standard controllers, sensors, posts and Calibrator work without Create.
 
-The existing controller model family is retained, with steel-blue sensor colors, wooden mooring posts and an andesite base for the mechanical variant. Existing Flow Wands become Calibrators; saved controller settings and old edits are preserved.
+The existing controller model family is retained, with steel-blue sensor colors, barrel-style mooring posts and a full andesite casing body beneath the original mechanical control lid. Existing Flow Wands become Calibrators; saved controller settings and old edits are preserved.
 
 | Minecraft | Loader | Java | Streams Reflowing | Optional Create | Download |
 | --- | --- | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.219+ within 21.1 | 21 | 2.16.2 | Tested with 6.0.10 | [0.2.0 JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/feature/water-engineering/downloads/flow-control-0.2.0-neoforge-1.21.1.jar) |
+| 1.21.1 | NeoForge 21.1.219+ within 21.1 | 21 | 2.16.2 | Tested with 6.0.10 | [0.2.1 JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/feature/water-engineering/downloads/flow-control-0.2.1-neoforge-1.21.1.jar) |
 
 [Controls and behavior](docs/WATER-ENGINEERING.md) · [Feature branch](https://github.com/Mikaaah/Flow-Control/tree/feature/water-engineering) · [Build and regression checks](https://github.com/Mikaaah/Flow-Control/actions/runs/41593515484)
 
-The 0.2.0 feature update currently targets NeoForge 1.21.1. Earlier downloads and other loader branches remain unchanged. Use matching client/server versions.
+The 0.2.1 feature update currently targets NeoForge 1.21.1. Earlier downloads and other loader branches remain unchanged. Use matching client/server versions.
 
 ## Make water work for your build
 

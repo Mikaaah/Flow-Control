@@ -1,4 +1,4 @@
-# Flow Control 0.2.0 — Water Engineering
+# Flow Control 0.2.1 — Water Engineering
 
 | Minecraft | Loader | Java | Required | Optional integration tested |
 | --- | --- | --- | --- | --- |
@@ -52,13 +52,13 @@ Vertical reach applies to both water sampling and boat detection. Comparator out
 
 ## Mooring Post
 
-A post automatically secures one empty boat already inside its configured cylinder. It holds horizontal position while preserving vertical bobbing. It does not pull boats from outside its range or keep an occupied boat captive.
+The barrel-style post uses native wooden staves and barrel hoops. It automatically secures one empty boat already inside its configured cylinder. It holds horizontal position while preserving vertical bobbing. It does not pull boats from outside its range or keep an occupied boat captive.
 
 Boarding, redstone power, disabling automatic mooring or breaking the post releases the boat. A short cooldown prevents immediate recapture. Multiple posts cannot hold the same boat. Defaults are radius 4 and vertical reach ±2; both are configurable in the GUI within server limits.
 
 ## Optional Create support
 
-The Mechanical Current Generator uses the original Current Generator body above an andesite casing base, with a rotating shaft input on its bottom face. Its recipe uses a Current Generator, Andesite Casing and Shaft.
+The Mechanical Current Generator keeps the original control lid over a fully Create-textured Andesite Casing body, with a recessed rotating shaft input on its bottom face. Its recipe uses a Current Generator, Andesite Casing and Shaft.
 
 Connect a real Create shaft or drive below it. The default calibration is 128 RPM for 100% of the configured profile strength; 64 RPM gives half strength and 256 RPM gives double, limited by the server maximum. Negative RPM reverses the current. Low RPM remains proportionally weak rather than jumping to the manual 5% minimum. The default stress impact is 4 SU per RPM.
 
@@ -68,6 +68,6 @@ A stopped or overstressed drive releases its override. The controller supports t
 
 Existing controller settings are loaded into Profile A. Old wand regions remain editable through the cleanup mode and `/streamcontrol clear` for operators. `/streamcontrol status` remains available. The old wand radius/strength commands are replaced by GUI profile editing.
 
-Use matching Flow Control 0.2.0 versions on client and server because the settings packet protocol changed. The original `wandEnabled`, `wandRequiresOperator` and `showWandFeedbackParticles` configuration keys are retained for compatibility; they now control the Calibrator and its range outlines.
+Use matching Flow Control 0.2.1 versions on client and server because the settings packet protocol changed. The original `wandEnabled`, `wandRequiresOperator` and `showWandFeedbackParticles` configuration keys are retained for compatibility; they now control the Calibrator and its range outlines.
 
 Both standalone and Create 6.0.10 builds passed compilation and the dedicated-server suite. Tests cover legacy flow behavior, profiles and migration, linking and loop rejection, Calibrator copy/paste/link/cleanup, sensor vertical and horizontal limits, comparator output, occupied boats, mooring release and cooldown, packet round trips, optional registration/recipes, and a real Create motor network including reversal, low RPM, stress and stopping. Actual Minecraft screenshots cover eight GUI/model states with and without Create. This is not a full TNK pack or interactive client-world playtest.

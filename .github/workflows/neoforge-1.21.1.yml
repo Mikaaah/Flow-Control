@@ -52,7 +52,7 @@ jobs:
       - name: Upload test JAR
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.2.0-neoforge-1.21.1-${{ matrix.flavor }}
+          name: flow-control-0.2.1-neoforge-1.21.1-${{ matrix.flavor }}
           path: build/libs/flow-control-*.jar
           if-no-files-found: error
 
@@ -73,7 +73,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.2.0-neoforge-1.21.1-${{ matrix.flavor }}-checks
+          name: flow-control-0.2.1-neoforge-1.21.1-${{ matrix.flavor }}-checks
           path: |
             run/streamcontrol-integration-results.json
             run/logs/latest.log
@@ -95,7 +95,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.2.0-${{ matrix.flavor }}-client-preview
+          name: flow-control-0.2.1-${{ matrix.flavor }}-client-preview
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log

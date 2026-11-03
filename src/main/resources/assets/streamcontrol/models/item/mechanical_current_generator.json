@@ -1,134 +1,380 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "body": "streamcontrol:block/current_generator_side",
+    "lid": "streamcontrol:block/current_generator_side",
     "top": "streamcontrol:block/current_generator_top",
     "casing": "create:block/andesite_casing",
-    "particle": "streamcontrol:block/current_generator_side",
-    "shaft": "create:block/axis"
+    "particle": "create:block/andesite_casing",
+    "shaft": "create:block/axis",
+    "shaft_end": "create:block/axis_top"
   },
   "elements": [
     {
       "from": [
-        5,
+        6,
+        0,
+        6
+      ],
+      "to": [
+        10,
+        2,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shaft",
+          "uv": [
+            6,
+            14,
+            10,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#shaft",
+          "uv": [
+            6,
+            14,
+            10,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#shaft",
+          "uv": [
+            6,
+            14,
+            10,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#shaft",
+          "uv": [
+            6,
+            14,
+            10,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#shaft_end",
+          "uv": [
+            6,
+            6,
+            10,
+            10
+          ]
+        },
+        "down": {
+          "texture": "#shaft_end",
+          "uv": [
+            6,
+            6,
+            10,
+            10
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        2,
+        0
+      ],
+      "to": [
+        16,
+        12,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            4,
+            16,
+            14
+          ]
+        },
+        "south": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            4,
+            16,
+            14
+          ]
+        },
+        "west": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            4,
+            16,
+            14
+          ]
+        },
+        "east": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            4,
+            16,
+            14
+          ]
+        },
+        "up": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        2,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            14,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            14,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            14,
+            5,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#casing",
+          "uv": [
+            11,
+            14,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            5
+          ]
+        },
+        "down": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            11,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        11
+      ],
+      "to": [
+        16,
+        2,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            14,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            14,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#casing",
+          "uv": [
+            11,
+            14,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            14,
+            5,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            11,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
         0,
         5
       ],
       "to": [
-        11,
+        5,
         2,
         11
       ],
       "faces": {
-        "down": {
-          "texture": "#shaft",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "up": {
-          "texture": "#shaft",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
         "north": {
-          "texture": "#shaft",
+          "texture": "#casing",
           "uv": [
-            0,
-            0,
+            11,
+            14,
             16,
             16
           ]
         },
         "south": {
-          "texture": "#shaft",
+          "texture": "#casing",
           "uv": [
             0,
-            0,
-            16,
-            16
-          ]
-        },
-        "east": {
-          "texture": "#shaft",
-          "uv": [
-            0,
-            0,
-            16,
+            14,
+            5,
             16
           ]
         },
         "west": {
-          "texture": "#shaft",
+          "texture": "#casing",
+          "uv": [
+            5,
+            14,
+            11,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#casing",
+          "uv": [
+            5,
+            14,
+            11,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#casing",
           "uv": [
             0,
+            5,
+            5,
+            11
+          ]
+        },
+        "down": {
+          "texture": "#casing",
+          "uv": [
             0,
-            16,
-            16
+            5,
+            5,
+            11
           ]
         }
       }
     },
     {
       "from": [
+        11,
         0,
+        5
+      ],
+      "to": [
+        16,
         2,
-        0
-      ],
-      "to": [
-        16,
-        6,
-        16
+        11
       ],
       "faces": {
-        "down": {
-          "texture": "#casing",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "up": {
-          "texture": "#casing",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
         "north": {
           "texture": "#casing",
           "uv": [
             0,
-            0,
-            16,
+            14,
+            5,
             16
           ]
         },
         "south": {
           "texture": "#casing",
           "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "east": {
-          "texture": "#casing",
-          "uv": [
-            0,
-            0,
+            11,
+            14,
             16,
             16
           ]
@@ -136,10 +382,37 @@
         "west": {
           "texture": "#casing",
           "uv": [
-            0,
-            0,
-            16,
+            5,
+            14,
+            11,
             16
+          ]
+        },
+        "east": {
+          "texture": "#casing",
+          "uv": [
+            5,
+            14,
+            11,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#casing",
+          "uv": [
+            11,
+            5,
+            16,
+            11
+          ]
+        },
+        "down": {
+          "texture": "#casing",
+          "uv": [
+            11,
+            5,
+            16,
+            11
           ]
         }
       }
@@ -147,7 +420,7 @@
     {
       "from": [
         0,
-        6,
+        12,
         0
       ],
       "to": [
@@ -156,13 +429,40 @@
         16
       ],
       "faces": {
-        "down": {
-          "texture": "#body",
+        "north": {
+          "texture": "#lid",
           "uv": [
             0,
             0,
             16,
-            16
+            4
+          ]
+        },
+        "south": {
+          "texture": "#lid",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "west": {
+          "texture": "#lid",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "east": {
+          "texture": "#lid",
+          "uv": [
+            0,
+            0,
+            16,
+            4
           ]
         },
         "up": {
@@ -174,35 +474,8 @@
             16
           ]
         },
-        "north": {
-          "texture": "#body",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "south": {
-          "texture": "#body",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "east": {
-          "texture": "#body",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "west": {
-          "texture": "#body",
+        "down": {
+          "texture": "#casing",
           "uv": [
             0,
             0,
