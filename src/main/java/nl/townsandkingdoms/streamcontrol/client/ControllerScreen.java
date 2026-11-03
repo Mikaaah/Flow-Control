@@ -1,4 +1,6 @@
 package nl.townsandkingdoms.streamcontrol.client;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.FontDescription;
 
 import java.util.Locale;
 import net.minecraft.client.Minecraft;
@@ -9,19 +11,35 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import nl.townsandkingdoms.streamcontrol.FlowHeading;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.neoforged.neoforge.network.PacketDistributor;
 import nl.townsandkingdoms.streamcontrol.ControlNetwork;
+import nl.townsandkingdoms.streamcontrol.FlowProfile;
+import nl.townsandkingdoms.streamcontrol.ControllerSettings;
+import net.minecraft.nbt.CompoundTag;
 
-/** One parchment-and-brass visual language for every control, with vanilla input/narration. */
+/** Slate/copper TNK menu artwork, with native input, focus, tooltips and narration. */
 public final class ControllerScreen extends Screen {
     private static final int PANEL_W = 316, PANEL_H = 238;
-    private static final int INK = 0xFF493326, MUTED = 0xFF806246, CREAM = 0xFFF4DFAE;
-    private static final int EDGE = 0xFF302018, GOLD = 0xFFC69B58, TEAL = 0xFF337F83;
+    private static final int INK = 0xFFF4EBE5, MUTED = 0xFFA9C3C8, CREAM = 0xFFF4EBE5;
+    private static final int EDGE = 0xFF20293F, GOLD = 0xFFC09473, TEAL = 0xFFA9D2CD;
+    private static final Identifier CURRENT_BACKGROUND = texture("current_controller");
+    private static final Identifier STILL_BACKGROUND = texture("stillwater_controller");
+    private static final Identifier MENU_FONT = Identifier.fromNamespaceAndPath("streamcontrol", "menu");
+    private static Identifier texture(String name) {
+        return Identifier.fromNamespaceAndPath("streamcontrol", "textures/gui/" + name + ".png");
+    }
     private final ControlNetwork.Open snapshot;
     private int radius;
     private double speed;
     private boolean connected;
     private FlowHeading facing;
     private int left, top;
+    private final CompoundTag settings;
+    private FlowProfile profileA, profileB;
+    private int editProfile, vertical;
+    private FlowProfile.Action action;
+    private boolean automation;
 
     public static void open(ControlNetwork.Open packet) {
         Minecraft.getInstance().setScreenAndShow(new ControllerScreen(packet));
@@ -29,31 +47,70 @@ public final class ControllerScreen extends Screen {
 
     private ControllerScreen(ControlNetwork.Open packet) {
         super(Component.translatable(packet.still() ? "block.streamcontrol.stillwater_anchor"
-            : "block.streamcontrol.current_generator"));
+            : packet.settings()!=null && packet.settings().getBooleanOr("Kinetic",false) ? "block.streamcontrol.mechanical_current_generator" : "block.streamcontrol.current_generator"));
         snapshot = packet;
         radius = Math.max(1, Math.min(packet.maxRadius(), packet.radius()));
         speed = Math.max(0.05, Math.min(packet.maxStrength(), packet.strength()));
         connected = packet.connectedOnly();
         facing = FlowHeading.fromId(packet.facing());
         if (facing == null) facing = FlowHeading.NORTH;
+        settings = packet.settings()==null ? new CompoundTag() : packet.settings().copy();
+        profileA = settings.contains("ProfileA") ? FlowProfile.load(settings.getCompoundOrEmpty("ProfileA"),packet.still()) :
+            new FlowProfile(radius,packet.vertical(),speed,facing,connected,packet.still()?FlowProfile.Action.CALM:FlowProfile.Action.CURRENT);
+        profileB = settings.contains("ProfileB") ? FlowProfile.load(settings.getCompoundOrEmpty("ProfileB"),packet.still()) :
+            new FlowProfile(radius,packet.vertical(),speed,facing,connected,packet.still()?FlowProfile.Action.RELEASE:FlowProfile.Action.REVERSE);
+        readProfile();
     }
 
     private static Component tr(String key, Object... args) {
         return Component.translatable("gui.streamcontrol." + key, args);
     }
 
+    private Component engineering(String key,Object...args) { return Component.translatable("engineering.streamcontrol."+key,args); }
+    private void readProfile() {
+        var p=editProfile==0?profileA:profileB;radius=p.radius();vertical=p.vertical();speed=p.strength();facing=p.heading();connected=p.connectedOnly();action=p.action();
+    }
+    private void storeProfile() {
+        var p=new FlowProfile(radius,vertical,speed,facing,connected,action);
+        if(editProfile==0) profileA=p;else profileB=p;
+    }
+    private void rebuild() { clearWidgets();init(); }
+    private void changeProfile(int selected) { storeProfile();editProfile=selected;readProfile();rebuild(); }
+    private EngineeringWidgets.ActionButton actionButton(int x,int y,int w,int h,Component label,Button.OnPress press,java.util.function.BooleanSupplier selected) {
+        return addRenderableWidget(new EngineeringWidgets.ActionButton(left+x,top+y,w,h,label,press,selected));
+    }
     @Override protected void init() {
         left = (width - PANEL_W) / 2;
         top = (height - PANEL_H) / 2;
-        var radiusSlider = addRenderableWidget(new RadiusSlider(left + 134, top + 68, 166));
+        actionButton(16,29,138,14,engineering("settings_tab",editProfile==0?"A":"B"),b->{automation=false;rebuild();},()->!automation);
+        actionButton(162,29,138,14,engineering("automation_tab"),b->{automation=true;rebuild();},()->automation);
+        if(automation) {
+            actionButton(26,56,264,22,engineering("redstone_"+settings.getIntOr("RedstoneMode",0)),b->{
+                int next=(settings.getIntOr("RedstoneMode",0)+1)%ControllerSettings.Redstone.values().length;
+                settings.putInt("RedstoneMode",next);b.setMessage(engineering("redstone_"+next));
+            },()->false);
+            actionButton(26,84,100,20,engineering("profile_a"),b->changeProfile(0),()->editProfile==0);
+            actionButton(134,84,100,20,engineering("profile_b"),b->changeProfile(1),()->editProfile==1);
+            var unlink=actionButton(242,84,48,20,engineering("unlink"),b->{settings.remove("LinkedSource");rebuild();},()->false);
+            unlink.active=settings.contains("LinkedSource");
+            actionButton(26,111,264,22,engineering("action_"+action.ordinal()),b->{
+                action=snapshot.still()?(action==FlowProfile.Action.CALM?FlowProfile.Action.RELEASE:FlowProfile.Action.CALM):FlowProfile.Action.values()[(action.ordinal()+1)%4];
+                b.setMessage(engineering("action_"+action.ordinal()));
+            },()->false);
+            addRenderableWidget(new EngineeringWidgets.RangeSlider(left+26,top+154,264,0,settings.contains("MaxVertical")?settings.getIntOr("MaxVertical",0):16,vertical,"vertical",n->vertical=n));
+        } else {
+        var radiusSlider = addRenderableWidget(new RadiusSlider(left + (snapshot.still() ? 26 : 182),
+            top + (snapshot.still() ? 156 : 83), snapshot.still() ? 264 : 108));
         radiusSlider.active = snapshot.maxRadius() > 1;
         radiusSlider.setTooltip(Tooltip.create(tr("radius_help")));
         if (!snapshot.still()) {
-            addRenderableWidget(new SpeedSlider(left + 134, top + 110, 166));
+            addRenderableWidget(new SpeedSlider(left + 182, top + 133, 108));
             for (FlowHeading d : FlowHeading.values()) {
                 final FlowHeading direction = d;
-                var button = new ParchmentButton(left + 218 + (d.stepX() + 1) * 28,
-                    top + 125 + (d.stepZ() + 1) * 15, 26, 14,
+                // Eight compass points surround the chart. Every hitbox stays inside its card.
+                int cx = 89 + d.stepX() * (d.diagonal() ? 48 : 56);
+                int cy = 112 + d.stepZ() * (d.diagonal() ? 28 : 38);
+                var button = new SlateButton(left + cx - 13, top + cy - 7, 26, 14,
                     tr("short_" + d.abbreviation()), b -> facing = direction, false) {
                     @Override protected boolean selected() { return facing == direction; }
                 };
@@ -61,7 +118,8 @@ public final class ControllerScreen extends Screen {
                 addRenderableWidget(button);
             }
         }
-        var waterToggle = new ParchmentButton(left + 14, top + 174, 286, 22,
+        }
+        var waterToggle = new SlateButton(left + 14, top + 176, 286, 22,
             tr("connected", tr(connected ? "on" : "off")), b -> {
                 connected = !connected;
                 b.setMessage(tr("connected", tr(connected ? "on" : "off")));
@@ -71,21 +129,22 @@ public final class ControllerScreen extends Screen {
                 g.text(font, tr("connected_label"), getX() + 9, getY() + 7, color, false);
                 right(g, tr(connected ? "on" : "off"), getX() + getWidth() - 50, getY() + 7, color);
                 int x = getX() + getWidth() - 43, y = getY() + 6;
-                bevel(g, x, y, 32, 11, connected ? TEAL : 0xFF8B7456, false);
+                bevel(g, x, y, 32, 11, connected ? TEAL : 0xFF344759, false);
                 g.fill(x + (connected ? 21 : 3), y + 3, x + (connected ? 29 : 11), y + 8, CREAM);
             }
         };
         waterToggle.setTooltip(Tooltip.create(tr("connected_help")));
         addRenderableWidget(waterToggle);
-        addRenderableWidget(new ParchmentButton(left + 14, top + 202, 174, 20,
+        addRenderableWidget(new SlateButton(left + 14, top + 200, 174, 20,
             tr("apply"), b -> apply(), true));
-        addRenderableWidget(new ParchmentButton(left + 196, top + 202, 104, 20,
+        addRenderableWidget(new SlateButton(left + 196, top + 200, 104, 20,
             tr("cancel"), b -> onClose(), false));
     }
 
     private void apply() {
-        ControlNetwork.sendConfigure(new ControlNetwork.Configure(snapshot.pos(), radius, speed,
-            connected, facing.id()));
+        storeProfile();settings.put("ProfileA",profileA.save());settings.put("ProfileB",profileB.save());
+        net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(new ControlNetwork.Configure(snapshot.pos(),profileA.radius(),profileA.strength(),
+            profileA.connectedOnly(),profileA.heading().id(),settings));
         onClose();
     }
 
@@ -95,61 +154,57 @@ public final class ControllerScreen extends Screen {
     }
 
     @Override public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float partialTick) {
-        g.fill(0, 0, width, height, 0xA0181412);
+        g.fill(0, 0, width, height, 0xA0141C2E);
         drawPanel(g);
-        g.text(font, title, left + 45, top + 14, CREAM, false);
-        g.text(font, tr(snapshot.still() ? "calm_subtitle" : "current_subtitle"),
-            left + 45, top + 28, 0xFFBFA47D, false);
-        drawSeal(g, left + 16, top + 14);
-        g.text(font, tr("area_preview"), left + 22, top + 54, INK, false);
-        drawWaterPreview(g);
-        centered(g, tr("preview_diameter", radius * 2 + 1), left + 66, top + 151, INK);
-        centered(g, tr("preview_height", snapshot.vertical()), left + 66, top + 162, MUTED);
-        g.text(font, tr("radius_label"), left + 134, top + 54, INK, false);
-        right(g, tr("blocks", radius), left + 300, top + 54, TEAL);
-        if (snapshot.still()) {
-            bevel(g, left + 134, top + 98, 166, 65, 0xFFCAB487, false);
-            g.text(font, tr("moored"), left + 144, top + 108, INK, false);
-            g.text(font, tr("zero_flow"), left + 144, top + 124, TEAL, false);
-            g.text(font, tr("no_direction"), left + 144, top + 141, MUTED, false);
+        Component heading = title.copy().withStyle(style -> style.withFont(new FontDescription.Resource(MENU_FONT)));
+        centered(g, heading, left + PANEL_W / 2, top + 12, CREAM);
+        if(automation) {
+            g.text(font,engineering("vertical_range"),left+26,top+141,INK,false);
+            right(g,Component.literal("+/- "+vertical),left+290,top+141,TEAL);
         } else {
-            g.text(font, tr("speed_label"), left + 134, top + 96, INK, false);
-            right(g, Component.literal(String.format(Locale.ROOT, "%d%%", Math.round(speed * 100))),
-                left + 300, top + 96, TEAL);
-            g.text(font, tr("heading_compact"), left + 134, top + 132, INK, false);
-            g.text(font, tr(facing.key()), left + 134, top + 148, MUTED, false);
-            bevel(g, left + 246, top + 140, 26, 14, 0xFFB79C6C, false);
-            g.fill(left + 257, top + 144, left + 261, top + 150, GOLD);
+        drawWaterPreview(g);
+        if (snapshot.still()) {
+            centered(g, tr(action==FlowProfile.Action.RELEASE?"released_area":"calm_area"), left + 158, top + 54, INK);
+            centered(g, tr("diameter_label"), left + 66, top + 82, MUTED);
+            centered(g, tr("blocks", radius * 2 + 1), left + 66, top + 98, INK);
+            centered(g, tr("height_label"), left + 250, top + 82, MUTED);
+            centered(g, Component.literal("+/- " + vertical), left + 250, top + 98, INK);
+            centered(g, tr(action==FlowProfile.Action.RELEASE?"release_flow":"zero_flow"), left + 158, top + 129, TEAL);
+            g.text(font, tr("radius_label"), left + 26, top + 144, INK, false);
+            right(g, tr("blocks", radius), left + 290, top + 144, TEAL);
+        } else {
+            centered(g, tr("heading_label"), left + 89, top + 54, INK);
+            centered(g, tr(facing.key()), left + 89, top + 162, MUTED);
+            centered(g, tr("radius_label"), left + 236, top + 56, INK);
+            centered(g, tr("blocks", radius), left + 236, top + 70, TEAL);
+            centered(g, tr("speed_label"), left + 236, top + 106, INK);
+            centered(g, Component.literal(String.format(Locale.ROOT, "%d%%", Math.round(speed * 100))),
+                left + 236, top + 120, TEAL);
+            centered(g, tr("preview_diameter", radius * 2 + 1), left + 236, top + 151, INK);
+            centered(g, tr("preview_height", vertical), left + 236, top + 162, MUTED);
+        }
         }
         // Keep status within the frame, including when redstone disables the controller.
-        centered(g, tr(snapshot.powered() ? "powered_status" : "apply_hint"),
-            left + PANEL_W / 2, top + 224, snapshot.powered() ? 0xFF88432F : MUTED);
+        boolean paused=snapshot.powered() && settings.getIntOr("RedstoneMode",0)==0;
+        Component status=settings.contains("LinkedSource")?engineering("linked_source",net.minecraft.core.BlockPos.of(settings.getLongOr("LinkedSource",0L)).toShortString()):
+            settings.getBooleanOr("Kinetic",false)?engineering("drive_rpm",Math.round(settings.getFloatOr("RPM",0f))):tr(paused?"powered_status":"apply_hint");
+        centered(g,status,left+PANEL_W/2,top+222,paused?0xFFFFB093:MUTED);
         super.extractRenderState(g, mouseX, mouseY, partialTick);
     }
 
     private void drawPanel(GuiGraphicsExtractor g) {
-        g.fill(left + 3, top + 5, left + PANEL_W + 3, top + PANEL_H + 5, 0x70000000);
-        bevel(g, left, top, PANEL_W, PANEL_H, 0xFF795137, true);
-        bevel(g, left + 5, top + 5, PANEL_W - 10, PANEL_H - 10, 0xFFE0C694, true);
-        g.fill(left + 8, top + 8, left + PANEL_W - 8, top + 44, 0xFF513A2C);
-        g.fill(left + 8, top + 44, left + PANEL_W - 8, top + 46, GOLD);
-        // Discrete, stable parchment flecks: no random flicker or non-pixel gradients.
-        for (int i = 0; i < 110; i++) {
-            int x = left + 9 + Math.floorMod(i * 67 + 19, PANEL_W - 18);
-            int y = top + 48 + Math.floorMod(i * 31 + 7, PANEL_H - 59);
-            g.fill(x, y, x + 1, y + 1, (i & 1) == 0 ? 0xFFCDB383 : 0xFFECD5A4);
-        }
-        for (int x : new int[]{left + 3, left + PANEL_W - 6})
-            for (int y : new int[]{top + 3, top + PANEL_H - 6}) {
-                g.fill(x, y, x + 3, y + 3, GOLD);
-                g.fill(x, y, x + 1, y + 1, CREAM);
-            }
+        g.blit(RenderPipelines.GUI_TEXTURED,automation ? texture("automation_controller") : snapshot.still() ? STILL_BACKGROUND : CURRENT_BACKGROUND, left, top,
+            0f, 0f, PANEL_W, PANEL_H, PANEL_W, PANEL_H);
+    }
+
+    private static void control(GuiGraphicsExtractor g, String name, int x, int y, int w, int h, int state) {
+        g.blit(RenderPipelines.GUI_TEXTURED,texture(name), x, y, 0f, state * h, w, h, w, h * 5);
     }
 
     private static void bevel(GuiGraphicsExtractor g, int x, int y, int w, int h, int fill, boolean raised) {
         g.fill(x, y, x + w, y + h, EDGE);
-        g.fill(x + 1, y + 1, x + w - 1, y + h - 1, raised ? 0xFFE2BD7A : 0xFF8F6D45);
-        g.fill(x + 2, y + 2, x + w - 1, y + h - 1, raised ? 0xFF67472E : 0xFFF0D8A0);
+        g.fill(x + 1, y + 1, x + w - 1, y + h - 1, raised ? 0xFFA9C3C8 : 0xFF304358);
+        g.fill(x + 2, y + 2, x + w - 1, y + h - 1, raised ? 0xFF304358 : 0xFF729AA1);
         g.fill(x + 2, y + 2, x + w - 2, y + h - 2, fill);
     }
 
@@ -159,33 +214,28 @@ public final class ControllerScreen extends Screen {
     private void right(GuiGraphicsExtractor g, Component text, int x, int y, int color) {
         g.text(font, text, x - font.width(text), y, color, false);
     }
-    private void drawSeal(GuiGraphicsExtractor g, int x, int y) {
-        bevel(g, x, y, 22, 23, 0xFF284C4F, true);
-        for (int row = 0; row < 3; row++) {
-            int offset = row == 1 ? 2 : 0;
-            g.fill(x + 4 + offset, y + 6 + row * 4, x + 15 + offset, y + 7 + row * 4, 0xFF8FCBC0);
-            g.fill(x + 4 + offset, y + 5 + row * 4, x + 7 + offset, y + 6 + row * 4, 0xFF8FCBC0);
-        }
-    }
-
     private void drawWaterPreview(GuiGraphicsExtractor g) {
-        int x = left + 22, y = top + 68;
-        bevel(g, x - 3, y - 3, 88, 81, 0xFF67543B, false);
-        // Schematic only: it communicates circular range, direction, and disconnected pools.
+        // Odd-sized chart has one exact center shared by the compass and anchor metrics.
+        int cx = left + (snapshot.still() ? 158 : 89), cy = top + (snapshot.still() ? 96 : 112);
+        int x = cx - 26, y = cy - 26;
         for (int row = 0; row < 9; row++) for (int col = 0; col < 9; col++) {
             int dx = col - 4, dz = row - 4;
-            boolean pool = col >= 7 && row < 4;
-            boolean wet = col < 6 || pool;
-            boolean covered = dx * dx + dz * dz <= 16 && (!connected || !pool);
-            int color = !wet ? 0xFF9B8157 : covered ? 0xFF5DADB0 : 0xFF396B72;
-            int tx = x + col * 9, ty = y + row * 8;
-            g.fill(tx, ty, tx + 8, ty + 7, color);
-            if (wet) g.fill(tx + 2, ty + 2, tx + 6, ty + 3, covered ? 0xFF91CFC8 : 0xFF51858A);
+            if (dx * dx + dz * dz > 20) continue;
+            boolean isolated = col >= 7 && row <= 2;
+            boolean covered = !connected || !isolated;
+            int tx = x + col * 6, ty = y + row * 6;
+            g.fill(tx, ty, tx + 5, ty + 5, covered ? 0xFF54768B : 0xFF344759);
+            g.fill(tx + 1, ty + 2, tx + 4, ty + 3, covered ? TEAL : 0xFF54768B);
         }
-        int cx = x + 4 * 9 + 4, cy = y + 4 * 8 + 3;
         if (snapshot.still()) {
-            g.fill(cx - 4, cy - 4, cx + 4, cy + 4, GOLD);
-            g.fill(cx - 2, cy - 2, cx + 2, cy + 2, EDGE);
+            // Anchor glyph; the generator uses a heading arrow instead.
+            g.fill(cx - 3, cy - 8, cx + 4, cy - 3, CREAM);
+            g.fill(cx - 1, cy - 7, cx + 2, cy - 5, EDGE);
+            g.fill(cx, cy - 3, cx + 2, cy + 8, CREAM);
+            g.fill(cx - 4, cy - 1, cx + 6, cy + 1, CREAM);
+            g.fill(cx - 6, cy + 4, cx - 4, cy + 8, CREAM);
+            g.fill(cx + 6, cy + 4, cx + 8, cy + 8, CREAM);
+            g.fill(cx - 4, cy + 7, cx + 6, cy + 9, CREAM);
         } else {
             for (int n = -5; n <= 5; n++) {
                 int px = cx + facing.stepX() * n, py = cy + facing.stepZ() * n;
@@ -201,9 +251,9 @@ public final class ControllerScreen extends Screen {
         }
     }
 
-    private class ParchmentButton extends Button {
+    private class SlateButton extends Button {
         private final boolean primary;
-        ParchmentButton(int x, int y, int w, int h, Component label, OnPress action, boolean primary) {
+        SlateButton(int x, int y, int w, int h, Component label, OnPress action, boolean primary) {
             super(x, y, w, h, label, action, DEFAULT_NARRATION);
             this.primary = primary;
         }
@@ -213,29 +263,32 @@ public final class ControllerScreen extends Screen {
         }
         @Override public void extractContents(GuiGraphicsExtractor g, int mx, int my, float partialTick) {
             boolean highlight = isHoveredOrFocused();
-            int color = primary || selected() ? (highlight ? 0xFF498F89 : TEAL)
-                : (highlight ? 0xFFEED4A0 : 0xFFD2B47F);
-            bevel(g, getX(), getY(), getWidth(), getHeight(), active ? color : 0xFFAB9877, true);
+            int state = !active ? 4 : primary || selected() ? (highlight ? 3 : 2) : (highlight ? 1 : 0);
+            if(getWidth()==26) control(g,"compass",getX(),getY(),getWidth(),getHeight(),state);
+            else EngineeringWidgets.button(g,getX(),getY(),getWidth(),getHeight(),state);
             if (highlight) {
-                g.fill(getX() + 3, getY() + 3, getX() + 5, getY() + getHeight() - 3, GOLD);
-                g.fill(getX() + getWidth() - 5, getY() + 3, getX() + getWidth() - 3, getY() + getHeight() - 3, GOLD);
+                int x = getX(), y = getY(), w = getWidth(), h = getHeight();
+                g.fill(x, y, x + w, y + 1, CREAM);
+                g.fill(x, y + h - 1, x + w, y + h, CREAM);
+                g.fill(x, y, x + 1, y + h, CREAM);
+                g.fill(x + w - 1, y, x + w, y + h, CREAM);
             }
-            drawLabel(g, primary || selected() ? CREAM : INK);
+            drawLabel(g, active ? CREAM : 0xFF91ABB6);
         }
     }
 
-    private abstract class ParchmentSlider extends AbstractSliderButton {
-        ParchmentSlider(int x, int y, int w, double value) { super(x, y, w, 16, Component.empty(), value); }
+    private abstract class SlateSlider extends AbstractSliderButton {
+        SlateSlider(int x, int y, int w, double value) { super(x, y, w, 16, Component.empty(), value); }
         @Override public void extractWidgetRenderState(GuiGraphicsExtractor g, int mx, int my, float partialTick) {
             int x = getX(), y = getY(), w = getWidth();
-            bevel(g, x, y + 4, w, 8, 0xFF9E8157, false);
+            g.blit(RenderPipelines.GUI_TEXTURED,texture(w == 264 ? "track_wide" : "track_small"), x, y + 4, 0f, 0f, w, 8, w, 8);
             int handle = x + 3 + (int)Math.round(value * (w - 12));
             g.fill(x + 3, y + 7, handle + 4, y + 9, TEAL);
-            bevel(g, handle, y + 1, 9, 14, isHoveredOrFocused() ? 0xFFF2D18C : GOLD, true);
-            g.fill(handle + 4, y + 5, handle + 5, y + 11, 0xFF815830);
+            control(g, "handle", handle, y + 1, 9, 14, !active ? 4 : isHoveredOrFocused() ? 3 : 2);
+            g.fill(handle + 4, y + 5, handle + 5, y + 11, 0xFF4D2B32);
         }
     }
-    private final class RadiusSlider extends ParchmentSlider {
+    private final class RadiusSlider extends SlateSlider {
         RadiusSlider(int x, int y, int w) {
             super(x, y, w, (double)(radius - 1) / Math.max(1, snapshot.maxRadius() - 1));
             updateMessage();
@@ -246,7 +299,7 @@ public final class ControllerScreen extends Screen {
             updateMessage();
         }
     }
-    private final class SpeedSlider extends ParchmentSlider {
+    private final class SpeedSlider extends SlateSlider {
         SpeedSlider(int x, int y, int w) {
             super(x, y, w, (speed - 0.05) / Math.max(0.001, snapshot.maxStrength() - 0.05));
             updateMessage();

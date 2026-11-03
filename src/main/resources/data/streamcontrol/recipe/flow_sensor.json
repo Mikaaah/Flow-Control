@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CRC",
+    "QMQ",
+    "CCC"
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "R": "minecraft:redstone",
+    "Q": "minecraft:quartz",
+    "M": "minecraft:comparator"
+  },
+  "result": {
+    "id": "streamcontrol:flow_sensor",
+    "count": 1
+  }
+}
