@@ -8,47 +8,34 @@
 
 Shape currents and create calm water around docks, canals and builds. An addon for **Streams Reflowing**, available for NeoForge, Forge and Fabric.
 
-## Versions and downloads
+## Water Engineering — 0.2.0
 
-The **0.1.7 preview for NeoForge 1.21.1** updates compatibility to **Streams Reflowing 2.16.2** and gives both controllers a distinct slate-and-copper layout. The Current Generator has a centered eight-way navigation chart; the Stillwater Anchor has a central anchor chart and symmetric range readouts. Header rivets are removed. The preview source and its build checks are on [`gui/controller-layout`](https://github.com/Mikaaah/Flow-Control/tree/gui/controller-layout).
+Turn waterways into configurable transport and docking systems. The Flow Calibrator inspects currents, displays reach, copies settings and links controllers. Two saved profiles add analog redstone control, reversal and automatic switching. Flow Sensors detect current strength, direction or boats through configurable horizontal and vertical ranges. Mooring Posts secure empty boats and release them when boarded or powered.
 
-The published **0.1.5** downloads below remain available for all eight versions and require Streams Reflowing **2.15.2**.
+With **Create** installed, the **Mechanical Current Generator** accepts a bottom shaft: RPM sets strength, rotation direction reverses flow, and stopped or overstressed drives release their override. The standard controllers, sensors, posts and Calibrator work without Create.
 
-| Minecraft | Loader | Streams Reflowing | Java | Download |
-| --- | --- | --- | --- | --- |
-| 1.21.1 | NeoForge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/main/downloads/flow-control-0.1.5-neoforge-1.21.1.jar) |
-| 1.20.1 | Fabric | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/fabric/1.20.1/downloads/flow-control-0.1.5-fabric-1.20.1.jar) |
-| 1.21.1 | Fabric | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/fabric/1.21.1/downloads/flow-control-0.1.5-fabric-1.21.1.jar) |
-| 26.1.2 | Fabric | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/fabric/26.1.2/downloads/flow-control-0.1.5-fabric-26.1.2.jar) |
-| 1.20.1 | Forge | 2.15.2 | 17 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/forge/1.20.1/downloads/flow-control-0.1.5-forge-1.20.1.jar) |
-| 1.21.11 | NeoForge | 2.15.2 | 21 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/neoforge/1.21.11/downloads/flow-control-0.1.5-neoforge-1.21.11.jar) |
-| 26.1.2 | NeoForge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/neoforge/26.1.2/downloads/flow-control-0.1.5-neoforge-26.1.2.jar) |
-| 26.3 | NeoForge | 2.15.2 | 25 | [JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/neoforge/26.3/downloads/flow-control-0.1.5-neoforge-26.3.jar) |
+The existing controller model family is retained, with steel-blue sensor colors, wooden mooring posts and an andesite base for the mechanical variant. Existing Flow Wands become Calibrators; saved controller settings and old edits are preserved.
 
-Install matching JARs on client and server. Fabric also requires Fabric API.
-All eight builds and dedicated-server regression suites passed, including eight-way flow, equal diagonal speed, persistence and packet checks; the NeoForge 1.21.1 client was launched and all three controller-screen states were visually checked.
+| Minecraft | Loader | Java | Streams Reflowing | Optional Create | Download |
+| --- | --- | --- | --- | --- | --- |
+| 1.21.1 | NeoForge 21.1.219+ within 21.1 | 21 | 2.16.2 | Tested with 6.0.10 | [0.2.0 JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/feature/water-engineering/downloads/flow-control-0.2.0-neoforge-1.21.1.jar) |
+
+[Controls and behavior](docs/WATER-ENGINEERING.md) · [Feature branch](https://github.com/Mikaaah/Flow-Control/tree/feature/water-engineering) · [Build and regression checks](https://github.com/Mikaaah/Flow-Control/actions/runs/41593515484)
+
+The 0.2.0 feature update currently targets NeoForge 1.21.1. Earlier downloads and other loader branches remain unchanged. Use matching client/server versions.
 
 ## Make water work for your build
 
-| Item | What it does |
+| Tool or block | Purpose |
 | --- | --- |
-| **Flow Wand** | Direct flow, still water or restore natural flow in a chosen area. |
-| **Current Generator** | Maintain a directional current; rotate its top arrow to steer the flow. |
-| **Stillwater Anchor** | Calm currents around a dock or mooring. |
+| Flow Calibrator | Inspect currents, preview reach, copy/paste settings and link controllers. |
+| Current Generator | Maintain an eight-way current with configurable profiles and redstone behavior. |
+| Stillwater Anchor | Calm water around docks and switch between calm and natural water. |
+| Flow Sensor | Measure strength, compass direction or boats above, below and around the sensor. |
+| Mooring Post | Secure one empty boat; release it when boarded or powered. |
+| Mechanical Current Generator | Optional Create shaft-driven variant with RPM and stress support. |
 
-All three items have survival recipes. Right-click either controller to open its settings screen: adjust radius (with diameter and vertical reach), choose connected-water-only behavior, and set flow speed and direction on the Current Generator. Redstone power disables a controller. Break it to restore the underlying current.
-
-## Install and start
-
-Choose a matching Minecraft and loader build from the table above, then install this addon and **Streams Reflowing 2.15.2** on client and server. Use the Java version listed for that build; Fabric also requires Fabric API. **UltraTerraForged is not required.**
-
-For a dock, place a Stillwater Anchor under or beside the water within four blocks of the boats. Right-click to adjust its radius; if there are multiple nearby ponds, enable *Connected water only*. Use the Flow Wand for temporary or shaped areas.
-
-Flow changes velocity rather than moving water blocks or changing river terrain. Calm water removes current-induced drift; it does not prevent steering, collisions or momentum.
-
-## Guides
-
-[Items and controls](https://github.com/Mikaaah/Flow-Control/wiki/Items-and-Controls) · [Overlapping areas](https://github.com/Mikaaah/Flow-Control/wiki/Overlapping-Areas) · [Configuration](https://github.com/Mikaaah/Flow-Control/wiki/Configuration) · [Troubleshooting](https://github.com/Mikaaah/Flow-Control/wiki/Troubleshooting)
+Right-click blocks to configure them. Sneak-use the Calibrator in the air to switch modes. All tools and blocks have survival recipes; the mechanical recipe is available only with Create.
 
 ## Credits and license
 

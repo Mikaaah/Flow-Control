@@ -1,5 +1,21 @@
 ![Flow Control](https://i.imgur.com/JGT2lvz.png)
 
+## 0.2.0 — Water Engineering
+
+- Repurposed the Flow Wand as the Flow Calibrator: inspect currents, show horizontal/vertical reach, copy and paste settings, and link controllers.
+- Preserved the existing tool registry ID, controller settings and legacy wand regions; added a cleanup mode for old edits.
+- Added two saved controller profiles with directed, reversed, calm and natural-flow actions.
+- Added analog redstone strength, powered reversal, profile switching and an always-active mode alongside the original power-to-pause behavior.
+- Added configurable vertical reach to controller profiles.
+- Added Flow Sensors with independent horizontal and vertical ranges, comparator output for strength/direction/boats, and empty-boat filtering.
+- Added Mooring Posts that secure one empty boat and release it when boarded, powered, disabled or removed.
+- Added optional Create support: Mechanical Current Generator, real bottom-shaft input, RPM-based strength, reversal and stress handling.
+- Reused the existing block model family and pixel patterns; added steel-blue sensors, wooden mooring posts and an andesite base for the Create variant.
+- Added matching Automation, sensor and mooring screens, live utility status, survival recipes and item descriptions.
+- Updated networking for the new settings. Client and server must use matching 0.2.0 builds.
+- Verified NeoForge 1.21.1 / Java 21 / Streams Reflowing 2.16.2, both with and without Create 6.0.10. Other ports are unchanged.
+
+
 ## 0.1.7
 
 - Removed the header corner rivets.
