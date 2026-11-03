@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 public final class ControllerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -37,10 +38,10 @@ public final class ControllerBlock extends BaseEntityBlock implements SimpleWate
         }
     }
     @Override public InteractionResult use(BlockState s, Level level, BlockPos pos, Player p, InteractionHand hand, BlockHitResult hit) {
-        if (!p.getItemInHand(hand).isEmpty()) return InteractionResult.PASS;
+        if(p.getItemInHand(hand).is(StreamControl.WAND.get())) return InteractionResult.PASS;
         if (!p.mayBuild() || !level.mayInteract(p,pos)) return InteractionResult.FAIL;
-        if (!level.isClientSide && p instanceof net.minecraft.server.level.ServerPlayer player
-            && level.getBlockEntity(pos) instanceof ControllerEntity be) ControlNetwork.open(player, be);
+        if (!level.isClientSide && p instanceof ServerPlayer player && level.getBlockEntity(pos) instanceof ControllerEntity be)
+            ControlNetwork.open(player, be);
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
     @Override public void onRemove(BlockState old, Level level, BlockPos pos, BlockState next, boolean moving) {
