@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=north,diagonal=false": {
+      "model": "streamcontrol:block/mechanical_current_generator",
+      "y": 270
+    },
+    "facing=north,diagonal=true": {
+      "model": "streamcontrol:block/mechanical_current_generator_diagonal",
+      "y": 270
+    },
+    "facing=east,diagonal=false": {
+      "model": "streamcontrol:block/mechanical_current_generator",
+      "y": 0
+    },
+    "facing=east,diagonal=true": {
+      "model": "streamcontrol:block/mechanical_current_generator_diagonal",
+      "y": 0
+    },
+    "facing=south,diagonal=false": {
+      "model": "streamcontrol:block/mechanical_current_generator",
+      "y": 90
+    },
+    "facing=south,diagonal=true": {
+      "model": "streamcontrol:block/mechanical_current_generator_diagonal",
+      "y": 90
+    },
+    "facing=west,diagonal=false": {
+      "model": "streamcontrol:block/mechanical_current_generator",
+      "y": 180
+    },
+    "facing=west,diagonal=true": {
+      "model": "streamcontrol:block/mechanical_current_generator_diagonal",
+      "y": 180
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "source_commit": "d1aae5dd0d8596bff754d92b59faa03b8ff975e8",
+  "workflow_run": "https://github.com/Mikaaah/Flow-Control/actions/runs/41600440210",
+  "jar_sha256": "87191ee4b24f56f8e360553d415391345d9dd9b119223fd8272f96c7a4b0fdcc",
+  "checks": {
+    "standalone": {
+      "vanillaWaterAndVesselFlow": true,
+      "manualDirectionRetainsPriorityOverDownhillGuard": true,
+      "bakedWaterStillnessAndOverlap": true,
+      "mooredBoatTwentyTicks": true,
+      "savedDataRoundTrip": true,
+      "connectedWaterIsolationAndPersistence": true,
+      "networkCodecRoundTrip": true,
+      "dimensionIsolation": true,
+      "masterSwitch": true,
+      "controllerRedstoneAndRemoval": true,
+      "eightHeadingPhysicsPersistenceAndPackets": true,
+      "profileModesPersistenceAndMigration": true,
+      "controllerLinkPropagationCycleAndMissingSource": true,
+      "calibratorCopyPasteLinkAndLegacyCleanup": true,
+      "sensorVerticalHorizontalDirectionBoatAndComparator": true,
+      "mooringHoldBoardingRedstoneAndCooldown": true,
+      "engineeringPacketRoundTrips": true,
+      "standaloneWithoutCreate": true,
+      "passed": true
+    },
+    "create_6_0_10": {
+      "vanillaWaterAndVesselFlow": true,
+      "manualDirectionRetainsPriorityOverDownhillGuard": true,
+      "bakedWaterStillnessAndOverlap": true,
+      "mooredBoatTwentyTicks": true,
+      "savedDataRoundTrip": true,
+      "connectedWaterIsolationAndPersistence": true,
+      "networkCodecRoundTrip": true,
+      "dimensionIsolation": true,
+      "masterSwitch": true,
+      "controllerRedstoneAndRemoval": true,
+      "eightHeadingPhysicsPersistenceAndPackets": true,
+      "profileModesPersistenceAndMigration": true,
+      "controllerLinkPropagationCycleAndMissingSource": true,
+      "calibratorCopyPasteLinkAndLegacyCleanup": true,
+      "sensorVerticalHorizontalDirectionBoatAndComparator": true,
+      "mooringHoldBoardingRedstoneAndCooldown": true,
+      "engineeringPacketRoundTrips": true,
+      "createRealNetworkRpmReverseStressAndStop": true,
+      "passed": true
+    }
+  },
+  "model_capture_checked": true,
+  "full_modpack_playtest": false
+}

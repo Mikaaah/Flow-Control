@@ -12,6 +12,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.PacketDistributor;
 import nl.townsandkingdoms.streamcontrol.ControlNetwork;
+import nl.townsandkingdoms.streamcontrol.FlowProfile;
+import nl.townsandkingdoms.streamcontrol.ControllerSettings;
+import net.minecraft.nbt.CompoundTag;
 
 /** Slate/copper TNK menu artwork, with native input, focus, tooltips and narration. */
 public final class ControllerScreen extends Screen {
@@ -30,6 +33,11 @@ public final class ControllerScreen extends Screen {
     private boolean connected;
     private FlowHeading facing;
     private int left, top;
+    private final CompoundTag settings;
+    private FlowProfile profileA, profileB;
+    private int editProfile, vertical;
+    private FlowProfile.Action action;
+    private boolean automation;
 
     public static void open(ControlNetwork.Open packet) {
         Minecraft.getInstance().setScreen(new ControllerScreen(packet));
@@ -37,22 +45,58 @@ public final class ControllerScreen extends Screen {
 
     private ControllerScreen(ControlNetwork.Open packet) {
         super(Component.translatable(packet.still() ? "block.streamcontrol.stillwater_anchor"
-            : "block.streamcontrol.current_generator"));
+            : packet.settings()!=null && packet.settings().getBoolean("Kinetic") ? "block.streamcontrol.mechanical_current_generator" : "block.streamcontrol.current_generator"));
         snapshot = packet;
         radius = Math.max(1, Math.min(packet.maxRadius(), packet.radius()));
         speed = Math.max(0.05, Math.min(packet.maxStrength(), packet.strength()));
         connected = packet.connectedOnly();
         facing = FlowHeading.fromId(packet.facing());
         if (facing == null) facing = FlowHeading.NORTH;
+        settings = packet.settings()==null ? new CompoundTag() : packet.settings().copy();
+        profileA = settings.contains("ProfileA") ? FlowProfile.load(settings.getCompound("ProfileA"),packet.still()) :
+            new FlowProfile(radius,packet.vertical(),speed,facing,connected,packet.still()?FlowProfile.Action.CALM:FlowProfile.Action.CURRENT);
+        profileB = settings.contains("ProfileB") ? FlowProfile.load(settings.getCompound("ProfileB"),packet.still()) :
+            new FlowProfile(radius,packet.vertical(),speed,facing,connected,packet.still()?FlowProfile.Action.RELEASE:FlowProfile.Action.REVERSE);
+        readProfile();
     }
 
     private static Component tr(String key, Object... args) {
         return Component.translatable("gui.streamcontrol." + key, args);
     }
 
+    private Component engineering(String key,Object...args) { return Component.translatable("engineering.streamcontrol."+key,args); }
+    private void readProfile() {
+        var p=editProfile==0?profileA:profileB;radius=p.radius();vertical=p.vertical();speed=p.strength();facing=p.heading();connected=p.connectedOnly();action=p.action();
+    }
+    private void storeProfile() {
+        var p=new FlowProfile(radius,vertical,speed,facing,connected,action);
+        if(editProfile==0) profileA=p;else profileB=p;
+    }
+    private void rebuild() { clearWidgets();init(); }
+    private void changeProfile(int selected) { storeProfile();editProfile=selected;readProfile();rebuild(); }
+    private EngineeringWidgets.ActionButton actionButton(int x,int y,int w,int h,Component label,Button.OnPress press,java.util.function.BooleanSupplier selected) {
+        return addRenderableWidget(new EngineeringWidgets.ActionButton(left+x,top+y,w,h,label,press,selected));
+    }
     @Override protected void init() {
         left = (width - PANEL_W) / 2;
         top = (height - PANEL_H) / 2;
+        actionButton(16,29,138,14,engineering("settings_tab",editProfile==0?"A":"B"),b->{automation=false;rebuild();},()->!automation);
+        actionButton(162,29,138,14,engineering("automation_tab"),b->{automation=true;rebuild();},()->automation);
+        if(automation) {
+            actionButton(26,56,264,22,engineering("redstone_"+settings.getInt("RedstoneMode")),b->{
+                int next=(settings.getInt("RedstoneMode")+1)%ControllerSettings.Redstone.values().length;
+                settings.putInt("RedstoneMode",next);b.setMessage(engineering("redstone_"+next));
+            },()->false);
+            actionButton(26,84,100,20,engineering("profile_a"),b->changeProfile(0),()->editProfile==0);
+            actionButton(134,84,100,20,engineering("profile_b"),b->changeProfile(1),()->editProfile==1);
+            var unlink=actionButton(242,84,48,20,engineering("unlink"),b->{settings.remove("LinkedSource");rebuild();},()->false);
+            unlink.active=settings.contains("LinkedSource");
+            actionButton(26,111,264,22,engineering("action_"+action.ordinal()),b->{
+                action=snapshot.still()?(action==FlowProfile.Action.CALM?FlowProfile.Action.RELEASE:FlowProfile.Action.CALM):FlowProfile.Action.values()[(action.ordinal()+1)%4];
+                b.setMessage(engineering("action_"+action.ordinal()));
+            },()->false);
+            addRenderableWidget(new EngineeringWidgets.RangeSlider(left+26,top+154,264,0,settings.contains("MaxVertical")?settings.getInt("MaxVertical"):16,vertical,"vertical",n->vertical=n));
+        } else {
         var radiusSlider = addRenderableWidget(new RadiusSlider(left + (snapshot.still() ? 26 : 182),
             top + (snapshot.still() ? 156 : 83), snapshot.still() ? 264 : 108));
         radiusSlider.active = snapshot.maxRadius() > 1;
@@ -71,6 +115,7 @@ public final class ControllerScreen extends Screen {
                 button.setTooltip(Tooltip.create(tr("direction", tr(d.key()))));
                 addRenderableWidget(button);
             }
+        }
         }
         var waterToggle = new SlateButton(left + 14, top + 176, 286, 22,
             tr("connected", tr(connected ? "on" : "off")), b -> {
@@ -95,8 +140,9 @@ public final class ControllerScreen extends Screen {
     }
 
     private void apply() {
-        PacketDistributor.sendToServer(new ControlNetwork.Configure(snapshot.pos(), radius, speed,
-            connected, facing.id()));
+        storeProfile();settings.put("ProfileA",profileA.save());settings.put("ProfileB",profileB.save());
+        PacketDistributor.sendToServer(new ControlNetwork.Configure(snapshot.pos(),profileA.radius(),profileA.strength(),
+            profileA.connectedOnly(),profileA.heading().id(),settings));
         onClose();
     }
 
@@ -110,16 +156,18 @@ public final class ControllerScreen extends Screen {
         drawPanel(g);
         Component heading = title.copy().withStyle(style -> style.withFont(MENU_FONT));
         centered(g, heading, left + PANEL_W / 2, top + 12, CREAM);
-        centered(g, tr(snapshot.still() ? "calm_subtitle" : "current_subtitle"),
-            left + PANEL_W / 2, top + 32, MUTED);
+        if(automation) {
+            g.drawString(font,engineering("vertical_range"),left+26,top+141,INK,false);
+            right(g,Component.literal("+/- "+vertical),left+290,top+141,TEAL);
+        } else {
         drawWaterPreview(g);
         if (snapshot.still()) {
-            centered(g, tr("calm_area"), left + 158, top + 54, INK);
+            centered(g, tr(action==FlowProfile.Action.RELEASE?"released_area":"calm_area"), left + 158, top + 54, INK);
             centered(g, tr("diameter_label"), left + 66, top + 82, MUTED);
             centered(g, tr("blocks", radius * 2 + 1), left + 66, top + 98, INK);
             centered(g, tr("height_label"), left + 250, top + 82, MUTED);
-            centered(g, Component.literal("+/- " + snapshot.vertical()), left + 250, top + 98, INK);
-            centered(g, tr("zero_flow"), left + 158, top + 129, TEAL);
+            centered(g, Component.literal("+/- " + vertical), left + 250, top + 98, INK);
+            centered(g, tr(action==FlowProfile.Action.RELEASE?"release_flow":"zero_flow"), left + 158, top + 129, TEAL);
             g.drawString(font, tr("radius_label"), left + 26, top + 144, INK, false);
             right(g, tr("blocks", radius), left + 290, top + 144, TEAL);
         } else {
@@ -131,16 +179,19 @@ public final class ControllerScreen extends Screen {
             centered(g, Component.literal(String.format(Locale.ROOT, "%d%%", Math.round(speed * 100))),
                 left + 236, top + 120, TEAL);
             centered(g, tr("preview_diameter", radius * 2 + 1), left + 236, top + 151, INK);
-            centered(g, tr("preview_height", snapshot.vertical()), left + 236, top + 162, MUTED);
+            centered(g, tr("preview_height", vertical), left + 236, top + 162, MUTED);
+        }
         }
         // Keep status within the frame, including when redstone disables the controller.
-        centered(g, tr(snapshot.powered() ? "powered_status" : "apply_hint"),
-            left + PANEL_W / 2, top + 222, snapshot.powered() ? 0xFFFFB093 : MUTED);
+        boolean paused=snapshot.powered() && settings.getInt("RedstoneMode")==0;
+        Component status=settings.contains("LinkedSource")?engineering("linked_source",net.minecraft.core.BlockPos.of(settings.getLong("LinkedSource")).toShortString()):
+            settings.getBoolean("Kinetic")?engineering("drive_rpm",Math.round(settings.getFloat("RPM"))):tr(paused?"powered_status":"apply_hint");
+        centered(g,status,left+PANEL_W/2,top+222,paused?0xFFFFB093:MUTED);
         super.render(g, mouseX, mouseY, partialTick);
     }
 
     private void drawPanel(GuiGraphics g) {
-        g.blit(snapshot.still() ? STILL_BACKGROUND : CURRENT_BACKGROUND, left, top,
+        g.blit(automation ? texture("automation_controller") : snapshot.still() ? STILL_BACKGROUND : CURRENT_BACKGROUND, left, top,
             0f, 0f, PANEL_W, PANEL_H, PANEL_W, PANEL_H);
     }
 
@@ -211,9 +262,8 @@ public final class ControllerScreen extends Screen {
         @Override public void renderWidget(GuiGraphics g, int mx, int my, float partialTick) {
             boolean highlight = isHoveredOrFocused();
             int state = !active ? 4 : primary || selected() ? (highlight ? 3 : 2) : (highlight ? 1 : 0);
-            String name = getWidth() == 26 ? "compass" : getWidth() == 286 ? "toggle"
-                : getWidth() == 174 ? "apply" : "cancel";
-            control(g, name, getX(), getY(), getWidth(), getHeight(), state);
+            if(getWidth()==26) control(g,"compass",getX(),getY(),getWidth(),getHeight(),state);
+            else EngineeringWidgets.button(g,getX(),getY(),getWidth(),getHeight(),state);
             if (highlight) {
                 int x = getX(), y = getY(), w = getWidth(), h = getHeight();
                 g.fill(x, y, x + w, y + 1, CREAM);

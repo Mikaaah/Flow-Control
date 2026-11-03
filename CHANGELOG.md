@@ -1,5 +1,42 @@
 ![Flow Control](https://i.imgur.com/JGT2lvz.png)
 
+## 0.2.2 — Verified Water Engineering and Version Ports
+
+- Fixed controller and utility block interactions so Copy, Paste and Link reach the Calibrator instead of opening the normal configuration screen.
+- Carried the redesigned, centered interfaces and water-engineering functions to the existing Minecraft/loader ports.
+- Updated every port to the exact Streams Reflowing 2.16.2 dependency and checked its current-grid and surface-particle APIs against the matching JAR.
+- Preserved old wand items, legacy edits and controller settings; clients and servers must use matching 0.2.2 builds.
+- Added real client/server checks for GUI Apply and synchronization, all Calibrator modes, links and unlinking, profiles, redstone switching, vertical sensors and comparator output, mooring release/recapture and real-player boarding.
+- Verified the optional mechanical controller through actual Create motor input, reversal and stopping. Create's normal water-wheel RPM behavior is unchanged.
+- Adapted modern ports to their own persistence, comparator and rendering APIs, including world-bound item components and 26.3 geometry submission.
+
+The complete feature changelog and exact supported dependency matrix are supplied with the verified release bundle.
+
+## 0.2.1 — Barrel and Create Model Refinement
+
+- Kept the original control lid on the Mechanical Current Generator and replaced its entire body with native Create Andesite Casing textures.
+- Added a recessed bottom shaft socket and matched the inventory shaft to Create's actual shaft geometry and end texture.
+- Rebuilt the Mooring Post as a compact barrel with straight staves, native barrel hoops, a wooden lid and subtly chamfered corners.
+- Removed the old recolored machine textures from the Mooring Post.
+- Preserved all water-control, sensor, mooring and Create behavior.
+
+
+## 0.2.0 — Water Engineering
+
+- Repurposed the Flow Wand as the Flow Calibrator: inspect currents, show horizontal/vertical reach, copy and paste settings, and link controllers.
+- Preserved the existing tool registry ID, controller settings and legacy wand regions; added a cleanup mode for old edits.
+- Added two saved controller profiles with directed, reversed, calm and natural-flow actions.
+- Added analog redstone strength, powered reversal, profile switching and an always-active mode alongside the original power-to-pause behavior.
+- Added configurable vertical reach to controller profiles.
+- Added Flow Sensors with independent horizontal and vertical ranges, comparator output for strength/direction/boats, and empty-boat filtering.
+- Added Mooring Posts that secure one empty boat and release it when boarded, powered, disabled or removed.
+- Added optional Create support: Mechanical Current Generator, real bottom-shaft input, RPM-based strength, reversal and stress handling.
+- Reused the existing block model family and pixel patterns; added steel-blue sensors, wooden mooring posts and an andesite base for the Create variant.
+- Added matching Automation, sensor and mooring screens, live utility status, survival recipes and item descriptions.
+- Updated networking for the new settings. Client and server must use matching 0.2.0 builds.
+- Verified NeoForge 1.21.1 / Java 21 / Streams Reflowing 2.16.2, both with and without Create 6.0.10. Other ports are unchanged.
+
+
 ## 0.1.7
 
 - Removed the header corner rivets.
