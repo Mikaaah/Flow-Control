@@ -22,7 +22,11 @@ public final class CreateChecks {
         motor.generatedSpeed.setValue(128);motor.updateGeneratedRotation();for(int i=0;i<10;i++) { motor.tick();be.tick(); }
         check(Math.abs(be.getSpeed())==128 && be.hasNetwork(),"Mechanical controller did not join the motor network: "+be.getSpeed());be.refresh();
         var region=ControlData.get(level).byKey(pos.asLong());check(region!=null && region.strength()==1,"128 RPM did not produce configured strength");
-        double originalX=region.dx();motor.generatedSpeed.setValue(-128);motor.updateGeneratedRotation();for(int i=0;i<10;i++) { motor.tick();be.tick(); }be.refresh();
+        double originalX=region.dx();
+        motor.generatedSpeed.setValue(1);motor.updateGeneratedRotation();for(int i=0;i<10;i++) { motor.tick();be.tick(); }be.refresh();
+        var slow=ControlData.get(level).byKey(pos.asLong());check(slow!=null && Math.abs(slow.strength()-1.0/128)<1e-8,"Low RPM was clamped to manual minimum strength");
+        var loaded=FlowRegion.load(slow.save());check(loaded.strength()==slow.strength(),"Sub-5-percent flow did not survive sync/persistence");
+        motor.generatedSpeed.setValue(-128);motor.updateGeneratedRotation();for(int i=0;i<10;i++) { motor.tick();be.tick(); }be.refresh();
         region=ControlData.get(level).byKey(pos.asLong());check(region!=null && region.dx()==-originalX,"Motor reversal did not reverse flow");
         check(be.calculateStressApplied()==ControlConfig.KINETIC_STRESS.get().floatValue(),"Kinetic stress consumer value");
         be.updateFromNetwork(0,512,2);be.refresh();check(ControlData.get(level).byKey(pos.asLong())==null,"Overstressed drive left an active flow override");

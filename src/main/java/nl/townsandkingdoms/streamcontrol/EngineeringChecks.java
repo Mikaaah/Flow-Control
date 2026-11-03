@@ -83,10 +83,11 @@ public final class EngineeringChecks {
         sensorOptions.putInt("Radius",4);sensorOptions.putInt("Mode",2);sensorOptions.putBoolean("EmptyOnly",true);
         var sensedBoat=new Boat(level,sensorPos.getX()+.5,sensorPos.getY()+3.5,sensorPos.getZ()+.5);level.addFreshEntity(sensedBoat);
         sensor.configure(sensorOptions);check(sensor.output()==1,"Boat count ignored vertical range");
+        var rider=new net.minecraft.world.entity.animal.Pig(net.minecraft.world.entity.EntityType.PIG,level);level.addFreshEntity(rider);
         sensorOptions.putInt("Vertical",2);sensor.configure(sensorOptions);check(sensor.output()==0,"Boat below/above range was counted");
-        sensorOptions.putInt("Vertical",3);sensor.configure(sensorOptions);player.startRiding(sensedBoat,true);sensor.sample();check(sensor.output()==0,"Empty-only sensor counted occupied boat");
+        sensorOptions.putInt("Vertical",3);sensor.configure(sensorOptions);check(rider.startRiding(sensedBoat,true),"Sensor passenger fixture failed to board");sensor.sample();check(sensor.output()==0,"Empty-only sensor counted occupied boat");
         sensorOptions.putBoolean("EmptyOnly",false);sensor.configure(sensorOptions);check(sensor.output()==1,"All-boats sensor omitted occupied boat");
-        player.stopRiding();sensedBoat.discard();
+        rider.stopRiding();sensedBoat.discard();
         var reloadedSensor=new FlowSensorEntity(sensorPos,sensor.getBlockState());reloadedSensor.loadWithComponents(sensor.saveWithoutMetadata(level.registryAccess()),level.registryAccess());
         check(reloadedSensor.vertical()==3 && reloadedSensor.radius()==4 && reloadedSensor.mode()==FlowSensorEntity.Mode.BOATS,"Sensor range/mode persistence");
         results.put("sensorVerticalHorizontalDirectionBoatAndComparator",true);
@@ -97,10 +98,10 @@ public final class EngineeringChecks {
         mooring.tick();check(boat.getUUID().equals(mooring.boatId()),"Mooring did not secure empty boat");
         double x=boat.getX(),z=boat.getZ();boat.setPos(x+.2,boat.getY(),z+.2);boat.setDeltaMovement(.2,.03,.2);mooring.tick();
         check(boat.getX()==x && boat.getZ()==z && boat.getDeltaMovement().x==0 && boat.getDeltaMovement().z==0 && boat.getDeltaMovement().y==.03,"Mooring did not hold horizontal position and preserve bobbing");
-        player.startRiding(boat,true);mooring.tick();check(mooring.boatId()==null,"Boarding did not immediately release boat");player.stopRiding();
+        check(rider.startRiding(boat,true),"Mooring passenger fixture failed to board");mooring.tick();check(mooring.boatId()==null,"Boarding did not immediately release boat");rider.stopRiding();
         for(int i=0;i<42;i++) mooring.tick();check(mooring.boatId()!=null,"Mooring did not resume after release cooldown");
         level.setBlock(mooringPos,mooring.getBlockState().setValue(UtilityBlock.POWERED,true),2);mooring.tick();check(mooring.boatId()==null,"Redstone did not release boat");
-        level.removeBlock(mooringPos,false);boat.discard();results.put("mooringHoldBoardingRedstoneAndCooldown",true);
+        level.removeBlock(mooringPos,false);boat.discard();rider.discard();results.put("mooringHoldBoardingRedstoneAndCooldown",true);
         var buf=new RegistryFriendlyByteBuf(Unpooled.buffer(),level.registryAccess());
         try {
             var configure=new ControlNetwork.Configure(p.asLong(),3,1,false,FlowHeading.EAST.id(),options(first,second,ControllerSettings.Redstone.SWITCH));
@@ -112,6 +113,10 @@ public final class EngineeringChecks {
         boolean create=net.neoforged.fml.ModList.get().isLoaded("create");
         boolean registered=net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(StreamControl.ID,"mechanical_current_generator"));
         check(create==registered,"Create block registration is not optional");
+        boolean recipe=level.getRecipeManager().byKey(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(StreamControl.ID,"mechanical_current_generator")).isPresent();
+        check(create==recipe,"Mechanical recipe condition does not match optional Create presence");
+        check(level.getRecipeManager().byKey(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(StreamControl.ID,"flow_sensor")).isPresent(),"Flow sensor recipe missing");
+        check(level.getRecipeManager().byKey(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(StreamControl.ID,"mooring_post")).isPresent(),"Mooring recipe missing");
         if(create) nl.townsandkingdoms.streamcontrol.compat.create.CreateChecks.run(level,results);
         else results.put("standaloneWithoutCreate",true);
         level.removeBlock(p,false);level.removeBlock(q,false);level.removeBlock(sensorPos,false);data.remove(level,87655);

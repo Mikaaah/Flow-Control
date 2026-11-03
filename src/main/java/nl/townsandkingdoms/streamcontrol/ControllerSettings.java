@@ -42,6 +42,7 @@ public final class ControllerSettings {
         dirty = true; changed(); refresh();
     }
     public CompoundTag save() {
+        a=a().withHeading(host.heading());
         var n = new CompoundTag(); n.put("ProfileA",a().save()); n.put("ProfileB",b().save());
         n.putInt("RedstoneMode",redstone.ordinal()); if (source != null) n.putLong("LinkedSource",source.asLong());
         // Older world data keys remain readable for migration and diagnostics.
@@ -65,7 +66,10 @@ public final class ControllerSettings {
         if (!n.contains("LinkedSource")) source = null;
         setA(a);
     }
-    public CompoundTag clipboard() { var n = save(); n.remove("LinkedSource"); return n; }
+    public CompoundTag clipboard() {
+        ControllerSettings effective=host.blockEntity().getLevel() instanceof ServerLevel level ? resolved(level) : this;
+        var n=(effective==null?this:effective).save();n.remove("LinkedSource");return n;
+    }
     public void paste(CompoundTag n) { source = null; configure(n); }
     public void unlink() { source = null; dirty = true; changed(); refresh(); }
     public boolean link(BlockPos pos) {
@@ -125,7 +129,7 @@ public final class ControllerSettings {
             speed *= Math.abs(rpm)/ControlConfig.RPM_FULL_STRENGTH.get();
             if (rpm < 0) reverse = !reverse;
         }
-        speed = ControlConfig.strength(speed);
+        speed = Double.isFinite(speed) ? Math.clamp(speed,0,ControlConfig.MAX_SPEED.get()) : 0;
         if (reverse) heading = heading.rotate(net.minecraft.world.level.block.Rotation.CLOCKWISE_180);
         var old = data.byKey(key); long[] mask = new long[0];
         if (p.connectedOnly()) {
