@@ -19,7 +19,7 @@ import net.neoforged.neoforge.event.server.ServerStartedEvent;
 /** Opt-in dedicated-server test; never runs in a player's normal world. */
 public final class IntegrationChecks {
     public static void register() {
-        if (Boolean.getBooleanOr("streamcontrol.integrationTest",false)) {
+        if (Boolean.getBoolean("streamcontrol.integrationTest")) {
             NeoForge.EVENT_BUS.addListener(IntegrationChecks::run);
         }
     }

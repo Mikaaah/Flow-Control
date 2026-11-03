@@ -22,7 +22,7 @@ public final class UtilityScreen extends Screen {
         super(Component.translatable("block.streamcontrol."+("sensor".equals(packet.settings().getStringOr("Kind",""))?"flow_sensor":"mooring_post")));
         snapshot=packet;options=packet.settings().copy();sensor="sensor".equals(options.getStringOr("Kind",""));
         radius=options.getIntOr("Radius",0);vertical=options.getIntOr("Vertical",0);mode=Math.clamp(options.getIntOr("Mode",0),0,2);
-        toggle=options.getBoolean(sensor?"EmptyOnly":"Enabled");
+        toggle=options.getBooleanOr(sensor?"EmptyOnly":"Enabled",false);
     }
     private Component tr(String key,Object...args) { return Component.translatable("engineering.streamcontrol."+key,args); }
     @Override protected void init() {
