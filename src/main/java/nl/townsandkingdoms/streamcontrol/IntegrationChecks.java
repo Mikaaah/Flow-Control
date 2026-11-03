@@ -101,6 +101,7 @@ public final class IntegrationChecks {
             check(server.getCommands().getDispatcher().execute("streamcontrol status",server.createCommandSourceStack())==1,"Status command");
             ControllerRegressionChecks.run(level); results.put("controllerGuiAndConnectedWaterRegression",true);
             HeadingRegressionChecks.run(level); results.put("eightHeadingPhysicsPersistenceAndPackets",true);
+            ReleaseAssetChecks.run(level,results);
             EngineeringChecks.run(level,results);
             results.put("passed",true);
         } catch (Throwable t) { results.put("passed",false);results.put("error",t.toString()); t.printStackTrace(); }

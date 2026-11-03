@@ -6,15 +6,9 @@
     "PPP"
   ],
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "P": {
-      "tag": "minecraft:planks"
-    },
-    "C": {
-      "item": "minecraft:chain"
-    }
+    "I": "minecraft:iron_ingot",
+    "P": "#minecraft:planks",
+    "C": "minecraft:chain"
   },
   "result": {
     "id": "streamcontrol:mooring_post",
