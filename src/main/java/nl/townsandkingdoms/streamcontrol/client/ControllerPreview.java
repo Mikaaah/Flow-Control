@@ -11,7 +11,7 @@ import nl.townsandkingdoms.streamcontrol.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.client.event.ClientTickEvent;
+import net.minecraftforge.event.TickEvent;
 
 /** Opt-in CI capture and interaction check. Inactive in normal games. */
 @EventBusSubscriber(modid="streamcontrol",value=Dist.CLIENT)
@@ -19,7 +19,8 @@ public final class ControllerPreview {
     private static int phase,ticks;
     private static boolean captured;
     private static final String[] NAMES={"current-generator","stillwater-anchor","redstone-paused","automation","flow-sensor","mooring-post","block-models","mechanical-controller"};
-    @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
+    @SubscribeEvent public static void tick(TickEvent.ClientTickEvent event) {
+        if(event.phase!=TickEvent.Phase.END)return;
         if(!Boolean.getBoolean("streamcontrol.uiPreview")) return;
         var mc=Minecraft.getInstance();
         if(phase==0) {

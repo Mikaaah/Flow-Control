@@ -5,7 +5,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.network.PacketDistributor;
 import nl.townsandkingdoms.streamcontrol.*;
 import static nl.townsandkingdoms.streamcontrol.client.EngineeringWidgets.*;
 
@@ -37,7 +36,7 @@ public final class UtilityScreen extends Screen {
     private Component toggleLabel() { return tr(sensor?"empty_boats":"auto_moor",Component.translatable("gui.streamcontrol."+(toggle?"on":"off"))); }
     private void apply() {
         options.putInt("Radius",radius);options.putInt("Vertical",vertical);options.putInt("Mode",mode);options.putBoolean(sensor?"EmptyOnly":"Enabled",toggle);
-        PacketDistributor.sendToServer(new ControlNetwork.UtilityConfigure(snapshot.pos(),options));onClose();
+        ControlNetwork.sendConfigure(new ControlNetwork.UtilityConfigure(snapshot.pos(),options));onClose();
     }
     @Override public boolean isPauseScreen() { return false; }
     @Override public void renderBackground(GuiGraphics g) {}

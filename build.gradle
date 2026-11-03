@@ -21,7 +21,7 @@ tasks.named('jar') { from('LICENSE'); manifest.attributes('MixinConfigs':'stream
 tasks.named("jar") { archiveFileName = "flow-control-0.2.2-forge-1.20.1.jar" }
 
 dependencies {
- modCompileOnly files('libs/create-1.20.1-6.0.8.jar')
- modCompileOnly fileTree('libs/create-compile') { include '*.jar' }
- if(providers.gradleProperty('withCreate').isPresent()) modRuntimeOnly files('libs/create-1.20.1-6.0.8.jar')
+ modCompileOnly 'com.simibubi.create:create-1.20.1:6.0.8'
+ compileOnly fileTree('libs/create-compile') { include '*.jar' }
+ if(providers.gradleProperty('withCreate').isPresent()) modRuntimeOnly 'com.simibubi.create:create-1.20.1:6.0.8'
 }
