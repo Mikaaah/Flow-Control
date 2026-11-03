@@ -30,8 +30,8 @@ public final class IntegrationChecks {
             check(data.at(16,122,16) != null && data.at(16,123,16) == null,"Height boundary");
             Vec3 flow = level.getFluidState(p).getFlow(level,p);
             check(flow.x > 0.7 && Math.abs(flow.z) < 0.01,"Vanilla water did not follow direction: " + flow);
-            check(StreamFlowGrid.angleForEntityPush(level,16,120,16) == StreamFlowGrid.encode(1,0),"Vessel direction hook");
-            check(StreamFlowGrid.speedForPhysics(level,16,120,16) == 0.75,"Vessel strength hook");
+            check(StreamFlowGrid.noDecompilePermission1(level,16,120,16) == StreamFlowGrid.encode(1,0),"Vessel direction hook");
+            check(StreamFlowGrid.sourceGivenToAuthorizedOnly1(level,16,120,16) == 0.75,"Vessel strength hook");
             results.put("vanillaWaterAndVesselFlow",true);
             for(int dx=-4;dx<=4;dx++) if(dx!=0) {
                 int top=dx>0?123:117;
@@ -48,7 +48,7 @@ public final class IntegrationChecks {
             data.put(level,still);
             check(data.at(16,120,16).still(),"Still block precedence");
             check(level.getFluidState(p).getFlow(level,p).lengthSqr() < 1e-10,"Stillness did not cancel baked stream flow");
-            check(StreamFlowGrid.speedForPhysics(level,16,120,16) == 0,"Stillness did not cancel vessel drift");
+            check(StreamFlowGrid.sourceGivenToAuthorizedOnly1(level,16,120,16) == 0,"Stillness did not cancel vessel drift");
             check(data.at(20,120,16).key() == directed.key(),"Stillness leaked beyond radius");
             results.put("bakedWaterStillnessAndOverlap",true);
             for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++)
@@ -92,6 +92,7 @@ public final class IntegrationChecks {
             check(server.getCommands().getDispatcher().execute("streamcontrol status",server.createCommandSourceStack())==1,"Status command");
             ControllerRegressionChecks.run(level); results.put("controllerGuiAndConnectedWaterRegression",true);
             HeadingRegressionChecks.run(level); results.put("eightHeadingPhysicsPersistenceAndPackets",true);
+            EngineeringChecks.run(level,results);
             results.put("passed",true);
         } catch (Throwable t) { results.put("passed",false);results.put("error",t.toString()); t.printStackTrace(); }
         finally { data.remove(level,101);data.remove(level,102); }
