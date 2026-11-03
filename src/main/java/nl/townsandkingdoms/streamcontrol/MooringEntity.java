@@ -29,7 +29,7 @@ public final class MooringEntity extends BlockEntity implements UtilityAccess {
     }
     @Override public void configure(CompoundTag n) {
         radius=Math.clamp(n.getInt("Radius"),1,ControlConfig.MOORING_MAX_RADIUS.get());vertical=Math.clamp(n.getInt("Vertical"),0,ControlConfig.MOORING_MAX_VERTICAL.get());
-        enabled=n.getBoolean("Enabled");release();setChanged();
+        enabled=n.getBoolean("Enabled");release();changed();
     }
     @Override protected void saveAdditional(CompoundTag n,HolderLookup.Provider r) {
         super.saveAdditional(n,r);n.putInt("Radius",radius);n.putInt("Vertical",vertical);n.putBoolean("Enabled",enabled);
@@ -39,11 +39,17 @@ public final class MooringEntity extends BlockEntity implements UtilityAccess {
         super.loadAdditional(n,r);radius=n.contains("Radius")?n.getInt("Radius"):4;vertical=n.contains("Vertical")?n.getInt("Vertical"):2;enabled=!n.contains("Enabled")||n.getBoolean("Enabled");
         boatId=n.hasUUID("Boat")?n.getUUID("Boat"):null;moorX=n.getDouble("MoorX");moorZ=n.getDouble("MoorZ");
     }
-    public void release() {
-        if(level instanceof ServerLevel server && boatId!=null) CLAIMS.computeIfAbsent(server,s->new HashMap<>()).remove(boatId,worldPosition);
-        if(boatId!=null) { boatId=null;setChanged(); } cooldown=40;
+    private void changed() {
+        setChanged();if(level instanceof ServerLevel server && !isRemoved()) server.sendBlockUpdated(worldPosition,getBlockState(),getBlockState(),2);
     }
-    @Override public void setRemoved() { release();super.setRemoved(); }
+    @Override public net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket getUpdatePacket() { return net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket.create(this); }
+    @Override public CompoundTag getUpdateTag(HolderLookup.Provider r) { return saveWithoutMetadata(r); }
+    public void release() { release(true); }
+    private void release(boolean notify) {
+        if(level instanceof ServerLevel server && boatId!=null) CLAIMS.computeIfAbsent(server,s->new HashMap<>()).remove(boatId,worldPosition);
+        if(boatId!=null) { boatId=null;if(notify) changed(); } cooldown=40;
+    }
+    @Override public void setRemoved() { release(false);super.setRemoved(); }
     private boolean inRange(Boat boat) {
         double dx=boat.getX()-worldPosition.getX()-.5,dz=boat.getZ()-worldPosition.getZ()-.5;
         return dx*dx+dz*dz<=radius()*radius() && boat.getY()>=worldPosition.getY()-vertical() && boat.getY()<worldPosition.getY()+vertical()+1;
@@ -71,6 +77,6 @@ public final class MooringEntity extends BlockEntity implements UtilityAccess {
         var candidates=server.getEntitiesOfClass(Boat.class,new AABB(worldPosition).inflate(radius(),vertical(),radius()),
             boat->boat.isAlive() && !boat.isVehicle() && inRange(boat));
         candidates.sort(Comparator.comparingDouble(b->b.distanceToSqr(worldPosition.getX()+.5,worldPosition.getY()+.5,worldPosition.getZ()+.5)));
-        for(Boat boat:candidates) if(claim(server,boat)) { boatId=boat.getUUID();moorX=boat.getX();moorZ=boat.getZ();setChanged();break; }
+        for(Boat boat:candidates) if(claim(server,boat)) { boatId=boat.getUUID();moorX=boat.getX();moorZ=boat.getZ();changed();break; }
     }
 }

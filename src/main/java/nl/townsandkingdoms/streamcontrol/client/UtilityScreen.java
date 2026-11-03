@@ -57,6 +57,9 @@ public final class UtilityScreen extends Screen {
             tr(options.getBoolean("Powered")?"mooring_powered":options.getBoolean("Secured")?"mooring_secured":"mooring_waiting");
         if(minecraft!=null && minecraft.level!=null && minecraft.level.getBlockEntity(net.minecraft.core.BlockPos.of(snapshot.pos())) instanceof FlowSensorEntity be)
             status=tr("sensor_output",be.output());
+        if(minecraft!=null && minecraft.level!=null && minecraft.level.getBlockEntity(net.minecraft.core.BlockPos.of(snapshot.pos())) instanceof MooringEntity be) {
+            var live=be.settings();status=tr(live.getBoolean("Powered")?"mooring_powered":live.getBoolean("Secured")?"mooring_secured":"mooring_waiting");
+        }
         text(g,status,left+158,top+222,TEAL);super.render(g,mx,my,tick);
     }
     private void right(GuiGraphics g,Component s,int x,int y) { g.drawString(font,s,x-font.width(s),y,TEAL,false); }

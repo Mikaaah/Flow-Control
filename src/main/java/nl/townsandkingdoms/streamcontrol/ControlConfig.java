@@ -8,9 +8,9 @@ public final class ControlConfig {
     static {
         var b = new ModConfigSpec.Builder();
         ENABLED = b.comment("Master switch. Overrides remain saved when disabled.").define("enabled", true);
-        WAND_ENABLED = b.define("wandEnabled", true);
+        WAND_ENABLED = b.comment("Enable the Flow Calibrator; legacy config key retained.").define("wandEnabled", true);
         OP_ONLY = b.define("wandRequiresOperator", false);
-        PARTICLES = b.define("showWandFeedbackParticles", true);
+        PARTICLES = b.comment("Show Calibrator range outlines; legacy config key retained.").define("showWandFeedbackParticles", true);
         MAX_RADIUS = b.defineInRange("maxRadius", 16, 1, 32);
         DEFAULT_RADIUS = b.defineInRange("defaultRadius", 4, 1, 32);
         VERTICAL = b.comment("Blocks above and below the selected water or controller that can be affected.").defineInRange("verticalReach", 4, 0, 16);

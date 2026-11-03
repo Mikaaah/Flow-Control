@@ -37,6 +37,7 @@ public final class FlowSensorEntity extends BlockEntity implements UtilityAccess
         radius=Math.clamp(n.getInt("Radius"),1,ControlConfig.SENSOR_MAX_RADIUS.get());
         vertical=Math.clamp(n.getInt("Vertical"),0,ControlConfig.SENSOR_MAX_VERTICAL.get());
         mode=Mode.from(n.getInt("Mode"));emptyOnly=n.getBoolean("EmptyOnly");setChanged();sample();
+        if(level instanceof ServerLevel server) server.sendBlockUpdated(worldPosition,getBlockState(),getBlockState(),2);
     }
     @Override protected void saveAdditional(CompoundTag n,HolderLookup.Provider r) { super.saveAdditional(n,r);n.putInt("Radius",radius);n.putInt("Vertical",vertical);n.putInt("Mode",mode.ordinal());n.putBoolean("EmptyOnly",emptyOnly);n.putInt("Output",output); }
     @Override protected void loadAdditional(CompoundTag n,HolderLookup.Provider r) { super.loadAdditional(n,r);radius=n.contains("Radius")?n.getInt("Radius"):4;vertical=n.contains("Vertical")?n.getInt("Vertical"):4;mode=Mode.from(n.getInt("Mode"));emptyOnly=n.getBoolean("EmptyOnly");output=Math.clamp(n.getInt("Output"),0,15); }

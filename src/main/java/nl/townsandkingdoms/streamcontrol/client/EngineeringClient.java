@@ -62,7 +62,7 @@ public final class EngineeringClient {
             if(region!=null) { radius=region.radius();vertical=region.vertical();center=region.center(); }
         }
         if(radius>0) lines.add(tr("readout_range",radius,vertical));
-        readout=new Readout(center,radius,vertical,lines,radius>0 && !FlowWand.settings(stack).getBoolean("HideBounds"));
+        readout=new Readout(center,radius,vertical,lines,radius>0 && ControlConfig.PARTICLES.get() && !FlowWand.settings(stack).getBoolean("HideBounds"));
     }
     private static void layers(RegisterGuiLayersEvent e) {
         e.registerAboveAll(ResourceLocation.fromNamespaceAndPath(StreamControl.ID,"calibrator"),(g,delta)->hud(g));

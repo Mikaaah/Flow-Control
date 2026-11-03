@@ -80,8 +80,8 @@ public final class ControllerScreen extends Screen {
     @Override protected void init() {
         left = (width - PANEL_W) / 2;
         top = (height - PANEL_H) / 2;
-        actionButton(16,29,138,16,engineering("settings_tab",editProfile==0?"A":"B"),b->{automation=false;rebuild();},()->!automation);
-        actionButton(162,29,138,16,engineering("automation_tab"),b->{automation=true;rebuild();},()->automation);
+        actionButton(16,29,138,14,engineering("settings_tab",editProfile==0?"A":"B"),b->{automation=false;rebuild();},()->!automation);
+        actionButton(162,29,138,14,engineering("automation_tab"),b->{automation=true;rebuild();},()->automation);
         if(automation) {
             actionButton(26,56,264,22,engineering("redstone_"+settings.getInt("RedstoneMode")),b->{
                 int next=(settings.getInt("RedstoneMode")+1)%ControllerSettings.Redstone.values().length;

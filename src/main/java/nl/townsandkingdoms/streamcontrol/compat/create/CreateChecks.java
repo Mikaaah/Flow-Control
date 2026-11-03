@@ -14,7 +14,7 @@ public final class CreateChecks {
     private static void check(boolean b,String why) { if(!b) throw new AssertionError(why); }
     public static void run(ServerLevel level,Map<String,Object> results) {
         var pos=new BlockPos(400,120,400);var motorPos=pos.below();
-        level.setBlock(motorPos,AllBlocks.CREATIVE_MOTOR.getDefaultState().setValue(BlockStateProperties.AXIS,Direction.Axis.Y),3);
+        level.setBlock(motorPos,AllBlocks.CREATIVE_MOTOR.getDefaultState().setValue(BlockStateProperties.FACING,Direction.UP),3);
         var motor=(CreativeMotorBlockEntity)level.getBlockEntity(motorPos);motor.initialize();
         level.setBlock(pos,CreateIntegration.BLOCK.get().defaultBlockState(),3);var be=(MechanicalCurrentEntity)level.getBlockEntity(pos);be.initialize();
         be.configure(FlowHeading.EAST,4,1,false);
