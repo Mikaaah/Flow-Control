@@ -1,5 +1,5 @@
 plugins { id 'fabric-loom' version '1.11.8'; id 'maven-publish' }
-version = '0.1.5'
+version = '0.2.2'
 group='nl.townsandkingdoms.streamcontrol'
 base.archivesName='streams-flow-control-fabric-1.20.1'
 repositories { mavenCentral() }
@@ -7,17 +7,26 @@ java.toolchain.languageVersion=JavaLanguageVersion.of(17)
 java.withSourcesJar()
 loom {
  mixin { defaultRefmapName='streamcontrol.refmap.json' }
- runs { server { server(); runDir 'run'; vmArg '-Dstreamcontrol.integrationTest='+System.getProperty('streamcontrol.integrationTest','false'); vmArg '-Xmx3G'; programArg '--nogui' } }
+ runs { client { client(); runDir 'run-client'; vmArg '-Dstreamcontrol.uiPreview='+System.getProperty('streamcontrol.uiPreview','false'); programArg '--width'; programArg '960'; programArg '--height'; programArg '720' }; server { server(); runDir 'run'; vmArg '-Dstreamcontrol.integrationTest='+System.getProperty('streamcontrol.integrationTest','false'); vmArg '-Xmx3G'; programArg '--nogui' } }
 }
 dependencies {
  minecraft 'com.mojang:minecraft:1.20.1'
  mappings loom.officialMojangMappings()
  modImplementation 'net.fabricmc:fabric-loader:0.18.4'
  modImplementation 'net.fabricmc.fabric-api:fabric-api:0.92.12+1.20.1'
- modImplementation files('libs/StreamsReflowing-1.20.1-fabric-2.15.2.jar')
+ modImplementation files('libs/StreamsReflowing-1.20.1-fabric-2.16.2.jar')
 }
 tasks.withType(JavaCompile).configureEach { options.encoding='UTF-8'; options.release=17 }
 tasks.named('jar') { from('LICENSE') }
 
-tasks.named("jar") { archiveFileName = "flow-control-0.1.5-fabric-1.20.1-dev.jar" }
-tasks.named("remapJar") { archiveFileName = "flow-control-0.1.5-fabric-1.20.1.jar" }
+tasks.named("jar") { archiveFileName = "flow-control-0.2.2-fabric-1.20.1-dev.jar" }
+tasks.named("remapJar") { archiveFileName = "flow-control-0.2.2-fabric-1.20.1.jar" }
+
+dependencies {
+ modCompileOnly files('libs/create-fabric-6.0.8.1+build.1744-mc1.20.1.jar')
+ modCompileOnly fileTree('libs/create-compile') { include '*.jar' }
+ if(providers.gradleProperty('withCreate').isPresent()) {
+  modRuntimeOnly files('libs/create-fabric-6.0.8.1+build.1744-mc1.20.1.jar')
+  modRuntimeOnly fileTree('libs/create-compile') { include '*.jar' }
+ }
+}
