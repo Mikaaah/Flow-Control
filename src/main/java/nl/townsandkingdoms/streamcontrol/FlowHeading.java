@@ -28,10 +28,6 @@ public enum FlowHeading {
         case NORTH -> "n";case NORTH_EAST -> "ne";case EAST -> "e";case SOUTH_EAST -> "se";
         case SOUTH -> "s";case SOUTH_WEST -> "sw";case WEST -> "w";case NORTH_WEST -> "nw";
     };}
-    public static FlowHeading fromVector(double x,double z) {
-        if(!Double.isFinite(x) || !Double.isFinite(z) || Math.hypot(x,z)<1e-6) return null;
-        return VALUES[Math.floorMod((int)Math.round(Math.atan2(x,-z)/(Math.PI/4)),8)];
-    }
     public static FlowHeading fromId(int id){return id>=0 && id<VALUES.length?VALUES[id]:null;}
     public static FlowHeading fromDirection(Direction d){return switch(d){
         case NORTH -> NORTH;case EAST -> EAST;case SOUTH -> SOUTH;case WEST -> WEST;

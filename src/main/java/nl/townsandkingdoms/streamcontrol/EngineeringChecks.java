@@ -59,7 +59,7 @@ public final class EngineeringChecks {
         level.removeBlock(p,false);b.refresh();check(data.byKey(q.asLong())==null,"Missing linked source must pause without chunk loading");
         b.controls().unlink();check(data.byKey(q.asLong())!=null,"Unlink did not restore local profile");
         results.put("controllerLinkPropagationCycleAndMissingSource",true);
-        var player=new net.minecraft.server.level.ServerPlayer(level.getServer(),level,new GameProfile(UUID.randomUUID(),"FlowChecks"),net.minecraft.server.level.ClientInformation.createDefault());player.getAbilities().mayBuild=true;
+        var player=new net.minecraft.server.level.ServerPlayer(level.getServer(),level,new GameProfile(UUID.randomUUID(),"FlowChecks"),net.minecraft.server.level.ClientInformation.createDefault()) { @Override public void sendSystemMessage(net.minecraft.network.chat.Component message,boolean overlay) {} };player.getAbilities().mayBuild=true;
         var tool=new ItemStack(StreamControl.WAND.get());player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND,tool);
         toolMode(tool,FlowWand.Mode.COPY);check(FlowWand.operate(player,q,tool),"Calibrator copy failed");
         level.setBlock(p,StreamControl.GENERATOR.get().defaultBlockState(),3);a=(ControllerEntity)level.getBlockEntity(p);
