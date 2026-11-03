@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - "gui/**"
-      - "feature/**"
       - main
       - fix/neoforge-1.21.1-stillwater-render
   pull_request:
@@ -81,7 +80,7 @@ jobs:
       - name: Capture the actual controller GUIs
         run: |
           mkdir -p run-client
-          printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
+          printf 'onboardAccessibility:false\nguiScale:3\ntutorialStep:none\nfullscreen:false\n' > run-client/options.txt
           timeout 360 xvfb-run -a ./gradlew --no-daemon -Dstreamcontrol.uiPreview=true $CREATE_ARGS runClient
           test -s run-client/screenshots/flow-control-current-generator.png
           test -s run-client/screenshots/flow-control-stillwater-anchor.png

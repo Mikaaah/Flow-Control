@@ -1,5 +1,17 @@
 ![Flow Control](https://i.imgur.com/JGT2lvz.png)
 
+## 0.2.2 — Verified Water Engineering and Version Ports
+
+- Fixed controller and utility block interactions so Copy, Paste and Link reach the Calibrator instead of opening the normal configuration screen.
+- Carried the redesigned, centered interfaces and water-engineering functions to the existing Minecraft/loader ports.
+- Updated every port to the exact Streams Reflowing 2.16.2 dependency and checked its current-grid and surface-particle APIs against the matching JAR.
+- Preserved old wand items, legacy edits and controller settings; clients and servers must use matching 0.2.2 builds.
+- Added real client/server checks for GUI Apply and synchronization, all Calibrator modes, links and unlinking, profiles, redstone switching, vertical sensors and comparator output, mooring release/recapture and real-player boarding.
+- Verified the optional mechanical controller through actual Create motor input, reversal and stopping. Create's normal water-wheel RPM behavior is unchanged.
+- Adapted modern ports to their own persistence, comparator and rendering APIs, including world-bound item components and 26.3 geometry submission.
+
+The complete feature changelog and exact supported dependency matrix are supplied with the verified release bundle.
+
 ## 0.2.1 — Barrel and Create Model Refinement
 
 - Kept the original control lid on the Mechanical Current Generator and replaced its entire body with native Create Andesite Casing textures.

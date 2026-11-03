@@ -112,8 +112,8 @@ public final class ClientGameplayChecks {
             add("Create stopped motor clears client override",()->command("stop"),()->region(MECHANICAL)==null);
         }
         add("render Calibrator HUD and world bounds",()->{
-            mc().setScreen(null);mc().player.setXRot(35);mc().player.setYRot(160);
-        },()->{if(ticks==30)screenshot("world");return ticks>40;});
+            mc().setScreen(null);command("view");mc().player.setXRot(36);mc().player.setYRot(45);
+        },()->{if(ticks==200)screenshot("world");return ticks>210;});
     }
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if(!Boolean.getBoolean("streamcontrol.clientIntegrationTest") || done) return;
