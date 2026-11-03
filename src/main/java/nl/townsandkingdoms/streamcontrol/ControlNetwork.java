@@ -89,11 +89,11 @@ public final class ControlNetwork {
         if(level.getBlockEntity(pos) instanceof UtilityAccess be)be.configure(p.settings());
     }
     public static void register() {
-        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.playS2C().register(Open.TYPE,Open.CODEC);
-        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.playS2C().register(UtilityOpen.TYPE,UtilityOpen.CODEC);
-        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.playS2C().register(Update.TYPE,Update.CODEC);
-        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.playC2S().register(Configure.TYPE,Configure.CODEC);
-        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.playC2S().register(UtilityConfigure.TYPE,UtilityConfigure.CODEC);
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(Open.TYPE,Open.CODEC);
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(UtilityOpen.TYPE,UtilityOpen.CODEC);
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(Update.TYPE,Update.CODEC);
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay().register(Configure.TYPE,Configure.CODEC);
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay().register(UtilityConfigure.TYPE,UtilityConfigure.CODEC);
         net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(Configure.TYPE,(p,c)->c.server().execute(()->configure(c.player(),p)));
         net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(UtilityConfigure.TYPE,(p,c)->c.server().execute(()->configureUtility(c.player(),p)));
     }
