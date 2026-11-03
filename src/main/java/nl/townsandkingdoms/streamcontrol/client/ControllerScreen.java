@@ -10,7 +10,6 @@ import net.minecraft.client.gui.screens.Screen;
 import nl.townsandkingdoms.streamcontrol.FlowHeading;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.PacketDistributor;
 import nl.townsandkingdoms.streamcontrol.ControlNetwork;
 import nl.townsandkingdoms.streamcontrol.FlowProfile;
 import nl.townsandkingdoms.streamcontrol.ControllerSettings;
@@ -141,7 +140,7 @@ public final class ControllerScreen extends Screen {
 
     private void apply() {
         storeProfile();settings.put("ProfileA",profileA.save());settings.put("ProfileB",profileB.save());
-        PacketDistributor.sendToServer(new ControlNetwork.Configure(snapshot.pos(),profileA.radius(),profileA.strength(),
+        ControlNetwork.sendConfigure(new ControlNetwork.Configure(snapshot.pos(),profileA.radius(),profileA.strength(),
             profileA.connectedOnly(),profileA.heading().id(),settings));
         onClose();
     }
