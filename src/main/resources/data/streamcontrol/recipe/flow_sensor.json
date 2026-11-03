@@ -6,18 +6,10 @@
     "CCC"
   ],
   "key": {
-    "C": {
-      "item": "minecraft:copper_ingot"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    },
-    "Q": {
-      "item": "minecraft:quartz"
-    },
-    "M": {
-      "item": "minecraft:comparator"
-    }
+    "C": "minecraft:copper_ingot",
+    "R": "minecraft:redstone",
+    "Q": "minecraft:quartz",
+    "M": "minecraft:comparator"
   },
   "result": {
     "id": "streamcontrol:flow_sensor",
