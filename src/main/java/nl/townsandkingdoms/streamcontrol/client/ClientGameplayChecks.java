@@ -122,7 +122,7 @@ public final class ClientGameplayChecks {
             if(!connecting) {
                 if(!(mc().screen instanceof TitleScreen) || mc().getOverlay()!=null) return;
                 connecting=true;
-                ConnectScreen.startConnecting(mc().screen,mc(),ServerAddress.parseString("127.0.0.1:25565"),new ServerData("Flow test","127.0.0.1:25565",ServerData.Type.OTHER),false,Optional.empty());
+                ConnectScreen.startConnecting(mc().screen,mc(),ServerAddress.parseString("127.0.0.1:25565"),new ServerData("Flow test","127.0.0.1:25565",ServerData.Type.OTHER),false,null);
                 return;
             }
             if(mc().level==null || mc().player==null) return;
