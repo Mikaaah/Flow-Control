@@ -26,7 +26,7 @@ public final class EngineeringChecks {
     }
     public static void run(ServerLevel level,Map<String,Object> results) {
         for(String name:new String[]{"flow_wand","current_generator","stillwater_anchor","flow_sensor","mooring_post"})
-            check(level.getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,net.minecraft.resources.Identifier.fromNamespaceAndPath(StreamControl.ID,name))).isPresent(),"Survival recipe missing: "+name);
+            check(level.getServer().getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,net.minecraft.resources.Identifier.fromNamespaceAndPath(StreamControl.ID,name))).isPresent(),"Survival recipe missing: "+name);
         results.put("allSurvivalRecipesLoaded",true);
         BlockPos p=new BlockPos(256,120,256),q=p.east(10);var data=ControlData.get(level);
         level.setBlock(p,StreamControl.GENERATOR.get().defaultBlockState(),3);
