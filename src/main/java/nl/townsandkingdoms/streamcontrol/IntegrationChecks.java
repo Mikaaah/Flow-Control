@@ -2,7 +2,6 @@ package nl.townsandkingdoms.streamcontrol;
 
 import com.google.gson.GsonBuilder;
 import dev.streamsreflowing.flow.StreamFlowGrid;
-import dev.streamsreflowing.neoforge.fluid.StreamFluids;
 import io.netty.buffer.Unpooled;
 import java.nio.file.Files;
 import java.util.*;
@@ -20,9 +19,13 @@ import net.neoforged.neoforge.event.server.ServerStartedEvent;
 /** Opt-in dedicated-server test; never runs in a player's normal world. */
 public final class IntegrationChecks {
     public static void register() {
-        if (Boolean.getBoolean("streamcontrol.integrationTest")) {
+        if (Boolean.getBooleanOr("streamcontrol.integrationTest",false)) {
             NeoForge.EVENT_BUS.addListener(IntegrationChecks::run);
         }
+    }
+    private static net.minecraft.world.level.block.state.BlockState streamState() {
+        var b=net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("streamsreflowing","stream"));
+        if(b==Blocks.AIR) throw new AssertionError("Streams fluid block missing");return b.defaultBlockState();
     }
     private static void check(boolean condition, String message) { if (!condition) throw new AssertionError(message); }
     private static void run(ServerStartedEvent event) {
@@ -37,8 +40,8 @@ public final class IntegrationChecks {
             check(data.at(16,122,16) != null && data.at(16,123,16) == null,"Height boundary");
             Vec3 flow = level.getFluidState(p).getFlow(level,p);
             check(flow.x > 0.7 && Math.abs(flow.z) < 0.01,"Vanilla water did not follow direction: " + flow);
-            check(StreamFlowGrid.angleForEntityPush(level,16,120,16) == StreamFlowGrid.encode(1,0),"Vessel direction hook");
-            check(StreamFlowGrid.speedForPhysics(level,16,120,16) == 0.75,"Vessel strength hook");
+            check(StreamFlowGrid.noDecompilePermission1(level,16,120,16) == StreamFlowGrid.encode(1,0),"Vessel direction hook");
+            check(StreamFlowGrid.sourceGivenToAuthorizedOnly1(level,16,120,16) == 0.75,"Vessel strength hook");
             results.put("vanillaWaterAndVesselFlow",true);
             for(int dx=-4;dx<=4;dx++) if(dx!=0) {
                 int top=dx>0?123:117;
@@ -48,20 +51,19 @@ public final class IntegrationChecks {
             flow=level.getFluidState(p).getFlow(level,p);
             check(flow.x>0.7 && Math.abs(flow.z)<0.01,"Explicit Flow Wand direction was overridden by automatic downhill correction: "+flow);
             results.put("manualDirectionRetainsPriorityOverDownhillGuard",true);
-            level.setBlock(p, StreamFluids.STREAM_BLOCK.get().defaultBlockState().setValue(dev.streamsreflowing.neoforge.fluid.StreamLiquidBlock.FLOW, 4),3);
+            level.setBlock(p, streamState(),3);
             flow = level.getFluidState(p).getFlow(level,p);
             check(flow.x > 0.7 && Math.abs(flow.z) < 0.01,"Baked stream direction: " + flow);
             var still = new FlowRegion(102,p,3,2,1,0,1,true,true,owner,data.next());
             data.put(level,still);
             check(data.at(16,120,16).still(),"Still block precedence");
             check(level.getFluidState(p).getFlow(level,p).lengthSqr() < 1e-10,"Stillness did not cancel baked stream flow");
-            check(StreamFlowGrid.speedForPhysics(level,16,120,16) == 0,"Stillness did not cancel vessel drift");
+            check(StreamFlowGrid.sourceGivenToAuthorizedOnly1(level,16,120,16) == 0,"Stillness did not cancel vessel drift");
             check(data.at(20,120,16).key() == directed.key(),"Stillness leaked beyond radius");
             results.put("bakedWaterStillnessAndOverlap",true);
             for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++)
-                level.setBlock(p.offset(x,0,z),StreamFluids.STREAM_BLOCK.get().defaultBlockState()
-                    .setValue(dev.streamsreflowing.neoforge.fluid.StreamLiquidBlock.FLOW,4),3);
-            var boat = net.minecraft.world.entity.EntityType.OAK_BOAT.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
+                level.setBlock(p.offset(x,0,z),streamState(),3);
+            var boat = net.minecraft.world.entity.EntityTypes.OAK_BOAT.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
             boat.setPos(16.5,120.2,16.5); level.addFreshEntity(boat);
             for (int tick = 0; tick < 20; tick++) boat.tick();
             check(Math.abs(boat.getX()-16.5) < 0.01 && Math.abs(boat.getZ()-16.5) < 0.01,
@@ -99,6 +101,7 @@ public final class IntegrationChecks {
             check(server.getCommands().getDispatcher().execute("streamcontrol status",server.createCommandSourceStack())==1,"Status command");
             ControllerRegressionChecks.run(level); results.put("controllerGuiAndConnectedWaterRegression",true);
             HeadingRegressionChecks.run(level); results.put("eightHeadingPhysicsPersistenceAndPackets",true);
+            EngineeringChecks.run(level,results);
             results.put("passed",true);
         } catch (Throwable t) { results.put("passed",false);results.put("error",t.toString()); t.printStackTrace(); }
         finally { data.remove(level,101);data.remove(level,102); }

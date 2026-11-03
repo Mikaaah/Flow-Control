@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "streamcontrol:current_generator",
-    "streamcontrol:stillwater_anchor"
+    "streamcontrol:stillwater_anchor",
+    "streamcontrol:flow_sensor",
+    {
+      "id": "streamcontrol:mechanical_current_generator",
+      "required": false
+    }
   ]
 }
