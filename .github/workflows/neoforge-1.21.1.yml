@@ -32,7 +32,9 @@ jobs:
           curl --fail --location --retry 3 \
             --output libs/StreamsReflowing-1.21.1-neoforge-2.16.2.jar \
             https://mediafilez.forgecdn.net/files/9376/530/StreamsReflowing-1.21.1-neoforge-2.16.2.jar
-          test -s libs/StreamsReflowing-1.21.1-neoforge-2.16.2.jar
+          sha256sum --check <<'HASH'
+          70930ad6b943d9a359ddb573450f5114a6a54a676e32c1895f6eb4d2cd634a33  libs/StreamsReflowing-1.21.1-neoforge-2.16.2.jar
+          HASH
       - name: Compile and package addon
         run: |
           chmod +x gradlew

@@ -119,7 +119,7 @@ public final class ControllerScreen extends Screen {
             centered(g, tr("blocks", radius * 2 + 1), left + 66, top + 98, INK);
             centered(g, tr("height_label"), left + 250, top + 82, MUTED);
             centered(g, Component.literal("+/- " + snapshot.vertical()), left + 250, top + 98, INK);
-            centered(g, tr("zero_flow"), left + 158, top + 127, TEAL);
+            centered(g, tr("zero_flow"), left + 158, top + 129, TEAL);
             g.drawString(font, tr("radius_label"), left + 26, top + 144, INK, false);
             right(g, tr("blocks", radius), left + 290, top + 144, TEAL);
         } else {
@@ -163,7 +163,7 @@ public final class ControllerScreen extends Screen {
     }
     private void drawWaterPreview(GuiGraphics g) {
         // Odd-sized chart has one exact center shared by the compass and anchor metrics.
-        int cx = left + (snapshot.still() ? 158 : 89), cy = top + (snapshot.still() ? 98 : 112);
+        int cx = left + (snapshot.still() ? 158 : 89), cy = top + (snapshot.still() ? 96 : 112);
         int x = cx - 26, y = cy - 26;
         for (int row = 0; row < 9; row++) for (int col = 0; col < 9; col++) {
             int dx = col - 4, dz = row - 4;

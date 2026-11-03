@@ -10,9 +10,9 @@ Shape currents and create calm water around docks, canals and builds. An addon f
 
 ## Versions and downloads
 
-Version **0.1.5** includes the parchment controller GUI and an eight-way compass on all eight versions. Diagonal currents keep the selected speed, and controller arrows follow the chosen heading.
+The **0.1.7 preview for NeoForge 1.21.1** updates compatibility to **Streams Reflowing 2.16.2** and gives both controllers a distinct slate-and-copper layout. The Current Generator has a centered eight-way navigation chart; the Stillwater Anchor has a central anchor chart and symmetric range readouts. Header rivets are removed. The preview source and its build checks are on [`gui/controller-layout`](https://github.com/Mikaaah/Flow-Control/tree/gui/controller-layout).
 
-![Controller GUI](docs/assets/controller-gui-0.1.5.png)
+The published **0.1.5** downloads below remain available for all eight versions and require Streams Reflowing **2.15.2**.
 
 | Minecraft | Loader | Streams Reflowing | Java | Download |
 | --- | --- | --- | --- | --- |
