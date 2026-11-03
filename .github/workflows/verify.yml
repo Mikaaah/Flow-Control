@@ -1,7 +1,7 @@
 name: fabric 1.21.1 build and regression
 on:
   push:
-    branches: ['fabric/1.21.1']
+    branches: ["gui/**", "feature/**", 'fabric/1.21.1']
   pull_request:
     branches: ['fabric/1.21.1']
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
       - name: Fetch pinned Streams dependency
         run: |
           mkdir -p libs
-          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/OBnu1pc1/StreamsReflowing-1.21.1-fabric-2.15.2.jar' -o 'libs/StreamsReflowing-1.21.1-fabric-2.15.2.jar'
+          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/Oc4Bncre/StreamsReflowing-1.21.1-fabric-2.16.2.jar' -o 'libs/StreamsReflowing-1.21.1-fabric-2.16.2.jar'
       - name: Build
         run: bash gradlew --no-daemon clean build
       - name: Prepare disposable regression world
@@ -44,8 +44,23 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-fabric-1.21.1-0.1.5
+          name: flow-control-fabric-1.21.1-0.2.2
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
             run/logs/latest.log
+
+      - name: Capture client menus and baked block models
+        run: |
+          mkdir -p run-client
+          printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
+          timeout 360 xvfb-run -a bash gradlew --no-daemon -Dstreamcontrol.uiPreview=true runClient
+          test -s run-client/screenshots/flow-control-block-models.png
+      - name: Upload client screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flow-control-0.2.2-fabric-1.21.1-client
+          path: |
+            run-client/screenshots/*.png
+            run-client/logs/latest.log

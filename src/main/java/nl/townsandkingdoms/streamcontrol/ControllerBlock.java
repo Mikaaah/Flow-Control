@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 public final class ControllerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -40,10 +41,14 @@ public final class ControllerBlock extends BaseEntityBlock implements SimpleWate
             if (level.getBlockEntity(pos) instanceof ControllerEntity be) be.waterChanged();
         }
     }
+    @Override protected ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack stack,BlockState state,Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit) {
+        // Let the Calibrator's item handler run before the ordinary configure interaction.
+        return stack.is(StreamControl.WAND.get()) ? ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION : super.useItemOn(stack,state,level,pos,player,hand,hit);
+    }
     @Override protected InteractionResult useWithoutItem(BlockState s, Level level, BlockPos pos, Player p, BlockHitResult hit) {
         if (!p.mayBuild() || !level.mayInteract(p,pos)) return InteractionResult.FAIL;
-        if (!level.isClientSide && p instanceof net.minecraft.server.level.ServerPlayer player
-            && level.getBlockEntity(pos) instanceof ControllerEntity be) ControlNetwork.open(player, be);
+        if (!level.isClientSide && p instanceof ServerPlayer player && level.getBlockEntity(pos) instanceof ControllerEntity be)
+            ControlNetwork.open(player, be);
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
     @Override protected void onRemove(BlockState old, Level level, BlockPos pos, BlockState next, boolean moving) {

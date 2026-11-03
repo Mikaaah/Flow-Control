@@ -1,6 +1,5 @@
 package nl.townsandkingdoms.streamcontrol.mixin;
 
-import dev.streamsreflowing.fabric.client.StreamParticleScanner;
 import net.minecraft.client.multiplayer.ClientLevel;
 import nl.townsandkingdoms.streamcontrol.FlowOverrides;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * independently of fluid physics. Stop the emitter at the precise water cell,
  * rather than disabling its particles globally or relying on its y-less grid.
  */
-@Mixin(value = StreamParticleScanner.class, remap = false)
+@Mixin(targets = "dev.streamsreflowing.fabric.client.NoDecompilePermissionEver_001", remap = false)
 public abstract class SurfaceParticlesMixin {
-    @Inject(target = @org.spongepowered.asm.mixin.injection.Desc(value="emitSurfaceAt", args={ClientLevel.class,int.class,int.class,int.class,byte.class,double.class,boolean.class}), at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(target = @org.spongepowered.asm.mixin.injection.Desc(value="proprietary1",args={ClientLevel.class,int.class,int.class,int.class,byte.class,double.class,boolean.class},ret=void.class), at = @At("HEAD"), cancellable = true, remap = false)
     private static void streamcontrol$quietSurface(ClientLevel level, int x, int y, int z,
                                                     byte angle, double drift, boolean debris, CallbackInfo ci) {
         var region = FlowOverrides.clientAt(x, y, z);
