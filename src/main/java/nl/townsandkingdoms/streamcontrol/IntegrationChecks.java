@@ -2,7 +2,6 @@ package nl.townsandkingdoms.streamcontrol;
 
 import com.google.gson.GsonBuilder;
 import dev.streamsreflowing.flow.StreamFlowGrid;
-import dev.streamsreflowing.fabric.fluid.StreamFluids;
 import io.netty.buffer.Unpooled;
 import java.nio.file.Files;
 import java.util.*;
@@ -17,6 +16,10 @@ import net.minecraft.world.phys.Vec3;
 /** Opt-in dedicated-server test; never runs in a player's normal world. */
 public final class IntegrationChecks {
     public static void register() { if(Boolean.getBoolean("streamcontrol.integrationTest")) net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(IntegrationChecks::run); }
+    private static net.minecraft.world.level.block.state.BlockState streamState() {
+        var b=net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("streamsreflowing","stream"));
+        if(b==Blocks.AIR) throw new AssertionError("Streams fluid block missing");return b.defaultBlockState();
+    }
     private static void check(boolean condition, String message) { if (!condition) throw new AssertionError(message); }
     private static void run(net.minecraft.server.MinecraftServer server) {
         var level = server.overworld(); var results = new LinkedHashMap<String,Object>();

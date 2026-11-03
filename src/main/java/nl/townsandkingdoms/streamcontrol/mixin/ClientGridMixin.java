@@ -1,10 +1,9 @@
 package nl.townsandkingdoms.streamcontrol.mixin;
-import dev.streamsreflowing.flow.*;
 import nl.townsandkingdoms.streamcontrol.FlowOverrides;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-@Mixin(value = ClientFlowGrids.class, remap = false)
+@Mixin(targets = "dev.streamsreflowing.flow.ProprietaryNiceJohn_001", remap = false)
 public abstract class ClientGridMixin {
     @Inject(method = "seeAiNotice1(III)B", at = @At("HEAD"), cancellable = true, remap = false)
     private static void streamcontrol$angle(int x,int y,int z,CallbackInfoReturnable<Byte> cir) {
