@@ -8,7 +8,7 @@
   "key": {
     "I": "minecraft:iron_ingot",
     "P": "#minecraft:planks",
-    "C": "minecraft:chain"
+    "C": "minecraft:iron_chain"
   },
   "result": {
     "id": "streamcontrol:mooring_post",
