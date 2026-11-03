@@ -40,7 +40,7 @@ jobs:
       - name: Upload test JAR
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.1.6-neoforge-1.21.1
+          name: flow-control-0.1.7-neoforge-1.21.1
           path: build/libs/flow-control-*.jar
           if-no-files-found: error
 
@@ -61,7 +61,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.1.6-neoforge-1.21.1-checks
+          name: flow-control-0.1.7-neoforge-1.21.1-checks
           path: |
             run/streamcontrol-integration-results.json
             run/logs/latest.log
@@ -78,7 +78,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.1.6-client-preview
+          name: flow-control-0.1.7-client-preview
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log

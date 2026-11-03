@@ -13,10 +13,10 @@
   "gui.streamcontrol.cancel": "Cancel",
   "gui.streamcontrol.still_description": "A peaceful pocket of motionless water",
   "gui.streamcontrol.current_description": "Shape the current around your build",
-  "gui.streamcontrol.radius_label": "INFLUENCE AREA",
+  "gui.streamcontrol.radius_label": "RADIUS",
   "gui.streamcontrol.radius": "Radius: %s blocks",
   "gui.streamcontrol.radius_details": "Diameter: %s blocks  |  Vertical reach: +/- %s",
-  "gui.streamcontrol.speed_label": "CURRENT STRENGTH",
+  "gui.streamcontrol.speed_label": "STRENGTH",
   "gui.streamcontrol.speed": "Flow speed: %s",
   "gui.streamcontrol.still_speed": "Flow speed: 0% (still water)",
   "gui.streamcontrol.still_direction": "No flow direction",
@@ -70,5 +70,8 @@
   "gui.streamcontrol.short_s": "S",
   "gui.streamcontrol.short_sw": "SW",
   "gui.streamcontrol.short_w": "W",
-  "gui.streamcontrol.short_nw": "NW"
+  "gui.streamcontrol.short_nw": "NW",
+  "gui.streamcontrol.calm_area": "CALM WATER",
+  "gui.streamcontrol.diameter_label": "DIAMETER",
+  "gui.streamcontrol.height_label": "HEIGHT"
 }

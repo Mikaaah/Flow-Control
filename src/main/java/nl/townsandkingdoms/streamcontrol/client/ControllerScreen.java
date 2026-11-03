@@ -18,7 +18,8 @@ public final class ControllerScreen extends Screen {
     private static final int PANEL_W = 316, PANEL_H = 238;
     private static final int INK = 0xFFF4EBE5, MUTED = 0xFFA9C3C8, CREAM = 0xFFF4EBE5;
     private static final int EDGE = 0xFF20293F, GOLD = 0xFFC09473, TEAL = 0xFFA9D2CD;
-    private static final ResourceLocation BACKGROUND = texture("controller");
+    private static final ResourceLocation CURRENT_BACKGROUND = texture("current_controller");
+    private static final ResourceLocation STILL_BACKGROUND = texture("stillwater_controller");
     private static final ResourceLocation MENU_FONT = ResourceLocation.fromNamespaceAndPath("streamcontrol", "menu");
     private static ResourceLocation texture(String name) {
         return ResourceLocation.fromNamespaceAndPath("streamcontrol", "textures/gui/" + name + ".png");
@@ -52,15 +53,18 @@ public final class ControllerScreen extends Screen {
     @Override protected void init() {
         left = (width - PANEL_W) / 2;
         top = (height - PANEL_H) / 2;
-        var radiusSlider = addRenderableWidget(new RadiusSlider(left + 134, top + 68, 166));
+        var radiusSlider = addRenderableWidget(new RadiusSlider(left + (snapshot.still() ? 26 : 182),
+            top + (snapshot.still() ? 156 : 83), snapshot.still() ? 264 : 108));
         radiusSlider.active = snapshot.maxRadius() > 1;
         radiusSlider.setTooltip(Tooltip.create(tr("radius_help")));
         if (!snapshot.still()) {
-            addRenderableWidget(new SpeedSlider(left + 134, top + 110, 166));
+            addRenderableWidget(new SpeedSlider(left + 182, top + 133, 108));
             for (FlowHeading d : FlowHeading.values()) {
                 final FlowHeading direction = d;
-                var button = new SlateButton(left + 218 + (d.stepX() + 1) * 28,
-                    top + 125 + (d.stepZ() + 1) * 15, 26, 14,
+                // Eight compass points surround the chart. Every hitbox stays inside its card.
+                int cx = 89 + d.stepX() * (d.diagonal() ? 48 : 56);
+                int cy = 112 + d.stepZ() * (d.diagonal() ? 28 : 38);
+                var button = new SlateButton(left + cx - 13, top + cy - 7, 26, 14,
                     tr("short_" + d.abbreviation()), b -> facing = direction, false) {
                     @Override protected boolean selected() { return facing == direction; }
                 };
@@ -68,7 +72,7 @@ public final class ControllerScreen extends Screen {
                 addRenderableWidget(button);
             }
         }
-        var waterToggle = new SlateButton(left + 14, top + 174, 286, 22,
+        var waterToggle = new SlateButton(left + 14, top + 176, 286, 22,
             tr("connected", tr(connected ? "on" : "off")), b -> {
                 connected = !connected;
                 b.setMessage(tr("connected", tr(connected ? "on" : "off")));
@@ -106,28 +110,28 @@ public final class ControllerScreen extends Screen {
         drawPanel(g);
         Component heading = title.copy().withStyle(style -> style.withFont(MENU_FONT));
         centered(g, heading, left + PANEL_W / 2, top + 12, CREAM);
-        g.drawString(font, tr(snapshot.still() ? "calm_subtitle" : "current_subtitle"),
-            left + 45, top + 31, MUTED, false);
-        drawSeal(g, left + 16, top + 23);
-        g.drawString(font, tr("area_preview"), left + 22, top + 54, INK, false);
+        centered(g, tr(snapshot.still() ? "calm_subtitle" : "current_subtitle"),
+            left + PANEL_W / 2, top + 32, MUTED);
         drawWaterPreview(g);
-        centered(g, tr("preview_diameter", radius * 2 + 1), left + 66, top + 148, INK);
-        centered(g, tr("preview_height", snapshot.vertical()), left + 66, top + 159, MUTED);
-        g.drawString(font, tr("radius_label"), left + 134, top + 54, INK, false);
-        right(g, tr("blocks", radius), left + 300, top + 54, TEAL);
         if (snapshot.still()) {
-            bevel(g, left + 134, top + 98, 166, 65, 0xFF446077, false);
-            g.drawString(font, tr("moored"), left + 144, top + 108, INK, false);
-            g.drawString(font, tr("zero_flow"), left + 144, top + 124, TEAL, false);
-            g.drawString(font, tr("no_direction"), left + 144, top + 141, MUTED, false);
+            centered(g, tr("calm_area"), left + 158, top + 54, INK);
+            centered(g, tr("diameter_label"), left + 66, top + 82, MUTED);
+            centered(g, tr("blocks", radius * 2 + 1), left + 66, top + 98, INK);
+            centered(g, tr("height_label"), left + 250, top + 82, MUTED);
+            centered(g, Component.literal("+/- " + snapshot.vertical()), left + 250, top + 98, INK);
+            centered(g, tr("zero_flow"), left + 158, top + 127, TEAL);
+            g.drawString(font, tr("radius_label"), left + 26, top + 144, INK, false);
+            right(g, tr("blocks", radius), left + 290, top + 144, TEAL);
         } else {
-            g.drawString(font, tr("speed_label"), left + 134, top + 96, INK, false);
-            right(g, Component.literal(String.format(Locale.ROOT, "%d%%", Math.round(speed * 100))),
-                left + 300, top + 96, TEAL);
-            g.drawString(font, tr("heading_compact"), left + 134, top + 132, INK, false);
-            g.drawString(font, tr(facing.key()), left + 134, top + 148, MUTED, false);
-            bevel(g, left + 246, top + 140, 26, 14, 0xFF304358, false);
-            g.fill(left + 257, top + 144, left + 261, top + 150, GOLD);
+            centered(g, tr("heading_label"), left + 89, top + 54, INK);
+            centered(g, tr(facing.key()), left + 89, top + 162, MUTED);
+            centered(g, tr("radius_label"), left + 236, top + 56, INK);
+            centered(g, tr("blocks", radius), left + 236, top + 70, TEAL);
+            centered(g, tr("speed_label"), left + 236, top + 106, INK);
+            centered(g, Component.literal(String.format(Locale.ROOT, "%d%%", Math.round(speed * 100))),
+                left + 236, top + 120, TEAL);
+            centered(g, tr("preview_diameter", radius * 2 + 1), left + 236, top + 151, INK);
+            centered(g, tr("preview_height", snapshot.vertical()), left + 236, top + 162, MUTED);
         }
         // Keep status within the frame, including when redstone disables the controller.
         centered(g, tr(snapshot.powered() ? "powered_status" : "apply_hint"),
@@ -136,7 +140,8 @@ public final class ControllerScreen extends Screen {
     }
 
     private void drawPanel(GuiGraphics g) {
-        g.blit(BACKGROUND, left, top, 0f, 0f, PANEL_W, PANEL_H, PANEL_W, PANEL_H);
+        g.blit(snapshot.still() ? STILL_BACKGROUND : CURRENT_BACKGROUND, left, top,
+            0f, 0f, PANEL_W, PANEL_H, PANEL_W, PANEL_H);
     }
 
     private static void control(GuiGraphics g, String name, int x, int y, int w, int h, int state) {
@@ -156,32 +161,28 @@ public final class ControllerScreen extends Screen {
     private void right(GuiGraphics g, Component text, int x, int y, int color) {
         g.drawString(font, text, x - font.width(text), y, color, false);
     }
-    private void drawSeal(GuiGraphics g, int x, int y) {
-        bevel(g, x, y, 22, 23, 0xFF446077, true);
-        for (int row = 0; row < 3; row++) {
-            int offset = row == 1 ? 2 : 0;
-            g.fill(x + 4 + offset, y + 6 + row * 4, x + 15 + offset, y + 7 + row * 4, 0xFFA9D2CD);
-            g.fill(x + 4 + offset, y + 5 + row * 4, x + 7 + offset, y + 6 + row * 4, 0xFFA9D2CD);
-        }
-    }
-
     private void drawWaterPreview(GuiGraphics g) {
-        int x = left + 22, y = top + 68;
-        // Schematic only: it communicates circular range, direction, and disconnected pools.
+        // Odd-sized chart has one exact center shared by the compass and anchor metrics.
+        int cx = left + (snapshot.still() ? 158 : 89), cy = top + (snapshot.still() ? 98 : 112);
+        int x = cx - 26, y = cy - 26;
         for (int row = 0; row < 9; row++) for (int col = 0; col < 9; col++) {
             int dx = col - 4, dz = row - 4;
-            boolean pool = col >= 7 && row < 4;
-            boolean wet = col < 6 || pool;
-            boolean covered = dx * dx + dz * dz <= 16 && (!connected || !pool);
-            int color = !wet ? 0xFFB88B68 : covered ? 0xFF729AA1 : 0xFF344759;
-            int tx = x + col * 9, ty = y + row * 8;
-            g.fill(tx, ty, tx + 8, ty + 7, color);
-            if (wet) g.fill(tx + 2, ty + 2, tx + 6, ty + 3, covered ? 0xFFA9D2CD : 0xFF54768B);
+            if (dx * dx + dz * dz > 20) continue;
+            boolean isolated = col >= 7 && row <= 2;
+            boolean covered = !connected || !isolated;
+            int tx = x + col * 6, ty = y + row * 6;
+            g.fill(tx, ty, tx + 5, ty + 5, covered ? 0xFF54768B : 0xFF344759);
+            g.fill(tx + 1, ty + 2, tx + 4, ty + 3, covered ? TEAL : 0xFF54768B);
         }
-        int cx = x + 4 * 9 + 4, cy = y + 4 * 8 + 3;
         if (snapshot.still()) {
-            g.fill(cx - 4, cy - 4, cx + 4, cy + 4, GOLD);
-            g.fill(cx - 2, cy - 2, cx + 2, cy + 2, EDGE);
+            // Anchor glyph; the generator uses a heading arrow instead.
+            g.fill(cx - 3, cy - 8, cx + 4, cy - 3, CREAM);
+            g.fill(cx - 1, cy - 7, cx + 2, cy - 5, EDGE);
+            g.fill(cx, cy - 3, cx + 2, cy + 8, CREAM);
+            g.fill(cx - 4, cy - 1, cx + 6, cy + 1, CREAM);
+            g.fill(cx - 6, cy + 4, cx - 4, cy + 8, CREAM);
+            g.fill(cx + 6, cy + 4, cx + 8, cy + 8, CREAM);
+            g.fill(cx - 4, cy + 7, cx + 6, cy + 9, CREAM);
         } else {
             for (int n = -5; n <= 5; n++) {
                 int px = cx + facing.stepX() * n, py = cy + facing.stepZ() * n;
@@ -228,7 +229,7 @@ public final class ControllerScreen extends Screen {
         SlateSlider(int x, int y, int w, double value) { super(x, y, w, 16, Component.empty(), value); }
         @Override public void renderWidget(GuiGraphics g, int mx, int my, float partialTick) {
             int x = getX(), y = getY(), w = getWidth();
-            g.blit(texture("track"), x, y + 4, 0f, 0f, w, 8, w, 8);
+            g.blit(texture(w == 264 ? "track_wide" : "track_small"), x, y + 4, 0f, 0f, w, 8, w, 8);
             int handle = x + 3 + (int)Math.round(value * (w - 12));
             g.fill(x + 3, y + 7, handle + 4, y + 9, TEAL);
             control(g, "handle", handle, y + 1, 9, 14, !active ? 4 : isHoveredOrFocused() ? 3 : 2);

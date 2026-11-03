@@ -1,3 +1,13 @@
+![Flow Control](https://i.imgur.com/JGT2lvz.png)
+
+## 0.1.7
+
+- Removed the header corner rivets.
+- Rebuilt both controller layouts with centered charts, balanced spacing and contained compass buttons.
+- Current Generator now has an eight-way navigation chart with a separate radius and strength panel.
+- Stillwater Anchor now has a central anchor chart, symmetric range readouts and a full-width radius control.
+- Preserved all controller settings, connected-water filtering and redstone behavior.
+
 ## 0.1.6 — TNK GUI Rework
 
 ![Flow Control](https://i.imgur.com/JGT2lvz.png)
