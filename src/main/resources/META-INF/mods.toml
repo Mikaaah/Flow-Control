@@ -4,7 +4,7 @@ license="GPL-3.0-only"
 issueTrackerURL="https://github.com/Mikaaah/Streams-Flow-Control/issues"
 [[mods]]
 modId="streamcontrol"
-version="0.1.6"
+version="0.2.2"
 displayName="Streams Flow Control"
 authors="Mikaaah / Towns & Kingdoms"
 displayURL="https://github.com/Mikaaah/Streams-Flow-Control"
@@ -24,6 +24,13 @@ side="BOTH"
 [[dependencies.streamcontrol]]
 modId="streamsreflowing"
 mandatory=true
-versionRange="[2.15.2,2.15.3)"
+versionRange="[2.16.2,2.16.3)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.streamcontrol]]
+modId="create"
+mandatory=false
+versionRange="[6.0.8,6.1)"
 ordering="AFTER"
 side="BOTH"

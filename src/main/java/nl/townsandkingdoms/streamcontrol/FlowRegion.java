@@ -57,7 +57,7 @@ public record FlowRegion(long key, BlockPos center, int radius, int vertical, do
         double speed = n.getDouble("Strength");
         return new FlowRegion(n.getLong("Key"), BlockPos.of(n.getLong("Pos")), Math.max(1, Math.min(32, n.getInt("Radius"))),
             Math.max(0, Math.min(16, n.getInt("Vertical"))), dx / length, dz / length,
-            Double.isFinite(speed) ? Math.max(0.05, Math.min(2, speed)) : 1, n.getBoolean("Still"), n.getBoolean("Controller"),
+            Double.isFinite(speed) ? Math.max(0, Math.min(2, speed)) : 1, n.getBoolean("Still"), n.getBoolean("Controller"),
             n.hasUUID("Owner") ? n.getUUID("Owner") : new UUID(0, 0), n.getLong("Sequence"),
             n.getBoolean("ConnectedOnly"), n.getLongArray("WaterMask"));
     }

@@ -1,12 +1,18 @@
 name: forge 1.20.1 build and regression
 on:
   push:
-    branches: ["gui/**", 'forge/1.20.1']
+    branches: ["gui/**", "feature/**", 'forge/1.20.1']
   pull_request:
     branches: ['forge/1.20.1']
   workflow_dispatch:
 jobs:
   verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        flavor: [standalone, create]
+    env:
+      CREATE_ARGS: ${{ matrix.flavor == 'create' && '-PwithCreate' || '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -23,9 +29,12 @@ jobs:
       - name: Fetch pinned Streams dependency
         run: |
           mkdir -p libs
-          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/E2kHhZal/StreamsReflowing-1.20.1-forge-2.15.2.jar' -o 'libs/StreamsReflowing-1.20.1-forge-2.15.2.jar'
+          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/2atswP67/StreamsReflowing-1.20.1-forge-2.16.2.jar' -o 'libs/StreamsReflowing-1.20.1-forge-2.16.2.jar'
+          echo '96460ae0ac76b25ebe0ea518933d4d5a962b02ec927143d770c087b929139f52  libs/StreamsReflowing-1.20.1-forge-2.16.2.jar' | sha256sum --check
+      - name: Fetch optional Create fixture
+        run: python3 tools/fetch_create.py
       - name: Build
-        run: bash gradlew --no-daemon clean build
+        run: bash gradlew --no-daemon $CREATE_ARGS clean build
       - name: Prepare disposable regression world
         run: |
           mkdir -p run
@@ -33,7 +42,7 @@ jobs:
           printf 'level-type=minecraft:flat\ngenerate-structures=false\nonline-mode=false\nview-distance=2\nsimulation-distance=2\n' > run/server.properties
       - name: Dedicated server regression
         run: |
-          timeout 300 bash gradlew --no-daemon -Dstreamcontrol.integrationTest=true runServer
+          timeout 300 bash gradlew --no-daemon $CREATE_ARGS -Dstreamcontrol.integrationTest=true runServer
           python3 - <<'CHECK'
           import json
           data=json.load(open('run/streamcontrol-integration-results.json'))
@@ -45,8 +54,23 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-forge-1.20.1-0.1.6
+          name: flow-control-forge-1.20.1-0.2.2-${{ matrix.flavor }}
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
             run/logs/latest.log
+
+      - name: Capture client menus and baked block models
+        run: |
+          mkdir -p run-client
+          printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
+          timeout 360 xvfb-run -a bash gradlew --no-daemon $CREATE_ARGS -Dstreamcontrol.uiPreview=true runClient
+          test -s run-client/screenshots/flow-control-block-models.png
+      - name: Upload client screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flow-control-0.2.2-forge-1.20.1-${{ matrix.flavor }}-client
+          path: |
+            run-client/screenshots/*.png
+            run-client/logs/latest.log
