@@ -36,10 +36,10 @@ public final class ClientTestWorld {
         l.setBlock(ANCHOR,StreamControl.ANCHOR.get().defaultBlockState(),3);
         ((ControllerEntity)l.getBlockEntity(ANCHOR)).configure(FlowHeading.NORTH,3,1,false);
         // A separate high pool makes the sensor's independent vertical range observable.
-        l.setBlock(SENSOR.above(3),Blocks.WATER.defaultBlockState(),3);
-        for(var d:net.minecraft.core.Direction.Plane.HORIZONTAL) l.setBlock(SENSOR.above(3).relative(d),Blocks.GLASS.defaultBlockState(),3);
-        l.setBlock(SENSOR.above(2),Blocks.GLASS.defaultBlockState(),3);
-        ControlData.get(l).put(l,new FlowRegion(9001,SENSOR.above(3),1,0,1,0,2,false,false,new java.util.UUID(0,0),ControlData.get(l).next()));
+        l.setBlock(SENSOR.above(6),Blocks.WATER.defaultBlockState(),3);
+        for(var d:net.minecraft.core.Direction.Plane.HORIZONTAL) l.setBlock(SENSOR.above(6).relative(d),Blocks.GLASS.defaultBlockState(),3);
+        l.setBlock(SENSOR.above(5),Blocks.GLASS.defaultBlockState(),3);
+        ControlData.get(l).put(l,new FlowRegion(9001,SENSOR.above(6),1,0,1,0,2,false,false,new java.util.UUID(0,0),ControlData.get(l).next()));
         var boat=new Boat(l,.5,100.1,4.5);l.addFreshEntity(boat);
         if(net.neoforged.fml.ModList.get().isLoaded("create")) nl.townsandkingdoms.streamcontrol.compat.create.CreateClientFixture.prepare(l);
         try { java.nio.file.Files.writeString(net.neoforged.fml.loading.FMLPaths.GAMEDIR.get().resolve("client-test-ready"),"ready"); }

@@ -80,12 +80,12 @@ public final class ClientGameplayChecks {
             click("engineering.streamcontrol.automation_tab");for(int i=0;i<4;i++) at(150,66);
             click("engineering.streamcontrol.profile_b");slider(0,3.0/16);screenshot("automation");click("gui.streamcontrol.apply");
         },()->controller(GENERATOR).controls().redstone()==ControllerSettings.Redstone.SWITCH && controller(GENERATOR).controls().b().vertical()==3);
-        add("redstone switches to reversed Profile B",()->command("power"),()->region(GENERATOR)!=null && region(GENERATOR).dx()==-1 && region(GENERATOR).vertical()==3);
+        add("redstone switches to reversed Profile B",()->command("power"),()->region(GENERATOR)!=null && region(GENERATOR).dz()==1 && region(GENERATOR).vertical()==3);
         add("unpowered restores Profile A",()->command("unpower"),()->region(GENERATOR)!=null && region(GENERATOR).dx()==1 && region(GENERATOR).vertical()!=3);
         add("open sensor through block interaction",()->use(SENSOR),()->mc().screen instanceof UtilityScreen);
         add("sensor GUI independent vertical range and live speed output",()->{
-            slider(0,0);slider(1,3.0/16);screenshot("sensor");click("gui.streamcontrol.apply");
-        },()->((FlowSensorEntity)utility(SENSOR)).radius()==1 && ((FlowSensorEntity)utility(SENSOR)).vertical()==3 && ((FlowSensorEntity)utility(SENSOR)).output()==15);
+            slider(0,0);slider(1,6.0/16);screenshot("sensor");click("gui.streamcontrol.apply");
+        },()->((FlowSensorEntity)utility(SENSOR)).radius()==1 && ((FlowSensorEntity)utility(SENSOR)).vertical()==6 && ((FlowSensorEntity)utility(SENSOR)).output()==15);
         add("reopen sensor",()->use(SENSOR),()->mc().screen instanceof UtilityScreen);
         add("sensor direction comparator and settings sync",()->{at(150,149);click("gui.streamcontrol.apply");},()->((FlowSensorEntity)utility(SENSOR)).mode()==FlowSensorEntity.Mode.DIRECTION && ((FlowSensorEntity)utility(SENSOR)).output()==3);
         add("reopen sensor boat mode",()->use(SENSOR),()->mc().screen instanceof UtilityScreen);
