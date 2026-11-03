@@ -10,3 +10,5 @@ validation/
 .vscode/
 .DS_Store
 Thumbs.db
+
+run-client/

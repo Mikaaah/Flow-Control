@@ -1,3 +1,25 @@
+![Flow Control](https://i.imgur.com/JGT2lvz.png)
+
+## 0.1.7
+
+- Removed the header corner rivets.
+- Rebuilt both controller layouts with centered charts, balanced spacing and contained compass buttons.
+- Current Generator now has an eight-way navigation chart with a separate radius and strength panel.
+- Stillwater Anchor now has a central anchor chart, symmetric range readouts and a full-width radius control.
+- Updated NeoForge 1.21.1 to Streams Reflowing 2.16.2, including renamed flow-grid, baked-water and surface-particle hooks.
+- Preserved all controller settings, connected-water filtering and redstone behavior.
+
+## 0.1.6 — TNK GUI Rework
+
+![Flow Control](https://i.imgur.com/JGT2lvz.png)
+
+- Restyled Current Generator and Stillwater Anchor using the latest TNK Loot / Progression menu design.
+- Slate-blue frames, white outer outlines, inset copper panels and a raised title plate.
+- Matching textured buttons, compass selections and slider controls, with visible keyboard focus.
+- Embedded the supplied mixed-case menu font for titles; retained Minecraft text for settings and values.
+- Preserved eight compass directions, normalized diagonal current strength, connected-water mode, redstone behavior and Apply/Cancel.
+- Existing saves, config limits and network packet formats remain compatible with 0.1.5.
+
 # Changelog
 
 ## 0.1.5 — Eight-way current compass

@@ -1,16 +1,20 @@
 package nl.townsandkingdoms.streamcontrol.mixin;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import dev.streamsreflowing.neoforge.fluid.StreamFlowingFluid;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.material.FluidState;
 import nl.townsandkingdoms.streamcontrol.FlowOverrides;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-@Mixin(value = StreamFlowingFluid.class, remap = false, priority = 500)
+// Both registered stream-fluid implementations in the verified 2.16.2 JAR.
+@Mixin(targets = {
+    "streamsreflowing.proprietary.SourceGivenToAuthorizedOnly_006$ProprietaryNiceJohn_001",
+    "streamsreflowing.proprietary.SourceGivenToAuthorizedOnly_006$SeeAiNoticeConstant_001"
+}, remap = false, priority = 500)
 public abstract class BakedFlowMixin {
-    @ModifyReturnValue(method = "resolve", at = @At("RETURN"), remap = false)
-    private static Vec3 streamcontrol$baked(Vec3 original, Vec3 natural, BlockGetter world, BlockPos pos) {
-        return FlowOverrides.apply(original,world,pos,world.getFluidState(pos));
+    @ModifyReturnValue(method = "getFlow", at = @At("RETURN"), remap = false)
+    private Vec3 streamcontrol$baked(Vec3 original, BlockGetter world, BlockPos pos, FluidState state) {
+        return FlowOverrides.apply(original,world,pos,state);
     }
 }

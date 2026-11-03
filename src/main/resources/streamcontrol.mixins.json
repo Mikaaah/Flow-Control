@@ -7,11 +7,13 @@
     "WaterFlowMixin",
     "FluidStateFlowMixin",
     "BakedFlowMixin",
-    "GridFlowMixin",
-    "ClientGridMixin",
-    "SurfaceParticlesMixin"
+    "GridFlowMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "ClientGridMixin",
+    "SurfaceParticlesMixin"
+  ]
 }
