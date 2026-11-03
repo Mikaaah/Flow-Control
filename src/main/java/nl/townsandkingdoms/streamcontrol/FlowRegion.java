@@ -58,7 +58,7 @@ public record FlowRegion(long key, BlockPos center, int radius, int vertical, do
         double speed = n.getDoubleOr("Strength", 0.0);
         return new FlowRegion(n.getLongOr("Key", 0L), BlockPos.of(n.getLongOr("Pos", 0L)), Math.clamp(n.getIntOr("Radius", 0), 1, 32),
             Math.clamp(n.getIntOr("Vertical", 0), 0, 16), dx / length, dz / length,
-            Double.isFinite(speed) ? Math.clamp(speed, 0.05, 2) : 1, n.getBooleanOr("Still", false), n.getBooleanOr("Controller", false),
+            Double.isFinite(speed) ? Math.clamp(speed, 0, 2) : 1, n.getBooleanOr("Still", false), n.getBooleanOr("Controller", false),
             owner(n), n.getLongOr("Sequence", 0L),
             n.getBooleanOr("ConnectedOnly", false), n.getLongArray("WaterMask").orElseGet(() -> new long[0]));
     }

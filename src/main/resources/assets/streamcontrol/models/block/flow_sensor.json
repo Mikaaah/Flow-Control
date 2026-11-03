@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "streamcontrol:block/flow_sensor_bottom",
+    "up": "streamcontrol:block/flow_sensor_top",
+    "north": "streamcontrol:block/flow_sensor_side",
+    "south": "streamcontrol:block/flow_sensor_side",
+    "east": "streamcontrol:block/flow_sensor_side",
+    "west": "streamcontrol:block/flow_sensor_side",
+    "particle": "streamcontrol:block/flow_sensor_side"
+  }
+}
