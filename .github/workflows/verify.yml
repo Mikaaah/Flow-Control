@@ -1,7 +1,7 @@
 name: neoforge 1.21.11 build and regression
 on:
   push:
-    branches: ["gui/**", 'neoforge/1.21.11']
+    branches: ["gui/**", "feature/**", 'neoforge/1.21.11']
   pull_request:
     branches: ['neoforge/1.21.11']
   workflow_dispatch:
@@ -21,7 +21,8 @@ jobs:
       - name: Fetch pinned Streams dependency
         run: |
           mkdir -p libs
-          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/lZmge2d1/StreamsReflowing-1.21.11-neoforge-2.15.2.jar' -o 'libs/StreamsReflowing-1.21.11-neoforge-2.15.2.jar'
+          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/qOMJKJQt/StreamsReflowing-1.21.11-neoforge-2.16.2.jar' -o 'libs/StreamsReflowing-1.21.11-neoforge-2.16.2.jar'
+          echo '76bb1f352dfec2f44eb3169d554294b06a760843bed0524f585fc1b9c655350b  libs/StreamsReflowing-1.21.11-neoforge-2.16.2.jar' | sha256sum --check
       - name: Build
         run: bash gradlew --no-daemon clean build
       - name: Prepare disposable regression world
@@ -43,8 +44,23 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-neoforge-1.21.11-0.1.6
+          name: flow-control-neoforge-1.21.11-0.2.2
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
             run/logs/latest.log
+
+      - name: Capture client menus and baked block models
+        run: |
+          mkdir -p run-client
+          printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
+          timeout 360 xvfb-run -a bash gradlew --no-daemon -Dstreamcontrol.uiPreview=true runClient
+          test -s run-client/screenshots/flow-control-block-models.png
+      - name: Upload client screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flow-control-0.2.2-neoforge-1.21.11-client
+          path: |
+            run-client/screenshots/*.png
+            run-client/logs/latest.log

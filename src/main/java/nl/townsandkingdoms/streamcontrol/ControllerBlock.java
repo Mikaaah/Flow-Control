@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 public final class ControllerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -32,9 +33,8 @@ public final class ControllerBlock extends BaseEntityBlock implements SimpleWate
     @Override public BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new ControllerEntity(pos, state); }
     @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) { return level.isClientSide() ? null : createTickerHelper(type, StreamControl.CONTROLLER.get(), ControllerEntity::tick); }
     @Override protected FluidState getFluidState(BlockState s) { return s.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(s); }
-    @Override protected BlockState updateShape(BlockState s, LevelReader level, net.minecraft.world.level.ScheduledTickAccess ticks, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighbor, net.minecraft.util.RandomSource random) {
-        if (s.getValue(WATERLOGGED)) ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-        return super.updateShape(s,level,ticks,pos,direction,neighborPos,neighbor,random);
+    @Override protected BlockState updateShape(BlockState s,LevelReader l,net.minecraft.world.level.ScheduledTickAccess ticks,BlockPos p,Direction d,BlockPos q,BlockState other,net.minecraft.util.RandomSource random) {
+        if(s.getValue(WATERLOGGED))ticks.scheduleTick(p,Fluids.WATER,Fluids.WATER.getTickDelay(l));return super.updateShape(s,l,ticks,p,d,q,other,random);
     }
     @Override protected void neighborChanged(BlockState s, Level level, BlockPos pos, Block block, net.minecraft.world.level.redstone.Orientation orientation, boolean moving) {
         if (!level.isClientSide()) {
@@ -43,15 +43,18 @@ public final class ControllerBlock extends BaseEntityBlock implements SimpleWate
             if (level.getBlockEntity(pos) instanceof ControllerEntity be) be.waterChanged();
         }
     }
+    @Override protected InteractionResult useItemOn(net.minecraft.world.item.ItemStack stack,BlockState state,Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit) {
+        // Let the Calibrator's item handler run before the ordinary configure interaction.
+        return stack.is(StreamControl.WAND.get()) ? InteractionResult.PASS : super.useItemOn(stack,state,level,pos,player,hand,hit);
+    }
     @Override protected InteractionResult useWithoutItem(BlockState s, Level level, BlockPos pos, Player p, BlockHitResult hit) {
         if (!p.mayBuild() || !level.mayInteract(p,pos)) return InteractionResult.FAIL;
-        if (!level.isClientSide() && p instanceof net.minecraft.server.level.ServerPlayer player
-            && level.getBlockEntity(pos) instanceof ControllerEntity be) ControlNetwork.open(player, be);
+        if (!level.isClientSide() && p instanceof ServerPlayer player && level.getBlockEntity(pos) instanceof ControllerEntity be)
+            ControlNetwork.open(player, be);
         return InteractionResult.SUCCESS;
     }
-    @Override protected void affectNeighborsAfterRemoval(BlockState old, ServerLevel level, BlockPos pos, boolean moving) {
-        ControlData.get(level).remove(level, pos.asLong());
-        super.affectNeighborsAfterRemoval(old,level,pos,moving);
+    @Override protected void affectNeighborsAfterRemoval(BlockState old,ServerLevel l,BlockPos p,boolean moving) {
+        ControlData.get(l).remove(l,p.asLong());super.affectNeighborsAfterRemoval(old,l,p,moving);
     }
     @Override protected BlockState rotate(BlockState s, Rotation r) { return FlowHeading.fromState(s).rotate(r).apply(s); }
     @Override protected BlockState mirror(BlockState s, Mirror m) { return FlowHeading.fromState(s).mirror(m).apply(s); }

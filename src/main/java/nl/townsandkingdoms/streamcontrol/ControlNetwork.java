@@ -14,39 +14,61 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 public final class ControlNetwork {
     /** Server-authoritative snapshot used to open the controller's client GUI. */
     public record Open(long pos, int radius, int vertical, double strength, double maxStrength,
-                       int maxRadius, boolean connectedOnly, boolean still, boolean powered, int facing)
+                       int maxRadius, boolean connectedOnly, boolean still, boolean powered, int facing, CompoundTag settings)
         implements CustomPacketPayload {
-        public static final Type<Open> TYPE = new Type<>(Identifier.fromNamespaceAndPath(StreamControl.ID, "open_controller_v2"));
+        public Open(long pos,int radius,int vertical,double strength,double maxStrength,int maxRadius,boolean connectedOnly,boolean still,boolean powered,int facing) {
+            this(pos,radius,vertical,strength,maxStrength,maxRadius,connectedOnly,still,powered,facing,new CompoundTag());
+        }
+        public static final Type<Open> TYPE = new Type<>(Identifier.fromNamespaceAndPath(StreamControl.ID, "open_controller_v3"));
         public static final StreamCodec<RegistryFriendlyByteBuf, Open> CODEC = new StreamCodec<>() {
             public Open decode(RegistryFriendlyByteBuf b) {
                 return new Open(b.readLong(), b.readVarInt(), b.readVarInt(), b.readDouble(), b.readDouble(),
-                    b.readVarInt(), b.readBoolean(), b.readBoolean(), b.readBoolean(), b.readVarInt());
+                    b.readVarInt(), b.readBoolean(), b.readBoolean(), b.readBoolean(), b.readVarInt(), b.readNbt());
             }
             public void encode(RegistryFriendlyByteBuf b, Open p) {
                 b.writeLong(p.pos); b.writeVarInt(p.radius); b.writeVarInt(p.vertical); b.writeDouble(p.strength);
                 b.writeDouble(p.maxStrength); b.writeVarInt(p.maxRadius); b.writeBoolean(p.connectedOnly);
-                b.writeBoolean(p.still); b.writeBoolean(p.powered); b.writeVarInt(p.facing);
+                b.writeBoolean(p.still); b.writeBoolean(p.powered); b.writeVarInt(p.facing); b.writeNbt(p.settings);
             }
         };
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
 
     /** Never trust client-supplied dimensions, speed or access rights. */
-    public record Configure(long pos, int radius, double strength, boolean connectedOnly, int facing)
+    public record Configure(long pos, int radius, double strength, boolean connectedOnly, int facing, CompoundTag settings)
         implements CustomPacketPayload {
-        public static final Type<Configure> TYPE = new Type<>(Identifier.fromNamespaceAndPath(StreamControl.ID, "configure_controller_v2"));
+        public Configure(long pos,int radius,double strength,boolean connectedOnly,int facing) {
+            this(pos,radius,strength,connectedOnly,facing,new CompoundTag());
+        }
+        public static final Type<Configure> TYPE = new Type<>(Identifier.fromNamespaceAndPath(StreamControl.ID, "configure_controller_v3"));
         public static final StreamCodec<RegistryFriendlyByteBuf, Configure> CODEC = new StreamCodec<>() {
             public Configure decode(RegistryFriendlyByteBuf b) {
-                return new Configure(b.readLong(), b.readVarInt(), b.readDouble(), b.readBoolean(), b.readVarInt());
+                return new Configure(b.readLong(), b.readVarInt(), b.readDouble(), b.readBoolean(), b.readVarInt(), b.readNbt());
             }
             public void encode(RegistryFriendlyByteBuf b, Configure p) {
                 b.writeLong(p.pos); b.writeVarInt(p.radius); b.writeDouble(p.strength);
-                b.writeBoolean(p.connectedOnly); b.writeVarInt(p.facing);
+                b.writeBoolean(p.connectedOnly); b.writeVarInt(p.facing); b.writeNbt(p.settings);
             }
         };
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
 
+    public record UtilityOpen(long pos,CompoundTag settings) implements CustomPacketPayload {
+        public static final Type<UtilityOpen> TYPE=new Type<>(Identifier.fromNamespaceAndPath(StreamControl.ID,"open_utility"));
+        public static final StreamCodec<RegistryFriendlyByteBuf,UtilityOpen> CODEC=new StreamCodec<>() {
+            public UtilityOpen decode(RegistryFriendlyByteBuf b) { return new UtilityOpen(b.readLong(),b.readNbt()); }
+            public void encode(RegistryFriendlyByteBuf b,UtilityOpen p) { b.writeLong(p.pos);b.writeNbt(p.settings); }
+        };
+        @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
+    }
+    public record UtilityConfigure(long pos,CompoundTag settings) implements CustomPacketPayload {
+        public static final Type<UtilityConfigure> TYPE=new Type<>(Identifier.fromNamespaceAndPath(StreamControl.ID,"configure_utility"));
+        public static final StreamCodec<RegistryFriendlyByteBuf,UtilityConfigure> CODEC=new StreamCodec<>() {
+            public UtilityConfigure decode(RegistryFriendlyByteBuf b) { return new UtilityConfigure(b.readLong(),b.readNbt()); }
+            public void encode(RegistryFriendlyByteBuf b,UtilityConfigure p) { b.writeLong(p.pos);b.writeNbt(p.settings); }
+        };
+        @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
+    }
     public record Update(String dimension, boolean reset, CompoundTag region, long remove) implements CustomPacketPayload {
         public static final Type<Update> TYPE = new Type<>(Identifier.fromNamespaceAndPath(StreamControl.ID, "region"));
         public static final StreamCodec<RegistryFriendlyByteBuf, Update> CODEC = new StreamCodec<>() {
@@ -56,7 +78,15 @@ public final class ControlNetwork {
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
     public static void register(RegisterPayloadHandlersEvent event) {
-        var registrar = event.registrar("3");
+        var registrar = event.registrar("4");
+        registrar.playToClient(UtilityOpen.TYPE,UtilityOpen.CODEC,(p,context)->context.enqueueWork(()->
+            nl.townsandkingdoms.streamcontrol.client.UtilityScreen.open(p)));
+        registrar.playToServer(UtilityConfigure.TYPE,UtilityConfigure.CODEC,(p,context)->context.enqueueWork(()->{
+            Player player=context.player();BlockPos pos=BlockPos.of(p.pos());
+            if(!(player.level() instanceof ServerLevel level) || !level.hasChunkAt(pos) || player.blockPosition().distSqr(pos)>64
+                || !player.mayBuild() || !level.mayInteract(player,pos) || p.settings()==null) return;
+            if(level.getBlockEntity(pos) instanceof UtilityAccess utility) utility.configure(p.settings());
+        }));
         registrar.playToClient(Update.TYPE, Update.CODEC, (p, context) -> context.enqueueWork(() -> {
             nl.townsandkingdoms.streamcontrol.client.ClientUpdates.apply(p);
         }));
@@ -67,20 +97,27 @@ public final class ControlNetwork {
             BlockPos pos = BlockPos.of(p.pos());
             if (!(player.level() instanceof ServerLevel) || player.blockPosition().distSqr(pos) > 64
                 || !player.mayBuild() || !player.level().mayInteract(player, pos)) return;
-            if (!(player.level().getBlockEntity(pos) instanceof ControllerEntity be)) return;
+            if (!(player.level().getBlockEntity(pos) instanceof FlowController be)) return;
             FlowHeading d = FlowHeading.fromId(p.facing());
             if (d == null) return;
-            be.configure(d, ControlConfig.radius(p.radius()), ControlConfig.strength(p.strength()), p.connectedOnly());
+            if (p.settings()!=null && p.settings().contains("ProfileA") && p.settings().contains("ProfileB")) be.controls().configure(p.settings());
+            else be.configure(d,ControlConfig.radius(p.radius()),ControlConfig.strength(p.strength()),p.connectedOnly());
         }));
     }
-    public static void open(ServerPlayer player, ControllerEntity be) {
-        var state = be.getBlockState();
-        PacketDistributor.sendToPlayer(player, new Open(be.getBlockPos().asLong(), be.radius(),
-            ControlConfig.VERTICAL.get(), be.strength(), ControlConfig.MAX_SPEED.get(),
-            ControlConfig.MAX_RADIUS.get(), be.connectedOnly(), ((ControllerBlock)state.getBlock()).still,
-            state.getValue(ControllerBlock.POWERED), be.heading().id()));
+    public static void open(ServerPlayer player, FlowController be) {
+        var state = be.blockEntity().getBlockState();
+        PacketDistributor.sendToPlayer(player, new Open(be.blockEntity().getBlockPos().asLong(), be.radius(),
+            be.controls().a().vertical(), be.strength(), ControlConfig.MAX_SPEED.get(),
+            ControlConfig.MAX_RADIUS.get(), be.connectedOnly(), be.isStill(),
+            state.getValue(ControllerBlock.POWERED), be.heading().id(), snapshot(be)));
     }
-    public static void sendConfigure(Configure p) { net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(p); }
+    private static CompoundTag snapshot(FlowController controller) {
+        var n=controller.controls().save();n.putBoolean("Kinetic",!Float.isNaN(controller.rpm()));
+        n.putFloat("RPM",Float.isFinite(controller.rpm())?controller.rpm():0);n.putInt("MaxVertical",ControlConfig.MAX_VERTICAL.get());return n;
+    }
+    public static void openUtility(ServerPlayer player,UtilityAccess be) {
+        PacketDistributor.sendToPlayer(player,new UtilityOpen(be.blockEntity().getBlockPos().asLong(),be.settings()));
+    }
     public static void update(ServerLevel level, FlowRegion r) { PacketDistributor.sendToPlayersInDimension(level, new Update(level.dimension().identifier().toString(), false, r.save(), 0)); }
     public static void remove(ServerLevel level, long key) { PacketDistributor.sendToPlayersInDimension(level, new Update(level.dimension().identifier().toString(), false, null, key)); }
     public static void sync(ServerPlayer player) {
