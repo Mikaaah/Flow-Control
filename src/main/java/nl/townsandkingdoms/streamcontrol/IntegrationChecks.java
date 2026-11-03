@@ -44,7 +44,7 @@ public final class IntegrationChecks {
             flow=level.getFluidState(p).getFlow(level,p);
             check(flow.x>0.7 && Math.abs(flow.z)<0.01,"Explicit Flow Wand direction was overridden by automatic downhill correction: "+flow);
             results.put("manualDirectionRetainsPriorityOverDownhillGuard",true);
-            level.setBlock(p, StreamFluids.STREAM_BLOCK.defaultBlockState().setValue(dev.streamsreflowing.fabric.fluid.StreamLiquidBlock.FLOW, 4),3);
+            level.setBlock(p, streamState(),3);
             flow = level.getFluidState(p).getFlow(level,p);
             check(flow.x > 0.7 && Math.abs(flow.z) < 0.01,"Baked stream direction: " + flow);
             var still = new FlowRegion(102,p,3,2,1,0,1,true,true,owner,data.next());
@@ -55,8 +55,7 @@ public final class IntegrationChecks {
             check(data.at(20,120,16).key() == directed.key(),"Stillness leaked beyond radius");
             results.put("bakedWaterStillnessAndOverlap",true);
             for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++)
-                level.setBlock(p.offset(x,0,z),StreamFluids.STREAM_BLOCK.defaultBlockState()
-                    .setValue(dev.streamsreflowing.fabric.fluid.StreamLiquidBlock.FLOW,4),3);
+                level.setBlock(p.offset(x,0,z),streamState(),3);
             var boat = new net.minecraft.world.entity.vehicle.Boat(level,16.5,120.2,16.5);
             level.addFreshEntity(boat);
             for (int tick = 0; tick < 20; tick++) boat.tick();
