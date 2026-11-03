@@ -86,6 +86,11 @@ jobs:
           test -s run-client/screenshots/flow-control-current-generator.png
           test -s run-client/screenshots/flow-control-stillwater-anchor.png
           test -s run-client/screenshots/flow-control-redstone-paused.png
+          test -s run-client/screenshots/flow-control-automation.png
+          test -s run-client/screenshots/flow-control-flow-sensor.png
+          test -s run-client/screenshots/flow-control-mooring-post.png
+          test -s run-client/screenshots/flow-control-block-models.png
+          test -s run-client/screenshots/flow-control-mechanical-controller.png
       - name: Upload GUI screenshots
         if: always()
         uses: actions/upload-artifact@v4
