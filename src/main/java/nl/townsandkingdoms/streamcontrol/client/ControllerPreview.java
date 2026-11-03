@@ -20,7 +20,7 @@ public final class ControllerPreview {
     private static boolean captured;
     private static final String[] NAMES={"current-generator","stillwater-anchor","redstone-paused","automation","flow-sensor","mooring-post","block-models","mechanical-controller"};
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
-        if(!Boolean.getBooleanOr("streamcontrol.uiPreview",false)) return;
+        if(!Boolean.getBoolean("streamcontrol.uiPreview")) return;
         var mc=Minecraft.getInstance();
         if(phase==0) {
             if(!(mc.screen instanceof TitleScreen) || mc.getOverlay()!=null) return;

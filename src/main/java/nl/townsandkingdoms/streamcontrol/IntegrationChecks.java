@@ -19,7 +19,7 @@ import net.neoforged.neoforge.event.server.ServerStartedEvent;
 /** Opt-in dedicated-server test; never runs in a player's normal world. */
 public final class IntegrationChecks {
     public static void register() {
-        if (Boolean.getBooleanOr("streamcontrol.integrationTest",false)) {
+        if (Boolean.getBoolean("streamcontrol.integrationTest")) {
             NeoForge.EVENT_BUS.addListener(IntegrationChecks::run);
         }
     }
@@ -63,7 +63,7 @@ public final class IntegrationChecks {
             results.put("bakedWaterStillnessAndOverlap",true);
             for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++)
                 level.setBlock(p.offset(x,0,z),streamState(),3);
-            var boat = net.minecraft.world.entity.EntityTypes.OAK_BOAT.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
+            var boat = net.minecraft.world.entity.EntityType.OAK_BOAT.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
             boat.setPos(16.5,120.2,16.5); level.addFreshEntity(boat);
             for (int tick = 0; tick < 20; tick++) boat.tick();
             check(Math.abs(boat.getX()-16.5) < 0.01 && Math.abs(boat.getZ()-16.5) < 0.01,

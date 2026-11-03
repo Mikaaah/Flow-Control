@@ -35,7 +35,7 @@ public final class StreamControl {
     public static final java.util.function.Supplier<BlockEntityType<ControllerEntity>> CONTROLLER = ENTITIES.register("controller", () -> new BlockEntityType<>(ControllerEntity::new, GENERATOR.get(), ANCHOR.get()));
     static { TABS.register("flow_control", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.streamcontrol")).icon(() -> new ItemStack(WAND.get())).displayItems((params, output) -> { output.accept(WAND.get()); output.accept(GENERATOR.get()); output.accept(ANCHOR.get());output.accept(SENSOR.get());output.accept(MOORING.get()); }).build()); }
     public StreamControl(IEventBus bus, ModContainer container) {
-        if(net.neoforged.fml.loading.FMLEnvironment.dist == net.neoforged.api.distmarker.Dist.CLIENT) nl.townsandkingdoms.streamcontrol.client.EngineeringClient.register(bus);
+        if(net.neoforged.fml.loading.FMLEnvironment.getDist() == net.neoforged.api.distmarker.Dist.CLIENT) nl.townsandkingdoms.streamcontrol.client.EngineeringClient.register(bus);
         BLOCKS.register(bus); ITEMS.register(bus); ENTITIES.register(bus); TABS.register(bus);
         container.registerConfig(ModConfig.Type.SERVER, ControlConfig.SPEC);
         bus.addListener(ControlNetwork::register);

@@ -3,6 +3,7 @@ package nl.townsandkingdoms.streamcontrol;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.*;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
@@ -56,7 +57,7 @@ public final class UtilityBlock extends BaseEntityBlock implements SimpleWaterlo
         return InteractionResult.SUCCESS;
     }
     @Override protected boolean hasAnalogOutputSignal(BlockState s) { return sensor; }
-    @Override protected int getAnalogOutputSignal(BlockState s,Level l,BlockPos p) { return l.getBlockEntity(p) instanceof FlowSensorEntity be ? be.output() : 0; }
+    @Override protected int getAnalogOutputSignal(BlockState s,Level l,BlockPos p,Direction side) { return l.getBlockEntity(p) instanceof FlowSensorEntity be ? be.output() : 0; }
     @Override protected void affectNeighborsAfterRemoval(BlockState old,ServerLevel l,BlockPos p,boolean moving) {
         if(sensor) l.updateNeighbourForOutputSignal(p,this);super.affectNeighborsAfterRemoval(old,l,p,moving);
     }
