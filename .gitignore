@@ -10,3 +10,7 @@ validation/
 .vscode/
 .DS_Store
 Thumbs.db
+
+libs/create*.jar
+libs/create-compile/
+run-client/
