@@ -23,6 +23,9 @@ public final class EngineeringChecks {
         var n=FlowWand.settings(tool);n.putInt("CalibratorMode",mode.ordinal());tool.setTag(n);
     }
     public static void run(ServerLevel level,Map<String,Object> results) {
+        for(String name:new String[]{"flow_wand","current_generator","stillwater_anchor","flow_sensor","mooring_post"})
+            check(level.getRecipeManager().byKey(new net.minecraft.resources.ResourceLocation(StreamControl.ID,name)).isPresent(),"Survival recipe missing: "+name);
+        results.put("allSurvivalRecipesLoaded",true);
         BlockPos p=new BlockPos(256,120,256),q=p.east(10);var data=ControlData.get(level);
         level.setBlock(p,StreamControl.GENERATOR.get().defaultBlockState(),3);
         level.setBlock(q,StreamControl.GENERATOR.get().defaultBlockState(),3);

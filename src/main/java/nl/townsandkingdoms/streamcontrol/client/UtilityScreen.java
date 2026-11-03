@@ -43,7 +43,7 @@ public final class UtilityScreen extends Screen {
     @Override public void render(GuiGraphics g,int mx,int my,float tick) {
         g.fill(0,0,width,height,0xA0141C2E);
         g.blit(texture("automation_controller"),left,top,0f,0f,316,238,316,238);
-        var menu=net.minecraft.resources.new ResourceLocation("streamcontrol","menu");
+        var menu=new net.minecraft.resources.ResourceLocation("streamcontrol","menu");
         text(g,title.copy().withStyle(s->s.withFont(menu)),left+158,top+12,TEXT);
         text(g,tr(sensor?"sensor_subtitle":"mooring_subtitle"),left+158,top+32,MUTED);
         g.drawString(font,tr("horizontal_range"),left+26,top+57,TEXT,false);
