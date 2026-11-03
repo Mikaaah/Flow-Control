@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.148'
 }
-version = '0.1.5'
+version = '0.2.2'
 group = 'nl.townsandkingdoms.streamcontrol'
 base.archivesName = 'streams-flow-control-neoforge-26.1.2'
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
@@ -10,6 +10,15 @@ java.withSourcesJar()
 neoForge {
     version = '26.1.2.122'
     runs {
+        client {
+            client()
+            gameDirectory = file('run-client')
+            programArgument '--width'
+            programArgument '960'
+            programArgument '--height'
+            programArgument '720'
+            systemProperty 'streamcontrol.uiPreview', System.getProperty('streamcontrol.uiPreview','false')
+        }
         server {
             server()
             programArgument '--nogui'
@@ -21,10 +30,10 @@ neoForge {
     mods { streamcontrol { sourceSet sourceSets.main } }
 }
 dependencies {
-    implementation files('libs/StreamsReflowing-26.1.2-neoforge-2.15.2.jar')
+    implementation files('libs/StreamsReflowing-26.1.2-neoforge-2.16.2.jar')
 
 }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 25 }
 tasks.named('jar') { from('LICENSE') }
 
-tasks.named("jar") { archiveFileName = "flow-control-0.1.5-neoforge-26.1.2.jar" }
+tasks.named("jar") { archiveFileName = "flow-control-0.2.2-neoforge-26.1.2.jar" }

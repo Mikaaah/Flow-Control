@@ -1,7 +1,7 @@
 name: neoforge 26.1.2 build and regression
 on:
   push:
-    branches: ['neoforge/26.1.2']
+    branches: ["gui/**", "feature/**", 'neoforge/26.1.2']
   pull_request:
     branches: ['neoforge/26.1.2']
   workflow_dispatch:
@@ -21,7 +21,8 @@ jobs:
       - name: Fetch pinned Streams dependency
         run: |
           mkdir -p libs
-          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/99I1ZRJb/StreamsReflowing-26.1.2-neoforge-2.15.2.jar' -o 'libs/StreamsReflowing-26.1.2-neoforge-2.15.2.jar'
+          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/cZobwROy/StreamsReflowing-26.1.2-neoforge-2.16.2.jar' -o 'libs/StreamsReflowing-26.1.2-neoforge-2.16.2.jar'
+          echo '2f4466515672595c2e366d4e3f181a2b05613040087c003745055f5efc436997  libs/StreamsReflowing-26.1.2-neoforge-2.16.2.jar' | sha256sum --check
       - name: Build
         run: bash gradlew --no-daemon clean build
       - name: Prepare disposable regression world
@@ -43,8 +44,32 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-neoforge-26.1.2-0.1.5
+          name: flow-control-neoforge-26.1.2-0.2.2
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
             run/logs/latest.log
+
+      - name: Capture client menus and baked block models
+        run: |
+          mkdir -p run-client
+          printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
+          bash gradlew --no-daemon runServer > client-preview-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" $(jobs -pr) 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 120); do
+            if rg -q 'Done \(' client-preview-server.log; then break; fi
+            if ! kill -0 "$SERVER_PID" 2>/dev/null; then tail -n 40 client-preview-server.log; exit 1; fi
+            sleep 1
+          done
+          timeout 360 xvfb-run -a bash gradlew --no-daemon -Dstreamcontrol.uiPreview=true runClient
+          test -s run-client/screenshots/flow-control-block-models.png
+      - name: Upload client screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flow-control-0.2.2-neoforge-26.1.2-client
+          path: |
+            run-client/screenshots/*.png
+            run-client/logs/latest.log
+            client-preview-server.log
