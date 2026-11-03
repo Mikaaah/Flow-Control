@@ -1,12 +1,12 @@
 package nl.townsandkingdoms.streamcontrol;
+
 import java.util.List;
+import java.util.Locale;
 import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.*;
+import net.minecraft.server.level.*;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
@@ -15,70 +15,96 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraft.core.particles.ParticleTypes;
+
+/** The old flow_wand registry ID now represents a Calibrator. Legacy regions remain removable. */
 public final class FlowWand extends Item {
-    public FlowWand(Properties properties) { super(properties); }
-    public static CompoundTag settings(ItemStack stack) { return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag(); }
-    private static void message(Player p, String key, Object... args) { p.displayClientMessage(Component.translatable(key, args), true); }
-    @Override public InteractionResult useOn(UseOnContext context) {
-        var p = context.getPlayer(); if (p == null) return InteractionResult.PASS;
-        if (context.getLevel().getBlockEntity(context.getClickedPos()) instanceof ControllerEntity be) {
-            if (!context.getLevel().isClientSide && allowed(p, context.getClickedPos(), context.getItemInHand())
-                    && p instanceof ServerPlayer player) {
-                ControlNetwork.open(player, be);
+    public enum Mode { INSPECT, COPY, PASTE, LINK, RESTORE;
+        public String key() { return "calibrator.streamcontrol."+name().toLowerCase(Locale.ROOT); }
+    }
+    public FlowWand(Properties p) { super(p.stacksTo(1)); }
+    public static CompoundTag settings(ItemStack s) { return s.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag(); }
+    public static Mode mode(ItemStack s) { return Mode.values()[Math.floorMod(settings(s).getInt("CalibratorMode"),Mode.values().length)]; }
+    private static void store(ItemStack s,CompoundTag n) { s.set(DataComponents.CUSTOM_DATA,CustomData.of(n)); }
+    private static void message(Player p,String key,Object... args) { p.displayClientMessage(Component.translatable("calibrator.streamcontrol."+key,args),true); }
+    public static boolean allowed(Player p,BlockPos pos,ItemStack stack) {
+        return ControlConfig.ENABLED.get() && ControlConfig.WAND_ENABLED.get() && (!ControlConfig.OP_ONLY.get() || p.hasPermissions(2))
+            && p.mayBuild() && p.level().mayInteract(p,pos) && p.mayUseItemAt(pos,Direction.UP,stack);
+    }
+    @Override public InteractionResult useOn(UseOnContext c) {
+        var player=c.getPlayer();if(player==null) return InteractionResult.PASS;
+        var be=c.getLevel().getBlockEntity(c.getClickedPos());
+        if(!(be instanceof FlowController) && !(be instanceof UtilityAccess)) return InteractionResult.PASS;
+        if(c.getLevel().isClientSide) return InteractionResult.SUCCESS;
+        if(!(player instanceof ServerPlayer server) || !allowed(player,c.getClickedPos(),c.getItemInHand())) return InteractionResult.FAIL;
+        operate(server,c.getClickedPos(),c.getItemInHand());return InteractionResult.CONSUME;
+    }
+    public static boolean operate(ServerPlayer player,BlockPos pos,ItemStack stack) {
+        var level=player.serverLevel();
+        if(!level.hasChunkAt(pos) || !allowed(player,pos,stack)) return false;
+        var be=level.getBlockEntity(pos);var n=settings(stack);Mode mode=mode(stack);
+        if(mode==Mode.INSPECT) {
+            if(be instanceof FlowController controller) ControlNetwork.open(player,controller);
+            else if(be instanceof UtilityAccess utility) ControlNetwork.openUtility(player,utility);
+            else inspect(player,pos);
+            return true;
+        }
+        if(mode==Mode.COPY) {
+            CompoundTag clipboard;
+            if(be instanceof FlowController controller) { clipboard=controller.controls().clipboard();clipboard.putString("Kind","controller"); }
+            else if(be instanceof UtilityAccess utility) clipboard=utility.settings();
+            else { message(player,"controller_required");return false; }
+            n.put("Calibration",clipboard);store(stack,n);message(player,"copied");return true;
+        }
+        if(mode==Mode.PASTE) {
+            var clipboard=n.getCompound("Calibration");String kind=clipboard.getString("Kind");
+            if("controller".equals(kind) && be instanceof FlowController controller) controller.controls().paste(clipboard);
+            else if(be instanceof UtilityAccess utility && utility.settings().getString("Kind").equals(kind)) utility.configure(clipboard);
+            else { message(player,"incompatible");return false; }
+            message(player,"pasted");return true;
+        }
+        if(mode==Mode.LINK) {
+            if(!(be instanceof FlowController controller)) { message(player,"controller_required");return false; }
+            if(player.isShiftKeyDown()) { controller.controls().unlink();n.remove("LinkPos");n.remove("LinkDimension");store(stack,n);message(player,"unlinked");return true; }
+            if(!n.contains("LinkPos")) {
+                n.putLong("LinkPos",pos.asLong());n.putString("LinkDimension",level.dimension().location().toString());store(stack,n);message(player,"source_selected");return true;
             }
-            return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
+            BlockPos source=BlockPos.of(n.getLong("LinkPos"));
+            if(!level.dimension().location().toString().equals(n.getString("LinkDimension")) || !level.hasChunkAt(source)
+                || !allowed(player,source,stack) || !controller.controls().link(source)) { message(player,"invalid_link");return false; }
+            message(player,"linked");return true;
         }
-        return InteractionResult.PASS;
+        var data=ControlData.get(level);var old=data.at(pos.getX(),pos.getY(),pos.getZ());
+        if(old==null || old.controller()) { message(player,"no_legacy_edit");return false; }
+        if(!old.owner().equals(player.getUUID()) && !player.hasPermissions(2)) { message(player,"denied");return false; }
+        data.remove(level,old.key());message(player,"restored");return true;
     }
-    public static boolean allowed(Player p, BlockPos pos, ItemStack stack) {
-        return ControlConfig.WAND_ENABLED.get() && (!ControlConfig.OP_ONLY.get() || p.hasPermissions(2))
-            && p.mayBuild() && p.level().mayInteract(p, pos) && p.mayUseItemAt(pos, Direction.UP, stack);
+    private static void inspect(ServerPlayer player,BlockPos pos) {
+        var level=player.serverLevel();var flow=level.getFluidState(pos).getFlow(level,pos);
+        FlowHeading heading=FlowHeading.fromVector(flow.x,flow.z);var region=ControlData.get(level).at(pos.getX(),pos.getY(),pos.getZ());
+        String direction=heading==null?"Still":heading.key();String source=region==null?"Natural":region.controller()?"Controller":"Legacy edit";
+        player.displayClientMessage(Component.literal(String.format(Locale.ROOT,"%s | %s | %.0f%%",source,direction,Math.hypot(flow.x,flow.z)*100)),true);
     }
-    @Override public InteractionResultHolder<ItemStack> use(Level world, Player p, InteractionHand hand) {
-        ItemStack stack = p.getItemInHand(hand);
-        if (world.isClientSide) return InteractionResultHolder.success(stack);
-        var hit = getPlayerPOVHitResult(world, p, ClipContext.Fluid.ANY);
-        var n = settings(stack);
-        int mode = Math.floorMod(n.getInt("Mode"), 3);
-        int radius = ControlConfig.radius(n.contains("Radius") ? n.getInt("Radius") : ControlConfig.DEFAULT_RADIUS.get());
-        if (hit.getType() == HitResult.Type.MISS) {
-            if (p.isShiftKeyDown()) { mode = (mode + 1) % 3; n.putInt("Mode", mode); message(p, "message.streamcontrol.mode", Component.translatable("mode.streamcontrol." + mode)); }
-            else { radius = radius % ControlConfig.MAX_RADIUS.get() + 1; n.putInt("Radius", radius); message(p, "message.streamcontrol.radius", radius); }
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(n)); return InteractionResultHolder.success(stack);
+    @Override public InteractionResultHolder<ItemStack> use(Level world,Player player,InteractionHand hand) {
+        ItemStack stack=player.getItemInHand(hand);if(world.isClientSide) return InteractionResultHolder.success(stack);
+        var hit=getPlayerPOVHitResult(world,player,ClipContext.Fluid.ANY);
+        if(hit.getType()==HitResult.Type.MISS) {
+            var n=settings(stack);
+            if(player.isShiftKeyDown()) {
+                int next=(mode(stack).ordinal()+1)%Mode.values().length;n.putInt("CalibratorMode",next);
+                n.remove("LinkPos");n.remove("LinkDimension");message(player,"mode",Component.translatable(Mode.values()[next].key()));
+            } else { n.putBoolean("HideBounds",!n.getBoolean("HideBounds"));message(player,n.getBoolean("HideBounds")?"bounds_off":"bounds_on"); }
+            store(stack,n);return InteractionResultHolder.success(stack);
         }
-        BlockPos pos = hit.getBlockPos();
-        if (!world.getFluidState(pos).is(FluidTags.WATER)) return InteractionResultHolder.pass(stack);
-        if (!allowed(p, pos, stack)) { message(p, "message.streamcontrol.denied"); return InteractionResultHolder.fail(stack); }
-        var server = (ServerLevel)world; var data = ControlData.get(server);
-        if (mode == 2) {
-            var old = data.at(pos.getX(), pos.getY(), pos.getZ());
-            if (old == null) { message(p, "message.streamcontrol.none"); return InteractionResultHolder.success(stack); }
-            if (old.controller()) { message(p, "message.streamcontrol.remove_block"); return InteractionResultHolder.fail(stack); }
-            if (!old.owner().equals(p.getUUID()) && !p.hasPermissions(2)) { message(p, "message.streamcontrol.denied"); return InteractionResultHolder.fail(stack); }
-            data.remove(server, old.key()); message(p, "message.streamcontrol.restored");
-        } else {
-            long key = pos.asLong() ^ Long.MIN_VALUE;
-            var existing = data.byKey(key);
-            if (existing != null && !existing.owner().equals(p.getUUID()) && !p.hasPermissions(2)) { message(p, "message.streamcontrol.denied"); return InteractionResultHolder.fail(stack); }
-            if (existing == null && data.owned(p.getUUID()) >= ControlConfig.MAX_PLAYER_REGIONS.get()) { message(p, "message.streamcontrol.limit"); return InteractionResultHolder.fail(stack); }
-            var look = p.getLookAngle(); double len = Math.hypot(look.x, look.z);
-            double dx = len > 1e-4 ? look.x / len : p.getDirection().getStepX();
-            double dz = len > 1e-4 ? look.z / len : p.getDirection().getStepZ();
-            var region = new FlowRegion(key, pos.immutable(), radius, ControlConfig.VERTICAL.get(), dx, dz,
-                ControlConfig.strength(n.contains("Strength") ? n.getDouble("Strength") : ControlConfig.SPEED.get()), mode == 1, false, p.getUUID(), data.next());
-            if (!data.put(server, region)) { message(p, "message.streamcontrol.limit"); return InteractionResultHolder.fail(stack); }
-            message(p, "message.streamcontrol.applied", Component.translatable("mode.streamcontrol." + mode), radius);
-        }
-        world.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 0.6f, 1.2f);
-        if (ControlConfig.PARTICLES.get()) for (int i = 0; i < 32; i++) {
-            double a = i * Math.PI / 16;
-            server.sendParticles(ParticleTypes.END_ROD, pos.getX()+0.5+Math.cos(a)*radius, pos.getY()+1.05, pos.getZ()+0.5+Math.sin(a)*radius, 1, 0, 0, 0, 0);
-        }
-        p.getCooldowns().addCooldown(this, 5); return InteractionResultHolder.success(stack);
+        if(!(player instanceof ServerPlayer server) || !allowed(player,hit.getBlockPos(),stack)) return InteractionResultHolder.fail(stack);
+        if(!world.getFluidState(hit.getBlockPos()).is(FluidTags.WATER)) return InteractionResultHolder.pass(stack);
+        return operate(server,hit.getBlockPos(),stack)?InteractionResultHolder.success(stack):InteractionResultHolder.fail(stack);
     }
-    @Override public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> lines, TooltipFlag flag) {
-        var n = settings(stack); lines.add(Component.translatable("tooltip.streamcontrol.mode", Component.translatable("mode.streamcontrol." + Math.floorMod(n.getInt("Mode"), 3))));
-        lines.add(Component.translatable("tooltip.streamcontrol.wand")); lines.add(Component.translatable("tooltip.streamcontrol.wand_air"));
+    @Override public void appendHoverText(ItemStack stack,TooltipContext context,List<Component> lines,TooltipFlag flag) {
+        lines.add(Component.translatable("calibrator.streamcontrol.mode",Component.translatable(mode(stack).key())));
+        lines.add(Component.translatable("calibrator.streamcontrol.tooltip"));
+        lines.add(Component.translatable("calibrator.streamcontrol.tooltip_cycle"));
+        lines.add(Component.translatable("calibrator.streamcontrol.tooltip_bounds"));
+        if(settings(stack).contains("Calibration")) lines.add(Component.translatable("calibrator.streamcontrol.clipboard_ready"));
+        if(settings(stack).contains("LinkPos")) lines.add(Component.translatable("calibrator.streamcontrol.source_ready"));
     }
 }

@@ -1,0 +1,60 @@
+{
+  "source_commit": "69056a64d69ba46f6c22cdfc9421b5f978ffae7e",
+  "workflow_run": "https://github.com/Mikaaah/Flow-Control/actions/runs/41593515484",
+  "jar_sha256": "6fb829305e9382af6f5a28efaa786e4ac2eee0a481b859f72b50cbb6d45fc1cd",
+  "checks": {
+    "standalone": {
+      "vanillaWaterAndVesselFlow": true,
+      "manualDirectionRetainsPriorityOverDownhillGuard": true,
+      "bakedWaterStillnessAndOverlap": true,
+      "mooredBoatTwentyTicks": true,
+      "savedDataRoundTrip": true,
+      "connectedWaterIsolationAndPersistence": true,
+      "networkCodecRoundTrip": true,
+      "dimensionIsolation": true,
+      "masterSwitch": true,
+      "controllerRedstoneAndRemoval": true,
+      "eightHeadingPhysicsPersistenceAndPackets": true,
+      "profileModesPersistenceAndMigration": true,
+      "controllerLinkPropagationCycleAndMissingSource": true,
+      "calibratorCopyPasteLinkAndLegacyCleanup": true,
+      "sensorVerticalHorizontalDirectionBoatAndComparator": true,
+      "mooringHoldBoardingRedstoneAndCooldown": true,
+      "engineeringPacketRoundTrips": true,
+      "standaloneWithoutCreate": true,
+      "passed": true
+    },
+    "create_6_0_10": {
+      "vanillaWaterAndVesselFlow": true,
+      "manualDirectionRetainsPriorityOverDownhillGuard": true,
+      "bakedWaterStillnessAndOverlap": true,
+      "mooredBoatTwentyTicks": true,
+      "savedDataRoundTrip": true,
+      "connectedWaterIsolationAndPersistence": true,
+      "networkCodecRoundTrip": true,
+      "dimensionIsolation": true,
+      "masterSwitch": true,
+      "controllerRedstoneAndRemoval": true,
+      "eightHeadingPhysicsPersistenceAndPackets": true,
+      "profileModesPersistenceAndMigration": true,
+      "controllerLinkPropagationCycleAndMissingSource": true,
+      "calibratorCopyPasteLinkAndLegacyCleanup": true,
+      "sensorVerticalHorizontalDirectionBoatAndComparator": true,
+      "mooringHoldBoardingRedstoneAndCooldown": true,
+      "engineeringPacketRoundTrips": true,
+      "createRealNetworkRpmReverseStressAndStop": true,
+      "passed": true
+    }
+  },
+  "client_captures": [
+    "current-generator",
+    "stillwater-anchor",
+    "redstone-paused",
+    "automation",
+    "flow-sensor",
+    "mooring-post",
+    "block-models",
+    "mechanical-controller"
+  ],
+  "full_modpack_playtest": false
+}

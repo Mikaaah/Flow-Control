@@ -4,11 +4,11 @@ license="GPL-3.0-only"
 issueTrackerURL="https://github.com/Mikaaah/Streams-Flow-Control/issues"
 [[mods]]
 modId="streamcontrol"
-version="0.1.7"
+version="0.2.1"
 displayName="Streams Flow Control"
 authors="Mikaaah / Towns & Kingdoms"
 displayURL="https://github.com/Mikaaah/Streams-Flow-Control"
-description="Shape water currents with a Flow Wand, Current Generator and Stillwater Anchor. Persistent, height-bounded controls for Streams Reflowing."
+description="Calibrate currents, automate controller profiles, monitor water and secure boats. Optional Create-powered current generation."
 [[mixins]]
 config="streamcontrol.mixins.json"
 [[dependencies.streamcontrol]]
@@ -27,5 +27,12 @@ side="BOTH"
 modId="streamsreflowing"
 type="required"
 versionRange="[2.16.2,2.16.3)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.streamcontrol]]
+modId="create"
+type="optional"
+versionRange="[6.0.10,6.1)"
 ordering="AFTER"
 side="BOTH"

@@ -4,16 +4,24 @@ on:
   push:
     branches:
       - "gui/**"
+      - "feature/**"
       - main
       - fix/neoforge-1.21.1-stillwater-render
   pull_request:
     branches:
       - main
+      - gui/controller-layout
   workflow_dispatch:
 
 jobs:
   build:
+    strategy:
+      fail-fast: false
+      matrix:
+        flavor: [standalone, create]
     runs-on: ubuntu-latest
+    env:
+      CREATE_ARGS: ${{ matrix.flavor == 'create' && '-PwithCreate' || '' }}
     permissions:
       contents: read
     steps:
@@ -35,14 +43,16 @@ jobs:
           sha256sum --check <<'HASH'
           70930ad6b943d9a359ddb573450f5114a6a54a676e32c1895f6eb4d2cd634a33  libs/StreamsReflowing-1.21.1-neoforge-2.16.2.jar
           HASH
+      - name: Fetch verified optional Create compile fixture
+        run: python3 tools/fetch_create.py
       - name: Compile and package addon
         run: |
           chmod +x gradlew
-          ./gradlew --no-daemon clean build
+          ./gradlew --no-daemon $CREATE_ARGS clean build
       - name: Upload test JAR
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.1.7-neoforge-1.21.1
+          name: flow-control-0.2.1-neoforge-1.21.1-${{ matrix.flavor }}
           path: build/libs/flow-control-*.jar
           if-no-files-found: error
 
@@ -52,7 +62,7 @@ jobs:
           echo 'eula=true' > run/eula.txt
           echo 'forceBakedFluid=true' > run/config/streamsreflowing.properties
           printf 'level-type=minecraft:flat\ngenerate-structures=false\nonline-mode=false\nview-distance=2\nsimulation-distance=2\n' > run/server.properties
-          timeout 300 ./gradlew --no-daemon -Dstreamcontrol.integrationTest=true runServer
+          timeout 300 ./gradlew --no-daemon -Dstreamcontrol.integrationTest=true $CREATE_ARGS runServer
           python3 - <<'CHECK'
           import json
           data=json.load(open('run/streamcontrol-integration-results.json'))
@@ -63,7 +73,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.1.7-neoforge-1.21.1-checks
+          name: flow-control-0.2.1-neoforge-1.21.1-${{ matrix.flavor }}-checks
           path: |
             run/streamcontrol-integration-results.json
             run/logs/latest.log
@@ -72,15 +82,20 @@ jobs:
         run: |
           mkdir -p run-client
           printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
-          timeout 360 xvfb-run -a ./gradlew --no-daemon -Dstreamcontrol.uiPreview=true runClient
+          timeout 360 xvfb-run -a ./gradlew --no-daemon -Dstreamcontrol.uiPreview=true $CREATE_ARGS runClient
           test -s run-client/screenshots/flow-control-current-generator.png
           test -s run-client/screenshots/flow-control-stillwater-anchor.png
           test -s run-client/screenshots/flow-control-redstone-paused.png
+          test -s run-client/screenshots/flow-control-automation.png
+          test -s run-client/screenshots/flow-control-flow-sensor.png
+          test -s run-client/screenshots/flow-control-mooring-post.png
+          test -s run-client/screenshots/flow-control-block-models.png
+          test -s run-client/screenshots/flow-control-mechanical-controller.png
       - name: Upload GUI screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.1.7-client-preview
+          name: flow-control-0.2.1-${{ matrix.flavor }}-client-preview
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log
