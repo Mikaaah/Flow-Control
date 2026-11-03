@@ -25,5 +25,8 @@ tasks.named("remapJar") { archiveFileName = "flow-control-0.2.2-fabric-1.20.1.ja
 dependencies {
  modCompileOnly files('libs/create-fabric-6.0.8.1+build.1744-mc1.20.1.jar')
  modCompileOnly fileTree('libs/create-compile') { include '*.jar' }
- if(providers.gradleProperty('withCreate').isPresent()) modRuntimeOnly files('libs/create-fabric-6.0.8.1+build.1744-mc1.20.1.jar')
+ if(providers.gradleProperty('withCreate').isPresent()) {
+  modRuntimeOnly files('libs/create-fabric-6.0.8.1+build.1744-mc1.20.1.jar')
+  modRuntimeOnly fileTree('libs/create-compile') { include '*.jar' }
+ }
 }
