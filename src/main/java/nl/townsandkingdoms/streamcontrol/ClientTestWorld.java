@@ -58,7 +58,7 @@ public final class ClientTestWorld {
             var l=c.getSource().getLevel();l.setBlock(GENERATOR.below(),Blocks.REDSTONE_BLOCK.defaultBlockState(),3);return 1;
         })).then(literal("unpower").executes(c->{
             var l=c.getSource().getLevel();l.setBlock(GENERATOR.below(),Blocks.STONE.defaultBlockState(),3);return 1;
-        })).then(literal("dock").executes(c->{c.getSource().getPlayerOrException().teleportTo(.5,101,1.5);return 1;
+        })).then(literal("dock").executes(c->{var p=c.getSource().getPlayerOrException();p.teleportTo(.5,101,3.5);p.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);return 1;
         })).then(literal("reverse").executes(c->{
             if(net.neoforged.fml.ModList.get().isLoaded("create")) nl.townsandkingdoms.streamcontrol.compat.create.CreateClientFixture.speed(c.getSource().getLevel(),-128);return 1;
         })).then(literal("stop").executes(c->{

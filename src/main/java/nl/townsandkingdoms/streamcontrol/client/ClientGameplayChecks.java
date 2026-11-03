@@ -90,7 +90,7 @@ public final class ClientGameplayChecks {
         add("sensor direction comparator and settings sync",()->{at(150,149);click("gui.streamcontrol.apply");},()->((FlowSensorEntity)utility(SENSOR)).mode()==FlowSensorEntity.Mode.DIRECTION && ((FlowSensorEntity)utility(SENSOR)).output()==3);
         add("reopen sensor boat mode",()->use(SENSOR),()->mc().screen instanceof UtilityScreen);
         add("sensor boat mode and zero vertical range",()->{at(150,149);slider(0,7.0/15);slider(1,0);click("gui.streamcontrol.apply");},()->((FlowSensorEntity)utility(SENSOR)).mode()==FlowSensorEntity.Mode.BOATS && ((FlowSensorEntity)utility(SENSOR)).output()==1);
-        add("mooring live boat capture sync",()->command("dock"),()->utility(MOORING).settings().getBoolean("Secured"));
+        add("mooring live boat capture sync",()->command("dock"),()->utility(MOORING).settings().getBoolean("Secured") && mc().player.blockPosition().distSqr(MOORING)<=2);
         add("open mooring",()->use(MOORING),()->mc().screen instanceof UtilityScreen);
         add("disable mooring from GUI releases boat",()->{screenshot("mooring");at(150,186);click("gui.streamcontrol.apply");},()->!utility(MOORING).settings().getBoolean("Enabled") && !utility(MOORING).settings().getBoolean("Secured"));
         add("reopen mooring",()->use(MOORING),()->mc().screen instanceof UtilityScreen);
@@ -134,7 +134,7 @@ public final class ClientGameplayChecks {
             if(ticks>1 && s.ready.getAsBoolean()) {
                 results.put(s.name,true);System.out.println("FLOW_CLIENT_PASS "+s.name);step++;ticks=0;
                 if(step==steps.size()) finish(null);
-            } else if(ticks>240) throw new AssertionError("Timeout: "+s.name+"; screen="+mc().screen);
+            } else if(ticks>240) throw new AssertionError("Timeout: "+s.name+"; screen="+mc().screen+"; player="+mc().player.position()+"; passenger="+mc().player.isPassenger()+"; crouching="+mc().player.isShiftKeyDown());
         } catch(Throwable t) {t.printStackTrace();finish(t);}
     }
     private static void finish(Throwable error) {
