@@ -2,13 +2,14 @@
 
 <h1 align="center">Flow Control</h1>
 
-<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon">CurseForge</a> · <a href="https://github.com/Mikaaah/Flow-Control/wiki">Wiki</a> · <a href="https://github.com/Mikaaah/Flow-Control/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Flow-Control/blob/main/CHANGELOG.md">Changelog</a></p>
+<p align="center"><strong>Your canal. Your current. Shape Streams Reflowing water around docks, rivers and ambitious builds.</strong></p>
 
-<p align="center"><img alt="Minecraft 1.21.1" src="https://img.shields.io/badge/Minecraft-1.21.1-568736?style=flat-square"> <img alt="NeoForge" src="https://img.shields.io/badge/Loader-NeoForge-d77828?style=flat-square"></p>
+<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon">Downloads</a> · <a href="https://github.com/Mikaaah/Flow-Control/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Flow-Control/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Flow-Control/blob/feature/verified-water-engineering/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
 
-Shape currents and create calm water around docks, canals and builds. An addon for **Streams Reflowing**, available for NeoForge, Forge and Fabric.
+<p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
-## Water Engineering — 0.2.1
+
+## Water Engineering — 0.2.2 source preview
 
 Turn waterways into configurable transport and docking systems. The Flow Calibrator inspects currents, displays reach, copies settings and links controllers. Two saved profiles add analog redstone control, reversal and automatic switching. Flow Sensors detect current strength, direction or boats through configurable horizontal and vertical ranges. Mooring Posts secure empty boats and release them when boarded or powered.
 
@@ -18,11 +19,11 @@ The existing controller model family is retained, with steel-blue sensor colors,
 
 | Minecraft | Loader | Java | Streams Reflowing | Optional Create | Download |
 | --- | --- | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.219+ within 21.1 | 21 | 2.16.2 | Tested with 6.0.10 | [0.2.1 JAR](https://github.com/Mikaaah/Flow-Control/raw/refs/heads/feature/water-engineering/downloads/flow-control-0.2.1-neoforge-1.21.1.jar) |
+| 1.21.1 | NeoForge 21.1.219+ within 21.1 | 21 | 2.16.2 | Tested with 6.0.10 | [Project downloads](https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon) |
 
-[Controls and behavior](docs/WATER-ENGINEERING.md) · [Feature branch](https://github.com/Mikaaah/Flow-Control/tree/feature/water-engineering) · [Build and regression checks](https://github.com/Mikaaah/Flow-Control/actions/runs/41593515484)
+[Controls and behavior](docs/WATER-ENGINEERING.md) · [Feature branch](https://github.com/Mikaaah/Flow-Control/tree/feature/water-engineering)
 
-The 0.2.1 feature update currently targets NeoForge 1.21.1. Earlier downloads and other loader branches remain unchanged. Use matching client/server versions.
+This source preview currently targets NeoForge 1.21.1. Earlier downloads and other loader branches remain unchanged. Use matching client/server versions.
 
 ## Make water work for your build
 
@@ -40,3 +41,10 @@ Right-click blocks to configure them. Sneak-use the Calibrator in the air to swi
 ## Credits and license
 
 By **Towns & Kingdoms**. [GPL-3.0-only](LICENSE). Requires Streams Reflowing; no dependency code or textures are redistributed.
+## Pull up a chair
+
+Questions, builds, feedback, server news and the occasional wildly overambitious factory: join the **Towns & Kingdoms Modding Hub**.
+
+[![Join the Towns & Kingdoms Discord](https://i.imgur.com/Ojgcccm.png)](https://discord.gg/CRYk3uDPVt)
+
+**[Join Discord](https://discord.gg/CRYk3uDPVt)** · [Explore all projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [CurseForge projects](https://www.curseforge.com/members/mikaaah/projects)
