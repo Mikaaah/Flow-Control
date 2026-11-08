@@ -19,3 +19,7 @@ Version 0.1.5 adds the parchment controller screen and an eight-way compass. Use
 - [Changelog](https://github.com/Mikaaah/Flow-Control/wiki/Changelog)
 
 [CurseForge](https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon) · [Source](https://github.com/Mikaaah/Flow-Control) · [Issues](https://github.com/Mikaaah/Flow-Control/issues)
+
+## Other editions
+
+**[0.2.2](https://github.com/Mikaaah/Flow-Control/tree/feature/verified-water-engineering)** — The Water Engineering preview adds Flow Sensors, Mooring Posts, a Flow Calibrator, redstone profiles and an optional Create-powered Mechanical Current Generator. It targets NeoForge 1.21.1 and Streams Reflowing 2.16.2.

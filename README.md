@@ -8,6 +8,8 @@
 
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
+> **[0.2.2 edition guide](https://github.com/Mikaaah/Flow-Control/tree/feature/verified-water-engineering)** — The Water Engineering preview adds Flow Sensors, Mooring Posts, a Flow Calibrator, redstone profiles and an optional Create-powered Mechanical Current Generator. It targets NeoForge 1.21.1 and Streams Reflowing 2.16.2.
+
 ## Versions and downloads
 
 Available for **NeoForge, Forge and Fabric**. Version **0.1.5** includes the parchment controller GUI and an eight-way compass on all eight versions. Diagonal currents keep the selected speed, and controller arrows follow the chosen heading.

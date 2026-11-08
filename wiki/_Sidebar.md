@@ -12,3 +12,7 @@
 - [All mod projects](https://mikaaah.github.io/TownsAndKingdoms/projects/)
 - [Join Discord](https://discord.gg/CRYk3uDPVt)
 - [Report an issue](https://github.com/Mikaaah/Flow-Control/issues)
+
+### Edition guides
+
+- [0.2.2](https://github.com/Mikaaah/Flow-Control/tree/feature/verified-water-engineering)
