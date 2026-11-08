@@ -1,3 +1,5 @@
+[← Guide home](https://github.com/Mikaaah/Flow-Control/wiki) · [Project](https://github.com/Mikaaah/Flow-Control) · [Get help](https://github.com/Mikaaah/Flow-Control/issues)
+
 # Overlapping areas
 
 Block controllers have priority over wand edits. Within the same category, stillness wins over directed flow;

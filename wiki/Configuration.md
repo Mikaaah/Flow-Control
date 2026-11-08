@@ -1,3 +1,5 @@
+[← Guide home](https://github.com/Mikaaah/Flow-Control/wiki) · [Project](https://github.com/Mikaaah/Flow-Control) · [Get help](https://github.com/Mikaaah/Flow-Control/issues)
+
 # Configuration
 
 Server configuration is at `<world>/serverconfig/streamcontrol-server.toml`.

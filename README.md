@@ -2,15 +2,15 @@
 
 <h1 align="center">Flow Control</h1>
 
-<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon">CurseForge</a> · <a href="https://github.com/Mikaaah/Flow-Control/wiki">Wiki</a> · <a href="https://github.com/Mikaaah/Flow-Control/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Flow-Control/blob/main/CHANGELOG.md">Changelog</a></p>
+<p align="center"><strong>Your canal. Your current. Shape Streams Reflowing water around docks, rivers and ambitious builds.</strong></p>
 
-<p align="center"><img alt="Minecraft 1.21.1" src="https://img.shields.io/badge/Minecraft-1.21.1-568736?style=flat-square"> <img alt="NeoForge" src="https://img.shields.io/badge/Loader-NeoForge-d77828?style=flat-square"></p>
+<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon">Downloads</a> · <a href="https://github.com/Mikaaah/Flow-Control/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Flow-Control/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Flow-Control/blob/main/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
 
-Shape currents and create calm water around docks, canals and builds. An addon for **Streams Reflowing**, available for NeoForge, Forge and Fabric.
+<p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
 ## Versions and downloads
 
-Version **0.1.5** includes the parchment controller GUI and an eight-way compass on all eight versions. Diagonal currents keep the selected speed, and controller arrows follow the chosen heading.
+Available for **NeoForge, Forge and Fabric**. Version **0.1.5** includes the parchment controller GUI and an eight-way compass on all eight versions. Diagonal currents keep the selected speed, and controller arrows follow the chosen heading.
 
 ![Controller GUI](docs/assets/controller-gui-0.1.5.png)
 
@@ -53,3 +53,11 @@ Flow changes velocity rather than moving water blocks or changing river terrain.
 ## Credits and license
 
 By **Towns & Kingdoms**. [GPL-3.0-only](LICENSE). Requires Streams Reflowing; no dependency code or textures are redistributed.
+
+## Pull up a chair
+
+Questions, builds, feedback, server news and the occasional wildly overambitious factory: join the **Towns & Kingdoms Modding Hub**.
+
+[![Join the Towns & Kingdoms Discord](https://i.imgur.com/Ojgcccm.png)](https://discord.gg/CRYk3uDPVt)
+
+**[Join Discord](https://discord.gg/CRYk3uDPVt)** · [Explore all projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [CurseForge projects](https://www.curseforge.com/members/mikaaah/projects)

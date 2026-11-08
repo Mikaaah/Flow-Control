@@ -12,10 +12,10 @@ Version 0.1.5 adds the parchment controller screen and an eight-way compass. Use
 
 ## Guides
 
-- [Items and controls](Items-and-Controls)
-- [Overlapping areas](Overlapping-Areas)
-- [Configuration](Configuration)
-- [Troubleshooting](Troubleshooting)
-- [Changelog](Changelog)
+- [Items and controls](https://github.com/Mikaaah/Flow-Control/wiki/Items-and-Controls)
+- [Overlapping areas](https://github.com/Mikaaah/Flow-Control/wiki/Overlapping-Areas)
+- [Configuration](https://github.com/Mikaaah/Flow-Control/wiki/Configuration)
+- [Troubleshooting](https://github.com/Mikaaah/Flow-Control/wiki/Troubleshooting)
+- [Changelog](https://github.com/Mikaaah/Flow-Control/wiki/Changelog)
 
 [CurseForge](https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon) · [Source](https://github.com/Mikaaah/Flow-Control) · [Issues](https://github.com/Mikaaah/Flow-Control/issues)

@@ -6,3 +6,9 @@
 - [Configuration](https://github.com/Mikaaah/Flow-Control/wiki/Configuration)
 - [Troubleshooting](https://github.com/Mikaaah/Flow-Control/wiki/Troubleshooting)
 - [Changelog](https://github.com/Mikaaah/Flow-Control/wiki/Changelog)
+
+### Community
+
+- [All mod projects](https://mikaaah.github.io/TownsAndKingdoms/projects/)
+- [Join Discord](https://discord.gg/CRYk3uDPVt)
+- [Report an issue](https://github.com/Mikaaah/Flow-Control/issues)

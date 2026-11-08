@@ -1,13 +1,7 @@
-# Contributor reference
+# Project reference
 
-## Build and validation
+[Player guide](https://github.com/Mikaaah/Flow-Control/wiki) · [Release notes](https://github.com/Mikaaah/Flow-Control/blob/main/CHANGELOG.md) · [Support](../SUPPORT.md)
 
-Requires Java 21. Put `StreamsReflowing-1.21.1-neoforge-2.15.2.jar` in `libs/`, then run `./gradlew build`.
-Dependency jars are not redistributed. Output is in `build/libs/`.
+For behavior and compatibility, use the guide matching your installed version. Include exact versions and reproduction steps when reporting a problem.
 
-The opt-in dedicated-server integration harness checks actual ordinary/baked water flow, boat current APIs,
-radius and height boundaries, overlapping regions, save/load and network codec round trips, dimension isolation,
-redstone disable/re-enable and block-removal cleanup. It runs only with `-Dstreamcontrol.integrationTest=true`
-and stops the test server afterward. Use a disposable development world.
-
-Client visuals and full modpack playtesting remain necessary before calling this a stable release.
+[All projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [Discord](https://discord.gg/CRYk3uDPVt)

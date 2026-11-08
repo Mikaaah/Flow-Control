@@ -1,3 +1,5 @@
+[← Guide home](https://github.com/Mikaaah/Flow-Control/wiki) · [Project](https://github.com/Mikaaah/Flow-Control) · [Get help](https://github.com/Mikaaah/Flow-Control/issues)
+
 # Items and controls
 
 All three items are in the **Streams Flow Control** creative tab and have survival crafting recipes.
