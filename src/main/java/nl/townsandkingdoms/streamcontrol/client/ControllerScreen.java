@@ -42,7 +42,7 @@ public final class ControllerScreen extends Screen {
     private boolean automation;
 
     public static void open(ControlNetwork.Open packet) {
-        Minecraft.getInstance().setScreen(new ControllerScreen(packet));
+        Minecraft.getInstance().setScreenAndShow(new ControllerScreen(packet));
     }
 
     private ControllerScreen(ControlNetwork.Open packet) {

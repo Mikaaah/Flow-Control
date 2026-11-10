@@ -19,10 +19,17 @@ import nl.townsandkingdoms.streamcontrol.*;
 public final class EngineeringClient {
     private record Readout(BlockPos center,int radius,int vertical,List<Component> lines,boolean bounds) {}
     private static Readout readout;
+    private static final net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey<Readout> KEY=
+        net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey.create(()->"streamcontrol:calibrator_bounds");
+    private static void extract(net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionContext e) {
+        update();
+        ((net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState)e.levelState()).setData(KEY,readout);
+    }
     private static long lastTick=Long.MIN_VALUE;
     public static void register() {
         net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry.addLast(Identifier.fromNamespaceAndPath(StreamControl.ID,"calibrator"),(g,d)->hud(g));
-        net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents.END_MAIN.register(EngineeringClient::world);
+        net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents.END_EXTRACTION.register(EngineeringClient::extract);
+        net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents.COLLECT_SUBMITS.register(EngineeringClient::world);
     }
     private static Component tr(String key,Object...args) { return Component.translatable("engineering.streamcontrol."+key,args); }
     private static ItemStack tool(Minecraft mc) {
@@ -32,7 +39,7 @@ public final class EngineeringClient {
     }
     private static void update() {
         var mc=Minecraft.getInstance();var stack=tool(mc);
-        if(mc.level==null || stack.isEmpty() || mc.screen!=null || mc.options.hideGui) { readout=null;lastTick=Long.MIN_VALUE;return; }
+        if(mc.level==null || stack.isEmpty() || mc.gui.screen()!=null || mc.gui.hud.isHidden()) { readout=null;lastTick=Long.MIN_VALUE;return; }
         long tick=mc.level.getGameTime();if(tick==lastTick) return;lastTick=tick;
         var start=mc.player.getEyePosition();var end=start.add(mc.player.getLookAngle().scale(mc.player.blockInteractionRange()));
         var hit=mc.level.clip(new ClipContext(start,end,ClipContext.Block.OUTLINE,ClipContext.Fluid.ANY,mc.player));
@@ -70,25 +77,25 @@ public final class EngineeringClient {
         for(int i=0;i<readout.lines.size();i++) g.text(mc.font,readout.lines.get(i),x+8,y+6+i*11,i==0?0xFFF4EBE5:0xFFA9D2CD,false);
     }
     private static void world(net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext e) {
-        update();
-        if(readout==null || !readout.bounds) return;
+        var snapshot=((net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState)e.levelState()).getData(KEY);
+        if(snapshot==null || !snapshot.bounds) return;
         var mc=Minecraft.getInstance();var pose=e.poseStack();var camera=e.levelState().cameraRenderState.pos;
         pose.pushPose();pose.translate(-camera.x,-camera.y,-camera.z);
-        var buffers=mc.renderBuffers().bufferSource();var vertices=buffers.getBuffer(net.minecraft.client.renderer.rendertype.RenderTypes.LINES);
-        double x=readout.center.getX()+.5,z=readout.center.getZ()+.5,r=readout.radius+.5;
-        double low=readout.center.getY()-readout.vertical,high=readout.center.getY()+readout.vertical+1;
+        e.submitNodeCollector().submitCustomGeometry(pose,net.minecraft.client.renderer.rendertype.RenderTypes.lines(),(matrix,vertices)->{
+        double x=snapshot.center.getX()+.5,z=snapshot.center.getZ()+.5,r=snapshot.radius+.5;
+        double low=snapshot.center.getY()-snapshot.vertical,high=snapshot.center.getY()+snapshot.vertical+1;
         for(int i=0;i<64;i++) {
             double a=i*Math.PI/32,b=(i+1)*Math.PI/32;
             double ax=x+Math.cos(a)*r,az=z+Math.sin(a)*r,bx=x+Math.cos(b)*r,bz=z+Math.sin(b)*r;
-            line(pose,vertices,ax,low,az,bx,low,bz);line(pose,vertices,ax,high,az,bx,high,bz);
-            if(i%8==0) line(pose,vertices,ax,low,az,ax,high,az);
+            line(matrix,vertices,ax,low,az,bx,low,bz);line(matrix,vertices,ax,high,az,bx,high,bz);
+            if(i%8==0) line(matrix,vertices,ax,low,az,ax,high,az);
         }
-        buffers.endBatch(net.minecraft.client.renderer.rendertype.RenderTypes.LINES);pose.popPose();
+        });pose.popPose();
     }
-    private static void line(PoseStack pose,VertexConsumer out,double x,double y,double z,double bx,double by,double bz) {
+    private static void line(PoseStack.Pose pose,VertexConsumer out,double x,double y,double z,double bx,double by,double bz) {
         double length=Math.sqrt((bx-x)*(bx-x)+(by-y)*(by-y)+(bz-z)*(bz-z));
         float nx=(float)((bx-x)/length),ny=(float)((by-y)/length),nz=(float)((bz-z)/length);
-        out.addVertex(pose.last().pose(),(float)x,(float)y,(float)z).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose.last(),nx,ny,nz);
-        out.addVertex(pose.last().pose(),(float)bx,(float)by,(float)bz).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose.last(),nx,ny,nz);
+        out.addVertex(pose.pose(),(float)x,(float)y,(float)z).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose,nx,ny,nz).setLineWidth(2.0f);
+        out.addVertex(pose.pose(),(float)bx,(float)by,(float)bz).setColor(0.66f,0.83f,0.80f,0.85f).setNormal(pose,nx,ny,nz).setLineWidth(2.0f);
     }
 }

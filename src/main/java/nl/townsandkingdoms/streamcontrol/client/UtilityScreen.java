@@ -17,7 +17,7 @@ public final class UtilityScreen extends Screen {
     private final boolean sensor;
     private int radius,vertical,mode,left,top;
     private boolean toggle;
-    public static void open(ControlNetwork.UtilityOpen packet) { Minecraft.getInstance().setScreen(new UtilityScreen(packet)); }
+    public static void open(ControlNetwork.UtilityOpen packet) { Minecraft.getInstance().setScreenAndShow(new UtilityScreen(packet)); }
     private UtilityScreen(ControlNetwork.UtilityOpen packet) {
         super(Component.translatable("block.streamcontrol."+("sensor".equals(packet.settings().getStringOr("Kind",""))?"flow_sensor":"mooring_post")));
         snapshot=packet;options=packet.settings().copy();sensor="sensor".equals(options.getStringOr("Kind",""));

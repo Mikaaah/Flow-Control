@@ -22,10 +22,10 @@ public final class StreamControl implements ModInitializer {
  private static Identifier id(String n){return Identifier.fromNamespaceAndPath(ID,n);}
  private static ControllerBlock block(String n,boolean still,BlockBehaviour.Properties p){return Registry.register(BuiltInRegistries.BLOCK,id(n),new ControllerBlock(still,p.setId(ResourceKey.create(Registries.BLOCK,id(n)))));}
  private static <T extends Item>T item(String n,java.util.function.Function<Item.Properties,T> factory,Item.Properties p){return Registry.register(BuiltInRegistries.ITEM,id(n),factory.apply(p.setId(ResourceKey.create(Registries.ITEM,id(n)))));}
- private static final ControllerBlock GENERATOR_BLOCK=block("current_generator",false,BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).strength(3));
+ private static final ControllerBlock GENERATOR_BLOCK=block("current_generator",false,BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK.weathering().unaffected()).strength(3));
  private static final ControllerBlock ANCHOR_BLOCK=block("stillwater_anchor",true,BlockBehaviour.Properties.ofFullCopy(Blocks.PRISMARINE).strength(3));
  public static final Supplier<ControllerBlock> GENERATOR=()->GENERATOR_BLOCK,ANCHOR=()->ANCHOR_BLOCK;
- private static final UtilityBlock SENSOR_BLOCK=Registry.register(BuiltInRegistries.BLOCK,id("flow_sensor"),new UtilityBlock(true,BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).strength(3).setId(ResourceKey.create(Registries.BLOCK,id("flow_sensor")))));
+ private static final UtilityBlock SENSOR_BLOCK=Registry.register(BuiltInRegistries.BLOCK,id("flow_sensor"),new UtilityBlock(true,BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK.weathering().unaffected()).strength(3).setId(ResourceKey.create(Registries.BLOCK,id("flow_sensor")))));
  private static final UtilityBlock MOORING_BLOCK=Registry.register(BuiltInRegistries.BLOCK,id("mooring_post"),new UtilityBlock(false,BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3).noOcclusion().setId(ResourceKey.create(Registries.BLOCK,id("mooring_post")))));
  public static final Supplier<UtilityBlock> SENSOR=()->SENSOR_BLOCK,MOORING=()->MOORING_BLOCK;
  public static final Supplier<BlockItem> SENSOR_ITEM=()->(BlockItem)SENSOR_BLOCK.asItem(),MOORING_ITEM=()->(BlockItem)MOORING_BLOCK.asItem();

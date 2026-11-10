@@ -19,14 +19,11 @@ public final class ControllerBlock extends BaseEntityBlock implements SimpleWate
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty DIAGONAL = BooleanProperty.create("diagonal");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final MapCodec<ControllerBlock> CODEC = simpleCodec(p -> new ControllerBlock(false, p));
-    public static final MapCodec<ControllerBlock> ANCHOR_CODEC = simpleCodec(p -> new ControllerBlock(true, p));
     public final boolean still;
     public ControllerBlock(boolean still, Properties p) {
         super(p); this.still = still;
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(DIAGONAL, false).setValue(WATERLOGGED, false).setValue(POWERED, false));
     }
-    @Override protected MapCodec<? extends BaseEntityBlock> codec() { return still ? ANCHOR_CODEC : CODEC; }
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(FACING, WATERLOGGED, POWERED, DIAGONAL); }
     @Override public BlockState getStateForPlacement(BlockPlaceContext c) { return defaultBlockState().setValue(FACING, c.getHorizontalDirection()).setValue(WATERLOGGED, c.getLevel().getFluidState(c.getClickedPos()).is(net.minecraft.tags.FluidTags.WATER)).setValue(POWERED, c.getLevel().hasNeighborSignal(c.getClickedPos())); }
     @Override protected RenderShape getRenderShape(BlockState s) { return RenderShape.MODEL; }

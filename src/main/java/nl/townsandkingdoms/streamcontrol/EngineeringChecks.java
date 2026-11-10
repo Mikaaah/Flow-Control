@@ -84,9 +84,9 @@ public final class EngineeringChecks {
         sensorOptions.putInt("Mode",1);sensor.configure(sensorOptions);check(sensor.output()==3,"East must be direction output 3");
         sensorOptions.putInt("Radius",1);sensor.configure(sensorOptions);check(sensor.output()==0,"Sensor ignored horizontal range");
         sensorOptions.putInt("Radius",4);sensorOptions.putInt("Mode",2);sensorOptions.putBoolean("EmptyOnly",true);
-        var sensedBoat=net.minecraft.world.entity.EntityType.OAK_BOAT.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);sensedBoat.setPos(sensorPos.getX()+.5,sensorPos.getY()+3.5,sensorPos.getZ()+.5);level.addFreshEntity(sensedBoat);
+        var sensedBoat=net.minecraft.world.entity.EntityTypes.OAK_BOAT.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);sensedBoat.setPos(sensorPos.getX()+.5,sensorPos.getY()+3.5,sensorPos.getZ()+.5);level.addFreshEntity(sensedBoat);
         sensor.configure(sensorOptions);check(sensor.output()==1,"Boat count ignored vertical range");
-        var rider=new net.minecraft.world.entity.animal.pig.Pig(net.minecraft.world.entity.EntityType.PIG,level);level.addFreshEntity(rider);
+        var rider=new net.minecraft.world.entity.animal.pig.Pig(net.minecraft.world.entity.EntityTypes.PIG,level);level.addFreshEntity(rider);
         sensorOptions.putInt("Vertical",2);sensor.configure(sensorOptions);check(sensor.output()==0,"Boat below/above range was counted");
         sensorOptions.putInt("Vertical",3);sensor.configure(sensorOptions);check(rider.startRiding(sensedBoat,true,true),"Sensor passenger fixture failed to board");sensor.sample();check(sensor.output()==0,"Empty-only sensor counted occupied boat");
         sensorOptions.putBoolean("EmptyOnly",false);sensor.configure(sensorOptions);check(sensor.output()==1,"All-boats sensor omitted occupied boat");
@@ -97,7 +97,7 @@ public final class EngineeringChecks {
         var mooringPos=p.south(64);
         while(Math.floorMod(level.getGameTime()+mooringPos.asLong(),10)!=0) mooringPos=mooringPos.above();
         level.setBlock(mooringPos,StreamControl.MOORING.get().defaultBlockState(),3);var mooring=(MooringEntity)level.getBlockEntity(mooringPos);
-        var boat=net.minecraft.world.entity.EntityType.OAK_BOAT.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);boat.setPos(mooringPos.getX()+1.5,mooringPos.getY()+1,mooringPos.getZ()+.5);level.addFreshEntity(boat);
+        var boat=net.minecraft.world.entity.EntityTypes.OAK_BOAT.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);boat.setPos(mooringPos.getX()+1.5,mooringPos.getY()+1,mooringPos.getZ()+.5);level.addFreshEntity(boat);
         mooring.tick();check(boat.getUUID().equals(mooring.boatId()),"Mooring did not secure empty boat");
         double x=boat.getX(),z=boat.getZ();boat.setPos(x+.2,boat.getY(),z+.2);boat.setDeltaMovement(.2,.03,.2);mooring.tick();
         check(boat.getX()==x && boat.getZ()==z && boat.getDeltaMovement().x==0 && boat.getDeltaMovement().z==0 && boat.getDeltaMovement().y==.03,"Mooring did not hold horizontal position and preserve bobbing");

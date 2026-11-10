@@ -19,25 +19,25 @@ public final class ControllerPreview {
         var mc=Minecraft.getInstance();
         if(phase==0) {
             if(mc.level==null) {
-                if(!connecting && mc.screen instanceof TitleScreen && mc.getOverlay()==null) {
+                if(!connecting && mc.gui.screen() instanceof TitleScreen && mc.gui.overlay()==null) {
                     connecting=true;
-                    net.minecraft.client.gui.screens.ConnectScreen.startConnecting(mc.screen,mc,net.minecraft.client.multiplayer.resolver.ServerAddress.parseString("127.0.0.1:25565"),new net.minecraft.client.multiplayer.ServerData("Flow preview","127.0.0.1:25565",net.minecraft.client.multiplayer.ServerData.Type.OTHER),false,null);
+                    net.minecraft.client.gui.screens.ConnectScreen.startConnecting(mc.gui.screen(),mc,net.minecraft.client.multiplayer.resolver.ServerAddress.parseString("127.0.0.1:25565"),new net.minecraft.client.multiplayer.ServerData("Flow preview","127.0.0.1:25565",net.minecraft.client.multiplayer.ServerData.Type.OTHER),false,null);
                 }
                 return;
             }
-            if(mc.player==null || mc.getOverlay()!=null) return;
+            if(mc.player==null || mc.gui.overlay()!=null) return;
             open();phase=1;ticks=0;
         }
         if(++ticks<25) return;
         String name="flow-control-"+NAMES[phase-1]+".png";
-        if(!captured) { Screenshot.grab(mc.gameDirectory,name,mc.getMainRenderTarget(),1,message->{});captured=true;return; }
+        if(!captured) { Screenshot.grab(mc.gameDirectory,name,mc.gameRenderer.mainRenderTarget(),1,message->{});captured=true;return; }
         if(!new File(mc.gameDirectory,"screenshots/"+name).isFile()) return;
         if(phase==NAMES.length) { mc.stop();return; }
         phase++;ticks=0;captured=false;open();
     }
     private static void open() {
         var mc=Minecraft.getInstance();String name=NAMES[phase==0?0:phase-1];
-        if(name.equals("block-models")) { mc.setScreen(new ModelPreviewScreen());return; }
+        if(name.equals("block-models")) { mc.setScreenAndShow(new ModelPreviewScreen());return; }
         if(name.equals("flow-sensor") || name.equals("mooring-post")) {
             var n=new CompoundTag();n.putString("Kind",name.equals("flow-sensor")?"sensor":"mooring");n.putInt("Radius",4);n.putInt("Vertical",4);
             n.putInt("MaxRadius",16);n.putInt("MaxVertical",16);n.putBoolean("Enabled",true);n.putInt("Output",8);
@@ -50,9 +50,9 @@ public final class ControllerPreview {
         n.putInt("RedstoneMode",name.equals("automation")?4:0);
         ControllerScreen.open(new ControlNetwork.Open(0,4,4,.75,2,16,false,still,name.equals("redstone-paused"),FlowHeading.NORTH_EAST.id(),n));
         if(name.equals("automation")) {
-            var button=mc.screen.children().stream().filter(c->c instanceof Button b && b.getMessage().equals(Component.translatable("engineering.streamcontrol.automation_tab")))
+            var button=mc.gui.screen().children().stream().filter(c->c instanceof Button b && b.getMessage().equals(Component.translatable("engineering.streamcontrol.automation_tab")))
                 .map(c->(Button)c).findFirst().orElseThrow();button.onPress(null);
-            var profile=mc.screen.children().stream().filter(c->c instanceof Button b && b.getMessage().equals(Component.translatable("engineering.streamcontrol.profile_b")))
+            var profile=mc.gui.screen().children().stream().filter(c->c instanceof Button b && b.getMessage().equals(Component.translatable("engineering.streamcontrol.profile_b")))
                 .map(c->(Button)c).findFirst().orElseThrow();profile.onPress(null);
         }
     }
