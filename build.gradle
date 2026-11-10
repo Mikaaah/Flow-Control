@@ -2,7 +2,7 @@ plugins {
  id 'java-library'
  id 'net.neoforged.moddev.legacyforge' version '2.0.148'
 }
-version = '0.2.2'
+version = new groovy.json.JsonSlurper().parse(file('release.json')).version
 group='nl.townsandkingdoms.streamcontrol'
 base.archivesName='streams-flow-control-forge-1.20.1'
 java.toolchain.languageVersion=JavaLanguageVersion.of(17)
@@ -14,14 +14,15 @@ legacyForge {
 }
 repositories { flatDir { dirs 'libs' } }
 mixin { add sourceSets.main, 'streamcontrol.refmap.json'; config 'streamcontrol.mixins.json' }
-dependencies { modImplementation 'dev.streamsreflowing:StreamsReflowing-1.20.1-forge:2.16.2'; annotationProcessor 'org.spongepowered:mixin:0.8.5:processor' }
+dependencies { modImplementation 'dev.streamsreflowing:StreamsReflowing-1.20.1-forge:2.17.1'; annotationProcessor 'org.spongepowered:mixin:0.8.5:processor' }
 tasks.withType(JavaCompile).configureEach { options.encoding='UTF-8'; options.release=17 }
 tasks.named('jar') { from('LICENSE'); manifest.attributes('MixinConfigs':'streamcontrol.mixins.json') }
 
-tasks.named("jar") { archiveFileName = "flow-control-0.2.2-forge-1.20.1.jar" }
 
 dependencies {
  modCompileOnly 'com.simibubi.create:create-1.20.1:6.0.8'
  compileOnly fileTree('libs/create-compile') { include '*.jar' }
  if(providers.gradleProperty('withCreate').isPresent()) modRuntimeOnly 'com.simibubi.create:create-1.20.1:6.0.8'
 }
+
+apply from: 'release-tools/gradle/release.gradle'
