@@ -2,7 +2,8 @@
 
 ## Build and validation
 
-Requires Java 21. Put `StreamsReflowing-1.21.1-neoforge-2.15.2.jar` in `libs/`, then run `./gradlew build`.
+Requires Java 21. Put `StreamsReflowing-1.21.1-neoforge-2.17.1.jar` in `libs/`, run `python3 tools/fetch_create.py` for the optional compile fixture, then run `./gradlew build`.
+Use `-PneoForgeVersion=21.1.265` to reproduce the current validation environment.
 Dependency jars are not redistributed. Output is in `build/libs/`.
 
 The opt-in dedicated-server integration harness checks actual ordinary/baked water flow, boat current APIs,

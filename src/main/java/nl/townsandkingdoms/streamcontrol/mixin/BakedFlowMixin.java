@@ -7,10 +7,10 @@ import net.minecraft.world.level.material.FluidState;
 import nl.townsandkingdoms.streamcontrol.FlowOverrides;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-// Both registered stream-fluid implementations in the verified 2.16.2 JAR.
+// Both registered stream-fluid implementations in the verified 2.17.1 JAR.
 @Mixin(targets = {
-    "streamsreflowing.proprietary.SourceGivenToAuthorizedOnly_006$ProprietaryNiceJohn_001",
-    "streamsreflowing.proprietary.SourceGivenToAuthorizedOnly_006$SeeAiNoticeConstant_001"
+    "streamsreflowing.proprietary.AllRightsReservedNiceJohn_006$ProprietaryNiceJohn_001",
+    "streamsreflowing.proprietary.AllRightsReservedNiceJohn_006$SeeAiNoticeConstant_001"
 }, remap = false, priority = 500)
 public abstract class BakedFlowMixin {
     @ModifyReturnValue(method = "getFlow", at = @At("RETURN"), remap = false)

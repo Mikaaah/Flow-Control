@@ -1,5 +1,12 @@
 ![Flow Control](https://i.imgur.com/JGT2lvz.png)
 
+## 1.0.0 — Streams Reflowing Update
+
+- Updated NeoForge 1.21.1 support to **Streams Reflowing 2.17.1**.
+- Fixed compatibility with the renamed stream-water classes used by the new Streams release.
+- Retained the Calibrator, controller profiles, flow sensors, mooring posts and optional Create integration.
+- Existing controller settings and items carry over. Create water-wheel speeds remain unchanged.
+
 ## 0.2.2 — Verified Water Engineering and Version Ports
 
 - Fixed controller and utility block interactions so Copy, Paste and Link reach the Calibrator instead of opening the normal configuration screen.

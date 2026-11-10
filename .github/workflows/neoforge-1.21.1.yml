@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "gui/**"
+      - "update/**"
       - main
       - fix/neoforge-1.21.1-stillwater-render
   pull_request:
@@ -33,14 +34,14 @@ jobs:
           java-version: '21'
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
-      - name: Fetch Streams Reflowing 2.16.2 (build dependency)
+      - name: Fetch Streams Reflowing 2.17.1 (build dependency)
         run: |
           mkdir -p libs
           curl --fail --location --retry 3 \
-            --output libs/StreamsReflowing-1.21.1-neoforge-2.16.2.jar \
-            https://mediafilez.forgecdn.net/files/9376/530/StreamsReflowing-1.21.1-neoforge-2.16.2.jar
+            --output libs/StreamsReflowing-1.21.1-neoforge-2.17.1.jar \
+            https://cdn.modrinth.com/data/oLS8HdJ1/versions/uKeyx6DB/StreamsReflowing-1.21.1-neoforge-2.17.1.jar
           sha256sum --check <<'HASH'
-          70930ad6b943d9a359ddb573450f5114a6a54a676e32c1895f6eb4d2cd634a33  libs/StreamsReflowing-1.21.1-neoforge-2.16.2.jar
+          50d0a6879c7c79fc8c882209bad364b64920a6fafa660e9e98e650adf305332c  libs/StreamsReflowing-1.21.1-neoforge-2.17.1.jar
           HASH
       - name: Fetch verified optional Create compile fixture
         run: python3 tools/fetch_create.py
@@ -51,7 +52,7 @@ jobs:
       - name: Upload test JAR
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.2.2-neoforge-1.21.1-${{ matrix.flavor }}
+          name: flow-control-1.0.0-neoforge-1.21.1-${{ matrix.flavor }}
           path: build/libs/flow-control-*.jar
           if-no-files-found: error
 
@@ -72,7 +73,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.2.2-neoforge-1.21.1-${{ matrix.flavor }}-checks
+          name: flow-control-1.0.0-neoforge-1.21.1-${{ matrix.flavor }}-checks
           path: |
             run/streamcontrol-integration-results.json
             run/logs/latest.log
@@ -94,7 +95,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.2.2-${{ matrix.flavor }}-client-preview
+          name: flow-control-1.0.0-${{ matrix.flavor }}-client-preview
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log
@@ -121,7 +122,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.2.2-${{ matrix.flavor }}-client-gameplay
+          name: flow-control-1.0.0-${{ matrix.flavor }}-client-gameplay
           path: |
             run-client/streamcontrol-client-results.json
             run-client/screenshots/gameplay-*.png

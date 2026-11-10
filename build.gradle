@@ -2,13 +2,12 @@ plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.148'
 }
-version = '0.2.2'
 group = 'nl.townsandkingdoms.streamcontrol'
 base.archivesName = 'flow-control'
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 java.withSourcesJar()
 neoForge {
-    version = '21.1.219'
+    version = providers.gradleProperty('neoForgeVersion').getOrElse('21.1.219')
     runs {
         client {
             client()
@@ -33,7 +32,7 @@ neoForge {
     mods { streamcontrol { sourceSet sourceSets.main } }
 }
 dependencies {
-    implementation files('libs/StreamsReflowing-1.21.1-neoforge-2.16.2.jar')
+    implementation files('libs/StreamsReflowing-1.21.1-neoforge-2.17.1.jar')
     compileOnly files('libs/create-1.21.1-6.0.10.jar')
     compileOnly fileTree('libs/create-compile') { include '*.jar' }
     if (providers.gradleProperty('withCreate').isPresent()) {
@@ -48,4 +47,4 @@ dependencies {
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 21 }
 tasks.named('jar') { from('LICENSE') }
 
-tasks.named("jar") { archiveFileName = "flow-control-0.2.2-neoforge-1.21.1.jar" }
+apply from: 'release-tools/gradle/release.gradle'

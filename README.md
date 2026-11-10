@@ -9,7 +9,7 @@
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
 
-## Water Engineering — 0.2.2 source preview
+## Water Engineering — 1.0.0
 
 Turn waterways into configurable transport and docking systems. The Flow Calibrator inspects currents, displays reach, copies settings and links controllers. Two saved profiles add analog redstone control, reversal and automatic switching. Flow Sensors detect current strength, direction or boats through configurable horizontal and vertical ranges. Mooring Posts secure empty boats and release them when boarded or powered.
 
@@ -19,7 +19,7 @@ The existing controller model family is retained, with steel-blue sensor colors,
 
 | Minecraft | Loader | Java | Streams Reflowing | Optional Create | Download |
 | --- | --- | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.219+ within 21.1 | 21 | 2.16.2 | Tested with 6.0.10 | [Project downloads](https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon) |
+| 1.21.1 | NeoForge 21.1.219+ within 21.1 | 21 | 2.17.1 | Tested with 6.0.10 | [Project downloads](https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon) |
 
 [Controls and behavior](docs/WATER-ENGINEERING.md) · [Feature branch](https://github.com/Mikaaah/Flow-Control/tree/feature/water-engineering)
 

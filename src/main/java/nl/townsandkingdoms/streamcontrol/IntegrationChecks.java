@@ -74,6 +74,24 @@ public final class IntegrationChecks {
                 "Directed water client direction changed");
             check(data.at(20,120,16).key() == directed.key(),"Stillness leaked beyond radius");
             results.put("bakedWaterStillnessAndOverlap",true);
+            // Exercise both Streams fluid implementations directly; FluidState's final
+            // override must not hide a stale target in the dependency-specific mixin.
+            var streamFluid = level.getFluidState(p).getType();
+            check(streamFluid instanceof net.minecraft.world.level.material.FlowingFluid,
+                "Stream fluid is not flowing water");
+            var streamWater = (net.minecraft.world.level.material.FlowingFluid) streamFluid;
+            for (var variant : java.util.List.of(streamWater.getSource(), streamWater.getFlowing())) {
+                check(((net.minecraft.world.level.material.FlowingFluid) variant).getFlow(level, p, variant.defaultFluidState()).lengthSqr() < 1e-10,
+                    "Stream fluid variant ignored stillwater: " + variant);
+            }
+            data.remove(level, 102);
+            for (var variant : java.util.List.of(streamWater.getSource(), streamWater.getFlowing())) {
+                var variantFlow = ((net.minecraft.world.level.material.FlowingFluid) variant).getFlow(level, p, variant.defaultFluidState());
+                check(Math.abs(variantFlow.x - 0.75) < 1e-10 && Math.abs(variantFlow.z) < 1e-10,
+                    "Stream fluid variant ignored directed flow: " + variantFlow);
+            }
+            data.put(level, still);
+            results.put("streamsSourceAndFlowingFluidHooks", true);
             for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++)
                 level.setBlock(p.offset(x,0,z),streamState(),3);
             var boat = new net.minecraft.world.entity.vehicle.Boat(level,16.5,120.2,16.5);
