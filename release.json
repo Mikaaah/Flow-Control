@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "project": "flow-control",
+  "artifact_id": "flow-control",
+  "version": "1.0.0",
+  "edition": "standard",
+  "changelog": "CHANGELOG.md",
+  "targets": [
+    {
+      "id": "fabric-26.1.2",
+      "loader": "fabric",
+      "minecraft": "26.1.2",
+      "java": 25
+    }
+  ]
+}
