@@ -1,3 +1,10 @@
+![Changelog](https://i.imgur.com/JGT2lvz.png)
+
+## 1.0.0 — Streams Reflowing Update
+
+- Updated compatibility to Streams Reflowing 2.17.1.
+- Preserved saved controllers, automation and the Flow Calibrator.
+
 ## 0.1.6 — TNK GUI Rework
 
 ![Flow Control](https://i.imgur.com/JGT2lvz.png)
