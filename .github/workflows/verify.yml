@@ -1,7 +1,7 @@
 name: fabric 1.21.1 build and regression
 on:
   push:
-    branches: ["gui/**", "feature/**", 'fabric/1.21.1']
+    branches: ["gui/**", "feature/**", "update/**", 'fabric/1.21.1']
   pull_request:
     branches: ['fabric/1.21.1']
   workflow_dispatch:
@@ -21,7 +21,8 @@ jobs:
       - name: Fetch pinned Streams dependency
         run: |
           mkdir -p libs
-          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/Oc4Bncre/StreamsReflowing-1.21.1-fabric-2.16.2.jar' -o 'libs/StreamsReflowing-1.21.1-fabric-2.16.2.jar'
+          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/pHu53vrR/StreamsReflowing-1.21.1-fabric-2.17.1.jar' -o 'libs/StreamsReflowing-1.21.1-fabric-2.17.1.jar'
+          echo '20b1103d695e87d6fe7936713d57372ffabe4e04ea537f7c157643163e8ef9e5  libs/StreamsReflowing-1.21.1-fabric-2.17.1.jar' | sha256sum --check
       - name: Build
         run: bash gradlew --no-daemon clean build
       - name: Prepare disposable regression world
@@ -44,7 +45,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-fabric-1.21.1-0.2.2
+          name: flow-control-fabric-1.21.1-1.0.0
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
@@ -60,7 +61,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-0.2.2-fabric-1.21.1-client
+          name: flow-control-1.0.0-fabric-1.21.1-client
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log

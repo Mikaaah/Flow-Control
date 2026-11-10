@@ -1,5 +1,5 @@
 plugins { id 'fabric-loom' version '1.11.8'; id 'maven-publish' }
-version = '0.2.2'
+version = new groovy.json.JsonSlurper().parse(file('release.json')).version
 group='nl.townsandkingdoms.streamcontrol'
 base.archivesName='streams-flow-control-fabric-1.21.1'
 repositories { mavenCentral() }
@@ -14,10 +14,10 @@ dependencies {
  mappings loom.officialMojangMappings()
  modImplementation 'net.fabricmc:fabric-loader:0.18.4'
  modImplementation 'net.fabricmc.fabric-api:fabric-api:0.116.17+1.21.1'
- modImplementation files('libs/StreamsReflowing-1.21.1-fabric-2.16.2.jar')
+ modImplementation files('libs/StreamsReflowing-1.21.1-fabric-2.17.1.jar')
 }
 tasks.withType(JavaCompile).configureEach { options.encoding='UTF-8'; options.release=21 }
 tasks.named('jar') { from('LICENSE') }
 
-tasks.named("jar") { archiveFileName = "flow-control-0.2.2-fabric-1.21.1-dev.jar" }
-tasks.named("remapJar") { archiveFileName = "flow-control-0.2.2-fabric-1.21.1.jar" }
+
+apply from: 'release-tools/gradle/release.gradle'
