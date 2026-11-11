@@ -2,6 +2,11 @@
   "schema": 1,
   "version": "1.1.1",
   "project_id": 1750997,
-  "files": {}
+  "files": {
+    "resonant-arcana-1.1.1-neoforge-1.21.1.jar": {
+      "status": "uploading",
+      "sha256": "f2d8b909a7de53e1f64fd5a95ca3f44274c1ba980a940f35478c6354be249258",
+      "run_id": "43035830969"
+    }
+  }
 }
-
