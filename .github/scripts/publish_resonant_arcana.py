@@ -167,7 +167,7 @@ class Ledger:
         self.repo = os.environ["GITHUB_REPOSITORY"]
         self.token = os.environ["GITHUB_TOKEN"]
         self.url = f"{GH}/repos/{self.repo}/contents/{self.path}"
-        remote = request_json(self.url + "?ref=publish/resonant-arcana-1.1.0", token=self.token, github=True)
+        remote = request_json(self.url + "?ref=publish/resonant-arcana-1.1.1", token=self.token, github=True)
         self.sha = remote["sha"]
         self.data = json.loads(base64.b64decode(remote["content"]))
         if self.data["version"] != version or self.data["project_id"] != project_id:
@@ -176,7 +176,7 @@ class Ledger:
     def save(self):
         content = base64.b64encode((json.dumps(self.data, indent=2) + "\n").encode()).decode()
         result = request_json(self.url, token=self.token, github=True, method="PUT",
-                              data={"branch": "publish/resonant-arcana-1.1.0", "sha": self.sha, "content": content,
+                              data={"branch": "publish/resonant-arcana-1.1.1", "sha": self.sha, "content": content,
                                     "message": f"Record CurseForge publication progress for {self.data['version']}"})
         self.sha = result["content"]["sha"]
 
@@ -210,7 +210,7 @@ def main():
     manifest = json.loads((ROOT / f".github/publish/resonant-arcana/releases/{args.version}.json").read_text())
     if manifest["version"] != args.version or manifest["project_id"] != 1750997:
         raise PublishError("Unexpected publishing project")
-    if args.publish and os.environ.get("GITHUB_REF") != "refs/heads/publish/resonant-arcana-1.1.0":
+    if args.publish and os.environ.get("GITHUB_REF") != "refs/heads/publish/resonant-arcana-1.1.1":
         raise PublishError("Live publishing must run on the Resonant Arcana release branch")
     versions = request_json(CF + "/api/game/versions", token=token)
     if isinstance(versions, dict):
@@ -268,4 +268,5 @@ if __name__ == "__main__":
     except Exception as exc:
         print(f"::error::{type(exc).__name__}: {exc}", file=sys.stderr)
         sys.exit(1)
+
 
