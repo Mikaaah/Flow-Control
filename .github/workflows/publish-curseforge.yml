@@ -1,0 +1,48 @@
+name: Publish to CurseForge
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version
+        required: true
+        default: '1.0.0'
+      dry_run:
+        description: Validate only; do not upload
+        type: boolean
+        default: false
+  push:
+    branches: [main, publish/setup-curseforge]
+    paths:
+      - '.github/publish/requests/**'
+      - '.github/scripts/publish_curseforge.py'
+      - '.github/scripts/test_publish_curseforge.py'
+      - '.github/workflows/publish-curseforge.yml'
+
+concurrency:
+  group: curseforge-publish-flow-control
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check publishing safeguards and release files
+        run: python -m unittest discover -s .github/scripts -p 'test_publish_*.py' -v
+      - name: Publish verified release files
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ inputs.version || '1.0.0' }}
+          DRY_RUN: ${{ github.ref != 'refs/heads/main' || inputs.dry_run == true }}
+        run: |
+          args=(--version "$RELEASE_VERSION")
+          if [ "$DRY_RUN" != true ]; then args+=(--publish); fi
+          python .github/scripts/publish_curseforge.py "${args[@]}"

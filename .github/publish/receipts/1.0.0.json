@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "version": "1.0.0",
+  "project_id": 1750740,
+  "files": {
+    "flow-control-1.0.0-neoforge-1.21.1.jar": {
+      "status": "published",
+      "file_id": 9542485,
+      "sha256": "1df4e982328774df1517aa74ba61c77589badf6a4f11cf2a073b0e43ce3d97bd",
+      "origin": "existing user release"
+    }
+  }
+}
