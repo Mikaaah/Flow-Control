@@ -1,15 +1,13 @@
-[← Guide home](https://github.com/Mikaaah/Flow-Control/wiki) · [Project](https://github.com/Mikaaah/Flow-Control) · [Get help](https://github.com/Mikaaah/Flow-Control/issues)
+# Overlapping areas and links
 
-# Overlapping areas
+Removing or pausing one controller releases its override and exposes any lower-priority control or natural current. It does not erase another controller's block.
 
-Block controllers have priority over wand edits. Within the same category, stillness wins over directed flow;
-otherwise the newest edit wins. Removing an override reveals any lower-priority area before natural flow.
-The wand's Restore mode removes the selected **wand** area; it cannot remove a block controller.
-Wand edits belong to their creator. Other players cannot replace or remove them without operator permission.
+**Connected water only** limits a controller to connected water inside its reach cylinder. The Calibrator outline shows the cylinder; isolated water inside that outline may still be excluded.
 
-Regions are saved separately in each dimension and synchronized to joining players and players changing dimension.
-They affect both ordinary water and Streams' baked stream blocks, including the extra Streams boat drift path.
-No terrain is rewritten and no chunks are forced to load. Controller regions remain active while their block's chunk is unloaded.
-Areas are geometric volumes: separate pools within the same volume are affected too.
+Links copy the source controller's profiles and redstone mode. Each target reads its own local redstone signal and mechanical drive. A missing or unloaded source pauses the linked target; links do not force chunks to load. Unlink to restore the target's own saved profiles. Self-links and loops are rejected.
 
-[← Wiki home](https://github.com/Mikaaah/Flow-Control/wiki/Home)
+Old wand-made regions remain saved. Use the Calibrator's **Remove legacy edit** mode to remove your own; operators can clear legacy edits with `/streamcontrol clear`. Removing a legacy edit cannot remove a block controller.
+
+Flow Control changes water velocity. It does not move water blocks, reshape terrain or generate new rivers.
+
+[Guide home](https://github.com/Mikaaah/Flow-Control/wiki) · [Report an issue](https://github.com/Mikaaah/Flow-Control/issues) · [Discord](https://discord.gg/CRYk3uDPVt)
