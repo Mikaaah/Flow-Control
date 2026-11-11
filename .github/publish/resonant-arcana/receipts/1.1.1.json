@@ -4,9 +4,19 @@
   "project_id": 1750997,
   "files": {
     "resonant-arcana-1.1.1-neoforge-1.21.1.jar": {
-      "status": "uploading",
+      "status": "uploaded",
       "sha256": "f2d8b909a7de53e1f64fd5a95ca3f44274c1ba980a940f35478c6354be249258",
-      "run_id": "43035830969"
+      "file_id": 9558312,
+      "run_id": "43035830969",
+      "metadata_sha256": "42c9b208d08b3a02570ed9f93975d7be392125bd834e4e26ca93461fd865e15f",
+      "game_versions": [
+        11779,
+        10150,
+        11135,
+        9638,
+        9639
+      ],
+      "changelog_type": "html"
     }
   }
 }
