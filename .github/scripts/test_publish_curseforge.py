@@ -50,6 +50,12 @@ class PublishingChecks(unittest.TestCase):
         with self.assertRaises(p.PublishError):
             p.version_id([{"name": "Fabric", "id": 1}, {"name": "Fabric", "id": 2}], "Fabric")
 
+    def test_minecraft_label_uses_native_entry_not_server_api_alias(self):
+        versions = [{"name": "1.20.1", "id": 9990, "apiVersion": None},
+                    {"name": "1.20.1", "id": 9993, "apiVersion": ""},
+                    {"name": "1.20.1", "id": 9994, "apiVersion": ""}]
+        self.assertEqual(p.version_id(versions, "1.20.1"), 9990)
+
 
 if __name__ == "__main__":
     unittest.main()

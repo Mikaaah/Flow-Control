@@ -65,9 +65,16 @@ def request_json(url, *, token=None, github=False, method="GET", data=None, cont
 def version_id(versions, name):
     matches = [v for v in versions if v.get("name", "").casefold() == name.casefold()]
     ids = {v["id"] for v in matches}
+    if len(ids) > 1:
+        # CurseForge also returns Bukkit/API variants with the same display name.
+        # Native Minecraft entries have a null apiVersion; server API aliases
+        # carry a non-null value, including the empty string.
+        native = [v for v in matches if "apiVersion" in v and v["apiVersion"] is None]
+        if len({v["id"] for v in native}) == 1:
+            return native[0]["id"]
     if len(ids) != 1:
         detail = matches or [v for v in versions if name.casefold() in str(v).casefold()][:8]
-        raise PublishError(f"CurseForge version label must resolve uniquely: {name}; candidates={json.dumps(detail)}; sample={json.dumps(versions[:2])}")
+        raise PublishError(f"CurseForge version label must resolve uniquely: {name}; candidates={json.dumps(detail)}")
     return ids.pop()
 
 
