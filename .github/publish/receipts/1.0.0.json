@@ -16,8 +16,9 @@
       "run_id": "42974404085"
     },
     "flow-control-1.0.0-fabric-1.21.1.jar": {
-      "status": "uploading",
+      "status": "uploaded",
       "sha256": "77c7b08a8643786a76a88c84213fe8c212b06d446e8c5dccb7d9853567b25982",
+      "file_id": 9553888,
       "run_id": "42974404085"
     }
   }
