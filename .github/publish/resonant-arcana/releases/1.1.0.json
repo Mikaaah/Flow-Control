@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "version": "1.1.0",
+  "project_id": 1750997,
+  "project_slug": "resonant-arcana",
+  "changelog": ".github/publish/resonant-arcana/changelog.html",
+  "artifacts": [
+    {
+      "path": ".github/publish/resonant-arcana/files/resonant-arcana-1.1.0-neoforge-1.21.1.jar",
+      "filename": "resonant-arcana-1.1.0-neoforge-1.21.1.jar",
+      "sha256": "77440487dfaad2a35507cb32087b7d783038f0c12eb0f59f35208b48f431fc50",
+      "source_commit": "bc2b55d6ad785df241121568bde7d60d512a3f36",
+      "target": "neoforge-1.21.1",
+      "loader": "neoforge",
+      "minecraft": "1.21.1",
+      "java": 21,
+      "relations": [
+        {
+          "slug": "irons-spells-n-spellbooks",
+          "projectID": 855414,
+          "type": "requiredDependency"
+        },
+        {
+          "slug": "bossesrise",
+          "projectID": 1314084,
+          "type": "optionalDependency"
+        },
+        {
+          "slug": "alexs-caves-unofficial-port",
+          "projectID": 1420348,
+          "type": "optionalDependency"
+        },
+        {
+          "slug": "aaa-particles",
+          "projectID": 979809,
+          "type": "optionalDependency"
+        }
+      ]
+    }
+  ]
+}
