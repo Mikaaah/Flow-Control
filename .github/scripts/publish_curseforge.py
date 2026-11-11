@@ -66,7 +66,8 @@ def version_id(versions, name):
     matches = [v for v in versions if v.get("name", "").casefold() == name.casefold()]
     ids = {v["id"] for v in matches}
     if len(ids) != 1:
-        raise PublishError(f"CurseForge version label must resolve uniquely: {name}")
+        detail = matches or [v for v in versions if name.casefold() in str(v).casefold()][:8]
+        raise PublishError(f"CurseForge version label must resolve uniquely: {name}; candidates={json.dumps(detail)}; sample={json.dumps(versions[:2])}")
     return ids.pop()
 
 
