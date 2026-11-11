@@ -1,21 +1,20 @@
-<p align="center"><img src="https://github.com/Mikaaah/Flow-Control/raw/refs/heads/main/docs/assets/banner.png" alt="Flow Control" width="100%"></p>
-
 # Flow Control
 
-Shape currents and create calm water around docks, canals and builds with a Flow Wand, Current Generator and Stillwater Anchor. Streams Reflowing is required; UltraTerraForged is optional.
+Configure canals, inspect currents and keep empty boats at their moorings.
 
-## Choose your version
+**Current guide: 1.0.0 · Minecraft 1.21.1 · NeoForge · Java 21 · Streams Reflowing 2.17.1**
 
-The [repository download table](https://github.com/Mikaaah/Flow-Control#versions-and-downloads) lists all eight Minecraft/loader builds and their Java requirements. Install matching versions on client and server. Fabric also requires Fabric API.
+| Guide | Contents |
+| --- | --- |
+| [Items and controls](Items-and-Controls) | Calibrator, profiles, sensors, moorings and optional Create drive |
+| [Configuration](Configuration) | Server defaults and range limits |
+| [Overlapping areas](Overlapping-Areas) | Override ownership, connected water and links |
+| [Troubleshooting](Troubleshooting) | Power, versions, range and boat behavior |
+| [Versions](Versions) | Current source and the older Streams editions |
+| [Changelog](Changelog) | Current changes and release history |
 
-Version 0.1.5 adds the parchment controller screen and an eight-way compass. Use the [changelog](https://github.com/Mikaaah/Flow-Control/blob/main/CHANGELOG.md) for version-specific changes.
+[Current source](https://github.com/Mikaaah/Flow-Control/tree/update/streams-2.17.1-neoforge-1.21.1) · [Downloads](https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon)
 
-## Guides
+Create is optional. The standard controllers, Calibrator, Flow Sensor and Mooring Post work without it. Install matching Flow Control and Streams versions on clients and server.
 
-- [Items and controls](Items-and-Controls)
-- [Overlapping areas](Overlapping-Areas)
-- [Configuration](Configuration)
-- [Troubleshooting](Troubleshooting)
-- [Changelog](Changelog)
-
-[CurseForge](https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon) · [Source](https://github.com/Mikaaah/Flow-Control) · [Issues](https://github.com/Mikaaah/Flow-Control/issues)
+[Guide home](https://github.com/Mikaaah/Flow-Control/wiki) · [Report an issue](https://github.com/Mikaaah/Flow-Control/issues) · [Discord](https://discord.gg/CRYk3uDPVt)

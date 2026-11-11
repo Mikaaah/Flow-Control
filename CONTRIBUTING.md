@@ -10,4 +10,4 @@ The integration harness is opt-in and must be run in a disposable world.
 Do not commit third-party dependency jars, development worlds or credentials.
 
 
-Build instructions and technical checks are in [the contributor reference](docs/DEVELOPMENT.md).
+See the [contributor reference](docs/DEVELOPMENT.md) for scope, compatibility and reporting guidance.

@@ -4,7 +4,7 @@
 
 <p align="center"><strong>Your canal. Your current. Shape Streams Reflowing water around docks, rivers and ambitious builds.</strong></p>
 
-<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon">Downloads</a> · <a href="https://github.com/Mikaaah/Flow-Control/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Flow-Control/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Flow-Control/blob/feature/verified-water-engineering/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
+<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon">Downloads</a> · <a href="https://github.com/Mikaaah/Flow-Control/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Flow-Control/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Flow-Control/blob/update/streams-2.17.1-neoforge-1.21.1/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
 
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
@@ -21,9 +21,9 @@ The existing controller model family is retained, with steel-blue sensor colors,
 | --- | --- | --- | --- | --- | --- |
 | 1.21.1 | NeoForge 21.1.219+ within 21.1 | 21 | 2.17.1 | Tested with 6.0.10 | [Project downloads](https://www.curseforge.com/minecraft/mc-mods/flow-control-streams-reflowing-addon) |
 
-[Controls and behavior](docs/WATER-ENGINEERING.md) · [Feature branch](https://github.com/Mikaaah/Flow-Control/tree/feature/water-engineering)
+[Controls and behavior](https://github.com/Mikaaah/Flow-Control/wiki/Items-and-Controls) · [Current source](https://github.com/Mikaaah/Flow-Control/tree/update/streams-2.17.1-neoforge-1.21.1) · [Earlier editions](https://github.com/Mikaaah/Flow-Control/wiki/Versions)
 
-This source preview currently targets NeoForge 1.21.1. Earlier downloads and other loader branches remain unchanged. Use matching client/server versions.
+This guide follows **Flow Control 1.0.0 / Streams Reflowing 2.17.1**. Its source is on the [Streams update branch](https://github.com/Mikaaah/Flow-Control/tree/update/streams-2.17.1-neoforge-1.21.1); `main` retains the older 0.1.5 code. Use matching client/server JARs. Other ports have their own update branches; check their loader-specific requirements.
 
 ## Make water work for your build
 

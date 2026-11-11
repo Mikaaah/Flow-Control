@@ -1,8 +1,7 @@
-**Flow Control**
-
-- [Home](https://github.com/Mikaaah/Flow-Control/wiki/Home)
-- [Items and controls](https://github.com/Mikaaah/Flow-Control/wiki/Items-and-Controls)
-- [Overlapping areas](https://github.com/Mikaaah/Flow-Control/wiki/Overlapping-Areas)
-- [Configuration](https://github.com/Mikaaah/Flow-Control/wiki/Configuration)
-- [Troubleshooting](https://github.com/Mikaaah/Flow-Control/wiki/Troubleshooting)
-- [Changelog](https://github.com/Mikaaah/Flow-Control/wiki/Changelog)
+- [Flow Control](Home)
+- [Items and controls](Items-and-Controls)
+- [Configuration](Configuration)
+- [Overlapping areas](Overlapping-Areas)
+- [Troubleshooting](Troubleshooting)
+- [Versions](Versions)
+- [Changelog](Changelog)

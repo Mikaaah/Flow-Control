@@ -1,10 +1,10 @@
-# Flow Control 0.2.1 — Water Engineering
+# Flow Control 1.0.0 — Water Engineering
 
 | Minecraft | Loader | Java | Required | Optional integration tested |
 | --- | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.219+ within 21.1 | 21 | Streams Reflowing 2.16.2 | Create 6.0.10 |
+| 1.21.1 | NeoForge 21.1.219+ within 21.1 | 21 | Streams Reflowing 2.17.1 | Create 6.0.10 |
 
-The same Flow Control JAR works with and without Create. The Mechanical Current Generator and its crafting recipe are available only when Create is installed. Other loader/version branches have not received this feature update.
+The same Flow Control JAR works with and without Create. The Mechanical Current Generator and its crafting recipe are available only when Create is installed. This reference describes the NeoForge 1.21.1 edition; use each port's own metadata for other loaders.
 
 ## Flow Calibrator
 
@@ -64,10 +64,8 @@ Connect a real Create shaft or drive below it. The default calibration is 128 RP
 
 A stopped or overstressed drive releases its override. The controller supports the same profiles, connected-water filtering, links and redstone modes as the standard generator. Create is optional; its own dependencies are supplied by Create rather than bundled in Flow Control.
 
-## Migration and validation
+## Updating existing worlds
 
 Existing controller settings are loaded into Profile A. Old wand regions remain editable through the cleanup mode and `/streamcontrol clear` for operators. `/streamcontrol status` remains available. The old wand radius/strength commands are replaced by GUI profile editing.
 
-Use matching Flow Control 0.2.1 versions on client and server because the settings packet protocol changed. The original `wandEnabled`, `wandRequiresOperator` and `showWandFeedbackParticles` configuration keys are retained for compatibility; they now control the Calibrator and its range outlines.
-
-Both standalone and Create 6.0.10 builds passed compilation and the dedicated-server suite. Tests cover legacy flow behavior, profiles and migration, linking and loop rejection, Calibrator copy/paste/link/cleanup, sensor vertical and horizontal limits, comparator output, occupied boats, mooring release and cooldown, packet round trips, optional registration/recipes, and a real Create motor network including reversal, low RPM, stress and stopping. Actual Minecraft screenshots cover eight GUI/model states with and without Create. This is not a full TNK pack or interactive client-world playtest.
+Use matching Flow Control 1.0.0 versions on client and server because the settings packet protocol changed. The original `wandEnabled`, `wandRequiresOperator` and `showWandFeedbackParticles` configuration keys are retained for compatibility; they now control the Calibrator and its range outlines.
