@@ -46,8 +46,9 @@
       "run_id": "43579827043"
     },
     "flow-control-1.0.1-neoforge-26.1.2.jar": {
-      "status": "uploading",
+      "status": "uploaded",
       "sha256": "45aaaf0a9e90820c9db77de33b3a45da2462120108f83204a657f0aba9db8a8d",
+      "file_id": 9607627,
       "run_id": "43579827043"
     }
   }
