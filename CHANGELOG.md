@@ -1,5 +1,13 @@
 ![Changelog](https://i.imgur.com/JGT2lvz.png)
 
+
+## 1.0.1 — Streams Reflowing Compatibility
+
+- Updated support to **Streams Reflowing 2.17.3** across all nine builds.
+- Updated dependency requirements so the latest Streams release can load alongside Flow Control.
+
+Update Flow Control and Streams Reflowing on both client and server. Create remains optional.
+
 ## 1.0.0 — Streams Reflowing Update
 
 - Updated compatibility to Streams Reflowing 2.17.1.
