@@ -21,8 +21,8 @@ jobs:
       - name: Fetch pinned Streams dependency
         run: |
           mkdir -p libs
-          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/pHu53vrR/StreamsReflowing-1.21.1-fabric-2.17.1.jar' -o 'libs/StreamsReflowing-1.21.1-fabric-2.17.1.jar'
-          echo '20b1103d695e87d6fe7936713d57372ffabe4e04ea537f7c157643163e8ef9e5  libs/StreamsReflowing-1.21.1-fabric-2.17.1.jar' | sha256sum --check
+          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/IqJDKQ4U/StreamsReflowing-1.21.1-fabric-2.17.3.jar' -o 'libs/StreamsReflowing-1.21.1-fabric-2.17.3.jar'
+          echo '675c665124ea9d867b51cc3386039dc92e8940cc563b5c55506b4c5538c093fb  libs/StreamsReflowing-1.21.1-fabric-2.17.3.jar' | sha256sum --check
       - name: Build
         run: bash gradlew --no-daemon clean build
       - name: Prepare disposable regression world
@@ -45,7 +45,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-fabric-1.21.1-1.0.0
+          name: flow-control-fabric-1.21.1-1.0.1
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
@@ -61,7 +61,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-1.0.0-fabric-1.21.1-client
+          name: flow-control-1.0.1-fabric-1.21.1-client
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log
