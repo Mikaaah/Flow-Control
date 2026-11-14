@@ -21,8 +21,8 @@ jobs:
       - name: Fetch pinned Streams dependency
         run: |
           mkdir -p libs
-          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/LRMip4e0/StreamsReflowing-26.1.2-neoforge-2.17.1.jar' -o 'libs/StreamsReflowing-26.1.2-neoforge-2.17.1.jar'
-          echo '59c57a9fd03c23bc5de0029e5f14b1ab2f9a0c6dcfa249e9750b0e9291ac6010  libs/StreamsReflowing-26.1.2-neoforge-2.17.1.jar' | sha256sum --check
+          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/3nLBighZ/StreamsReflowing-26.1.2-neoforge-2.17.3.jar' -o 'libs/StreamsReflowing-26.1.2-neoforge-2.17.3.jar'
+          echo '49cff70b49ec3bcc034f2f138c8181900cc1ceaf1b14d5aad96857f976452581  libs/StreamsReflowing-26.1.2-neoforge-2.17.3.jar' | sha256sum --check
       - name: Build
         run: bash gradlew --no-daemon clean build
       - name: Prepare disposable regression world
@@ -44,7 +44,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-neoforge-26.1.2-1.0.0
+          name: flow-control-neoforge-26.1.2-1.0.1
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
@@ -68,7 +68,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-1.0.0-neoforge-26.1.2-client
+          name: flow-control-1.0.1-neoforge-26.1.2-client
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log

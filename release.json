@@ -2,7 +2,7 @@
   "schema": 1,
   "project": "flow-control",
   "artifact_id": "flow-control",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "edition": "standard",
   "changelog": "CHANGELOG.md",
   "targets": [
