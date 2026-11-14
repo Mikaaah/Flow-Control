@@ -29,8 +29,8 @@ jobs:
       - name: Fetch pinned Streams dependency
         run: |
           mkdir -p libs
-          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/YjXUMxAB/StreamsReflowing-1.20.1-forge-2.17.1.jar' -o 'libs/StreamsReflowing-1.20.1-forge-2.17.1.jar'
-          echo 'de5ea64740532b3d1ecbb99d1e433ba7e2aa9febeab56890abb98c6499da7dd0  libs/StreamsReflowing-1.20.1-forge-2.17.1.jar' | sha256sum --check
+          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/AEMO06Fw/StreamsReflowing-1.20.1-forge-2.17.3.jar' -o 'libs/StreamsReflowing-1.20.1-forge-2.17.3.jar'
+          echo 'd829420ded1f1b818437dcb7abcdcbddba30e30b365d838062f6a62871601695  libs/StreamsReflowing-1.20.1-forge-2.17.3.jar' | sha256sum --check
       - name: Fetch optional Create fixture
         run: python3 tools/fetch_create.py
       - name: Build
@@ -54,7 +54,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-forge-1.20.1-1.0.0-${{ matrix.flavor }}
+          name: flow-control-forge-1.20.1-1.0.1-${{ matrix.flavor }}
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
@@ -70,7 +70,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-1.0.0-forge-1.20.1-${{ matrix.flavor }}-client
+          name: flow-control-1.0.1-forge-1.20.1-${{ matrix.flavor }}-client
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log
