@@ -7,7 +7,7 @@ import net.minecraft.world.level.material.FluidState;
 import nl.townsandkingdoms.streamcontrol.FlowOverrides;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-// Both registered stream-fluid implementations in the verified 2.17.1 JAR.
+// Both registered stream-fluid implementations in the verified 2.17.3 JAR.
 @Mixin(targets = {
     "streamsreflowing.proprietary.AllRightsReservedNiceJohn_006$ProprietaryNiceJohn_001",
     "streamsreflowing.proprietary.AllRightsReservedNiceJohn_006$SeeAiNoticeConstant_001"
