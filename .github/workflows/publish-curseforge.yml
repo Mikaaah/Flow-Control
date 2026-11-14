@@ -6,7 +6,7 @@ on:
       version:
         description: Release version
         required: true
-        default: '1.0.0'
+        default: '1.0.1'
       dry_run:
         description: Validate only; do not upload
         type: boolean
@@ -40,7 +40,7 @@ jobs:
         env:
           CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
-          RELEASE_VERSION: ${{ inputs.version || '1.0.0' }}
+          RELEASE_VERSION: ${{ inputs.version || '1.0.1' }}
           DRY_RUN: ${{ github.ref != 'refs/heads/main' || inputs.dry_run == true }}
         run: |
           args=(--version "$RELEASE_VERSION")

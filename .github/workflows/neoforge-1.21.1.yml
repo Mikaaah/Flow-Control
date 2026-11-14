@@ -2,6 +2,12 @@ name: NeoForge 1.21.1 build
 
 on:
   push:
+    paths-ignore:
+      - ".github/publish/**"
+      - "downloads/**"
+      - ".github/scripts/publish*.py"
+      - ".github/scripts/test_publish*.py"
+      - ".github/workflows/publish-curseforge.yml"
     branches:
       - main
       - fix/neoforge-1.21.1-stillwater-render
@@ -12,6 +18,7 @@ on:
 
 jobs:
   build:
+    if: ${{ !contains(github.event.head_commit.message, '[publish-only]') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
