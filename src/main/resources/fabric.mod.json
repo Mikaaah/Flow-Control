@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "streamcontrol",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "Streams Flow Control",
   "description": "Water engineering for Streams Reflowing: profiles, automation, flow sensors, moorings and an optional Create kinetic controller.",
   "authors": [
@@ -30,7 +30,7 @@
     "fabric-api": "*",
     "minecraft": "1.20.1",
     "java": ">=17",
-    "streamsreflowing": "=2.17.1"
+    "streamsreflowing": "=2.17.3"
   },
   "suggests": {
     "create": ">=6.0.8"
