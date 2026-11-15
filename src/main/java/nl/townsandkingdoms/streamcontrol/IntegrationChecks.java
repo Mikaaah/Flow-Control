@@ -25,6 +25,7 @@ public final class IntegrationChecks {
         var level = server.overworld(); var results = new LinkedHashMap<String,Object>();
         var data = ControlData.get(level); var owner = UUID.randomUUID(); var p = new BlockPos(16, 120, 16);
         try {
+            VanillaWaterRegressionChecks.run(level,results);
             level.setBlock(p.below(), Blocks.STONE.defaultBlockState(), 3);
             level.setBlock(p, Blocks.WATER.defaultBlockState(), 3);
             var directed = new FlowRegion(101, p, 5, 2, 1, 0, 0.75, false, false, owner, data.next());

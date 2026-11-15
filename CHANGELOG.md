@@ -1,6 +1,12 @@
 ![Changelog](https://i.imgur.com/JGT2lvz.png)
 
 
+
+## 1.0.2 — Fabric 26.3 Water Compatibility
+
+- Replaced the unconditional vanilla-water flow cancellation with a composable return-value hook.
+- Preserved other fluid hooks outside Flow Control areas.
+
 ## 1.0.1 — Streams Reflowing Compatibility
 
 - Updated support to **Streams Reflowing 2.17.3** across all nine builds.

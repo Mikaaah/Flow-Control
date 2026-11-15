@@ -7,6 +7,10 @@ on:
   workflow_dispatch:
 jobs:
   verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        force_baked: [false, true]
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -28,7 +32,7 @@ jobs:
       - name: Prepare disposable regression world
         run: |
           mkdir -p run/config
-          echo 'forceBakedFluid=true' > run/config/streamsreflowing.properties
+          printf 'forceBakedFluid=%s\n' '${{ matrix.force_baked }}' > run/config/streamsreflowing.properties
           echo 'eula=true' > run/eula.txt
           printf 'level-type=minecraft:flat\ngenerate-structures=false\nonline-mode=false\nview-distance=2\nsimulation-distance=2\n' > run/server.properties
       - name: Dedicated server regression
@@ -40,18 +44,21 @@ jobs:
           assert data.get('passed') is True, data
           assert data.get('controllerGuiAndConnectedWaterRegression') is True, data
           assert data.get('eightHeadingPhysicsPersistenceAndPackets') is True, data
+          assert data.get('uncontrolledWaterAndWaterloggedStatePreservation') is True, data
+          assert data.get('forceBakedFluid') == '${{ matrix.force_baked }}', data
           CHECK
       - name: Upload JARs and regression evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-fabric-26.3-1.0.1
+          name: flow-control-fabric-26.3-1.0.2-baked-${{ matrix.force_baked }}
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
             run/logs/latest.log
 
       - name: Capture client menus and baked block models
+        if: matrix.force_baked == false
         run: |
           mkdir -p run-client
           printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
@@ -69,7 +76,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-1.0.1-fabric-26.3-client
+          name: flow-control-1.0.2-fabric-26.3-client-baked-${{ matrix.force_baked }}
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log
