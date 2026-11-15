@@ -16,9 +16,13 @@ import net.minecraft.world.phys.Vec3;
 /** Opt-in dedicated-server test; never runs in a player's normal world. */
 public final class IntegrationChecks {
     public static void register() { if(Boolean.getBoolean("streamcontrol.integrationTest")) net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(IntegrationChecks::run); }
-    private static net.minecraft.world.level.block.state.BlockState streamState() {
+    private static net.minecraft.world.level.block.state.BlockState streamState(boolean baked) {
         var b=net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("streamsreflowing","stream"));
-        if(b==Blocks.AIR) throw new AssertionError("Streams fluid block missing");return b.defaultBlockState();
+        if(b==Blocks.AIR) {
+            if(baked) throw new AssertionError("Streams fluid block missing with forceBakedFluid enabled");
+            return Blocks.WATER.defaultBlockState();
+        }
+        return b.defaultBlockState();
     }
     private static void check(boolean condition, String message) { if (!condition) throw new AssertionError(message); }
     private static void run(net.minecraft.server.MinecraftServer server) {
@@ -26,6 +30,7 @@ public final class IntegrationChecks {
         var data = ControlData.get(level); var owner = UUID.randomUUID(); var p = new BlockPos(16, 120, 16);
         try {
             VanillaWaterRegressionChecks.run(level,results);
+            boolean baked = Boolean.parseBoolean(String.valueOf(results.get("forceBakedFluid")));
             level.setBlock(p.below(), Blocks.STONE.defaultBlockState(), 3);
             level.setBlock(p, Blocks.WATER.defaultBlockState(), 3);
             var directed = new FlowRegion(101, p, 5, 2, 1, 0, 0.75, false, false, owner, data.next());
@@ -45,7 +50,7 @@ public final class IntegrationChecks {
             flow=level.getFluidState(p).getFlow(level,p);
             check(flow.x>0.7 && Math.abs(flow.z)<0.01,"Explicit Flow Wand direction was overridden by automatic downhill correction: "+flow);
             results.put("manualDirectionRetainsPriorityOverDownhillGuard",true);
-            level.setBlock(p, streamState(),3);
+            level.setBlock(p, streamState(baked),3);
             flow = level.getFluidState(p).getFlow(level,p);
             check(flow.x > 0.7 && Math.abs(flow.z) < 0.01,"Baked stream direction: " + flow);
             var still = new FlowRegion(102,p,3,2,1,0,1,true,true,owner,data.next());
@@ -54,9 +59,9 @@ public final class IntegrationChecks {
             check(level.getFluidState(p).getFlow(level,p).lengthSqr() < 1e-10,"Stillness did not cancel baked stream flow");
             check(StreamFlowGrid.sourceGivenToAuthorizedOnly1(level,16,120,16) == 0,"Stillness did not cancel vessel drift");
             check(data.at(20,120,16).key() == directed.key(),"Stillness leaked beyond radius");
-            results.put("bakedWaterStillnessAndOverlap",true);
+            results.put(baked ? "bakedWaterStillnessAndOverlap" : "vanillaWaterStillnessAndOverlap",true);
             for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++)
-                level.setBlock(p.offset(x,0,z),streamState(),3);
+                level.setBlock(p.offset(x,0,z),streamState(baked),3);
             var boat = net.minecraft.world.entity.EntityTypes.OAK_BOAT.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
             boat.setPos(16.5,120.2,16.5); level.addFreshEntity(boat);
             for (int tick = 0; tick < 20; tick++) boat.tick();
