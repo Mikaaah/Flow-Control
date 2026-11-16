@@ -31,6 +31,7 @@ public final class ClientGameplayChecks {
     private static final List<Step> steps=new ArrayList<>();
     private static final Map<String,Object> results=new LinkedHashMap<>();
     private static int step=-1,ticks,total;private static boolean connecting,done;
+    private static java.util.concurrent.CompletableFuture<Void> modelReload;
     private static Minecraft mc() { return Minecraft.getInstance(); }
     private static FlowRegion region(BlockPos p) { return FlowOverrides.clientByKey(p.asLong()); }
     private static FlowController controller(BlockPos p) { return (FlowController)mc().level.getBlockEntity(p); }
@@ -86,6 +87,13 @@ public final class ClientGameplayChecks {
             if(ticks==60 || ticks==100) {
                 screenshot("model-"+name+"-"+ticks);captures[0]++;
                 results.put("placed model parts "+name,frame.parts().size());
+                if(p.equals(MODEL_MECHANICAL) && net.neoforged.fml.ModList.get().isLoaded("create")) {
+                    try {
+                        var api=Class.forName("dev.engine_room.flywheel.api.visualization.VisualizationManager");
+                        var supported=api.getMethod("supportsVisualization",net.minecraft.world.level.Level.class).invoke(null,mc().level);
+                        results.put("native Flywheel visualization supported",supported);
+                    } catch(ReflectiveOperationException e) {throw new AssertionError("Cannot inspect optional visual backend",e);}
+                }
                 if(p.equals(MODEL_MOORING))results.put("placed mooring has live rope",frame.rope()!=null);
                 if(ticks==60)firstAngle[0]=modelAngle(frame);
                 else if(animate) {
@@ -158,6 +166,14 @@ public final class ClientGameplayChecks {
         modelCapture("flow-sensor","model_sensor",MODEL_SENSOR,25,28,false);
         modelCapture("hydro-current-thruster","model_thruster",MODEL_MECHANICAL,25,22,net.neoforged.fml.ModList.get().isLoaded("create"));
         modelCapture("mooring-post-rope","model_rope",MODEL_MOORING,48,20,false);
+        add("resource reload preserves all placed model renderers",()->{modelReload=mc().reloadResourcePacks();command("model_generator");},()->{
+            mc().player.setYRot(25);mc().player.setXRot(28);
+            if(!modelReload.isDone())return false;
+            modelReload.join();
+            for(var position:List.of(MODEL_GENERATOR,MODEL_ANCHOR,MODEL_SENSOR,MODEL_MECHANICAL,MODEL_MOORING))if(modelFrame(position)==null)return false;
+            if(ticks>=100) {screenshot("model-current-generator-after-reload");return true;}
+            return false;
+        });
     }
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if(!Boolean.getBoolean("streamcontrol.clientIntegrationTest") || done) return;
