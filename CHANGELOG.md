@@ -3,6 +3,16 @@
 
 
 
+
+## 1.1.0 — Glazed Relics & Dock Instruments
+
+- Integrated the five redesigned nautical-industrial block models and animated internals.
+- Added live sensor instruments, active indicators and a boat mooring rope.
+- Improved controller cache scheduling, cleanup and client state synchronization.
+- Preserved waterlogging when placing, rotating and mirroring the utility blocks.
+- Added a dormant thruster fallback for installations without compatible Create support.
+- Retained the Streams Reflowing 2.17.3-or-newer dependency requirement.
+
 ## 1.0.3 — Flexible Streams Dependency
 
 - Streams Reflowing now requires **2.17.3 or newer**, instead of one exact patch version.

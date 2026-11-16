@@ -44,6 +44,9 @@ jobs:
           assert data.get('passed') is True, data
           assert data.get('controllerGuiAndConnectedWaterRegression') is True, data
           assert data.get('eightHeadingPhysicsPersistenceAndPackets') is True, data
+          assert data.get('allFiveBlocksWaterloggingRotationAndNonOcclusion') is True, data
+          assert data.get('auditControllerUnloadReregistrationAndVisualState') is True, data
+          assert data.get('auditSensorSameSignalHeadingAndUpdateTag') is True, data
           assert data.get('uncontrolledWaterAndWaterloggedStatePreservation') is True, data
           assert data.get('forceBakedFluid') == '${{ matrix.force_baked }}', data
           CHECK
@@ -51,7 +54,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-fabric-26.3-1.0.3-baked-${{ matrix.force_baked }}
+          name: flow-control-fabric-26.3-1.1.0-baked-${{ matrix.force_baked }}
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
@@ -76,7 +79,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-1.0.3-fabric-26.3-client-baked-${{ matrix.force_baked }}
+          name: flow-control-1.1.0-fabric-26.3-client-baked-${{ matrix.force_baked }}
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log

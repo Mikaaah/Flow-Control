@@ -1,0 +1,174 @@
+{
+  "credit": "Flow Control nautical / Conduit art kit",
+  "ambientocclusion": true,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "minecraft:entity/conduit/open_eye",
+    "conduit_eye": "minecraft:entity/conduit/open_eye",
+    "conduit_shell": "minecraft:entity/conduit/cage",
+    "cut_copper": "minecraft:block/cut_copper",
+    "dark_prismarine": "minecraft:block/dark_prismarine",
+    "oxidized_copper": "minecraft:block/oxidized_copper",
+    "prismarine_bricks": "minecraft:block/prismarine_bricks",
+    "rusted_iron": "streamcontrol:block/rusted_iron"
+  },
+  "elements": [
+    {
+      "name": "native_active_conduit_cage",
+      "from": [
+        4,
+        4,
+        4
+      ],
+      "to": [
+        12,
+        12,
+        12
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            4.0,
+            8.0,
+            8.0,
+            16.0
+          ],
+          "texture": "#conduit_shell"
+        },
+        "south": {
+          "uv": [
+            12.0,
+            8.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#conduit_shell"
+        },
+        "east": {
+          "uv": [
+            8.0,
+            8.0,
+            12.0,
+            16.0
+          ],
+          "texture": "#conduit_shell"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            8.0,
+            4.0,
+            16.0
+          ],
+          "texture": "#conduit_shell"
+        },
+        "up": {
+          "uv": [
+            8.0,
+            8.0,
+            12.0,
+            0.0
+          ],
+          "texture": "#conduit_shell"
+        },
+        "down": {
+          "uv": [
+            4.0,
+            0.0,
+            8.0,
+            8.0
+          ],
+          "texture": "#conduit_shell"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  }
+}

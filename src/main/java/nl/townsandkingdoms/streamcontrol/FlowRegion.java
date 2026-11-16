@@ -17,7 +17,10 @@ public record FlowRegion(long key, BlockPos center, int radius, int vertical, do
         this(key, center, radius, vertical, dx, dz, strength, still, controller, owner, sequence, false, new long[0]);
     }
     public FlowRegion {
-        connectedMask = connectedMask == null ? new long[0] : connectedMask.clone();
+        center=Objects.requireNonNull(center,"center").immutable();
+        radius=Math.max(1,Math.min(32,radius));vertical=Math.max(0,Math.min(16,vertical));
+        int maxWords=((radius*2+1)*(radius*2+1)*(vertical*2+1)+63)/64;
+        connectedMask = connectedMask == null ? new long[0] : Arrays.copyOf(connectedMask,Math.min(connectedMask.length,maxWords));
     }
     @Override public long[] connectedMask() { return connectedMask.clone(); }
     @Override public boolean equals(Object obj) {
@@ -51,7 +54,15 @@ public record FlowRegion(long key, BlockPos center, int radius, int vertical, do
         if (connectedOnly) n.putLongArray("WaterMask", connectedMask);
         n.putString("Owner", owner.toString()); n.putLong("Sequence", sequence); return n;
     }
-    private static UUID owner(CompoundTag n) { try { return UUID.fromString(n.getStringOr("Owner", "")); } catch (IllegalArgumentException e) { return new UUID(0,0); } }
+    private static UUID owner(CompoundTag n) {
+        try { return UUID.fromString(n.getStringOr("Owner", "")); }
+        catch (IllegalArgumentException ignored) {
+            // 1.20/1.21 stored UUIDs as four NBT ints; retain ownership after world migration.
+            int[] old=n.getIntArray("Owner").orElseGet(()->new int[0]);
+            return old.length==4 ? new UUID(((long)old[0]<<32)|(old[1]&0xffffffffL),
+                    ((long)old[2]<<32)|(old[3]&0xffffffffL)) : new UUID(0,0);
+        }
+    }
     public static FlowRegion load(CompoundTag n) {
         double dx = n.getDoubleOr("DX", 0.0), dz = n.getDoubleOr("DZ", 0.0), length = Math.hypot(dx, dz);
         if (!Double.isFinite(length) || length < 1e-6) { dx = 1; dz = 0; length = 1; }

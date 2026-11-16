@@ -26,6 +26,7 @@ public final class EngineeringClient {
         ((net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState)e.levelState()).setData(KEY,readout);
     }
     private static long lastTick=Long.MIN_VALUE;
+    public static void clearWorldData() { readout=null;lastTick=Long.MIN_VALUE;FlowOverrides.clearClient();ConduitAnimations.clear(); }
     public static void register() {
         net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry.addLast(Identifier.fromNamespaceAndPath(StreamControl.ID,"calibrator"),(g,d)->hud(g));
         net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents.END_EXTRACTION.register(EngineeringClient::extract);

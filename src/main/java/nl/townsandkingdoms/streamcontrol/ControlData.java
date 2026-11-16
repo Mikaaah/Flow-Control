@@ -8,9 +8,10 @@ public final class ControlData extends SavedData {
     private final Map<Long, FlowRegion> regions = new LinkedHashMap<>();
     private volatile RegionIndex index = new RegionIndex(List.of());
     private long sequence;
+    private boolean runtimeValidated;
     public static final net.minecraft.world.level.saveddata.SavedDataType<ControlData> TYPE = new net.minecraft.world.level.saveddata.SavedDataType<>(net.minecraft.resources.Identifier.fromNamespaceAndPath(StreamControl.ID, "regions"), ControlData::new, CompoundTag.CODEC.xmap(ControlData::load, ControlData::save), null);
     public static ControlData get(ServerLevel level) {
-        return level.getDataStorage().computeIfAbsent(TYPE);
+        var data=level.getDataStorage().computeIfAbsent(TYPE); data.validateRuntime(level); return data;
     }
     public static ControlData load(CompoundTag tag) {
         var data = new ControlData();
@@ -24,6 +25,26 @@ public final class ControlData extends SavedData {
     public CompoundTag save() {
         var tag = new CompoundTag();
         var list = new ListTag(); for (var r : regions.values()) list.add(r.save()); tag.put("Regions", list); return tag;
+    }
+    private void validateRuntime(ServerLevel level) {
+        if(runtimeValidated) return;
+        runtimeValidated=true;
+        // Never load controller chunks merely because an old SavedData record exists.
+        removeMatching(level,r->r.controller() && (!level.hasChunkAt(r.center())
+            || !(level.getBlockEntity(r.center()) instanceof FlowController)));
+    }
+    /** Bulk command cleanup performs one spatial-index rebuild, not one per region. */
+    public int removeMatching(ServerLevel level,java.util.function.Predicate<FlowRegion> predicate) {
+        var removed=new ArrayList<Long>();
+        var iterator=regions.entrySet().iterator();
+        while(iterator.hasNext()) {
+            var entry=iterator.next();
+            if(predicate.test(entry.getValue())) { removed.add(entry.getKey());iterator.remove(); }
+        }
+        if(removed.isEmpty()) return 0;
+        reindex();setDirty();
+        for(long key:removed) ControlNetwork.remove(level,key);
+        return removed.size();
     }
     public Collection<FlowRegion> all() { return List.copyOf(regions.values()); }
     public FlowRegion at(int x, int y, int z) { return index.at(x, y, z); }

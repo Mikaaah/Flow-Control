@@ -11,8 +11,7 @@ public final class ControlCommands {
                 c.getSource().sendSuccess(()->Component.literal("Flow Control: "+data.all().size()+" regions; here="+(r==null?"natural":r.still()?"still":"directed")),false);return 1;
             }))
             .then(Commands.literal("clear").requires(s->s.permissions().hasPermission(net.minecraft.server.permissions.Permissions.COMMANDS_GAMEMASTER)).executes(c->{
-                var level=c.getSource().getLevel();var data=ControlData.get(level);int count=0;
-                for(var r:data.all()) if(!r.controller()) { data.remove(level,r.key());count++; }
+                var level=c.getSource().getLevel();var data=ControlData.get(level);int count=data.removeMatching(level,r -> !r.controller());
                 final int removed=count;c.getSource().sendSuccess(()->Component.literal("Removed "+removed+" legacy wand regions in this dimension."),true);return count;
             })));
     }
