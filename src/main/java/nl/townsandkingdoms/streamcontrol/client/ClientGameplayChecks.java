@@ -170,6 +170,23 @@ public final class ClientGameplayChecks {
             if(ticks>=100) {screenshot("model-current-generator-after-reload");return true;}
             return false;
         });
+        add("capture water scene with client vector overrides",()->command("model_overview"),()->{
+            mc().player.setYRot(0);mc().player.setXRot(25);
+            if(region(MODEL_GENERATOR)==null)return false;
+            if(ticks==60) {screenshot("model-water-overrides-present");results.put("water scene client override present before capture",true);}
+            return ticks>65;
+        });
+        add("capture same water scene after clearing client vector overrides",()->{
+            FlowOverrides.clearClient();
+            // Match a reset packet's terrain invalidation so cached fluid vertices cannot confound A/B.
+            mc().levelRenderer.allChanged();
+            if(region(MODEL_GENERATOR)!=null)throw new AssertionError("Client vector override did not clear");
+        },()->{
+            mc().player.setYRot(0);mc().player.setXRot(25);
+            if(region(MODEL_GENERATOR)!=null)throw new AssertionError("Client vector override repopulated during A/B capture");
+            if(ticks==40) {screenshot("model-water-overrides-cleared");results.put("water scene client override absent after clear",true);}
+            return ticks>45;
+        });
     }
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if(!Boolean.getBoolean("streamcontrol.clientIntegrationTest") || done) return;

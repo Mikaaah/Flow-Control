@@ -103,7 +103,8 @@ public final class ClientTestWorld {
             var p=c.getSource().getPlayerOrException();p.teleportTo(4.5,103,-3.5);p.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);return 1;
         })).then(literal("models").executes(c->{
             prepareModels(c.getSource().getLevel());return modelView(c.getSource(),6.5,108,1.5);
-        })).then(literal("model_generator").executes(c->modelView(c.getSource(),1.9,104.5,9.2)))
+        })).then(literal("model_overview").executes(c->modelView(c.getSource(),6.5,108,1.5)))
+        .then(literal("model_generator").executes(c->modelView(c.getSource(),1.9,104.5,9.2)))
         .then(literal("model_anchor").executes(c->modelView(c.getSource(),4.9,104.5,9.2)))
         .then(literal("model_sensor").executes(c->modelView(c.getSource(),7.9,104.5,9.2)))
         .then(literal("model_thruster").executes(c->modelView(c.getSource(),10.9,104.1,9.2)))
