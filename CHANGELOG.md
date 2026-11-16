@@ -1,8 +1,5 @@
 ![Changelog](https://i.imgur.com/JGT2lvz.png)
 
-
-
-
 ## 1.1.0 — Glazed Relics & Dock Instruments
 
 - Integrated the five redesigned nautical-industrial block models and animated internals.
@@ -49,7 +46,6 @@ Update Flow Control and Streams Reflowing on both client and server. Create rema
 - Save compass directions in block states; preserve old cardinal directions and handle rotations/mirrors.
 - Update server validation and networking for all eight headings.
 
-
 ## 0.1.4 — Controller GUI redesign
 
 - Replace the mixed dark panel and vanilla controls with one warm parchment, walnut and brass style inspired by the Unidentified Loot counters.
@@ -57,8 +53,6 @@ Update Flow Control and Streams Reflowing on both client and server. Create rema
 - Add a schematic water-area preview, clear radius/diameter/height values, and a dedicated stillwater summary.
 - Keep redstone status, apply/cancel behavior, connected-water settings and server validation intact.
 - No changes to water physics or particle suppression.
-
-
 
 ## 0.1.3-beta.3 — fabric 1.20.1
 
@@ -68,7 +62,6 @@ Update Flow Control and Streams Reflowing on both client and server. Create rema
 - Persist connected-water masks and validate edits on the server.
 - Pin Streams Reflowing 2.15.2 and add build/dedicated-server regression CI.
 - Client GUI and visual behavior still require in-game playtesting.
-
 
 ## 0.1.2 — Fabric 1.20.1
 
