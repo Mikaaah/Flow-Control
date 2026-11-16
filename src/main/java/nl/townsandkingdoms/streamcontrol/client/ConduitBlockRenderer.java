@@ -29,7 +29,7 @@ public final class ConduitBlockRenderer<T extends BlockEntity> implements BlockE
             pose.translate(-part.pivotX(),-part.pivotY(),-part.pivotZ());
             for(var face:ConduitMeshes.mesh(part.model())) {
                 var texture=TEXTURES.computeIfAbsent(face.texture(),ResourceLocation::new);
-                var type=face.transparent()?RenderType.entityTranslucent(texture):RenderType.entityCutoutNoCull(texture);
+                var type=part.emissive()?RenderType.entityTranslucentEmissive(texture):face.transparent()?RenderType.entityTranslucent(texture):RenderType.entityCutoutNoCull(texture);
                 var out=buffers.getBuffer(type);float[] v=face.vertices();
                 for(int i=0;i<4;i++) {
                     int n=i*5;float brightness=part.brightness();
@@ -47,21 +47,22 @@ public final class ConduitBlockRenderer<T extends BlockEntity> implements BlockE
         Vec3 a=rope.start(),b=rope.end();double dx=b.x-a.x,dz=b.z-a.z;
         double horizontal=Math.hypot(dx,dz);if(horizontal>32 || a.distanceToSqr(b)<1e-8)return;
         double scale=Math.max(.3,horizontal*.6),edge=Math.cosh(horizontal/(2*scale));
-        var out=buffers.getBuffer(RenderType.leash());
+        var out=buffers.getBuffer(RenderType.entityCutoutNoCull(new ResourceLocation("minecraft","textures/block/brown_wool.png")));
         // Two crossed ribbons give the rope depth from every viewing angle; 24 fixed segments.
         for(int axis=0;axis<2;axis++)for(int i=0;i<24;i++) {
             double t0=i/24.0,t1=(i+1)/24.0;
             Vec3 p=catenary(a,b,t0,horizontal,scale,edge),q=catenary(a,b,t1,horizontal,scale,edge);
-            float width=.0125f;float sx=axis==0?width:0,sy=axis==1?width:0,sz=axis==0?width:0;
-            ropeVertex(out,pose,p,sx,sy,sz,light);ropeVertex(out,pose,p,-sx,-sy,-sz,light);
-            ropeVertex(out,pose,q,-sx,-sy,-sz,light);ropeVertex(out,pose,q,sx,sy,sz,light);
+            float width=.0125f;float sx=axis==0?(float)(dz/Math.max(horizontal,1e-8))*width:0,sy=axis==1?width:0,sz=axis==0?-(float)(dx/Math.max(horizontal,1e-8))*width:0;
+            ropeVertex(out,pose,p,sx,sy,sz,0,0,light);ropeVertex(out,pose,p,-sx,-sy,-sz,1,0,light);
+            ropeVertex(out,pose,q,-sx,-sy,-sz,1,1,light);ropeVertex(out,pose,q,sx,sy,sz,0,1,light);
         }
     }
     private static Vec3 catenary(Vec3 a,Vec3 b,double t,double length,double scale,double edge) {
         return a.lerp(b,t).add(0,scale*(Math.cosh((t-.5)*length/scale)-edge),0);
     }
-    private static void ropeVertex(VertexConsumer out,PoseStack pose,Vec3 v,float x,float y,float z,int light) {
-        out.vertex(pose.last().pose(),(float)v.x+x,(float)v.y+y,(float)v.z+z).color(.30f,.22f,.12f,1).uv2(light).endVertex();
+    private static void ropeVertex(VertexConsumer out,PoseStack pose,Vec3 v,float x,float y,float z,float u,float w,int light) {
+        out.vertex(pose.last().pose(),(float)v.x+x,(float)v.y+y,(float)v.z+z).color(.8f,.7f,.5f,1)
+            .uv(u,w).overlayCoords(net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY).uv2(light).normal(pose.last().normal(),0,1,0).endVertex();
     }
     @Override public boolean shouldRenderOffScreen(T be){return be instanceof nl.townsandkingdoms.streamcontrol.MooringEntity post && post.secured();}
     @Override public int getViewDistance(){return 64;}

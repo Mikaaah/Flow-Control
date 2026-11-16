@@ -15,7 +15,8 @@ public final class MechanicalCurrentEntity extends KineticBlockEntity implements
     @Override public float rpm() { return getSpeed(); }
     @Override public void tick() { super.tick();if(level!=null && !level.isClientSide) controls.tick(); }
     @Override public void onSpeedChanged(float previous) { super.onSpeedChanged(previous);if(controls!=null) controls.refresh(); }
-    @Override public void setRemoved() { if(controls!=null) controls.removed();super.setRemoved(); }
+    // SmartBlockEntity.setRemoved() is final and always delegates to this hook, including chunk unload.
+    @Override public void invalidate() { if(controls!=null) controls.removed();super.invalidate(); }
     @Override public float calculateStressApplied() { return lastStressApplied=ControlConfig.KINETIC_STRESS.get().floatValue(); }
     @Override protected void write(CompoundTag n,boolean packet) { super.write(n,packet);n.put("FlowControl",controls.save()); }
     @Override protected void read(CompoundTag n,boolean packet) { super.read(n,packet);if(n.contains("FlowControl")) controls.load(n.getCompound("FlowControl")); }
