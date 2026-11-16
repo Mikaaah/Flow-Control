@@ -59,12 +59,42 @@ public final class ClientGameplayChecks {
             return ticks>8 && FlowWand.mode(mc().player.getMainHandItem())==mode;
         });
     }
-    private static void modelCapture(String name,String view,float yaw,float pitch) {
+    private static ConduitAnimations.Frame modelFrame(BlockPos p) {
+        var be=mc().level.getBlockEntity(p);if(be==null)return null;
+        var frame=ConduitAnimations.extract(be,0);
+        if(frame.parts().isEmpty() || frame.parts().stream().anyMatch(part->ConduitMeshes.mesh(part.model()).isEmpty()))return null;
+        if(be instanceof FlowSensorEntity sensor && (sensor.measuredSpeed()<=0 || sensor.measuredHeading()==null))return null;
+        if(be instanceof MooringEntity post && (!post.secured() || frame.rope()==null))return null;
+        if(be instanceof FlowController controller) {
+            boolean kinetic=p.equals(MODEL_MECHANICAL);
+            boolean create=net.neoforged.fml.ModList.get().isLoaded("create");
+            if((!kinetic || create) && !controller.visualActive())return null;
+            if(kinetic && (create?controller.rpm()==0:controller.rpm()!=0))return null;
+        }
+        return frame;
+    }
+    private static float modelAngle(ConduitAnimations.Frame frame) {
+        var first=frame.parts().getFirst();return first.angleY()+first.angleZ();
+    }
+    private static void modelCapture(String name,String view,BlockPos p,float yaw,float pitch,boolean animate) {
+        int[] captures={0};float[] firstAngle={Float.NaN};
         add("placed model render "+name,()->{mc().setScreen(null);mc().options.hideGui=true;command(view);},()->{
-            // Wait for server camera relocation, chunk rebuilding and animation interpolation.
             mc().player.setYRot(yaw);mc().player.setXRot(pitch);
-            if(ticks==60 || ticks==100) screenshot("model-"+name+"-"+ticks);
-            return ticks>105;
+            if(!mc().player.isSpectator())return false;
+            var frame=modelFrame(p);if(frame==null)return false;
+            if(name.equals("all-five"))for(var position:List.of(MODEL_GENERATOR,MODEL_ANCHOR,MODEL_SENSOR,MODEL_MECHANICAL,MODEL_MOORING))if(modelFrame(position)==null)return false;
+            if(ticks==60 || ticks==100) {
+                screenshot("model-"+name+"-"+ticks);captures[0]++;
+                results.put("placed model parts "+name,frame.parts().size());
+                if(p.equals(MODEL_MOORING))results.put("placed mooring has live rope",frame.rope()!=null);
+                if(ticks==60)firstAngle[0]=modelAngle(frame);
+                else if(animate) {
+                    float change=Math.abs(net.minecraft.util.Mth.wrapDegrees(modelAngle(frame)-firstAngle[0]));
+                    if(!Float.isFinite(change) || change<1)throw new AssertionError("No rendered animation advance for "+name);
+                    results.put("placed model rotation advance "+name,change);
+                }
+            }
+            return ticks>105 && captures[0]==2;
         });
     }
     private static void setup() {
@@ -122,12 +152,12 @@ public final class ClientGameplayChecks {
         add("render Calibrator HUD and world bounds",()->{
             mc().setScreen(null);command("view");mc().player.setXRot(36);mc().player.setYRot(45);
         },()->{if(ticks==200)screenshot("world");return ticks>210;});
-        modelCapture("all-five","models",35,25);
-        modelCapture("current-generator","model_generator",25,29);
-        modelCapture("stillwater-anchor","model_anchor",25,29);
-        modelCapture("flow-sensor","model_sensor",25,29);
-        modelCapture("hydro-current-thruster","model_thruster",27,28);
-        modelCapture("mooring-post-rope","model_rope",48,26);
+        modelCapture("all-five","models",MODEL_GENERATOR,0,25,true);
+        modelCapture("current-generator","model_generator",MODEL_GENERATOR,25,28,true);
+        modelCapture("stillwater-anchor","model_anchor",MODEL_ANCHOR,25,28,true);
+        modelCapture("flow-sensor","model_sensor",MODEL_SENSOR,25,28,false);
+        modelCapture("hydro-current-thruster","model_thruster",MODEL_MECHANICAL,25,22,net.neoforged.fml.ModList.get().isLoaded("create"));
+        modelCapture("mooring-post-rope","model_rope",MODEL_MOORING,48,20,false);
     }
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if(!Boolean.getBoolean("streamcontrol.clientIntegrationTest") || done) return;
