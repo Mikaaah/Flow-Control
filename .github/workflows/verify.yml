@@ -60,13 +60,17 @@ jobs:
           SDL_VIDEO_FORCE_EGL: '1'
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: |
+          # SDL loads libEGL.so.1, then resolves eglChooseConfig before creating its display.
+          sudo apt-get update -qq
+          sudo apt-get install --yes --no-install-recommends libegl1 libegl-mesa0 libgl1-mesa-dri
+          python3 -c 'import ctypes; egl=ctypes.CDLL("libEGL.so.1"); assert egl.eglChooseConfig'
           mkdir -p run-client
           printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
           bash gradlew --no-daemon runServer > client-preview-server.log 2>&1 &
           SERVER_PID=$!
           trap 'kill "$SERVER_PID" $(jobs -pr) 2>/dev/null || true' EXIT
           for attempt in $(seq 1 120); do
-            if rg -q 'Done \(' client-preview-server.log; then break; fi
+            if grep -q 'Done (' client-preview-server.log; then break; fi
             if ! kill -0 "$SERVER_PID" 2>/dev/null; then tail -n 40 client-preview-server.log; exit 1; fi
             sleep 1
           done
