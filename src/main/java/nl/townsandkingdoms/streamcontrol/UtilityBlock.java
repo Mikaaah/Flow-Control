@@ -15,20 +15,34 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Same waterlogged model family as the original controllers. */
 public final class UtilityBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<UtilityBlock> SENSOR_CODEC = simpleCodec(p -> new UtilityBlock(true,p));
     public static final MapCodec<UtilityBlock> MOORING_CODEC = simpleCodec(p -> new UtilityBlock(false,p));
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED, POWERED = BlockStateProperties.POWERED;
     public final boolean sensor;
     public UtilityBlock(boolean sensor,Properties p) {
         super(p);this.sensor=sensor;
-        registerDefaultState(stateDefinition.any().setValue(WATERLOGGED,false).setValue(POWERED,false));
+        registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH).setValue(WATERLOGGED,false).setValue(POWERED,false));
     }
     @Override protected MapCodec<? extends BaseEntityBlock> codec() { return sensor ? SENSOR_CODEC : MOORING_CODEC; }
-    @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> b) { b.add(WATERLOGGED,POWERED); }
-    @Override public BlockState getStateForPlacement(BlockPlaceContext c) { return defaultBlockState().setValue(WATERLOGGED,c.getLevel().getFluidState(c.getClickedPos()).is(FluidTags.WATER)).setValue(POWERED,c.getLevel().hasNeighborSignal(c.getClickedPos())); }
+    @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> b) { b.add(FACING,WATERLOGGED,POWERED); }
+    @Override public BlockState getStateForPlacement(BlockPlaceContext c) { return defaultBlockState().setValue(FACING,c.getHorizontalDirection()).setValue(WATERLOGGED,c.getLevel().getFluidState(c.getClickedPos()).is(FluidTags.WATER)).setValue(POWERED,c.getLevel().hasNeighborSignal(c.getClickedPos())); }
+    @Override protected VoxelShape getShape(BlockState s,BlockGetter l,BlockPos p,CollisionContext c) {
+        if(sensor) return Block.box(0,0,0,16,14,16);
+        return switch(s.getValue(FACING)) {
+            case EAST -> Block.box(4,0,4,13,18,12);
+            case SOUTH -> Block.box(4,0,4,12,18,13);
+            case WEST -> Block.box(3,0,4,12,18,12);
+            default -> Block.box(4,0,3,12,18,12);
+        };
+    }
+    @Override protected BlockState rotate(BlockState s,Rotation r) { return s.setValue(FACING,r.rotate(s.getValue(FACING))); }
+    @Override protected BlockState mirror(BlockState s,Mirror m) { return rotate(s,m.getRotation(s.getValue(FACING))); }
     @Override protected RenderShape getRenderShape(BlockState s) { return RenderShape.MODEL; }
     @Override public BlockEntity newBlockEntity(BlockPos p,BlockState s) { return sensor ? new FlowSensorEntity(p,s) : new MooringEntity(p,s); }
     @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level l,BlockState s,BlockEntityType<T> t) {

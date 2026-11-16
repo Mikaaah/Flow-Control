@@ -1,0 +1,19 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "minecraft:entity/conduit/base",
+      "sprite": "minecraft:entity/conduit/base"
+    },
+    {
+      "type": "single",
+      "resource": "minecraft:entity/conduit/cage",
+      "sprite": "minecraft:entity/conduit/cage"
+    },
+    {
+      "type": "single",
+      "resource": "minecraft:entity/conduit/open_eye",
+      "sprite": "minecraft:entity/conduit/open_eye"
+    }
+  ]
+}

@@ -39,12 +39,15 @@ jobs:
           assert data.get('passed') is True, data
           assert data.get('controllerGuiAndConnectedWaterRegression') is True, data
           assert data.get('eightHeadingPhysicsPersistenceAndPackets') is True, data
+          assert data.get('allFiveBlocksWaterloggingRotationAndNonOcclusion') is True, data
+          assert data.get('auditControllerUnloadReregistrationAndVisualState') is True, data
+          assert data.get('auditSensorSameSignalHeadingAndUpdateTag') is True, data
           CHECK
       - name: Upload JARs and regression evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-neoforge-1.21.11-1.0.3
+          name: flow-control-neoforge-1.21.11-1.1.0
           path: |
             build/libs/*.jar
             run/streamcontrol-integration-results.json
@@ -60,7 +63,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-1.0.3-neoforge-1.21.11-client
+          name: flow-control-1.1.0-neoforge-1.21.11-client
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log

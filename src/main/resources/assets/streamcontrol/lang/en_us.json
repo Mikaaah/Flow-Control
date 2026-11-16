@@ -76,7 +76,7 @@
   "gui.streamcontrol.height_label": "HEIGHT",
   "block.streamcontrol.flow_sensor": "Flow Sensor",
   "block.streamcontrol.mooring_post": "Mooring Post",
-  "block.streamcontrol.mechanical_current_generator": "Mechanical Current Generator",
+  "block.streamcontrol.mechanical_current_generator": "Hydro-Current Thruster",
   "block.streamcontrol.current_generator.tip": "Programmable currents with two profiles and redstone control.",
   "block.streamcontrol.stillwater_anchor.tip": "Calm water around docks; switch profiles with redstone.",
   "block.streamcontrol.flow_sensor.tip": "Measure speed, compass direction or boats with comparator output.",

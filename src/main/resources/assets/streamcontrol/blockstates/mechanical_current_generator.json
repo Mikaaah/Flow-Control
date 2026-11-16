@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=north,diagonal=false": {
+      "model": "streamcontrol:block/parts/mechanical_current_generator/body",
+      "y": 0
+    },
+    "facing=north,diagonal=true": {
+      "model": "streamcontrol:block/parts/mechanical_current_generator/body",
+      "y": 0
+    },
+    "facing=east,diagonal=false": {
+      "model": "streamcontrol:block/parts/mechanical_current_generator/body",
+      "y": 90
+    },
+    "facing=east,diagonal=true": {
+      "model": "streamcontrol:block/parts/mechanical_current_generator/body",
+      "y": 90
+    },
+    "facing=south,diagonal=false": {
+      "model": "streamcontrol:block/parts/mechanical_current_generator/body",
+      "y": 180
+    },
+    "facing=south,diagonal=true": {
+      "model": "streamcontrol:block/parts/mechanical_current_generator/body",
+      "y": 180
+    },
+    "facing=west,diagonal=false": {
+      "model": "streamcontrol:block/parts/mechanical_current_generator/body",
+      "y": 270
+    },
+    "facing=west,diagonal=true": {
+      "model": "streamcontrol:block/parts/mechanical_current_generator/body",
+      "y": 270
+    }
+  }
+}
