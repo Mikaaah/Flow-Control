@@ -10,6 +10,10 @@ public final class FlowOverrides {
     private static volatile RegionIndex client = new RegionIndex(java.util.List.of());
     private static final java.util.Map<Long, FlowRegion> CLIENT_REGIONS = new java.util.LinkedHashMap<>();
     private static volatile String dimension = "";
+    /** Client world/session teardown must discard overlays from the previous server. */
+    public static synchronized void clearClient() {
+        CLIENT_REGIONS.clear();client=new RegionIndex(java.util.List.of());dimension="";
+    }
     public static synchronized FlowRegion clientByKey(long key) { return CLIENT_REGIONS.get(key); }
     public static synchronized void receive(String dim, boolean reset, FlowRegion region, long remove) {
         if (reset || !dim.equals(dimension)) { CLIENT_REGIONS.clear(); dimension = dim; }
