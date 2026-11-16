@@ -1,0 +1,1365 @@
+{
+  "version": "1.1.0",
+  "generated_at": "2026-11-16T11:02:21.528748+00:00",
+  "targets": {
+    "fabric-1.20.1": {
+      "branch": "update/conduit-audit-1.1.0-fabric-1.20.1",
+      "source_url": "https://github.com/Mikaaah/Flow-Control/tree/9ff96680a1ee9e3ca82a8bf66c99dbb0fe0b45b2",
+      "build_commit": "9ff96680a1ee9e3ca82a8bf66c99dbb0fe0b45b2",
+      "workflow_url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846645460",
+      "workflow_id": 43846645460,
+      "jobs": [
+        {
+          "job": "verify (standalone)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned Streams dependency",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch optional Create fixture",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prepare disposable regression world",
+              "conclusion": "success"
+            },
+            {
+              "name": "Dedicated server regression",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload JARs and regression evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture client menus and baked block models",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload client screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job": "verify (create)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned Streams dependency",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch optional Create fixture",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prepare disposable regression world",
+              "conclusion": "success"
+            },
+            {
+              "name": "Dedicated server regression",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload JARs and regression evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture client menus and baked block models",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload client screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "jar": {
+        "path": "audit-artifacts/flow-control-fabric-1.20.1-1.1.0-standalone/build/libs/flow-control-1.1.0-fabric-1.20.1.jar",
+        "filename": "flow-control-1.1.0-fabric-1.20.1.jar",
+        "sha256": "9fc274bbf330e60d3ebd4dd23f23588f54126f1781d430614b917f988be4086b",
+        "size": 322105,
+        "class_major": 61
+      },
+      "server_checks": [
+        {
+          "flavor": "standalone",
+          "passed": true,
+          "evidence": "evidence/fabric-1.20.1-standalone-server.json"
+        },
+        {
+          "flavor": "create",
+          "passed": true,
+          "evidence": "evidence/fabric-1.20.1-create-server.json"
+        }
+      ],
+      "item_model_capture_count": 2,
+      "live_client_checks": [],
+      "artifacts": [
+        {
+          "id": 14215412840,
+          "name": "flow-control-fabric-1.20.1-1.1.0-standalone",
+          "sha256": "465195fc28564db689e951eefd412c078ebfdeaed572db120123e09c3bc55ba5",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846645460/artifacts/14215412840"
+        },
+        {
+          "id": 14214783546,
+          "name": "flow-control-fabric-1.20.1-1.1.0-create",
+          "sha256": "ecb9d43aaca292ac357f96a3db98ac461a119d60a41d11082915308bdf3b96d2",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846645460/artifacts/14214783546"
+        },
+        {
+          "id": 14214728616,
+          "name": "flow-control-1.1.0-fabric-1.20.1-standalone-client",
+          "sha256": "cf8f48595b3f413cb1d3fc40d090f29353996eb186f397270726c834eec43a55",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846645460/artifacts/14214728616"
+        },
+        {
+          "id": 14216280810,
+          "name": "flow-control-1.1.0-fabric-1.20.1-create-client",
+          "sha256": "4ec339e2644cbffff7ff30e966030b40d37f432780adfdff86447144fed91fba",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846645460/artifacts/14216280810"
+        }
+      ]
+    },
+    "neoforge-1.21.1": {
+      "branch": "update/neoforge-1.21.1-conduit-audit-1.1.0",
+      "source_url": "https://github.com/Mikaaah/Flow-Control/tree/5c597a96f73d4a6e48ce1986f3ab6aeda9012d03",
+      "build_commit": "5c597a96f73d4a6e48ce1986f3ab6aeda9012d03",
+      "workflow_url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43849948760",
+      "workflow_id": 43849948760,
+      "jobs": [
+        {
+          "job": "build (create)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Checkout sources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Set up Java 21",
+              "conclusion": "success"
+            },
+            {
+              "name": "Set up Gradle",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch Streams Reflowing 2.17.5 (build dependency)",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch verified optional Create compile fixture",
+              "conclusion": "success"
+            },
+            {
+              "name": "Compile and package addon",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload test JAR",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check eight-way flow on the dedicated server",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload regression results",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture the actual controller GUIs",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload GUI screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Exercise real client gameplay against a dedicated server",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload live client results and screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Set up Gradle",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Set up Java 21",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Checkout sources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job": "build (standalone)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Checkout sources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Set up Java 21",
+              "conclusion": "success"
+            },
+            {
+              "name": "Set up Gradle",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch Streams Reflowing 2.17.5 (build dependency)",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch verified optional Create compile fixture",
+              "conclusion": "success"
+            },
+            {
+              "name": "Compile and package addon",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload test JAR",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check eight-way flow on the dedicated server",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload regression results",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture the actual controller GUIs",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload GUI screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Exercise real client gameplay against a dedicated server",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload live client results and screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Set up Gradle",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Set up Java 21",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Checkout sources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "jar": {
+        "path": "audit-artifacts/flow-control-1.1.0-neoforge-1.21.1-standalone/flow-control-1.1.0-neoforge-1.21.1.jar",
+        "filename": "flow-control-1.1.0-neoforge-1.21.1.jar",
+        "sha256": "be4bb1bc14c9239394e15af137384d88c464e59d4b6823952c206a55dd07b0f9",
+        "size": 339225,
+        "class_major": 65
+      },
+      "server_checks": [
+        {
+          "flavor": "create",
+          "passed": true,
+          "evidence": "evidence/neoforge-1.21.1-create-server.json"
+        },
+        {
+          "flavor": "standalone",
+          "passed": true,
+          "evidence": "evidence/neoforge-1.21.1-standalone-server.json"
+        }
+      ],
+      "item_model_capture_count": 2,
+      "live_client_checks": [
+        {
+          "flavor": "standalone",
+          "passed": true,
+          "evidence": "evidence/neoforge-1.21.1-standalone-client.json",
+          "native_flywheel": null
+        },
+        {
+          "flavor": "create",
+          "passed": true,
+          "evidence": "evidence/neoforge-1.21.1-create-client.json",
+          "native_flywheel": true
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14217486329,
+          "name": "flow-control-1.1.0-standalone-client-gameplay",
+          "sha256": "9d63d77d01a87f0e81cacfe6d6326133afc1bfbd44adcff70cf84d892ce060b1",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43849948760/artifacts/14217486329"
+        },
+        {
+          "id": 14217541493,
+          "name": "flow-control-1.1.0-create-client-gameplay",
+          "sha256": "d0c6301d9d421a0eb01db728142ee8312b3e11acea3fc25bd6e3d45fb9788cad",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43849948760/artifacts/14217541493"
+        },
+        {
+          "id": 14216443599,
+          "name": "flow-control-1.1.0-neoforge-1.21.1-create-checks",
+          "sha256": "7262d6a0bf48540e26dd95a6c5526e152baf3e6bcf74929b0541993344e7b50d",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43849948760/artifacts/14216443599"
+        },
+        {
+          "id": 14217385693,
+          "name": "flow-control-1.1.0-neoforge-1.21.1-standalone-checks",
+          "sha256": "d194a0813a4d9367924bcfdf7421bf6216a4db8f9478e93388a82877c3407746",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43849948760/artifacts/14217385693"
+        },
+        {
+          "id": 14217430977,
+          "name": "flow-control-1.1.0-standalone-client-preview",
+          "sha256": "cdd4218ffdaf8d667c8c2b5da2b0da660f4f9727228f2f85baad53229c9512d5",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43849948760/artifacts/14217430977"
+        },
+        {
+          "id": 14216987025,
+          "name": "flow-control-1.1.0-neoforge-1.21.1-standalone",
+          "sha256": "14512e553bcbb268a8286bdb8ec427ad9ef11c3861ba10d7b6d78aa3ad6a5be2",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43849948760/artifacts/14216987025"
+        },
+        {
+          "id": 14216154108,
+          "name": "flow-control-1.1.0-neoforge-1.21.1-create",
+          "sha256": "f2768b5a5460046d078e7d8663db4c9e56297597a2242fcc58d13b36ca77ce8f",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43849948760/artifacts/14216154108"
+        },
+        {
+          "id": 14216388019,
+          "name": "flow-control-1.1.0-create-client-preview",
+          "sha256": "c42a5669547242df66c555dc1c71793a5d452ed667fb62b42e8f7494dc00db03",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43849948760/artifacts/14216388019"
+        }
+      ]
+    },
+    "fabric-1.21.1": {
+      "branch": "update/conduit-audit-1.1.0-fabric-1.21.1",
+      "source_url": "https://github.com/Mikaaah/Flow-Control/tree/2bd3e51b3d733a150572338db4f9df95ed55fd2b",
+      "build_commit": "2bd3e51b3d733a150572338db4f9df95ed55fd2b",
+      "workflow_url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846653627",
+      "workflow_id": 43846653627,
+      "jobs": [
+        {
+          "job": "verify",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned Streams dependency",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prepare disposable regression world",
+              "conclusion": "success"
+            },
+            {
+              "name": "Dedicated server regression",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload JARs and regression evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture client menus and baked block models",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload client screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "jar": {
+        "path": "audit-artifacts/flow-control-fabric-1.21.1-1.1.0/build/libs/flow-control-1.1.0-fabric-1.21.1.jar",
+        "filename": "flow-control-1.1.0-fabric-1.21.1.jar",
+        "sha256": "8f2349bb3f253a3237d234b0ab5be2437c88ca7852ffe76f396175377ecfa86e",
+        "size": 304729,
+        "class_major": 65
+      },
+      "server_checks": [
+        {
+          "flavor": "standalone",
+          "passed": true,
+          "evidence": "evidence/fabric-1.21.1-standalone-server.json"
+        }
+      ],
+      "item_model_capture_count": 1,
+      "live_client_checks": [],
+      "artifacts": [
+        {
+          "id": 14216350279,
+          "name": "flow-control-fabric-1.21.1-1.1.0",
+          "sha256": "a8722e9d2678d70808918c2f610928a73d7c300dbdcbb735362800aa2d648ca4",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846653627/artifacts/14216350279"
+        },
+        {
+          "id": 14214919881,
+          "name": "flow-control-1.1.0-fabric-1.21.1-client",
+          "sha256": "8addce7660f9c0a2ef89f83cc3fb1094d7a7c6aebf1e438ca003918dab0a4de2",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846653627/artifacts/14214919881"
+        }
+      ]
+    },
+    "fabric-26.3": {
+      "branch": "update/conduit-audit-1.1.0-fabric-26.3",
+      "source_url": "https://github.com/Mikaaah/Flow-Control/tree/99f009521ae29222ceb2db27a9c8a3e2f8133042",
+      "build_commit": "99f009521ae29222ceb2db27a9c8a3e2f8133042",
+      "workflow_url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43853498182",
+      "workflow_id": 43853498182,
+      "jobs": [
+        {
+          "job": "verify (false)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned Streams dependency",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prepare disposable regression world",
+              "conclusion": "success"
+            },
+            {
+              "name": "Dedicated server regression",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload JARs and regression evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture client menus and baked block models",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload client screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job": "verify (true)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned Streams dependency",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prepare disposable regression world",
+              "conclusion": "success"
+            },
+            {
+              "name": "Dedicated server regression",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload JARs and regression evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture client menus and baked block models",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Upload client screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "jar": {
+        "path": "audit-artifacts/flow-control-fabric-26.3-1.1.0-baked-true/build/libs/flow-control-1.1.0-fabric-26.3.jar",
+        "filename": "flow-control-1.1.0-fabric-26.3.jar",
+        "sha256": "928fbb4a2e19f672e0cbea915bbe9d4c48f51ce946aad5a4ec13d248cd4821e9",
+        "size": 320737,
+        "class_major": 69
+      },
+      "server_checks": [
+        {
+          "flavor": "forceBakedFluid=true",
+          "passed": true,
+          "evidence": "evidence/fabric-26.3-forceBakedFluid=true-server.json"
+        },
+        {
+          "flavor": "forceBakedFluid=false",
+          "passed": true,
+          "evidence": "evidence/fabric-26.3-forceBakedFluid=false-server.json"
+        }
+      ],
+      "item_model_capture_count": 1,
+      "live_client_checks": [],
+      "artifacts": [
+        {
+          "id": 14220635395,
+          "name": "flow-control-1.1.0-fabric-26.3-client-baked-false",
+          "sha256": "bdbe26200593df9c5bce2e967e24e8b2907c3d1ee27594e3e6f8947afa9c5c39",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43853498182/artifacts/14220635395"
+        },
+        {
+          "id": 14217914274,
+          "name": "flow-control-fabric-26.3-1.1.0-baked-true",
+          "sha256": "edc85a41e9f8e69429ef708b51ba13c3eb975274fda566faf6caaab6b2d2f05c",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43853498182/artifacts/14217914274"
+        },
+        {
+          "id": 14220415172,
+          "name": "flow-control-fabric-26.3-1.1.0-baked-false",
+          "sha256": "d41c19155e64a6d0948f2ec7264ca33ecd6178dee95fafffd67612e65bb4f84e",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43853498182/artifacts/14220415172"
+        }
+      ]
+    },
+    "fabric-26.1.2": {
+      "branch": "update/conduit-audit-1.1.0-fabric-26.1.2",
+      "source_url": "https://github.com/Mikaaah/Flow-Control/tree/50430e0a83ba7f6730b67d176081d3dff49a0723",
+      "build_commit": "50430e0a83ba7f6730b67d176081d3dff49a0723",
+      "workflow_url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846679666",
+      "workflow_id": 43846679666,
+      "jobs": [
+        {
+          "job": "verify",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned Streams dependency",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prepare disposable regression world",
+              "conclusion": "success"
+            },
+            {
+              "name": "Dedicated server regression",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload JARs and regression evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture client menus and baked block models",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload client screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "jar": {
+        "path": "audit-artifacts/flow-control-fabric-26.1.2-1.1.0/build/libs/flow-control-1.1.0-fabric-26.1.2.jar",
+        "filename": "flow-control-1.1.0-fabric-26.1.2.jar",
+        "sha256": "dbeb57cf5f7d3c1391e289f85935ceb1c64c60a33fe7e4a95064feaa66c21583",
+        "size": 317283,
+        "class_major": 69
+      },
+      "server_checks": [
+        {
+          "flavor": "standalone",
+          "passed": true,
+          "evidence": "evidence/fabric-26.1.2-standalone-server.json"
+        }
+      ],
+      "item_model_capture_count": 1,
+      "live_client_checks": [],
+      "artifacts": [
+        {
+          "id": 14215486758,
+          "name": "flow-control-fabric-26.1.2-1.1.0",
+          "sha256": "b1892255748ddd3e2c7e1d6366325b304aa354198a31da35ba75f22fd5ede06c",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846679666/artifacts/14215486758"
+        },
+        {
+          "id": 14215288856,
+          "name": "flow-control-1.1.0-fabric-26.1.2-client",
+          "sha256": "43b7ac74c987774f9de1530653ddddb53b7dbfacc2e804a7b1ccc40e0d8da406",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846679666/artifacts/14215288856"
+        }
+      ]
+    },
+    "forge-1.20.1": {
+      "branch": "update/conduit-audit-1.1.0-forge-1.20.1",
+      "source_url": "https://github.com/Mikaaah/Flow-Control/tree/2aa02ec10875d450eee6aac21a906cb000582c5a",
+      "build_commit": "2aa02ec10875d450eee6aac21a906cb000582c5a",
+      "workflow_url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846685202",
+      "workflow_id": 43846685202,
+      "jobs": [
+        {
+          "job": "verify (create)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned Streams dependency",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch optional Create fixture",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prepare disposable regression world",
+              "conclusion": "success"
+            },
+            {
+              "name": "Dedicated server regression",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload JARs and regression evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture client menus and baked block models",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload client screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job": "verify (standalone)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned Streams dependency",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch optional Create fixture",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prepare disposable regression world",
+              "conclusion": "success"
+            },
+            {
+              "name": "Dedicated server regression",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload JARs and regression evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture client menus and baked block models",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload client screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "jar": {
+        "path": "audit-artifacts/flow-control-forge-1.20.1-1.1.0-create/build/libs/flow-control-1.1.0-forge-1.20.1.jar",
+        "filename": "flow-control-1.1.0-forge-1.20.1.jar",
+        "sha256": "7770e2ed0f9225aeec754a4013ef8b502cfb42c45cf0a34ce09ba98427bbbd56",
+        "size": 320901,
+        "class_major": 61
+      },
+      "server_checks": [
+        {
+          "flavor": "create",
+          "passed": true,
+          "evidence": "evidence/forge-1.20.1-create-server.json"
+        },
+        {
+          "flavor": "standalone",
+          "passed": true,
+          "evidence": "evidence/forge-1.20.1-standalone-server.json"
+        }
+      ],
+      "item_model_capture_count": 2,
+      "live_client_checks": [],
+      "artifacts": [
+        {
+          "id": 14215253440,
+          "name": "flow-control-forge-1.20.1-1.1.0-create",
+          "sha256": "babe960d38dc53e797c2b319d841f7a9aaba4d99d6c3e54d56564464e1e5b323",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846685202/artifacts/14215253440"
+        },
+        {
+          "id": 14215561767,
+          "name": "flow-control-1.1.0-forge-1.20.1-create-client",
+          "sha256": "6395b5c5ba4ba03657371275965c481e43596f8bd6ab7d4573ad3c3fc43d7c0d",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846685202/artifacts/14215561767"
+        },
+        {
+          "id": 14216750178,
+          "name": "flow-control-forge-1.20.1-1.1.0-standalone",
+          "sha256": "6c3d6a734bad6cc160ea01379aeb61245801d3ac7e5b0cfbc8a37444f8fe5e00",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846685202/artifacts/14216750178"
+        },
+        {
+          "id": 14215234604,
+          "name": "flow-control-1.1.0-forge-1.20.1-standalone-client",
+          "sha256": "9b8fe66d99180e11fa8aab45e0c4452c58fd84db0318e95c039eef91c5cf9e2e",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846685202/artifacts/14215234604"
+        }
+      ]
+    },
+    "neoforge-1.21.11": {
+      "branch": "update/conduit-audit-1.1.0-neoforge-1.21.11",
+      "source_url": "https://github.com/Mikaaah/Flow-Control/tree/114186a72ed22142cd84b9c45e0140adaa359536",
+      "build_commit": "114186a72ed22142cd84b9c45e0140adaa359536",
+      "workflow_url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846703106",
+      "workflow_id": 43846703106,
+      "jobs": [
+        {
+          "job": "verify",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned Streams dependency",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prepare disposable regression world",
+              "conclusion": "success"
+            },
+            {
+              "name": "Dedicated server regression",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload JARs and regression evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture client menus and baked block models",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload client screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "jar": {
+        "path": "audit-artifacts/flow-control-neoforge-1.21.11-1.1.0/build/libs/flow-control-1.1.0-neoforge-1.21.11.jar",
+        "filename": "flow-control-1.1.0-neoforge-1.21.11.jar",
+        "sha256": "62d304e24894d305bd529ed7bff7aa21cf64cf46dd5553fce572f43aaad509ea",
+        "size": 309039,
+        "class_major": 65
+      },
+      "server_checks": [
+        {
+          "flavor": "standalone",
+          "passed": true,
+          "evidence": "evidence/neoforge-1.21.11-standalone-server.json"
+        }
+      ],
+      "item_model_capture_count": 1,
+      "live_client_checks": [],
+      "artifacts": [
+        {
+          "id": 14216555045,
+          "name": "flow-control-neoforge-1.21.11-1.1.0",
+          "sha256": "3f7ac23a8d7ce6aa551eae11823a78523d136f4727c94e3cc0e8c5681609f1bc",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846703106/artifacts/14216555045"
+        },
+        {
+          "id": 14214944873,
+          "name": "flow-control-1.1.0-neoforge-1.21.11-client",
+          "sha256": "5cd89840df5c1af0a132ea1f3c2895d63ad17e626ee550f05d2fd3da6440581c",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846703106/artifacts/14214944873"
+        }
+      ]
+    },
+    "neoforge-26.1.2": {
+      "branch": "update/conduit-audit-1.1.0-neoforge-26.1.2",
+      "source_url": "https://github.com/Mikaaah/Flow-Control/tree/01aab04e681a0427c0d326145756c202a7c7f92c",
+      "build_commit": "01aab04e681a0427c0d326145756c202a7c7f92c",
+      "workflow_url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846692863",
+      "workflow_id": 43846692863,
+      "jobs": [
+        {
+          "job": "verify",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned Streams dependency",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prepare disposable regression world",
+              "conclusion": "success"
+            },
+            {
+              "name": "Dedicated server regression",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload JARs and regression evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture client menus and baked block models",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload client screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "jar": {
+        "path": "audit-artifacts/flow-control-neoforge-26.1.2-1.1.0/build/libs/flow-control-1.1.0-neoforge-26.1.2.jar",
+        "filename": "flow-control-1.1.0-neoforge-26.1.2.jar",
+        "sha256": "0f596a1f0f6f403c20c87009c4399561981aecec41f6004ef1342b80502d1264",
+        "size": 310796,
+        "class_major": 69
+      },
+      "server_checks": [
+        {
+          "flavor": "standalone",
+          "passed": true,
+          "evidence": "evidence/neoforge-26.1.2-standalone-server.json"
+        }
+      ],
+      "item_model_capture_count": 1,
+      "live_client_checks": [],
+      "artifacts": [
+        {
+          "id": 14215393111,
+          "name": "flow-control-neoforge-26.1.2-1.1.0",
+          "sha256": "3ec02737a524fae5ade28cdc98ce2cd16c2c45281b8f551340fdb26af619a705",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846692863/artifacts/14215393111"
+        },
+        {
+          "id": 14216715473,
+          "name": "flow-control-1.1.0-neoforge-26.1.2-client",
+          "sha256": "d6dc04a6dab445847054a6c45fb9a541ee5e458f3594caecbffc6a0607bcd62c",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43846692863/artifacts/14216715473"
+        }
+      ]
+    },
+    "neoforge-26.3": {
+      "branch": "update/conduit-audit-1.1.0-neoforge-26.3",
+      "source_url": "https://github.com/Mikaaah/Flow-Control/tree/7011d0e4429c23331bf0ca8258dcc2ce7a6e33b8",
+      "build_commit": "7011d0e4429c23331bf0ca8258dcc2ce7a6e33b8",
+      "workflow_url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43853509202",
+      "workflow_id": 43853509202,
+      "jobs": [
+        {
+          "job": "verify",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned Streams dependency",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prepare disposable regression world",
+              "conclusion": "success"
+            },
+            {
+              "name": "Dedicated server regression",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload JARs and regression evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture client menus and baked block models",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload client screenshots",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run gradle/actions/setup-gradle@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "jar": {
+        "path": "audit-artifacts/flow-control-neoforge-26.3-1.1.0/build/libs/flow-control-1.1.0-neoforge-26.3.jar",
+        "filename": "flow-control-1.1.0-neoforge-26.3.jar",
+        "sha256": "6bc6865b84c13e341e12c3a2fc5956e2920a57d14aebbec26aaa1b98ef7391da",
+        "size": 308509,
+        "class_major": 69
+      },
+      "server_checks": [
+        {
+          "flavor": "standalone",
+          "passed": true,
+          "evidence": "evidence/neoforge-26.3-standalone-server.json"
+        }
+      ],
+      "item_model_capture_count": 1,
+      "live_client_checks": [],
+      "artifacts": [
+        {
+          "id": 14220905075,
+          "name": "flow-control-neoforge-26.3-1.1.0",
+          "sha256": "26d0f35bb666118670b77b1701dea9feb83d77d4aeaa6d0322fd6babca97dcdf",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43853509202/artifacts/14220905075"
+        },
+        {
+          "id": 14220190682,
+          "name": "flow-control-1.1.0-neoforge-26.3-client",
+          "sha256": "fdadfcf3d33b602de781c0e8981869f75abaabd51e49da96c76133cde45bf048",
+          "url": "https://github.com/Mikaaah/Flow-Control/actions/runs/43853509202/artifacts/14220190682"
+        }
+      ]
+    }
+  },
+  "resource_audit": {
+    "targets": 9,
+    "passed_targets": 9,
+    "json": 523,
+    "mcmeta": 9,
+    "png": 549,
+    "supplied_png_identical": 261,
+    "supplied_model_geometry_identical": 243,
+    "errors": 0,
+    "warnings": 1
+  }
+}
