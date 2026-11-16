@@ -17,6 +17,30 @@ public final class ControllerSettings {
     private BlockPos source;
     private boolean dirty = true;
     private boolean initialized;
+    private long lastMaskScanTick = Long.MIN_VALUE, nextMaskScanTick;
+    private boolean visualActive;
+    private double visualStrength;
+    private FlowHeading visualHeading = FlowHeading.NORTH;
+    public boolean visualActive() { return visualActive; }
+    public double visualStrength() { return visualStrength; }
+    public FlowHeading visualHeading() { return visualHeading; }
+    private void visual(boolean active, FlowHeading heading, double strength) {
+        if (visualActive == active && visualHeading == heading && Math.abs(visualStrength-strength) < 1e-6) return;
+        visualActive=active; visualHeading=heading; visualStrength=strength;
+        var be=host.blockEntity();
+        if(be.getLevel() instanceof ServerLevel level && !be.isRemoved())
+            level.sendBlockUpdated(be.getBlockPos(),be.getBlockState(),be.getBlockState(),2);
+    }
+    /** Controller profiles live in the block entity; unloaded blocks must not leave active flow claims. */
+    public void removed() {
+        var be=host.blockEntity();
+        if(be.getLevel() instanceof ServerLevel level) ControlData.get(level).remove(level,be.getBlockPos().asLong());
+        visualActive=false; visualStrength=0; initialized=false; dirty=true;
+    }
+    private void pause(ServerLevel level, long key) {
+        ControlData.get(level).remove(level,key);
+        visual(false,host.heading(),0);
+    }
     public ControllerSettings(FlowController host) { this.host = host; }
     public FlowProfile a() { if (a == null) a = new FlowProfile(ControlConfig.DEFAULT_RADIUS.get(),ControlConfig.VERTICAL.get(),ControlConfig.SPEED.get(),host.heading(),false,host.isStill()?FlowProfile.Action.CALM:FlowProfile.Action.CURRENT); return a; }
     public FlowProfile b() {
@@ -47,6 +71,7 @@ public final class ControllerSettings {
         n.putInt("RedstoneMode",redstone.ordinal()); if (source != null) n.putLong("LinkedSource",source.asLong());
         // Older world data keys remain readable for migration and diagnostics.
         n.putInt("Radius",a().radius()); n.putDouble("Strength",a().strength()); n.putBoolean("ConnectedOnly",a().connectedOnly());
+        n.putBoolean("VisualActive",visualActive);n.putDouble("VisualStrength",visualStrength);n.putInt("VisualHeading",visualHeading.id());
         return n;
     }
     public void load(CompoundTag n) {
@@ -57,6 +82,10 @@ public final class ControllerSettings {
         b = n.contains("ProfileB") ? FlowProfile.load(n.getCompound("ProfileB"),host.isStill()) : null;
         redstone = Redstone.from(n.getInt("RedstoneMode"));
         source = n.contains("LinkedSource") ? BlockPos.of(n.getLong("LinkedSource")) : null; dirty = true;
+        visualActive=n.getBoolean("VisualActive");visualStrength=n.getDouble("VisualStrength");
+        visualHeading=FlowHeading.fromId(n.getInt("VisualHeading"));
+        if(visualHeading==null) visualHeading=host.heading();
+        if(!Double.isFinite(visualStrength) || visualStrength<0) visualStrength=0;
     }
     /** Client edits may change profiles and clear a link, never forge a link to an arbitrary position. */
     public void configure(CompoundTag n) {
@@ -98,34 +127,34 @@ public final class ControllerSettings {
     }
     public void tick() {
         var level = host.blockEntity().getLevel();
-        if (level != null && (!initialized || level.getGameTime()%10 == 0)) { initialized = true; refresh(); }
+        if (level != null && (!initialized || Math.floorMod(level.getGameTime()+host.blockEntity().getBlockPos().asLong(),10) == 0)) { initialized = true; refresh(); }
     }
     public void refresh() {
         BlockEntity be = host.blockEntity(); if (!(be.getLevel() instanceof ServerLevel level) || be.isRemoved()) return;
         var data = ControlData.get(level); var pos = be.getBlockPos(); long key = pos.asLong();
         ControllerSettings settings = resolved(level);
-        if (!ControlConfig.ENABLED.get() || settings == null) { data.remove(level,key); return; }
+        if (!ControlConfig.ENABLED.get() || settings == null) { pause(level,key); return; }
         int signal = level.getBestNeighborSignal(pos);
         // Read the block property too: preserves explicit powered states and structure/test placements.
         boolean powered = signal > 0 || be.getBlockState().getValue(ControllerBlock.POWERED);
         Redstone mode = settings.redstone;
-        if (mode == Redstone.PAUSE && powered) { data.remove(level,key); return; }
+        if (mode == Redstone.PAUSE && powered) { pause(level,key); return; }
         FlowProfile p = mode == Redstone.SWITCH && powered ? settings.b() : settings.a();
         p = bounded(p.forAnchor(host.isStill()));
-        if (p.action() == FlowProfile.Action.RELEASE) { data.remove(level,key); return; }
+        if (p.action() == FlowProfile.Action.RELEASE) { pause(level,key); return; }
         FlowHeading heading = mode != Redstone.SWITCH || !powered ? settings.host.heading() : p.heading();
         boolean reverse = p.action() == FlowProfile.Action.REVERSE;
         boolean still = host.isStill() || p.action() == FlowProfile.Action.CALM;
         double speed = p.strength();
         if (mode == Redstone.REVERSE && powered) reverse = !reverse;
         if (mode == Redstone.ANALOG) {
-            if (host.isStill() && signal == 0) { data.remove(level,key); return; }
+            if (host.isStill() && signal == 0) { pause(level,key); return; }
             speed *= signal/15.0;
             if (signal == 0) still = true;
         }
         float rpm = host.rpm();
         if (!Float.isNaN(rpm)) {
-            if (!Float.isFinite(rpm) || Math.abs(rpm) < 0.001f) { data.remove(level,key); return; }
+            if (!Float.isFinite(rpm) || Math.abs(rpm) < 0.001f) { pause(level,key); return; }
             speed *= Math.abs(rpm)/ControlConfig.RPM_FULL_STRENGTH.get();
             if (rpm < 0) reverse = !reverse;
         }
@@ -133,11 +162,19 @@ public final class ControllerSettings {
         if (reverse) heading = heading.rotate(net.minecraft.world.level.block.Rotation.CLOCKWISE_180);
         var old = data.byKey(key); long[] mask = new long[0];
         if (p.connectedOnly()) {
-            boolean rebuild = dirty || old == null || !old.connectedOnly() || old.radius()!=p.radius() || old.vertical()!=p.vertical()
-                || level.getGameTime()%100 == 0;
-            mask = rebuild ? ConnectedWater.scan(level,pos,heading.cardinal(),p.radius(),p.vertical()) : old.connectedMask();
+            long now=level.getGameTime();
+            boolean geometryChanged = old == null || !old.connectedOnly() || old.radius()!=p.radius() || old.vertical()!=p.vertical()
+                || old.dx()!=heading.dx() || old.dz()!=heading.dz();
+            boolean rebuild = geometryChanged || lastMaskScanTick!=now && (dirty || now>=nextMaskScanTick);
+            if(rebuild) {
+                mask=ConnectedWater.scan(level,pos,heading.cardinal(),p.radius(),p.vertical());
+                lastMaskScanTick=now;nextMaskScanTick=now+100;
+            } else mask=old.connectedMask();
+            // Keep a second same-tick water change pending instead of rescanning the volume repeatedly.
+            dirty=dirty && !rebuild;
         }
-        dirty = false;
+        if(!p.connectedOnly()) dirty=false;
+        visual(true,heading,still?0:speed);
         if (old != null && old.radius()==p.radius() && old.vertical()==p.vertical() && old.dx()==heading.dx()
             && old.dz()==heading.dz() && old.strength()==speed && old.still()==still
             && old.connectedOnly()==p.connectedOnly() && Arrays.equals(old.connectedMask(),mask)) return;

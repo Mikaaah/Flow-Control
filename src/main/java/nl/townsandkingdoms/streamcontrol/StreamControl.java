@@ -20,9 +20,9 @@ public final class StreamControl {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ID);
     public static final DeferredRegister<BlockEntityType<?>> ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
-    public static final DeferredBlock<ControllerBlock> GENERATOR = BLOCKS.register("current_generator", () -> new ControllerBlock(false, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).strength(3)));
-    public static final DeferredBlock<ControllerBlock> ANCHOR = BLOCKS.register("stillwater_anchor", () -> new ControllerBlock(true, BlockBehaviour.Properties.ofFullCopy(Blocks.PRISMARINE).strength(3)));
-    public static final DeferredBlock<UtilityBlock> SENSOR = BLOCKS.register("flow_sensor", () -> new UtilityBlock(true,BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).strength(3)));
+    public static final DeferredBlock<ControllerBlock> GENERATOR = BLOCKS.register("current_generator", () -> new ControllerBlock(false, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).strength(3).noOcclusion()));
+    public static final DeferredBlock<ControllerBlock> ANCHOR = BLOCKS.register("stillwater_anchor", () -> new ControllerBlock(true, BlockBehaviour.Properties.ofFullCopy(Blocks.PRISMARINE).strength(3).noOcclusion()));
+    public static final DeferredBlock<UtilityBlock> SENSOR = BLOCKS.register("flow_sensor", () -> new UtilityBlock(true,BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).strength(3).noOcclusion()));
     public static final DeferredBlock<UtilityBlock> MOORING = BLOCKS.register("mooring_post", () -> new UtilityBlock(false,BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3).noOcclusion()));
     public static final DeferredItem<BlockItem> SENSOR_ITEM = ITEMS.register("flow_sensor",()->new EngineeringBlockItem(SENSOR.get(),new Item.Properties()));
     public static final DeferredItem<BlockItem> MOORING_ITEM = ITEMS.register("mooring_post",()->new EngineeringBlockItem(MOORING.get(),new Item.Properties()));
@@ -35,7 +35,7 @@ public final class StreamControl {
     public static final java.util.function.Supplier<BlockEntityType<ControllerEntity>> CONTROLLER = ENTITIES.register("controller", () -> BlockEntityType.Builder.of(ControllerEntity::new, GENERATOR.get(), ANCHOR.get()).build(null));
     static { TABS.register("flow_control", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.streamcontrol")).icon(() -> new ItemStack(WAND.get())).displayItems((params, output) -> { output.accept(WAND.get()); output.accept(GENERATOR.get()); output.accept(ANCHOR.get()); output.accept(SENSOR.get()); output.accept(MOORING.get()); OPTIONAL_ITEMS.forEach(item -> output.accept(item.get())); }).build()); }
     public StreamControl(IEventBus bus, ModContainer container) {
-        if (net.neoforged.fml.ModList.get().isLoaded("create")) nl.townsandkingdoms.streamcontrol.compat.create.CreateIntegration.register();
+        if (net.neoforged.fml.ModList.get().isLoaded("create")) nl.townsandkingdoms.streamcontrol.compat.create.CreateIntegration.register(); else DormantMechanicalIntegration.register();
         if (net.neoforged.fml.loading.FMLEnvironment.dist == net.neoforged.api.distmarker.Dist.CLIENT)
             nl.townsandkingdoms.streamcontrol.client.EngineeringClient.register(bus);
         BLOCKS.register(bus); ITEMS.register(bus); ENTITIES.register(bus); TABS.register(bus);

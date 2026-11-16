@@ -95,7 +95,7 @@ public final class ControlNetwork {
         registrar.playToServer(Configure.TYPE, Configure.CODEC, (p, context) -> context.enqueueWork(() -> {
             Player player = context.player();
             BlockPos pos = BlockPos.of(p.pos());
-            if (!(player.level() instanceof ServerLevel) || player.blockPosition().distSqr(pos) > 64
+            if (!(player.level() instanceof ServerLevel level) || !level.hasChunkAt(pos) || player.blockPosition().distSqr(pos) > 64
                 || !player.mayBuild() || !player.level().mayInteract(player, pos)) return;
             if (!(player.level().getBlockEntity(pos) instanceof FlowController be)) return;
             FlowHeading d = FlowHeading.fromId(p.facing());

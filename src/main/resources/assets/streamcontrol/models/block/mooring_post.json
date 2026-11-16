@@ -1,215 +1,1082 @@
 {
-  "parent": "minecraft:block/block",
+  "credit": "Flow Control nautical / Conduit art kit",
+  "ambientocclusion": true,
   "textures": {
-    "side": "minecraft:block/barrel_side",
-    "top": "minecraft:block/barrel_top",
-    "bottom": "minecraft:block/barrel_bottom",
-    "particle": "minecraft:block/barrel_side"
+    "particle": "minecraft:block/copper_block",
+    "copper": "minecraft:block/copper_block",
+    "dark_prismarine": "minecraft:block/dark_prismarine",
+    "redstone_lamp_lit": "minecraft:block/redstone_lamp_on",
+    "rusted_iron": "streamcontrol:block/rusted_iron",
+    "spruce": "minecraft:block/stripped_spruce_log",
+    "spruce_end": "minecraft:block/stripped_spruce_log_top"
   },
   "elements": [
     {
+      "name": "spruce_timber_post",
       "from": [
-        2,
+        5,
         0,
-        1
+        5
       ],
       "to": [
-        14,
+        11,
         16,
-        15
+        11
       ],
+      "shade": true,
       "faces": {
         "north": {
-          "texture": "#side",
           "uv": [
-            2,
-            0,
-            14,
-            16
-          ]
+            5.0,
+            0.0,
+            11.0,
+            16.0
+          ],
+          "texture": "#spruce"
         },
         "south": {
-          "texture": "#side",
           "uv": [
-            2,
-            0,
-            14,
-            16
-          ]
-        },
-        "west": {
-          "texture": "#side",
-          "uv": [
-            1,
-            0,
-            15,
-            16
-          ]
+            5.0,
+            0.0,
+            11.0,
+            16.0
+          ],
+          "texture": "#spruce"
         },
         "east": {
-          "texture": "#side",
           "uv": [
-            1,
-            0,
-            15,
-            16
-          ]
+            5.0,
+            0.0,
+            11.0,
+            16.0
+          ],
+          "texture": "#spruce"
+        },
+        "west": {
+          "uv": [
+            5.0,
+            0.0,
+            11.0,
+            16.0
+          ],
+          "texture": "#spruce"
         },
         "up": {
-          "texture": "#top",
           "uv": [
-            2,
-            1,
-            14,
-            15
-          ]
+            5.0,
+            5.0,
+            11.0,
+            11.0
+          ],
+          "texture": "#spruce_end"
         },
         "down": {
-          "texture": "#bottom",
           "uv": [
-            2,
-            1,
-            14,
-            15
-          ]
+            5.0,
+            5.0,
+            11.0,
+            11.0
+          ],
+          "texture": "#spruce_end"
         }
       }
     },
     {
+      "name": "small_dark_prismarine_base_collar",
       "from": [
-        1,
+        4,
         0,
-        2
+        4
       ],
       "to": [
+        12,
         2,
-        16,
-        14
+        12
       ],
+      "shade": true,
       "faces": {
         "north": {
-          "texture": "#side",
           "uv": [
-            14,
-            0,
-            15,
-            16
-          ]
+            4.0,
+            7.0,
+            12.0,
+            9.0
+          ],
+          "texture": "#dark_prismarine"
         },
         "south": {
-          "texture": "#side",
           "uv": [
-            1,
-            0,
-            2,
-            16
-          ]
-        },
-        "west": {
-          "texture": "#side",
-          "uv": [
-            2,
-            0,
-            14,
-            16
-          ]
+            4.0,
+            7.0,
+            12.0,
+            9.0
+          ],
+          "texture": "#dark_prismarine"
         },
         "east": {
-          "texture": "#side",
           "uv": [
-            2,
-            0,
-            14,
-            16
-          ]
+            4.0,
+            7.0,
+            12.0,
+            9.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "west": {
+          "uv": [
+            4.0,
+            7.0,
+            12.0,
+            9.0
+          ],
+          "texture": "#dark_prismarine"
         },
         "up": {
-          "texture": "#top",
           "uv": [
-            1,
-            2,
-            2,
-            14
-          ]
+            4.0,
+            4.0,
+            12.0,
+            12.0
+          ],
+          "texture": "#dark_prismarine"
         },
         "down": {
-          "texture": "#bottom",
           "uv": [
-            1,
-            2,
-            2,
-            14
-          ]
+            4.0,
+            4.0,
+            12.0,
+            12.0
+          ],
+          "texture": "#dark_prismarine"
         }
       }
     },
     {
+      "name": "single_thin_rusted_iron_band_north",
       "from": [
-        14,
-        0,
-        2
+        4,
+        10,
+        4
       ],
       "to": [
-        15,
-        16,
-        14
+        12,
+        11,
+        5
       ],
+      "shade": true,
       "faces": {
         "north": {
-          "texture": "#side",
           "uv": [
-            1,
-            0,
-            2,
-            16
-          ]
+            4.0,
+            5.0,
+            12.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
         },
         "south": {
-          "texture": "#side",
           "uv": [
-            14,
-            0,
-            15,
-            16
-          ]
-        },
-        "west": {
-          "texture": "#side",
-          "uv": [
-            2,
-            0,
-            14,
-            16
-          ]
+            4.0,
+            5.0,
+            12.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
         },
         "east": {
-          "texture": "#side",
           "uv": [
-            2,
-            0,
-            14,
-            16
-          ]
+            11.0,
+            5.0,
+            12.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "west": {
+          "uv": [
+            4.0,
+            5.0,
+            5.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
         },
         "up": {
-          "texture": "#top",
           "uv": [
-            14,
-            2,
-            15,
-            14
-          ]
+            4.0,
+            4.0,
+            12.0,
+            5.0
+          ],
+          "texture": "#rusted_iron"
         },
         "down": {
-          "texture": "#bottom",
           "uv": [
-            14,
-            2,
-            15,
-            14
-          ]
+            4.0,
+            11.0,
+            12.0,
+            12.0
+          ],
+          "texture": "#rusted_iron"
+        }
+      }
+    },
+    {
+      "name": "single_thin_rusted_iron_band_south",
+      "from": [
+        4,
+        10,
+        11
+      ],
+      "to": [
+        12,
+        11,
+        12
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            4.0,
+            5.0,
+            12.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "south": {
+          "uv": [
+            4.0,
+            5.0,
+            12.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "east": {
+          "uv": [
+            4.0,
+            5.0,
+            5.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "west": {
+          "uv": [
+            11.0,
+            5.0,
+            12.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "up": {
+          "uv": [
+            4.0,
+            11.0,
+            12.0,
+            12.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "down": {
+          "uv": [
+            4.0,
+            4.0,
+            12.0,
+            5.0
+          ],
+          "texture": "#rusted_iron"
+        }
+      }
+    },
+    {
+      "name": "single_thin_rusted_iron_band_west",
+      "from": [
+        4,
+        10,
+        5
+      ],
+      "to": [
+        5,
+        11,
+        11
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            11.0,
+            5.0,
+            12.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "south": {
+          "uv": [
+            4.0,
+            5.0,
+            5.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "east": {
+          "uv": [
+            5.0,
+            5.0,
+            11.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "west": {
+          "uv": [
+            5.0,
+            5.0,
+            11.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "up": {
+          "uv": [
+            4.0,
+            5.0,
+            5.0,
+            11.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "down": {
+          "uv": [
+            4.0,
+            5.0,
+            5.0,
+            11.0
+          ],
+          "texture": "#rusted_iron"
+        }
+      }
+    },
+    {
+      "name": "single_thin_rusted_iron_band_east",
+      "from": [
+        11,
+        10,
+        5
+      ],
+      "to": [
+        12,
+        11,
+        11
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            4.0,
+            5.0,
+            5.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "south": {
+          "uv": [
+            11.0,
+            5.0,
+            12.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "east": {
+          "uv": [
+            5.0,
+            5.0,
+            11.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "west": {
+          "uv": [
+            5.0,
+            5.0,
+            11.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "up": {
+          "uv": [
+            11.0,
+            5.0,
+            12.0,
+            11.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "down": {
+          "uv": [
+            11.0,
+            5.0,
+            12.0,
+            11.0
+          ],
+          "texture": "#rusted_iron"
+        }
+      }
+    },
+    {
+      "name": "small_tie_ring_left",
+      "from": [
+        6,
+        7,
+        3
+      ],
+      "to": [
+        7,
+        11,
+        4
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            9.0,
+            5.0,
+            10.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "south": {
+          "uv": [
+            6.0,
+            5.0,
+            7.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "east": {
+          "uv": [
+            12.0,
+            5.0,
+            13.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "west": {
+          "uv": [
+            3.0,
+            5.0,
+            4.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "up": {
+          "uv": [
+            6.0,
+            3.0,
+            7.0,
+            4.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "down": {
+          "uv": [
+            6.0,
+            12.0,
+            7.0,
+            13.0
+          ],
+          "texture": "#rusted_iron"
+        }
+      }
+    },
+    {
+      "name": "small_tie_ring_right",
+      "from": [
+        9,
+        7,
+        3
+      ],
+      "to": [
+        10,
+        11,
+        4
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            6.0,
+            5.0,
+            7.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "south": {
+          "uv": [
+            9.0,
+            5.0,
+            10.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "east": {
+          "uv": [
+            12.0,
+            5.0,
+            13.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "west": {
+          "uv": [
+            3.0,
+            5.0,
+            4.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "up": {
+          "uv": [
+            9.0,
+            3.0,
+            10.0,
+            4.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "down": {
+          "uv": [
+            9.0,
+            12.0,
+            10.0,
+            13.0
+          ],
+          "texture": "#rusted_iron"
+        }
+      }
+    },
+    {
+      "name": "small_tie_ring_bottom",
+      "from": [
+        7,
+        7,
+        3
+      ],
+      "to": [
+        9,
+        8,
+        4
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            8.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            8.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "east": {
+          "uv": [
+            12.0,
+            8.0,
+            13.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "west": {
+          "uv": [
+            3.0,
+            8.0,
+            4.0,
+            9.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            3.0,
+            9.0,
+            4.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            12.0,
+            9.0,
+            13.0
+          ],
+          "texture": "#rusted_iron"
+        }
+      }
+    },
+    {
+      "name": "small_tie_ring_top",
+      "from": [
+        7,
+        10,
+        3
+      ],
+      "to": [
+        9,
+        11,
+        4
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            5.0,
+            9.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            5.0,
+            9.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "east": {
+          "uv": [
+            12.0,
+            5.0,
+            13.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "west": {
+          "uv": [
+            3.0,
+            5.0,
+            4.0,
+            6.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            3.0,
+            9.0,
+            4.0
+          ],
+          "texture": "#rusted_iron"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            12.0,
+            9.0,
+            13.0
+          ],
+          "texture": "#rusted_iron"
+        }
+      }
+    },
+    {
+      "name": "small_copper_cap_left",
+      "from": [
+        5,
+        16,
+        5
+      ],
+      "to": [
+        7,
+        18,
+        11
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            5.0,
+            7.0,
+            7.0,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            5.0,
+            14.0,
+            7.0,
+            16.0
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            5.0,
+            14.0,
+            11.0,
+            16.0
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            5.0,
+            7.0,
+            11.0,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            5.0,
+            5.0,
+            7.0,
+            11.0
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            5.0,
+            5.0,
+            7.0,
+            11.0
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "small_copper_cap_right",
+      "from": [
+        9,
+        16,
+        5
+      ],
+      "to": [
+        11,
+        18,
+        11
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            9.0,
+            7.0,
+            11.0,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            9.0,
+            14.0,
+            11.0,
+            16.0
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            5.0,
+            7.0,
+            11.0,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            5.0,
+            14.0,
+            11.0,
+            16.0
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            9.0,
+            5.0,
+            11.0,
+            11.0
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            9.0,
+            5.0,
+            11.0,
+            11.0
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "small_copper_cap_back",
+      "from": [
+        7,
+        16,
+        7
+      ],
+      "to": [
+        9,
+        18,
+        11
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            14.0,
+            9.0,
+            16.0
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            5.0,
+            14.0,
+            9.0,
+            16.0
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            7.0,
+            14.0,
+            11.0,
+            16.0
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            11.0
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            5.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "tiny_recessed_sea_lantern_indicator",
+      "from": [
+        7,
+        16,
+        5
+      ],
+      "to": [
+        9,
+        18,
+        7
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#redstone_lamp_lit"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            14.0,
+            9.0,
+            16.0
+          ],
+          "texture": "#redstone_lamp_lit"
+        },
+        "east": {
+          "uv": [
+            9.0,
+            14.0,
+            11.0,
+            16.0
+          ],
+          "texture": "#redstone_lamp_lit"
+        },
+        "west": {
+          "uv": [
+            5.0,
+            14.0,
+            7.0,
+            16.0
+          ],
+          "texture": "#redstone_lamp_lit"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#redstone_lamp_lit"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            9.0,
+            9.0,
+            11.0
+          ],
+          "texture": "#redstone_lamp_lit"
         }
       }
     }
-  ]
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  }
 }

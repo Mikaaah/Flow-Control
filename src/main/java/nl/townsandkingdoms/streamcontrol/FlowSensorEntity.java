@@ -24,6 +24,8 @@ public final class FlowSensorEntity extends BlockEntity implements UtilityAccess
     public FlowSensorEntity(BlockPos p,BlockState s) { super(StreamControl.SENSOR_ENTITY.get(),p,s); }
     @Override public BlockEntity blockEntity() { return this; }
     public int output() { return output; }
+    public double measuredSpeed() { return measuredSpeed; }
+    public FlowHeading measuredHeading() { return measuredHeading; }
     public int radius() { return Math.clamp(radius,1,ControlConfig.SENSOR_MAX_RADIUS.get()); }
     public int vertical() { return Math.clamp(vertical,0,ControlConfig.SENSOR_MAX_VERTICAL.get()); }
     public Mode mode() { return mode; }
@@ -39,12 +41,12 @@ public final class FlowSensorEntity extends BlockEntity implements UtilityAccess
         mode=Mode.from(n.getInt("Mode"));emptyOnly=n.getBoolean("EmptyOnly");setChanged();sample();
         if(level instanceof ServerLevel server) server.sendBlockUpdated(worldPosition,getBlockState(),getBlockState(),2);
     }
-    @Override protected void saveAdditional(CompoundTag n,HolderLookup.Provider r) { super.saveAdditional(n,r);n.putInt("Radius",radius);n.putInt("Vertical",vertical);n.putInt("Mode",mode.ordinal());n.putBoolean("EmptyOnly",emptyOnly);n.putInt("Output",output); }
-    @Override protected void loadAdditional(CompoundTag n,HolderLookup.Provider r) { super.loadAdditional(n,r);radius=n.contains("Radius")?n.getInt("Radius"):4;vertical=n.contains("Vertical")?n.getInt("Vertical"):4;mode=Mode.from(n.getInt("Mode"));emptyOnly=n.getBoolean("EmptyOnly");output=Math.clamp(n.getInt("Output"),0,15); }
+    @Override protected void saveAdditional(CompoundTag n,HolderLookup.Provider r) { super.saveAdditional(n,r);n.putInt("Radius",radius);n.putInt("Vertical",vertical);n.putInt("Mode",mode.ordinal());n.putBoolean("EmptyOnly",emptyOnly);n.putInt("Output",output);n.putDouble("MeasuredSpeed",measuredSpeed);n.putInt("MeasuredHeading",measuredHeading==null?-1:measuredHeading.id()); }
+    @Override protected void loadAdditional(CompoundTag n,HolderLookup.Provider r) { super.loadAdditional(n,r);radius=n.contains("Radius")?n.getInt("Radius"):4;vertical=n.contains("Vertical")?n.getInt("Vertical"):4;mode=Mode.from(n.getInt("Mode"));emptyOnly=n.getBoolean("EmptyOnly");output=Math.clamp(n.getInt("Output"),0,15); measuredSpeed=n.getDouble("MeasuredSpeed");if(!Double.isFinite(measuredSpeed) || measuredSpeed<0) measuredSpeed=0;measuredHeading=FlowHeading.fromId((n.contains("MeasuredHeading")?n.getInt("MeasuredHeading"):-1)); }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider r) { return saveWithoutMetadata(r); }
     public static void tick(Level l,BlockPos p,BlockState s,FlowSensorEntity be) {
-        int interval=ControlConfig.SENSOR_INTERVAL.get();
+        int interval=Math.max(1,ControlConfig.SENSOR_INTERVAL.get());
         if(Math.floorMod(l.getGameTime()+p.asLong(),interval)==0) be.sample();
     }
     public static int speedSignal(double speed) { return speed<=1e-6 || !Double.isFinite(speed) ? 0 : Math.clamp((int)Math.ceil(speed/ControlConfig.MAX_SPEED.get()*15),1,15); }
@@ -60,8 +62,10 @@ public final class FlowSensorEntity extends BlockEntity implements UtilityAccess
                 var p=new BlockPos.MutableBlockPos();
                 for(int x=-r;x<=r;x++) for(int z=-r;z<=r;z++) {
                     if(x*x+z*z>r*r) continue;
+                    p.setWithOffset(worldPosition,x,0,z);
+                    if(!server.hasChunkAt(p)) continue;
                     for(int y=-v;y<=v;y++) {
-                        p.setWithOffset(worldPosition,x,y,z);if(!server.hasChunkAt(p)) continue;
+                        p.setWithOffset(worldPosition,x,y,z);
                         var fluid=server.getFluidState(p);if(!fluid.is(FluidTags.WATER)) continue;
                         var flow=fluid.getFlow(server,p);double speed=Math.hypot(flow.x,flow.z);
                         if(Double.isFinite(speed) && speed>best+1e-6) { best=speed;heading=FlowHeading.fromVector(flow.x,flow.z); }
@@ -70,8 +74,12 @@ public final class FlowSensorEntity extends BlockEntity implements UtilityAccess
                 result=mode==Mode.SPEED ? speedSignal(best) : heading==null?0:heading.id()+1;
             }
         }
+        boolean measurementChanged=Math.abs(measuredSpeed-best)>1e-4 || measuredHeading!=heading;
         measuredSpeed=best;measuredHeading=heading;
-        if(output!=result) { output=result;setChanged();server.updateNeighbourForOutputSignal(worldPosition,getBlockState().getBlock());server.sendBlockUpdated(worldPosition,getBlockState(),getBlockState(),2); }
+        boolean outputChanged=output!=result;
+        if(outputChanged) { output=result;setChanged();server.updateNeighbourForOutputSignal(worldPosition,getBlockState().getBlock()); }
+        // Vane/needle changes also need syncing when quantized comparator strength stays the same.
+        if(outputChanged || measurementChanged) server.sendBlockUpdated(worldPosition,getBlockState(),getBlockState(),2);
     }
     private boolean inside(double x,double y,double z,int r,int v) {
         double dx=x-worldPosition.getX()-.5,dz=z-worldPosition.getZ()-.5;

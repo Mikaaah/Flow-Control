@@ -43,6 +43,7 @@ public final class ClientTestWorld {
         ControlData.get(l).put(l,new FlowRegion(9001,SENSOR.above(6),1,0,1,0,2,false,false,new java.util.UUID(0,0),ControlData.get(l).next()));
         var boat=new Boat(l,.5,100.8,4.5);l.addFreshEntity(boat);
         if(net.neoforged.fml.ModList.get().isLoaded("create")) nl.townsandkingdoms.streamcontrol.compat.create.CreateClientFixture.prepare(l);
+        else l.setBlock(MECHANICAL,DormantMechanicalIntegration.BLOCK.get().defaultBlockState(),3);
         try { java.nio.file.Files.writeString(net.neoforged.fml.loading.FMLPaths.GAMEDIR.get().resolve("client-test-ready"),"ready"); }
         catch(java.io.IOException ex) { throw new RuntimeException(ex); }
     }
@@ -57,6 +58,10 @@ public final class ClientTestWorld {
     private static void interaction(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract e) {
         if(e.getTarget() instanceof Boat b) System.out.println("FLOW_BOARD_INPUT boat="+b.position()+" underwater="+b.isUnderWater()+" eyeFluid="+b.getEyeInFluidType()+" passengers="+b.getPassengers().size()+" hand="+e.getItemStack()+" crouch="+e.getEntity().isShiftKeyDown()+" player="+e.getEntity().position());
     }
+    private static int modelView(net.minecraft.commands.CommandSourceStack source, double x, double y, double z) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+        var player=source.getPlayerOrException();player.setGameMode(GameType.SPECTATOR);
+        player.teleportTo(x,y,z);player.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);return 1;
+    }
     private static void commands(RegisterCommandsEvent e) {
         e.getDispatcher().register(literal("flowclient").then(literal("power").executes(c->{
             var l=c.getSource().getLevel();l.setBlock(GENERATOR.below(),Blocks.REDSTONE_BLOCK.defaultBlockState(),3);return 1;
@@ -66,7 +71,18 @@ public final class ClientTestWorld {
         })).then(literal("view").executes(c->{
             var l=c.getSource().getLevel();l.setBlock(new BlockPos(4,102,-4),Blocks.STONE.defaultBlockState(),3);
             var p=c.getSource().getPlayerOrException();p.teleportTo(4.5,103,-3.5);p.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);return 1;
-        })).then(literal("reverse").executes(c->{
+        })).then(literal("models").executes(c->{
+            var l=c.getSource().getLevel();
+            ((FlowController)l.getBlockEntity(GENERATOR)).controls().setA(new FlowProfile(3,2,1,FlowHeading.NORTH,false,FlowProfile.Action.CURRENT));
+            ((FlowController)l.getBlockEntity(ANCHOR)).controls().setA(new FlowProfile(1,1,1,FlowHeading.NORTH,false,FlowProfile.Action.CALM));
+            if(net.neoforged.fml.ModList.get().isLoaded("create")) nl.townsandkingdoms.streamcontrol.compat.create.CreateClientFixture.speed(l,128);
+            return modelView(c.getSource(),10.5,107,-10.5);
+        })).then(literal("model_generator").executes(c->modelView(c.getSource(),1.9,100.5,-2.5)))
+        .then(literal("model_anchor").executes(c->modelView(c.getSource(),1.9,100.5,3.5)))
+        .then(literal("model_sensor").executes(c->modelView(c.getSource(),-2.1,100.5,-2.5)))
+        .then(literal("model_thruster").executes(c->modelView(c.getSource(),6.0,100.5,0.5)))
+        .then(literal("model_rope").executes(c->modelView(c.getSource(),3.5,100.6,1.3)))
+        .then(literal("reverse").executes(c->{
             if(net.neoforged.fml.ModList.get().isLoaded("create")) nl.townsandkingdoms.streamcontrol.compat.create.CreateClientFixture.speed(c.getSource().getLevel(),-128);return 1;
         })).then(literal("stop").executes(c->{
             if(net.neoforged.fml.ModList.get().isLoaded("create")) nl.townsandkingdoms.streamcontrol.compat.create.CreateClientFixture.speed(c.getSource().getLevel(),0);return 1;

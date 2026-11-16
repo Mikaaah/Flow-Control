@@ -1,0 +1,173 @@
+{
+  "credit": "Flow Control nautical / Conduit art kit",
+  "ambientocclusion": true,
+  "textures": {
+    "particle": "minecraft:block/copper_block",
+    "copper": "minecraft:block/copper_block",
+    "dark_prismarine": "minecraft:block/dark_prismarine",
+    "redstone_lamp_lit": "minecraft:block/redstone_lamp_on",
+    "rusted_iron": "streamcontrol:block/rusted_iron",
+    "spruce": "minecraft:block/stripped_spruce_log",
+    "spruce_end": "minecraft:block/stripped_spruce_log_top"
+  },
+  "elements": [
+    {
+      "name": "tiny_recessed_sea_lantern_indicator",
+      "from": [
+        7,
+        16,
+        5
+      ],
+      "to": [
+        9,
+        18,
+        7
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#redstone_lamp_lit"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            14.0,
+            9.0,
+            16.0
+          ],
+          "texture": "#redstone_lamp_lit"
+        },
+        "east": {
+          "uv": [
+            9.0,
+            14.0,
+            11.0,
+            16.0
+          ],
+          "texture": "#redstone_lamp_lit"
+        },
+        "west": {
+          "uv": [
+            5.0,
+            14.0,
+            7.0,
+            16.0
+          ],
+          "texture": "#redstone_lamp_lit"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#redstone_lamp_lit"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            9.0,
+            9.0,
+            11.0
+          ],
+          "texture": "#redstone_lamp_lit"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  },
+  "render_type": "minecraft:cutout"
+}

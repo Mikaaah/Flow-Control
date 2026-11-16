@@ -59,6 +59,14 @@ public final class ClientGameplayChecks {
             return ticks>8 && FlowWand.mode(mc().player.getMainHandItem())==mode;
         });
     }
+    private static void modelCapture(String name,String view,float yaw,float pitch) {
+        add("placed model render "+name,()->{mc().setScreen(null);mc().options.hideGui=true;command(view);},()->{
+            // Wait for server camera relocation, chunk rebuilding and animation interpolation.
+            mc().player.setYRot(yaw);mc().player.setXRot(pitch);
+            if(ticks==60 || ticks==100) screenshot("model-"+name+"-"+ticks);
+            return ticks>105;
+        });
+    }
     private static void setup() {
         add("client world and region login sync",()->{},()->mc().level.getBlockEntity(GENERATOR)!=null && region(GENERATOR)!=null && mc().player.getMainHandItem().is(StreamControl.WAND.get()));
         add("open controller through block interaction",()->use(GENERATOR),()->mc().screen instanceof ControllerScreen);
@@ -114,6 +122,12 @@ public final class ClientGameplayChecks {
         add("render Calibrator HUD and world bounds",()->{
             mc().setScreen(null);command("view");mc().player.setXRot(36);mc().player.setYRot(45);
         },()->{if(ticks==200)screenshot("world");return ticks>210;});
+        modelCapture("all-five","models",35,25);
+        modelCapture("current-generator","model_generator",25,29);
+        modelCapture("stillwater-anchor","model_anchor",25,29);
+        modelCapture("flow-sensor","model_sensor",25,29);
+        modelCapture("hydro-current-thruster","model_thruster",27,28);
+        modelCapture("mooring-post-rope","model_rope",48,26);
     }
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if(!Boolean.getBoolean("streamcontrol.clientIntegrationTest") || done) return;
@@ -138,7 +152,7 @@ public final class ClientGameplayChecks {
         } catch(Throwable t) {t.printStackTrace();finish(t);}
     }
     private static void finish(Throwable error) {
-        done=true;mc().options.keyShift.setDown(false);results.put("passed",error==null);
+        done=true;mc().options.keyShift.setDown(false);mc().options.hideGui=false;results.put("passed",error==null);
         if(error!=null) {results.put("error",error.toString());screenshot("failure");}
         try {Files.writeString(mc().gameDirectory.toPath().resolve("streamcontrol-client-results.json"),new GsonBuilder().setPrettyPrinting().create().toJson(results));}
         catch(Exception e) {e.printStackTrace();}

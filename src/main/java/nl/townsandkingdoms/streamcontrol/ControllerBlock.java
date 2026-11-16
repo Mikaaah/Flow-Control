@@ -14,7 +14,7 @@ import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-public final class ControllerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class ControllerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty DIAGONAL = BooleanProperty.create("diagonal");

@@ -7,9 +7,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public interface FlowController {
     BlockEntity blockEntity();
     ControllerSettings controls();
+    default boolean visualActive() { return controls().visualActive(); }
+    default double visualStrength() { return controls().visualStrength(); }
+    default FlowHeading visualHeading() { return controls().visualHeading(); }
     default boolean isStill() { return blockEntity().getBlockState().getBlock() instanceof ControllerBlock b && b.still; }
     /** NaN means a normal controller. A kinetic controller returns signed RPM. */
-    default float rpm() { return Float.NaN; }
+    default float rpm() {
+        var id=net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(blockEntity().getBlockState().getBlock());
+        return id.getNamespace().equals(StreamControl.ID) && id.getPath().equals("mechanical_current_generator") ? 0 : Float.NaN;
+    }
     default int radius() { return controls().a().radius(); }
     default double strength() { return controls().a().strength(); }
     default boolean connectedOnly() { return controls().a().connectedOnly(); }

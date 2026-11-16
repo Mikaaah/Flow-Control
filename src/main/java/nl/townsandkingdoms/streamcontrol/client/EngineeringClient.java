@@ -24,8 +24,17 @@ public final class EngineeringClient {
     private static long lastTick=Long.MIN_VALUE;
     public static void register(IEventBus bus) {
         bus.addListener(EngineeringClient::layers);
-        if(ModList.get().isLoaded("create")) bus.addListener(nl.townsandkingdoms.streamcontrol.compat.create.CreateClient::renderers);
+        bus.addListener(ConduitBlockRenderer::register);
+        bus.addListener(ConduitBlockRenderer::reload);
+        if(ModList.get().isLoaded("create")) {
+            nl.townsandkingdoms.streamcontrol.compat.create.CreateClient.bootstrap();
+            bus.addListener(nl.townsandkingdoms.streamcontrol.compat.create.CreateClient::renderers);
+        }
         NeoForge.EVENT_BUS.addListener(EngineeringClient::world);
+        NeoForge.EVENT_BUS.addListener(EngineeringClient::logout);
+    }
+    private static void logout(net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent.LoggingOut event) {
+        FlowOverrides.clearClient();ConduitAnimations.clear();readout=null;lastTick=Long.MIN_VALUE;
     }
     private static Component tr(String key,Object...args) { return Component.translatable("engineering.streamcontrol."+key,args); }
     private static ItemStack tool(Minecraft mc) {

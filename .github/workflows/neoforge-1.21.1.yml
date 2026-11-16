@@ -52,7 +52,7 @@ jobs:
       - name: Upload test JAR
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-1.0.3-neoforge-1.21.1-${{ matrix.flavor }}
+          name: flow-control-1.1.0-neoforge-1.21.1-${{ matrix.flavor }}
           path: build/libs/flow-control-*.jar
           if-no-files-found: error
 
@@ -68,12 +68,15 @@ jobs:
           data=json.load(open('run/streamcontrol-integration-results.json'))
           assert data.get('passed') is True, data
           assert data.get('eightHeadingPhysicsPersistenceAndPackets') is True, data
+          assert data.get('allFiveBlocksWaterloggingRotationAndNonOcclusion') is True, data
+          assert data.get('auditControllerUnloadReregistrationAndVisualState') is True, data
+          assert data.get('auditSensorSameSignalHeadingAndUpdateTag') is True, data
           CHECK
       - name: Upload regression results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-1.0.3-neoforge-1.21.1-${{ matrix.flavor }}-checks
+          name: flow-control-1.1.0-neoforge-1.21.1-${{ matrix.flavor }}-checks
           path: |
             run/streamcontrol-integration-results.json
             run/logs/latest.log
@@ -95,7 +98,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-1.0.3-${{ matrix.flavor }}-client-preview
+          name: flow-control-1.1.0-${{ matrix.flavor }}-client-preview
           path: |
             run-client/screenshots/*.png
             run-client/logs/latest.log
@@ -122,7 +125,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: flow-control-1.0.3-${{ matrix.flavor }}-client-gameplay
+          name: flow-control-1.1.0-${{ matrix.flavor }}-client-gameplay
           path: |
             run-client/streamcontrol-client-results.json
             run-client/screenshots/gameplay-*.png
