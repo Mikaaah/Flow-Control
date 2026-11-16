@@ -30,7 +30,7 @@ public final class ControlData extends SavedData {
         if(runtimeValidated) return;
         runtimeValidated=true;
         // Never load controller chunks merely because an old SavedData record exists.
-        removeMatching(level,r->r.controller() && (!level.hasChunkAt(r.center())
+        removeMatching(level,r->r.controller() && (!level.getChunkSource().hasChunk(r.center().getX()>>4,r.center().getZ()>>4)
             || !(level.getBlockEntity(r.center()) instanceof FlowController)));
     }
     /** Bulk command cleanup performs one spatial-index rebuild, not one per region. */
