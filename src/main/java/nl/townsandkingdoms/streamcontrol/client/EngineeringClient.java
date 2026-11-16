@@ -28,9 +28,20 @@ public final class EngineeringClient {
     private static long lastTick=Long.MIN_VALUE;
     public static void clearWorldData() { readout=null;lastTick=Long.MIN_VALUE;FlowOverrides.clearClient();ConduitAnimations.clear(); }
     public static void register() {
+        net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack,context,flags,lines)->tooltip(stack,flags,lines));
         net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry.addLast(Identifier.fromNamespaceAndPath(StreamControl.ID,"calibrator"),(g,d)->hud(g));
         net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents.END_EXTRACTION.register(EngineeringClient::extract);
         net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents.COLLECT_SUBMITS.register(EngineeringClient::world);
+    }
+    /** Keep item descriptions directly below the title, ahead of component and mod footer lines. */
+    private static void tooltip(ItemStack stack,net.minecraft.world.item.TooltipFlag flags,List<Component> lines) {
+        if(!(stack.getItem() instanceof FlowWand) && !(stack.getItem() instanceof EngineeringBlockItem)) return;
+        if(!flags.isCreative() && stack.getOrDefault(net.minecraft.core.component.DataComponents.TOOLTIP_DISPLAY,
+                net.minecraft.world.item.component.TooltipDisplay.DEFAULT).hideTooltip()) return;
+        List<Component> description=new ArrayList<>();
+        if(stack.getItem() instanceof FlowWand) FlowWand.appendTooltip(stack,description::add);
+        else if(stack.getItem() instanceof EngineeringBlockItem item) item.appendTooltip(description::add);
+        if(!description.isEmpty()) lines.addAll(Math.min(1,lines.size()),description);
     }
     private static Component tr(String key,Object...args) { return Component.translatable("engineering.streamcontrol."+key,args); }
     private static ItemStack tool(Minecraft mc) {
