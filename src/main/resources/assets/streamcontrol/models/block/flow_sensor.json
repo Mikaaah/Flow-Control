@@ -1,12 +1,1542 @@
 {
-  "parent": "minecraft:block/cube",
+  "credit": "Flow Control nautical / Conduit art kit",
+  "ambientocclusion": true,
+  "render_type": "minecraft:cutout",
   "textures": {
-    "down": "streamcontrol:block/flow_sensor_bottom",
-    "up": "streamcontrol:block/flow_sensor_top",
-    "north": "streamcontrol:block/flow_sensor_side",
-    "south": "streamcontrol:block/flow_sensor_side",
-    "east": "streamcontrol:block/flow_sensor_side",
-    "west": "streamcontrol:block/flow_sensor_side",
-    "particle": "streamcontrol:block/flow_sensor_side"
+    "particle": "streamcontrol:block/brass_pivot",
+    "brass_pivot": "streamcontrol:block/brass_pivot",
+    "copper": "minecraft:block/copper_block",
+    "cut_copper": "minecraft:block/cut_copper",
+    "dark_prismarine": "minecraft:block/dark_prismarine",
+    "dial_face": "minecraft:block/redstone_lamp",
+    "glass": "minecraft:block/glass",
+    "iron": "minecraft:block/iron_block",
+    "needle_red": "minecraft:block/redstone_block",
+    "redstone": "minecraft:block/redstone_block",
+    "weathered_copper": "minecraft:block/weathered_copper"
+  },
+  "elements": [
+    {
+      "name": "slim_dark_prismarine_sole",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        1,
+        16
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            7.0,
+            16.0,
+            8.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            7.0,
+            16.0,
+            8.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            7.0,
+            16.0,
+            8.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            7.0,
+            16.0,
+            8.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#dark_prismarine"
+        }
+      }
+    },
+    {
+      "name": "cut_copper_top_panel",
+      "from": [
+        0,
+        9,
+        0
+      ],
+      "to": [
+        16,
+        10,
+        16
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "main_cut_copper_shell",
+      "from": [
+        0,
+        1,
+        3
+      ],
+      "to": [
+        16,
+        9,
+        15
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            8.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            8.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            2.0,
+            0.0,
+            14.0,
+            8.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            2.0,
+            0.0,
+            14.0,
+            8.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            3.0,
+            16.0,
+            15.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            1.0,
+            16.0,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "front_weathered_copper_left",
+      "from": [
+        0,
+        1,
+        0
+      ],
+      "to": [
+        4,
+        9,
+        3
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            0.0,
+            4.0,
+            8.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            7.0,
+            4.0,
+            15.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "east": {
+          "uv": [
+            5.0,
+            0.0,
+            8.0,
+            8.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            0.0,
+            3.0,
+            8.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            0.0,
+            4.0,
+            3.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            13.0,
+            4.0,
+            16.0
+          ],
+          "texture": "#weathered_copper"
+        }
+      }
+    },
+    {
+      "name": "front_weathered_copper_right",
+      "from": [
+        12,
+        1,
+        0
+      ],
+      "to": [
+        16,
+        9,
+        3
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            12.0,
+            0.0,
+            16.0,
+            8.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "south": {
+          "uv": [
+            12.0,
+            7.0,
+            16.0,
+            15.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "east": {
+          "uv": [
+            13.0,
+            0.0,
+            16.0,
+            8.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "west": {
+          "uv": [
+            8.0,
+            0.0,
+            11.0,
+            8.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "up": {
+          "uv": [
+            12.0,
+            0.0,
+            16.0,
+            3.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "down": {
+          "uv": [
+            12.0,
+            13.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#weathered_copper"
+        }
+      }
+    },
+    {
+      "name": "front_weathered_copper_sill",
+      "from": [
+        4,
+        1,
+        0
+      ],
+      "to": [
+        12,
+        2,
+        3
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            4.0,
+            7.0,
+            12.0,
+            8.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "south": {
+          "uv": [
+            4.0,
+            14.0,
+            12.0,
+            15.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "east": {
+          "uv": [
+            13.0,
+            14.0,
+            16.0,
+            15.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            14.0,
+            3.0,
+            15.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "up": {
+          "uv": [
+            4.0,
+            0.0,
+            12.0,
+            3.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "down": {
+          "uv": [
+            4.0,
+            13.0,
+            12.0,
+            16.0
+          ],
+          "texture": "#weathered_copper"
+        }
+      }
+    },
+    {
+      "name": "front_weathered_copper_lintel",
+      "from": [
+        4,
+        8,
+        0
+      ],
+      "to": [
+        12,
+        9,
+        3
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            4.0,
+            0.0,
+            12.0,
+            1.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "south": {
+          "uv": [
+            4.0,
+            7.0,
+            12.0,
+            8.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "east": {
+          "uv": [
+            13.0,
+            7.0,
+            16.0,
+            8.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            7.0,
+            3.0,
+            8.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "up": {
+          "uv": [
+            4.0,
+            0.0,
+            12.0,
+            3.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "down": {
+          "uv": [
+            4.0,
+            0.0,
+            12.0,
+            3.0
+          ],
+          "texture": "#weathered_copper"
+        }
+      }
+    },
+    {
+      "name": "recessed_dark_lamp_dial_face",
+      "from": [
+        4,
+        2,
+        2
+      ],
+      "to": [
+        12,
+        8,
+        3
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            4.0,
+            5.0,
+            12.0,
+            11.0
+          ],
+          "texture": "#dial_face"
+        },
+        "south": {
+          "uv": [
+            4.0,
+            8.0,
+            12.0,
+            14.0
+          ],
+          "texture": "#dial_face"
+        },
+        "east": {
+          "uv": [
+            13.0,
+            8.0,
+            14.0,
+            14.0
+          ],
+          "texture": "#dial_face"
+        },
+        "west": {
+          "uv": [
+            2.0,
+            8.0,
+            3.0,
+            14.0
+          ],
+          "texture": "#dial_face"
+        },
+        "up": {
+          "uv": [
+            4.0,
+            2.0,
+            12.0,
+            3.0
+          ],
+          "texture": "#dial_face"
+        },
+        "down": {
+          "uv": [
+            4.0,
+            13.0,
+            12.0,
+            14.0
+          ],
+          "texture": "#dial_face"
+        }
+      }
+    },
+    {
+      "name": "recessed_clear_dial_glass",
+      "from": [
+        4,
+        2,
+        1
+      ],
+      "to": [
+        12,
+        8,
+        1.25
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            4.0,
+            5.0,
+            12.0,
+            11.0
+          ],
+          "texture": "#glass"
+        }
+      }
+    },
+    {
+      "name": "redstone_dial_needle",
+      "from": [
+        7.5,
+        5,
+        1.25
+      ],
+      "to": [
+        8.5,
+        7.5,
+        1.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            2.5
+          ],
+          "texture": "#needle_red"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            2.5
+          ],
+          "texture": "#needle_red"
+        },
+        "east": {
+          "uv": [
+            14.5,
+            8.5,
+            14.75,
+            11.0
+          ],
+          "texture": "#needle_red"
+        },
+        "west": {
+          "uv": [
+            1.25,
+            8.5,
+            1.5,
+            11.0
+          ],
+          "texture": "#needle_red"
+        },
+        "up": {
+          "uv": [
+            7.5,
+            1.25,
+            8.5,
+            1.5
+          ],
+          "texture": "#needle_red"
+        },
+        "down": {
+          "uv": [
+            7.5,
+            14.5,
+            8.5,
+            14.75
+          ],
+          "texture": "#needle_red"
+        }
+      },
+      "rotation": {
+        "axis": "z",
+        "angle": 45,
+        "origin": [
+          8,
+          5,
+          1.25
+        ],
+        "rescale": false
+      }
+    },
+    {
+      "name": "small_copper_needle_pin",
+      "from": [
+        7.5,
+        4.5,
+        0.5
+      ],
+      "to": [
+        8.5,
+        5.5,
+        1.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            7.0,
+            8.0,
+            8.0
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            7.5,
+            10.5,
+            8.5,
+            11.5
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            14.5,
+            10.5,
+            15.5,
+            11.5
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            0.5,
+            10.5,
+            1.5,
+            11.5
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            7.5,
+            0.5,
+            8.5,
+            1.5
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            7.5,
+            14.5,
+            8.5,
+            15.5
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "rear_cut_copper_left",
+      "from": [
+        0,
+        1,
+        15
+      ],
+      "to": [
+        7,
+        9,
+        16
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            9.0,
+            7.0,
+            16.0,
+            15.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            0.0,
+            7.0,
+            8.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            7.0,
+            1.0,
+            15.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            15.0,
+            7.0,
+            16.0,
+            15.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            15.0,
+            7.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            0.0,
+            7.0,
+            1.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "rear_cut_copper_right",
+      "from": [
+        9,
+        1,
+        15
+      ],
+      "to": [
+        16,
+        9,
+        16
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            7.0,
+            7.0,
+            15.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            9.0,
+            0.0,
+            16.0,
+            8.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            7.0,
+            1.0,
+            15.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            15.0,
+            7.0,
+            16.0,
+            15.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            9.0,
+            15.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            9.0,
+            0.0,
+            16.0,
+            1.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "rear_cut_copper_lower",
+      "from": [
+        7,
+        1,
+        15
+      ],
+      "to": [
+        9,
+        4,
+        16
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            12.0,
+            9.0,
+            15.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            5.0,
+            9.0,
+            8.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            12.0,
+            1.0,
+            15.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            15.0,
+            12.0,
+            16.0,
+            15.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            15.0,
+            9.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            0.0,
+            9.0,
+            1.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "rear_cut_copper_upper",
+      "from": [
+        7,
+        6,
+        15
+      ],
+      "to": [
+        9,
+        9,
+        16
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            10.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            0.0,
+            9.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            7.0,
+            1.0,
+            10.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            15.0,
+            7.0,
+            16.0,
+            10.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            15.0,
+            9.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            0.0,
+            9.0,
+            1.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "rear_redstone_output_pin",
+      "from": [
+        7,
+        4,
+        15
+      ],
+      "to": [
+        9,
+        6,
+        16
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            10.0,
+            9.0,
+            12.0
+          ],
+          "texture": "#redstone"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#redstone"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            10.0,
+            1.0,
+            12.0
+          ],
+          "texture": "#redstone"
+        },
+        "west": {
+          "uv": [
+            15.0,
+            10.0,
+            16.0,
+            12.0
+          ],
+          "texture": "#redstone"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            15.0,
+            9.0,
+            16.0
+          ],
+          "texture": "#redstone"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            0.0,
+            9.0,
+            1.0
+          ],
+          "texture": "#redstone"
+        }
+      }
+    },
+    {
+      "name": "small_brass_vane_pivot",
+      "from": [
+        7,
+        10,
+        7
+      ],
+      "to": [
+        9,
+        11,
+        9
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            8.0
+          ],
+          "texture": "#brass_pivot"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            8.0
+          ],
+          "texture": "#brass_pivot"
+        },
+        "east": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            8.0
+          ],
+          "texture": "#brass_pivot"
+        },
+        "west": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            8.0
+          ],
+          "texture": "#brass_pivot"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#brass_pivot"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#brass_pivot"
+        }
+      }
+    },
+    {
+      "name": "thin_iron_vane_spindle",
+      "from": [
+        7.5,
+        11,
+        7.5
+      ],
+      "to": [
+        8.5,
+        12,
+        8.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            7.0,
+            8.0,
+            8.0
+          ],
+          "texture": "#iron"
+        },
+        "south": {
+          "uv": [
+            7.5,
+            4.0,
+            8.5,
+            5.0
+          ],
+          "texture": "#iron"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            4.0,
+            8.5,
+            5.0
+          ],
+          "texture": "#iron"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            4.0,
+            8.5,
+            5.0
+          ],
+          "texture": "#iron"
+        },
+        "up": {
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            8.5
+          ],
+          "texture": "#iron"
+        },
+        "down": {
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            8.5
+          ],
+          "texture": "#iron"
+        }
+      }
+    },
+    {
+      "name": "slender_copper_vane_arm",
+      "from": [
+        7.5,
+        11.75,
+        4
+      ],
+      "to": [
+        8.5,
+        12.75,
+        12
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.5,
+            3.25,
+            8.5,
+            4.25
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            7.5,
+            3.25,
+            8.5,
+            4.25
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            4.0,
+            7.0,
+            12.0,
+            8.0
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            4.0,
+            7.0,
+            12.0,
+            8.0
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            4.0,
+            8.0,
+            12.0
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            7.5,
+            4.0,
+            8.5,
+            12.0
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "small_weathered_copper_rudder",
+      "from": [
+        7,
+        11,
+        9
+      ],
+      "to": [
+        9,
+        14,
+        15
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            2.0,
+            9.0,
+            5.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            2.0,
+            9.0,
+            5.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "east": {
+          "uv": [
+            1.0,
+            2.0,
+            7.0,
+            5.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "west": {
+          "uv": [
+            9.0,
+            2.0,
+            15.0,
+            5.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            9.0,
+            9.0,
+            15.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            1.0,
+            9.0,
+            7.0
+          ],
+          "texture": "#weathered_copper"
+        }
+      }
+    },
+    {
+      "name": "small_iron_vane_counterweight",
+      "from": [
+        7,
+        11.5,
+        3
+      ],
+      "to": [
+        9,
+        12.5,
+        5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            8.0
+          ],
+          "texture": "#iron"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            3.5,
+            9.0,
+            4.5
+          ],
+          "texture": "#iron"
+        },
+        "east": {
+          "uv": [
+            11.0,
+            3.5,
+            13.0,
+            4.5
+          ],
+          "texture": "#iron"
+        },
+        "west": {
+          "uv": [
+            3.0,
+            3.5,
+            5.0,
+            4.5
+          ],
+          "texture": "#iron"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#iron"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            11.0,
+            9.0,
+            13.0
+          ],
+          "texture": "#iron"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
   }
 }

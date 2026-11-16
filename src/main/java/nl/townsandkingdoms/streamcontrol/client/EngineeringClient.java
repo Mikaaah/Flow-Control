@@ -20,6 +20,7 @@ public final class EngineeringClient {
     private record Readout(BlockPos center,int radius,int vertical,List<Component> lines,boolean bounds) {}
     private static Readout readout;
     private static long lastTick=Long.MIN_VALUE;
+    public static void clear() {readout=null;lastTick=Long.MIN_VALUE;}
     public static void register() {
         net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry.addLast(Identifier.fromNamespaceAndPath(StreamControl.ID,"calibrator"),(g,d)->hud(g));
         net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents.END_MAIN.register(EngineeringClient::world);

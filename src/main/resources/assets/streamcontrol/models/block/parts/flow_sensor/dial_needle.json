@@ -1,0 +1,187 @@
+{
+  "credit": "Flow Control nautical / Conduit art kit",
+  "ambientocclusion": true,
+  "textures": {
+    "particle": "streamcontrol:block/brass_pivot",
+    "brass_pivot": "streamcontrol:block/brass_pivot",
+    "copper": "minecraft:block/copper_block",
+    "cut_copper": "minecraft:block/cut_copper",
+    "dark_prismarine": "minecraft:block/dark_prismarine",
+    "dial_face": "minecraft:block/redstone_lamp",
+    "glass": "minecraft:block/glass",
+    "iron": "minecraft:block/iron_block",
+    "needle_red": "minecraft:block/redstone_block",
+    "redstone": "minecraft:block/redstone_block",
+    "weathered_copper": "minecraft:block/weathered_copper"
+  },
+  "elements": [
+    {
+      "name": "redstone_dial_needle",
+      "from": [
+        7.5,
+        5,
+        1.25
+      ],
+      "to": [
+        8.5,
+        7.5,
+        1.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            2.5
+          ],
+          "texture": "#needle_red"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            2.5
+          ],
+          "texture": "#needle_red"
+        },
+        "east": {
+          "uv": [
+            14.5,
+            8.5,
+            14.75,
+            11.0
+          ],
+          "texture": "#needle_red"
+        },
+        "west": {
+          "uv": [
+            1.25,
+            8.5,
+            1.5,
+            11.0
+          ],
+          "texture": "#needle_red"
+        },
+        "up": {
+          "uv": [
+            7.5,
+            1.25,
+            8.5,
+            1.5
+          ],
+          "texture": "#needle_red"
+        },
+        "down": {
+          "uv": [
+            7.5,
+            14.5,
+            8.5,
+            14.75
+          ],
+          "texture": "#needle_red"
+        }
+      },
+      "rotation": {
+        "axis": "z",
+        "angle": 45,
+        "origin": [
+          8,
+          5,
+          1.25
+        ],
+        "rescale": false
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  },
+  "render_type": "minecraft:cutout"
+}

@@ -6,7 +6,8 @@
   "mixins": [
     "WaterFlowMixin",
     "GridFlowMixin",
-    "FluidStateFlowMixin"
+    "FluidStateFlowMixin",
+    "MooringMountMixin"
   ],
   "injectors": {
     "defaultRequire": 1
