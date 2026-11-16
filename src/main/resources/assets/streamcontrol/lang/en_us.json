@@ -153,5 +153,15 @@
   "engineering.streamcontrol.readout_range": "Radius: %s | Vertical: +/- %s",
   "engineering.streamcontrol.configure_tip": "Right-click to configure. Calibrator: inspect, copy and paste.",
   "gui.streamcontrol.released_area": "NATURAL WATER",
-  "gui.streamcontrol.release_flow": "Controller override released"
+  "gui.streamcontrol.release_flow": "Controller override released",
+  "item.streamcontrol.current_generator": "Current Generator",
+  "item.streamcontrol.current_generator.tip": "Programmable currents with two profiles and redstone control.",
+  "item.streamcontrol.stillwater_anchor": "Stillwater Anchor",
+  "item.streamcontrol.stillwater_anchor.tip": "Calm water around docks; switch profiles with redstone.",
+  "item.streamcontrol.flow_sensor": "Flow Sensor",
+  "item.streamcontrol.flow_sensor.tip": "Measure speed, compass direction or boats with comparator output.",
+  "item.streamcontrol.mooring_post": "Mooring Post",
+  "item.streamcontrol.mooring_post.tip": "Secure one empty boat; boarding or redstone releases it.",
+  "item.streamcontrol.mechanical_current_generator": "Create Hydro-Current Thruster",
+  "item.streamcontrol.mechanical_current_generator.tip": "Bottom shaft input. RPM controls strength; reversing reverses flow."
 }
