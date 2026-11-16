@@ -2,6 +2,12 @@
 
 
 
+
+## 1.0.3 — Flexible Streams Dependency
+
+- Streams Reflowing now requires **2.17.3 or newer**, instead of one exact patch version.
+- Newer Streams updates are no longer blocked by the dependency version check.
+
 ## 1.0.2 — Fabric 26.3 Water Compatibility
 
 - Replaced the unconditional vanilla-water flow cancellation with a composable return-value hook.
