@@ -2,5 +2,11 @@
   "schema": 1,
   "version": "1.0.3",
   "project_id": 1750740,
-  "files": {}
+  "files": {
+    "flow-control-1.0.3-fabric-1.20.1.jar": {
+      "status": "uploading",
+      "sha256": "8a2ab293c1c7c0d5259d68c573bd92f32f732f4e99a9f3b37f3631fd3f6bd599",
+      "run_id": "43829538077"
+    }
+  }
 }
