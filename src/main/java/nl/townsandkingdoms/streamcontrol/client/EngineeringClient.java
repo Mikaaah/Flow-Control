@@ -24,8 +24,8 @@ public final class EngineeringClient {
     private static long lastTick=Long.MIN_VALUE;
     public static void register(IEventBus bus) {
         bus.addListener(EngineeringClient::layers);
-        bus.addListener(ConduitBlockRenderer::register);
-        bus.addListener(ConduitBlockRenderer::reload);
+        bus.addListener((EntityRenderersEvent.RegisterRenderers event)->ConduitBlockRenderer.register(event));
+        bus.addListener((RegisterClientReloadListenersEvent event)->ConduitBlockRenderer.reload(event));
         if(ModList.get().isLoaded("create")) {
             nl.townsandkingdoms.streamcontrol.compat.create.CreateClient.bootstrap();
             bus.addListener(nl.townsandkingdoms.streamcontrol.compat.create.CreateClient::renderers);
