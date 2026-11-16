@@ -83,7 +83,7 @@ public final class ControlNetwork {
             nl.townsandkingdoms.streamcontrol.client.UtilityScreen.open(p)));
         registrar.playToServer(UtilityConfigure.TYPE,UtilityConfigure.CODEC,(p,context)->context.enqueueWork(()->{
             Player player=context.player();BlockPos pos=BlockPos.of(p.pos());
-            if(!(player.level() instanceof ServerLevel level) || !level.hasChunkAt(pos) || player.blockPosition().distSqr(pos)>64
+            if(!(player.level() instanceof ServerLevel level) || !level.getChunkSource().hasChunk(pos.getX()>>4,pos.getZ()>>4) || player.blockPosition().distSqr(pos)>64
                 || !player.mayBuild() || !level.mayInteract(player,pos) || p.settings()==null) return;
             if(level.getBlockEntity(pos) instanceof UtilityAccess utility) utility.configure(p.settings());
         }));
@@ -95,7 +95,7 @@ public final class ControlNetwork {
         registrar.playToServer(Configure.TYPE, Configure.CODEC, (p, context) -> context.enqueueWork(() -> {
             Player player = context.player();
             BlockPos pos = BlockPos.of(p.pos());
-            if (!(player.level() instanceof ServerLevel level) || !level.hasChunkAt(pos) || player.blockPosition().distSqr(pos) > 64
+            if (!(player.level() instanceof ServerLevel level) || !level.getChunkSource().hasChunk(pos.getX()>>4,pos.getZ()>>4) || player.blockPosition().distSqr(pos) > 64
                 || !player.mayBuild() || !player.level().mayInteract(player, pos)) return;
             if (!(player.level().getBlockEntity(pos) instanceof FlowController be)) return;
             FlowHeading d = FlowHeading.fromId(p.facing());
