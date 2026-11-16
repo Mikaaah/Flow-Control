@@ -1,6 +1,5 @@
 package nl.townsandkingdoms.streamcontrol;
 
-import java.util.List;
 import java.util.Locale;
 import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponents;
@@ -99,7 +98,8 @@ public final class FlowWand extends Item {
         if(!world.getFluidState(hit.getBlockPos()).is(FluidTags.WATER)) return InteractionResult.PASS;
         return operate(server,hit.getBlockPos(),stack)?InteractionResult.SUCCESS:InteractionResult.FAIL;
     }
-    @Override public void appendHoverText(ItemStack stack,TooltipContext context,net.minecraft.world.item.component.TooltipDisplay display,java.util.function.Consumer<Component> lines,TooltipFlag flag) {
+    /** Appended by the loader's client tooltip event, using this stack's live calibration data. */
+    public static void appendTooltip(ItemStack stack,java.util.function.Consumer<Component> lines) {
         lines.accept(Component.translatable("calibrator.streamcontrol.mode",Component.translatable(mode(stack).key())));
         lines.accept(Component.translatable("calibrator.streamcontrol.tooltip"));
         lines.accept(Component.translatable("calibrator.streamcontrol.tooltip_cycle"));
