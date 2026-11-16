@@ -17,7 +17,10 @@ public record FlowRegion(long key, BlockPos center, int radius, int vertical, do
         this(key, center, radius, vertical, dx, dz, strength, still, controller, owner, sequence, false, new long[0]);
     }
     public FlowRegion {
-        connectedMask = connectedMask == null ? new long[0] : connectedMask.clone();
+        center=Objects.requireNonNull(center,"center").immutable();
+        radius=Math.max(1,Math.min(32,radius));vertical=Math.max(0,Math.min(16,vertical));
+        int maxWords=((radius*2+1)*(radius*2+1)*(vertical*2+1)+63)/64;
+        connectedMask = connectedMask == null ? new long[0] : Arrays.copyOf(connectedMask,Math.min(connectedMask.length,maxWords));
     }
     @Override public long[] connectedMask() { return connectedMask.clone(); }
     @Override public boolean equals(Object obj) {

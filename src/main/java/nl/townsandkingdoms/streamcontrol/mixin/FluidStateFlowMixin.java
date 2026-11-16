@@ -10,5 +10,5 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(FluidState.class)
 public abstract class FluidStateFlowMixin {
  @Inject(method="getFlow",at=@At("RETURN"),cancellable=true)
- private void flow(BlockGetter level,BlockPos pos,CallbackInfoReturnable<Vec3> c){c.setReturnValue(FlowOverrides.apply(c.getReturnValue(),level,pos,(FluidState)(Object)this));}
+ private void flow(BlockGetter level,BlockPos pos,CallbackInfoReturnable<Vec3> c){Vec3 original=c.getReturnValue();Vec3 updated=FlowOverrides.apply(original,level,pos,(FluidState)(Object)this);if(updated!=original)c.setReturnValue(updated);}
 }

@@ -104,6 +104,8 @@ public final class IntegrationChecks {
             HeadingRegressionChecks.run(level); results.put("eightHeadingPhysicsPersistenceAndPackets",true);
             ReleaseAssetChecks.run(level,results);
             EngineeringChecks.run(level,results);
+            SharedAuditChecks.run(level,results);
+            ModelAuditChecks.run(level,results);
             results.put("passed",true);
         } catch (Throwable t) { results.put("passed",false);results.put("error",t.toString()); t.printStackTrace(); }
         finally { data.remove(level,101);data.remove(level,102); }
