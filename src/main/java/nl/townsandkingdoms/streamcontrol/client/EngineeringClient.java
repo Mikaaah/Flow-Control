@@ -25,6 +25,7 @@ public final class EngineeringClient {
     private static Readout readout;
     private static long lastTick=Long.MIN_VALUE;
     public static void register(IEventBus bus) {
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.entity.player.ItemTooltipEvent event)->tooltip(event.getItemStack(),event.getFlags(),event.getToolTip()));
         bus.addListener(EngineeringClient::layers);
         bus.addListener(EngineeringClient::renderers);
         bus.addListener(EngineeringClient::reload);
@@ -42,6 +43,16 @@ public final class EngineeringClient {
     }
     private static void logout(ClientPlayerNetworkEvent.LoggingOut event) {
         FlowOverrides.clearClient();ConduitAnimations.clear();readout=null;lastTick=Long.MIN_VALUE;
+    }
+    /** Keep item descriptions directly below the title, ahead of component and mod footer lines. */
+    private static void tooltip(ItemStack stack,net.minecraft.world.item.TooltipFlag flags,List<Component> lines) {
+        if(!(stack.getItem() instanceof FlowWand) && !(stack.getItem() instanceof EngineeringBlockItem)) return;
+        if(!flags.isCreative() && stack.getOrDefault(net.minecraft.core.component.DataComponents.TOOLTIP_DISPLAY,
+                net.minecraft.world.item.component.TooltipDisplay.DEFAULT).hideTooltip()) return;
+        List<Component> description=new ArrayList<>();
+        if(stack.getItem() instanceof FlowWand) FlowWand.appendTooltip(stack,description::add);
+        else if(stack.getItem() instanceof EngineeringBlockItem item) item.appendTooltip(description::add);
+        if(!description.isEmpty()) lines.addAll(Math.min(1,lines.size()),description);
     }
     private static Component tr(String key,Object...args) { return Component.translatable("engineering.streamcontrol."+key,args); }
     private static ItemStack tool(Minecraft mc) {
