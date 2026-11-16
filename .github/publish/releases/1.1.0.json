@@ -1,0 +1,197 @@
+{
+  "schema": 1,
+  "project_id": 1750740,
+  "project_slug": "flow-control-streams-reflowing-addon",
+  "version": "1.1.0",
+  "changelog": ".github/publish/releases/1.1.0.html",
+  "artifacts": [
+    {
+      "filename": "flow-control-1.1.0-fabric-1.20.1.jar",
+      "target": "fabric-1.20.1",
+      "minecraft": "1.20.1",
+      "loader": "fabric",
+      "java": 17,
+      "sha256": "9fc274bbf330e60d3ebd4dd23f23588f54126f1781d430614b917f988be4086b",
+      "source_commit": "9ff96680a1ee9e3ca82a8bf66c99dbb0fe0b45b2",
+      "path": "downloads/1.1.0/flow-control-1.1.0-fabric-1.20.1.jar",
+      "relations": [
+        {
+          "slug": "streams-reflowing",
+          "projectID": 1581408,
+          "type": "requiredDependency"
+        },
+        {
+          "slug": "fabric-api",
+          "projectID": 306612,
+          "type": "requiredDependency"
+        },
+        {
+          "slug": "create-fabric",
+          "projectID": 624165,
+          "type": "optionalDependency"
+        }
+      ]
+    },
+    {
+      "filename": "flow-control-1.1.0-fabric-1.21.1.jar",
+      "target": "fabric-1.21.1",
+      "minecraft": "1.21.1",
+      "loader": "fabric",
+      "java": 21,
+      "sha256": "8f2349bb3f253a3237d234b0ab5be2437c88ca7852ffe76f396175377ecfa86e",
+      "source_commit": "2bd3e51b3d733a150572338db4f9df95ed55fd2b",
+      "path": "downloads/1.1.0/flow-control-1.1.0-fabric-1.21.1.jar",
+      "relations": [
+        {
+          "slug": "streams-reflowing",
+          "projectID": 1581408,
+          "type": "requiredDependency"
+        },
+        {
+          "slug": "fabric-api",
+          "projectID": 306612,
+          "type": "requiredDependency"
+        }
+      ]
+    },
+    {
+      "filename": "flow-control-1.1.0-fabric-26.1.2.jar",
+      "target": "fabric-26.1.2",
+      "minecraft": "26.1.2",
+      "loader": "fabric",
+      "java": 25,
+      "sha256": "dbeb57cf5f7d3c1391e289f85935ceb1c64c60a33fe7e4a95064feaa66c21583",
+      "source_commit": "50430e0a83ba7f6730b67d176081d3dff49a0723",
+      "path": "downloads/1.1.0/flow-control-1.1.0-fabric-26.1.2.jar",
+      "relations": [
+        {
+          "slug": "streams-reflowing",
+          "projectID": 1581408,
+          "type": "requiredDependency"
+        },
+        {
+          "slug": "fabric-api",
+          "projectID": 306612,
+          "type": "requiredDependency"
+        }
+      ]
+    },
+    {
+      "filename": "flow-control-1.1.0-fabric-26.3.jar",
+      "target": "fabric-26.3",
+      "minecraft": "26.3",
+      "loader": "fabric",
+      "java": 25,
+      "sha256": "928fbb4a2e19f672e0cbea915bbe9d4c48f51ce946aad5a4ec13d248cd4821e9",
+      "source_commit": "99f009521ae29222ceb2db27a9c8a3e2f8133042",
+      "path": "downloads/1.1.0/flow-control-1.1.0-fabric-26.3.jar",
+      "relations": [
+        {
+          "slug": "streams-reflowing",
+          "projectID": 1581408,
+          "type": "requiredDependency"
+        },
+        {
+          "slug": "fabric-api",
+          "projectID": 306612,
+          "type": "requiredDependency"
+        }
+      ]
+    },
+    {
+      "filename": "flow-control-1.1.0-forge-1.20.1.jar",
+      "target": "forge-1.20.1",
+      "minecraft": "1.20.1",
+      "loader": "forge",
+      "java": 17,
+      "sha256": "7770e2ed0f9225aeec754a4013ef8b502cfb42c45cf0a34ce09ba98427bbbd56",
+      "source_commit": "2aa02ec10875d450eee6aac21a906cb000582c5a",
+      "path": "downloads/1.1.0/flow-control-1.1.0-forge-1.20.1.jar",
+      "relations": [
+        {
+          "slug": "streams-reflowing",
+          "projectID": 1581408,
+          "type": "requiredDependency"
+        },
+        {
+          "slug": "create",
+          "projectID": 328085,
+          "type": "optionalDependency"
+        }
+      ]
+    },
+    {
+      "filename": "flow-control-1.1.0-neoforge-1.21.1.jar",
+      "target": "neoforge-1.21.1",
+      "minecraft": "1.21.1",
+      "loader": "neoforge",
+      "java": 21,
+      "sha256": "be4bb1bc14c9239394e15af137384d88c464e59d4b6823952c206a55dd07b0f9",
+      "source_commit": "5c597a96f73d4a6e48ce1986f3ab6aeda9012d03",
+      "path": "downloads/1.1.0/flow-control-1.1.0-neoforge-1.21.1.jar",
+      "relations": [
+        {
+          "slug": "streams-reflowing",
+          "projectID": 1581408,
+          "type": "requiredDependency"
+        },
+        {
+          "slug": "create",
+          "projectID": 328085,
+          "type": "optionalDependency"
+        }
+      ]
+    },
+    {
+      "filename": "flow-control-1.1.0-neoforge-1.21.11.jar",
+      "target": "neoforge-1.21.11",
+      "minecraft": "1.21.11",
+      "loader": "neoforge",
+      "java": 21,
+      "sha256": "62d304e24894d305bd529ed7bff7aa21cf64cf46dd5553fce572f43aaad509ea",
+      "source_commit": "114186a72ed22142cd84b9c45e0140adaa359536",
+      "path": "downloads/1.1.0/flow-control-1.1.0-neoforge-1.21.11.jar",
+      "relations": [
+        {
+          "slug": "streams-reflowing",
+          "projectID": 1581408,
+          "type": "requiredDependency"
+        }
+      ]
+    },
+    {
+      "filename": "flow-control-1.1.0-neoforge-26.1.2.jar",
+      "target": "neoforge-26.1.2",
+      "minecraft": "26.1.2",
+      "loader": "neoforge",
+      "java": 25,
+      "sha256": "0f596a1f0f6f403c20c87009c4399561981aecec41f6004ef1342b80502d1264",
+      "source_commit": "01aab04e681a0427c0d326145756c202a7c7f92c",
+      "path": "downloads/1.1.0/flow-control-1.1.0-neoforge-26.1.2.jar",
+      "relations": [
+        {
+          "slug": "streams-reflowing",
+          "projectID": 1581408,
+          "type": "requiredDependency"
+        }
+      ]
+    },
+    {
+      "filename": "flow-control-1.1.0-neoforge-26.3.jar",
+      "target": "neoforge-26.3",
+      "minecraft": "26.3",
+      "loader": "neoforge",
+      "java": 25,
+      "sha256": "6bc6865b84c13e341e12c3a2fc5956e2920a57d14aebbec26aaa1b98ef7391da",
+      "source_commit": "7011d0e4429c23331bf0ca8258dcc2ce7a6e33b8",
+      "path": "downloads/1.1.0/flow-control-1.1.0-neoforge-26.3.jar",
+      "relations": [
+        {
+          "slug": "streams-reflowing",
+          "projectID": 1581408,
+          "type": "requiredDependency"
+        }
+      ]
+    }
+  ]
+}

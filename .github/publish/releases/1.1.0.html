@@ -1,0 +1,60 @@
+<div style="font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif;font-size:16px;line-height:1.65">
+<p style="text-align:center"><img src="https://i.imgur.com/JGT2lvz.png" alt="Flow Control Changelog" width="728" height="125" style="display:block;width:100%;height:auto;margin:auto"></p>
+<h2 style="font-family:'Arial Black',Impact,Arial,sans-serif;font-size:27px;color:#b88bdf;text-align:center"><strong>FLOW CONTROL &mdash; 1.1.0</strong></h2>
+<p style="text-align:center"><strong>Glazed Relics &amp; Dock Instruments</strong></p>
+<p>A complete visual refresh for the five water-engineering blocks, with animated internals, live instruments, visible boat tethers and fixes across the supported Minecraft and loader versions.</p>
+
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">New models &amp; live animation</h2>
+<ul>
+<li><strong>Current Generator:</strong> redesigned copper-and-prismarine housing, glass windows, a rotating internal impeller and an animated Conduit core.</li>
+<li><strong>Stillwater Anchor:</strong> a new relic cage with a floating, rotating Conduit cage and eye. Motion and the eye's glow ease down when the controller is inactive.</li>
+<li><strong>Flow Sensor:</strong> a new dock instrument with a top vane that follows the measured current direction and a front needle that follows its speed.</li>
+<li><strong>Hydro-Current Thruster:</strong> a redesigned kinetic housing with separate bottom-shaft and propeller animation, driven by signed live RPM wherever native Create integration is supported.</li>
+<li><strong>Mooring Post:</strong> a new timber-and-iron post, an active tether indicator and a curved rope connecting its tie-ring to the secured boat.</li>
+<li>Updated blockstates, complete inventory models, textures, glass rendering and explicit emissive details. Added the required texture resources so the dormant thruster also displays correctly without Create.</li>
+<li>Updated item-name translations across the release matrix.</li>
+</ul>
+
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">Controllers, sensors &amp; water handling</h2>
+<ul>
+<li>Controllers now remove active flow claims when removed or unloaded, and recreate them from their saved settings when loaded again.</li>
+<li>Cleaned up stale saved controller claims without discarding saved profiles or independent Calibrator edits.</li>
+<li>Staggered controller refresh scheduling and improved connected-water cache invalidation and refresh handling.</li>
+<li>Bulk region clearing now rebuilds the spatial index once for the selected removals.</li>
+<li>Sensor speed and direction measurements now synchronize even when the comparator's numeric output remains unchanged, keeping the vane and dial up to date.</li>
+<li>Comparator neighbor notifications remain tied to actual output changes. Sensor sampling avoids repeated chunk checks for each vertical sample.</li>
+<li>Preserved waterlogging on placement, rotation and mirroring. Hollow frames and the Mooring Post now use non-occluding block properties so their open models do not hide surrounding water faces.</li>
+<li>Corrected legacy fluid hooks so they leave untouched flow results alone outside Flow Control regions.</li>
+<li>Client flow, animation and inspection caches now clear when leaving a world or server.</li>
+<li>Improved modern serialization and legacy region-owner loading, and added loaded-chunk checks to affected configuration-packet paths.</li>
+</ul>
+
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">Mooring fixes</h2>
+<ul>
+<li>Accepted boat boarding now releases the tether immediately, with normal tick validation retained for unloading, despawning and other invalid tether states.</li>
+<li>Synchronized the claimed boat's entity identity so the client rope follows the authoritative boat.</li>
+<li>Improved nearest-boat acquisition and avoided unnecessary position corrections while holding an already stationary boat.</li>
+<li>Rejected invalid saved tether coordinates and preserved vertical boat bobbing while moored.</li>
+<li>Added facing-aware utility block rotation, matching selection bounds and the correct rotated tie-ring attachment point.</li>
+</ul>
+
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">Optional Create support</h2>
+<ul>
+<li>Native kinetic integration is available on <strong>Fabric 1.20.1, Forge 1.20.1 and NeoForge 1.21.1</strong> with their compatible Create builds.</li>
+<li>These targets use the supplied shaft and propeller meshes through native Flywheel visuals, with a block-entity-renderer fallback when visualization is unavailable.</li>
+<li>The bottom-mounted input retains RPM-based current strength and reverse-RPM flow reversal.</li>
+<li>Without compatible native Create support, the same thruster block remains available as a <strong>dormant, static fallback</strong>. Its settings and identifiers are preserved, and it generates no current.</li>
+</ul>
+
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">Supported releases &amp; requirements</h2>
+<p>This update covers all <strong>nine release builds</strong>:</p>
+<ul>
+<li><strong>Minecraft 1.20.1:</strong> Fabric and Forge.</li>
+<li><strong>Minecraft 1.21.1:</strong> Fabric and NeoForge.</li>
+<li><strong>Minecraft 1.21.11:</strong> NeoForge.</li>
+<li><strong>Minecraft 26.1.2:</strong> Fabric and NeoForge.</li>
+<li><strong>Minecraft 26.3:</strong> Fabric and NeoForge.</li>
+</ul>
+<p>Requires <strong>Streams Reflowing 2.17.3 or newer</strong>. The minimum-version requirement is retained, so newer Streams bugfix releases are not blocked by an exact-version lock. Create remains optional.</p>
+<p><strong>Install the matching Flow Control 1.1.0 build on both client and server.</strong> Choose the file for your Minecraft version and loader.</p>
+</div>
