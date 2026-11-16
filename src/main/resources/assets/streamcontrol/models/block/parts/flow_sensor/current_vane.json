@@ -1,0 +1,317 @@
+{
+  "credit": "Flow Control nautical / Conduit art kit",
+  "ambientocclusion": true,
+  "textures": {
+    "particle": "streamcontrol:block/brass_pivot",
+    "brass_pivot": "streamcontrol:block/brass_pivot",
+    "copper": "minecraft:block/copper_block",
+    "cut_copper": "minecraft:block/cut_copper",
+    "dark_prismarine": "minecraft:block/dark_prismarine",
+    "dial_face": "minecraft:block/redstone_lamp",
+    "glass": "minecraft:block/glass",
+    "iron": "minecraft:block/iron_block",
+    "needle_red": "minecraft:block/redstone_block",
+    "redstone": "minecraft:block/redstone_block",
+    "weathered_copper": "minecraft:block/weathered_copper"
+  },
+  "elements": [
+    {
+      "name": "slender_copper_vane_arm",
+      "from": [
+        7.5,
+        11.75,
+        4
+      ],
+      "to": [
+        8.5,
+        12.75,
+        12
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.5,
+            3.25,
+            8.5,
+            4.25
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            7.5,
+            3.25,
+            8.5,
+            4.25
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            4.0,
+            7.0,
+            12.0,
+            8.0
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            4.0,
+            7.0,
+            12.0,
+            8.0
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            4.0,
+            8.0,
+            12.0
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            7.5,
+            4.0,
+            8.5,
+            12.0
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "small_weathered_copper_rudder",
+      "from": [
+        7,
+        11,
+        9
+      ],
+      "to": [
+        9,
+        14,
+        15
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            2.0,
+            9.0,
+            5.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            2.0,
+            9.0,
+            5.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "east": {
+          "uv": [
+            1.0,
+            2.0,
+            7.0,
+            5.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "west": {
+          "uv": [
+            9.0,
+            2.0,
+            15.0,
+            5.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            9.0,
+            9.0,
+            15.0
+          ],
+          "texture": "#weathered_copper"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            1.0,
+            9.0,
+            7.0
+          ],
+          "texture": "#weathered_copper"
+        }
+      }
+    },
+    {
+      "name": "small_iron_vane_counterweight",
+      "from": [
+        7,
+        11.5,
+        3
+      ],
+      "to": [
+        9,
+        12.5,
+        5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            8.0
+          ],
+          "texture": "#iron"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            3.5,
+            9.0,
+            4.5
+          ],
+          "texture": "#iron"
+        },
+        "east": {
+          "uv": [
+            11.0,
+            3.5,
+            13.0,
+            4.5
+          ],
+          "texture": "#iron"
+        },
+        "west": {
+          "uv": [
+            3.0,
+            3.5,
+            5.0,
+            4.5
+          ],
+          "texture": "#iron"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#iron"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            11.0,
+            9.0,
+            13.0
+          ],
+          "texture": "#iron"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  },
+  "render_type": "minecraft:cutout"
+}

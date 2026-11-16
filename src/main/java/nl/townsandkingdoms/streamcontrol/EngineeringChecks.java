@@ -101,7 +101,7 @@ public final class EngineeringChecks {
         mooring.tick();check(boat.getUUID().equals(mooring.boatId()),"Mooring did not secure empty boat");
         double x=boat.getX(),z=boat.getZ();boat.setPos(x+.2,boat.getY(),z+.2);boat.setDeltaMovement(.2,.03,.2);mooring.tick();
         check(boat.getX()==x && boat.getZ()==z && boat.getDeltaMovement().x==0 && boat.getDeltaMovement().z==0 && boat.getDeltaMovement().y==.03,"Mooring did not hold horizontal position and preserve bobbing");
-        check(rider.startRiding(boat,true),"Mooring passenger fixture failed to board");mooring.tick();check(mooring.boatId()==null,"Boarding did not immediately release boat");rider.stopRiding();
+        check(rider.startRiding(boat,true),"Mooring passenger fixture failed to board");check(mooring.boatId()==null,"Mount hook did not immediately release boat");mooring.tick();check(mooring.boatId()==null,"Boarding did not immediately release boat");rider.stopRiding();
         for(int i=0;i<42;i++) mooring.tick();check(mooring.boatId()!=null,"Mooring did not resume after release cooldown");
         level.setBlock(mooringPos,mooring.getBlockState().setValue(UtilityBlock.POWERED,true),2);mooring.tick();check(mooring.boatId()==null,"Redstone did not release boat");
         level.removeBlock(mooringPos,false);boat.discard();rider.discard();results.put("mooringHoldBoardingRedstoneAndCooldown",true);
