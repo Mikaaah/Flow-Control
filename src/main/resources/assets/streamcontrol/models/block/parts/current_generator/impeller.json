@@ -1,0 +1,454 @@
+{
+  "credit": "Flow Control nautical / Conduit art kit",
+  "ambientocclusion": true,
+  "textures": {
+    "particle": "minecraft:entity/conduit/base",
+    "conduit_base": "minecraft:entity/conduit/base",
+    "conduit_eye": "minecraft:entity/conduit/open_eye",
+    "copper": "minecraft:block/copper_block",
+    "cut_copper": "minecraft:block/cut_copper",
+    "dark_prismarine": "minecraft:block/dark_prismarine",
+    "glass": "minecraft:block/glass",
+    "iron": "minecraft:block/iron_block"
+  },
+  "elements": [
+    {
+      "name": "impeller_iron_hub",
+      "from": [
+        7,
+        7,
+        3
+      ],
+      "to": [
+        9,
+        9,
+        5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#iron"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#iron"
+        },
+        "east": {
+          "uv": [
+            11.0,
+            7.0,
+            13.0,
+            9.0
+          ],
+          "texture": "#iron"
+        },
+        "west": {
+          "uv": [
+            3.0,
+            7.0,
+            5.0,
+            9.0
+          ],
+          "texture": "#iron"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            3.0,
+            9.0,
+            5.0
+          ],
+          "texture": "#iron"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            11.0,
+            9.0,
+            13.0
+          ],
+          "texture": "#iron"
+        }
+      }
+    },
+    {
+      "name": "impeller_upper_blade",
+      "from": [
+        7,
+        3.25,
+        3.5
+      ],
+      "to": [
+        9,
+        7,
+        4.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            9.0,
+            9.0,
+            12.75
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            9.0,
+            9.0,
+            12.75
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            9.0,
+            12.5,
+            12.75
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            3.5,
+            9.0,
+            4.5,
+            12.75
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            3.5,
+            9.0,
+            4.5
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            11.5,
+            9.0,
+            12.5
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "impeller_starboard_blade",
+      "from": [
+        9,
+        7,
+        3.5
+      ],
+      "to": [
+        12.75,
+        9,
+        4.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            3.25,
+            7.0,
+            7.0,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            9.0,
+            7.0,
+            12.75,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            7.0,
+            12.5,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            3.5,
+            7.0,
+            4.5,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            9.0,
+            3.5,
+            12.75,
+            4.5
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            9.0,
+            11.5,
+            12.75,
+            12.5
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "impeller_lower_blade",
+      "from": [
+        7,
+        9,
+        3.5
+      ],
+      "to": [
+        9,
+        12.75,
+        4.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            3.25,
+            9.0,
+            7.0
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            3.25,
+            9.0,
+            7.0
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            3.25,
+            12.5,
+            7.0
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            3.5,
+            3.25,
+            4.5,
+            7.0
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            3.5,
+            9.0,
+            4.5
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            11.5,
+            9.0,
+            12.5
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "impeller_port_blade",
+      "from": [
+        3.25,
+        7,
+        3.5
+      ],
+      "to": [
+        7,
+        9,
+        4.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            9.0,
+            7.0,
+            12.75,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            3.25,
+            7.0,
+            7.0,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            7.0,
+            12.5,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            3.5,
+            7.0,
+            4.5,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            3.25,
+            3.5,
+            7.0,
+            4.5
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            3.25,
+            11.5,
+            7.0,
+            12.5
+          ],
+          "texture": "#copper"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  },
+  "render_type": "minecraft:cutout"
+}

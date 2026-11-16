@@ -1,6 +1,3 @@
 {
-  "model": {
-    "type": "minecraft:model",
-    "model": "streamcontrol:item/mooring_post"
-  }
+  "model": {"type": "minecraft:model", "model": "streamcontrol:item/mooring_post"}
 }

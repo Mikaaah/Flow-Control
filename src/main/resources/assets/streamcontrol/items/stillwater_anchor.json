@@ -1,6 +1,3 @@
 {
-  "model": {
-    "type": "minecraft:model",
-    "model": "streamcontrol:item/stillwater_anchor"
-  }
+  "model": {"type": "minecraft:model", "model": "streamcontrol:item/stillwater_anchor"}
 }

@@ -26,7 +26,11 @@ public final class EngineeringClient {
     private static final net.minecraft.util.context.ContextKey<Readout> KEY=new net.minecraft.util.context.ContextKey<>(Identifier.fromNamespaceAndPath(StreamControl.ID,"calibrator_bounds"));
     private static void extract(ExtractLevelRenderStateEvent e) { update();if(readout!=null)e.getRenderState().setRenderData(KEY,readout); }
     private static long lastTick=Long.MIN_VALUE;
+    public static void clearWorldData() { readout=null;lastTick=Long.MIN_VALUE;FlowOverrides.clearClient();ConduitAnimations.clear(); }
     public static void register(IEventBus bus) {
+        bus.addListener((EntityRenderersEvent.RegisterRenderers event)->ConduitBlockRenderer.register(event));
+        bus.addListener((AddClientReloadListenersEvent event)->ConduitBlockRenderer.reload(event));
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent.LoggingOut event)->clearWorldData());
         bus.addListener(EngineeringClient::layers);
         NeoForge.EVENT_BUS.addListener(EngineeringClient::extract);
         NeoForge.EVENT_BUS.addListener(EngineeringClient::world);
