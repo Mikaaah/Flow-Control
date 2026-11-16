@@ -40,7 +40,7 @@ public final class FlowWand extends Item {
     }
     public static boolean operate(ServerPlayer player,BlockPos pos,ItemStack stack) {
         var level=player.level();
-        if(!level.hasChunkAt(pos) || !allowed(player,pos,stack)) return false;
+        if(!level.getChunkSource().hasChunk(pos.getX()>>4,pos.getZ()>>4) || !allowed(player,pos,stack)) return false;
         var be=level.getBlockEntity(pos);var n=settings(stack);Mode mode=mode(stack);
         if(mode==Mode.INSPECT) {
             if(be instanceof FlowController controller) ControlNetwork.open(player,controller);
@@ -69,7 +69,7 @@ public final class FlowWand extends Item {
                 n.putLong("LinkPos",pos.asLong());n.putString("LinkDimension",level.dimension().identifier().toString());store(stack,n);message(player,"source_selected");return true;
             }
             BlockPos source=BlockPos.of(n.getLongOr("LinkPos",0L));
-            if(!level.dimension().identifier().toString().equals(n.getStringOr("LinkDimension","")) || !level.hasChunkAt(source)
+            if(!level.dimension().identifier().toString().equals(n.getStringOr("LinkDimension","")) || !level.getChunkSource().hasChunk(source.getX()>>4,source.getZ()>>4)
                 || !allowed(player,source,stack) || !controller.controls().link(source)) { message(player,"invalid_link");return false; }
             message(player,"linked");return true;
         }
