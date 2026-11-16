@@ -77,7 +77,7 @@ public final class ControlNetwork {
     }
     public static void configure(ServerPlayer player,Configure p) {
         var pos=BlockPos.of(p.pos());var level=player.level();
-        if(!level.hasChunkAt(pos) || player.blockPosition().distSqr(pos)>64 || !player.mayBuild() || !level.mayInteract(player,pos))return;
+        if(!level.getChunkSource().hasChunk(pos.getX()>>4,pos.getZ()>>4) || player.blockPosition().distSqr(pos)>64 || !player.mayBuild() || !level.mayInteract(player,pos))return;
         if(!(level.getBlockEntity(pos) instanceof FlowController be))return;
         var heading=FlowHeading.fromId(p.facing());if(heading==null)return;
         if(p.settings()!=null && p.settings().contains("ProfileA") && p.settings().contains("ProfileB"))be.controls().configure(p.settings());
@@ -85,7 +85,7 @@ public final class ControlNetwork {
     }
     public static void configureUtility(ServerPlayer player,UtilityConfigure p) {
         var pos=BlockPos.of(p.pos());var level=player.level();
-        if(!level.hasChunkAt(pos) || player.blockPosition().distSqr(pos)>64 || !player.mayBuild() || !level.mayInteract(player,pos) || p.settings()==null)return;
+        if(!level.getChunkSource().hasChunk(pos.getX()>>4,pos.getZ()>>4) || player.blockPosition().distSqr(pos)>64 || !player.mayBuild() || !level.mayInteract(player,pos) || p.settings()==null)return;
         if(level.getBlockEntity(pos) instanceof UtilityAccess be)be.configure(p.settings());
     }
     public static void register() {

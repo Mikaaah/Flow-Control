@@ -107,7 +107,7 @@ public final class ControllerSettings {
             || pos.distSqr(be.getBlockPos()) > (long)ControlConfig.LINK_RANGE.get()*ControlConfig.LINK_RANGE.get()) return false;
         Set<BlockPos> seen = new HashSet<>(); seen.add(be.getBlockPos()); BlockPos current = pos;
         for (int i=0;i<16;i++) {
-            if (!seen.add(current) || !level.hasChunkAt(current)
+            if (!seen.add(current) || !level.getChunkSource().hasChunk(current.getX()>>4,current.getZ()>>4)
                 || !(level.getBlockEntity(current) instanceof FlowController controller)) return false;
             if (controller.controls().source == null) {
                 source = pos.immutable(); dirty = true; changed(); refresh(); return true;
@@ -120,7 +120,7 @@ public final class ControllerSettings {
         ControllerSettings settings = this; Set<BlockPos> seen = new HashSet<>(); seen.add(host.blockEntity().getBlockPos());
         for (int i=0;settings.source!=null && i<16;i++) {
             var pos = settings.source;
-            if (!seen.add(pos) || !level.hasChunkAt(pos) || !(level.getBlockEntity(pos) instanceof FlowController next)) return null;
+            if (!seen.add(pos) || !level.getChunkSource().hasChunk(pos.getX()>>4,pos.getZ()>>4) || !(level.getBlockEntity(pos) instanceof FlowController next)) return null;
             settings = next.controls();
         }
         return settings.source == null ? settings : null;

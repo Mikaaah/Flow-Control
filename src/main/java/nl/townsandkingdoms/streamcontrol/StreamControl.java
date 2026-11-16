@@ -25,7 +25,7 @@ public final class StreamControl implements ModInitializer {
  private static final ControllerBlock GENERATOR_BLOCK=block("current_generator",false,BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).strength(3).noOcclusion());
  private static final ControllerBlock ANCHOR_BLOCK=block("stillwater_anchor",true,BlockBehaviour.Properties.ofFullCopy(Blocks.PRISMARINE).strength(3).noOcclusion());
  public static final Supplier<ControllerBlock> GENERATOR=()->GENERATOR_BLOCK,ANCHOR=()->ANCHOR_BLOCK;
- private static final UtilityBlock SENSOR_BLOCK=Registry.register(BuiltInRegistries.BLOCK,id("flow_sensor"),new UtilityBlock(true,BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).strength(3).setId(ResourceKey.create(Registries.BLOCK,id("flow_sensor")))));
+ private static final UtilityBlock SENSOR_BLOCK=Registry.register(BuiltInRegistries.BLOCK,id("flow_sensor"),new UtilityBlock(true,BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).strength(3).noOcclusion().setId(ResourceKey.create(Registries.BLOCK,id("flow_sensor")))));
  private static final UtilityBlock MOORING_BLOCK=Registry.register(BuiltInRegistries.BLOCK,id("mooring_post"),new UtilityBlock(false,BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3).noOcclusion().setId(ResourceKey.create(Registries.BLOCK,id("mooring_post")))));
  public static final Supplier<UtilityBlock> SENSOR=()->SENSOR_BLOCK,MOORING=()->MOORING_BLOCK;
  public static final Supplier<BlockItem> SENSOR_ITEM=()->(BlockItem)SENSOR_BLOCK.asItem(),MOORING_ITEM=()->(BlockItem)MOORING_BLOCK.asItem();

@@ -45,7 +45,7 @@ public final class ConnectedWater {
                 if (seen.get(next)) continue;
                 seen.set(next);
                 cursor.set(center.getX() + x, center.getY() + y, center.getZ() + z);
-                if (level.hasChunkAt(cursor) && level.getFluidState(cursor).is(FluidTags.WATER)) {
+                if (level.getChunkSource().hasChunk(cursor.getX()>>4,cursor.getZ()>>4) && level.getFluidState(cursor).is(FluidTags.WATER)) {
                     wet.set(next);
                     open.addLast(next);
                 }
@@ -59,7 +59,7 @@ public final class ConnectedWater {
         int x = pos.getX() - center.getX(), y = pos.getY() - center.getY(), z = pos.getZ() - center.getZ();
         if (Math.abs(y) > vertical || x * x + z * z > radius * radius) return -1;
         cursor.set(pos);
-        if (!level.hasChunkAt(cursor) || !level.getFluidState(cursor).is(FluidTags.WATER)) return -1;
+        if (!level.getChunkSource().hasChunk(cursor.getX()>>4,cursor.getZ()>>4) || !level.getFluidState(cursor).is(FluidTags.WATER)) return -1;
         return ((y + vertical) * width + z + radius) * width + x + radius;
     }
 }

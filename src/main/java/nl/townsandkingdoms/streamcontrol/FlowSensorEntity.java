@@ -63,7 +63,7 @@ public final class FlowSensorEntity extends BlockEntity implements UtilityAccess
                 for(int x=-r;x<=r;x++) for(int z=-r;z<=r;z++) {
                     if(x*x+z*z>r*r) continue;
                     p.setWithOffset(worldPosition,x,0,z);
-                    if(!server.hasChunkAt(p)) continue;
+                    if(!server.getChunkSource().hasChunk(p.getX()>>4,p.getZ()>>4)) continue;
                     for(int y=-v;y<=v;y++) {
                         p.setWithOffset(worldPosition,x,y,z);
                         var fluid=server.getFluidState(p);if(!fluid.is(FluidTags.WATER)) continue;
