@@ -27,8 +27,9 @@
       "run_id": "43856611625"
     },
     "flow-control-1.1.0-forge-1.20.1.jar": {
-      "status": "uploading",
+      "status": "uploaded",
       "sha256": "7770e2ed0f9225aeec754a4013ef8b502cfb42c45cf0a34ce09ba98427bbbd56",
+      "file_id": 9647069,
       "run_id": "43856611625"
     }
   }
