@@ -1,0 +1,96 @@
+name: Capture raw Flow Control showcase
+
+on:
+  push:
+    branches: ["showcase/**"]
+  workflow_dispatch:
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Fetch pinned runtime dependencies
+        run: |
+          mkdir -p libs
+          curl --fail --location --retry 3 --output libs/StreamsReflowing-1.21.1-neoforge-2.17.5.jar https://cdn.modrinth.com/data/oLS8HdJ1/versions/9Phpmmh2/StreamsReflowing-1.21.1-neoforge-2.17.5.jar
+          sha256sum --check <<'HASH'
+          bac3ca024434359d70ce920cddb6b374616a49ff1134da0717110ad0152422c4  libs/StreamsReflowing-1.21.1-neoforge-2.17.5.jar
+          HASH
+          python3 tools/fetch_create.py
+      - name: Prepare fresh void showcase world
+        run: |
+          mkdir -p run-showcase-server/config run-showcase-client/config
+          echo 'eula=true' > run-showcase-server/eula.txt
+          echo 'forceBakedFluid=false' > run-showcase-server/config/streamsreflowing.properties
+          echo 'forceBakedFluid=false' > run-showcase-client/config/streamsreflowing.properties
+          cat > run-showcase-server/server.properties <<'PROPERTIES'
+          level-name=showcase-void
+          level-type=minecraft:flat
+          generator-settings={"biome":"minecraft:the_void","layers":[],"features":false,"lakes":false,"structure_overrides":[]}
+          generate-structures=false
+          gamemode=creative
+          force-gamemode=true
+          difficulty=peaceful
+          online-mode=false
+          enforce-secure-profile=false
+          white-list=false
+          enforce-whitelist=false
+          spawn-protection=0
+          allow-flight=true
+          view-distance=6
+          simulation-distance=4
+          max-players=1
+          PROPERTIES
+          cat > run-showcase-client/options.txt <<'OPTIONS'
+          onboardAccessibility:false
+          guiScale:3
+          tutorialStep:none
+          fullscreen:false
+          fov:-0.8
+          fovEffectScale:0.0
+          bobView:false
+          renderDistance:8
+          particles:2
+          renderClouds:false
+          maxFps:60
+          pauseOnLostFocus:false
+          OPTIONS
+      - name: Launch server and capture actual runClient framebuffer
+        run: |
+          bash gradlew --no-daemon -PwithCreate -Dstreamcontrol.showcaseServer=true runServer > showcase-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" $(jobs -pr) 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 180); do
+            if test -s run-showcase-server/showcase-ready; then break; fi
+            if ! kill -0 "$SERVER_PID" 2>/dev/null; then tail -n 60 showcase-server.log; exit 1; fi
+            sleep 1
+          done
+          test -s run-showcase-server/showcase-ready
+          timeout 600 xvfb-run -a -s '-screen 0 3000x1800x24' bash gradlew --no-daemon -PwithCreate -Dstreamcontrol.showcaseClient=true runClient
+          python3 - <<'PY'
+          import json,pathlib
+          result=json.load(open('run-showcase-client/showcase-capture.json'))
+          assert result.get('complete') is True,result
+          pngs=list(pathlib.Path('run-showcase-client/screenshots').glob('flow-control-showcase-*.png'))
+          assert len(pngs)==7,[str(p) for p in pngs]
+          PY
+      - name: Save raw PNGs and capture logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flow-control-1.1.0-raw-showcase
+          path: |
+            run-showcase-client/screenshots/flow-control-showcase-*.png
+            run-showcase-client/showcase-capture.json
+            run-showcase-client/logs/latest.log
+            showcase-server.log
+          if-no-files-found: warn

@@ -11,22 +11,24 @@ neoForge {
     runs {
         client {
             client()
-            gameDirectory = file('run-client')
+            gameDirectory = file(Boolean.getBoolean('streamcontrol.showcaseClient') ? 'run-showcase-client' : 'run-client')
             programArgument '--width'
-            programArgument '960'
+            programArgument (Boolean.getBoolean('streamcontrol.showcaseClient') ? '2560' : '960')
             programArgument '--height'
-            programArgument '720'
+            programArgument (Boolean.getBoolean('streamcontrol.showcaseClient') ? '1440' : '720')
             systemProperty 'streamcontrol.uiPreview', System.getProperty('streamcontrol.uiPreview', 'false')
             systemProperty 'streamcontrol.clientIntegrationTest', System.getProperty('streamcontrol.clientIntegrationTest', 'false')
+            systemProperty 'streamcontrol.showcaseClient', System.getProperty('streamcontrol.showcaseClient', 'false')
             jvmArgument '-Xmx2G'
         }
         server {
             server()
             programArgument '--nogui'
             jvmArgument '-Xmx2G'
-            gameDirectory = file('run')
+            gameDirectory = file(Boolean.getBoolean('streamcontrol.showcaseServer') ? 'run-showcase-server' : 'run')
             systemProperty 'streamcontrol.integrationTest', System.getProperty('streamcontrol.integrationTest', 'false')
             systemProperty 'streamcontrol.clientTestServer', System.getProperty('streamcontrol.clientTestServer', 'false')
+            systemProperty 'streamcontrol.showcaseServer', System.getProperty('streamcontrol.showcaseServer', 'false')
         }
     }
     mods { streamcontrol { sourceSet sourceSets.main } }

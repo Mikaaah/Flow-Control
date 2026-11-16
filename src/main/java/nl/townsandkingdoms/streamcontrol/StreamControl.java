@@ -47,5 +47,6 @@ public final class StreamControl {
         NeoForge.EVENT_BUS.addListener(ControlCommands::register);
         IntegrationChecks.register();
         ClientTestWorld.register();
+        ShowcaseWorld.register();
     }
 }
