@@ -73,6 +73,8 @@ jobs:
           sudo apt-get install --yes --no-install-recommends libegl1 libegl-mesa0 libgl1-mesa-dri
           python3 -c 'import ctypes; egl=ctypes.CDLL("libEGL.so.1"); assert egl.eglChooseConfig'
           mkdir -p run-client
+          # The preview uses an offline test player; 26.3's server whitelist must be disabled explicitly.
+          printf '\nwhite-list=false\nenforce-whitelist=false\n' >> run/server.properties
           printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
           bash gradlew --no-daemon runServer > client-preview-server.log 2>&1 &
           SERVER_PID=$!
