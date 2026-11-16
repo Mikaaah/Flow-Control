@@ -17,6 +17,9 @@ public final class CreateClientFixture {
         level.setBlock(p,CreateIntegration.BLOCK.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED,level.getFluidState(p).is(net.minecraft.tags.FluidTags.WATER)),3);
         speed(level,p,128);
     }
+    public static boolean visualizationSupported(net.minecraft.world.level.Level level) {
+        return dev.engine_room.flywheel.api.visualization.VisualizationManager.supportsVisualization(level);
+    }
     public static void speed(ServerLevel level,int rpm) { speed(level,ClientTestWorld.MECHANICAL,rpm); }
     public static void speed(ServerLevel level,net.minecraft.core.BlockPos p,int rpm) {
         var motor=(CreativeMotorBlockEntity)level.getBlockEntity(p.below());

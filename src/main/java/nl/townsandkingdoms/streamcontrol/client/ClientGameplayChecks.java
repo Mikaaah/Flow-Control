@@ -79,7 +79,7 @@ public final class ClientGameplayChecks {
     }
     private static void modelCapture(String name,String view,BlockPos p,float yaw,float pitch,boolean animate) {
         int[] captures={0};float[] firstAngle={Float.NaN};
-        add("placed model render "+name,()->{mc().setScreen(null);mc().options.hideGui=true;command(view);},()->{
+        add("placed model render "+name,()->{mc().setScreen(null);mc().options.hideGui=true;mc().options.particles().set(net.minecraft.client.ParticleStatus.MINIMAL);command(view);},()->{
             mc().player.setYRot(yaw);mc().player.setXRot(pitch);
             if(!mc().player.isSpectator())return false;
             var frame=modelFrame(p);if(frame==null)return false;
@@ -88,11 +88,7 @@ public final class ClientGameplayChecks {
                 screenshot("model-"+name+"-"+ticks);captures[0]++;
                 results.put("placed model parts "+name,frame.parts().size());
                 if(p.equals(MODEL_MECHANICAL) && net.neoforged.fml.ModList.get().isLoaded("create")) {
-                    try {
-                        var api=Class.forName("dev.engine_room.flywheel.api.visualization.VisualizationManager");
-                        var supported=api.getMethod("supportsVisualization",net.minecraft.world.level.Level.class).invoke(null,mc().level);
-                        results.put("native Flywheel visualization supported",supported);
-                    } catch(ReflectiveOperationException e) {throw new AssertionError("Cannot inspect optional visual backend",e);}
+                    results.put("native Flywheel visualization supported",nl.townsandkingdoms.streamcontrol.compat.create.CreateClientFixture.visualizationSupported(mc().level));
                 }
                 if(p.equals(MODEL_MOORING))results.put("placed mooring has live rope",frame.rope()!=null);
                 if(ticks==60)firstAngle[0]=modelAngle(frame);
