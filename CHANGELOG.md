@@ -1,8 +1,5 @@
 ![Flow Control](https://i.imgur.com/JGT2lvz.png)
 
-
-
-
 ## 1.1.0 — Glazed Relics & Dock Instruments
 
 - Integrated the five redesigned nautical-industrial block models and animated internals.
@@ -51,7 +48,6 @@ The complete feature changelog and exact supported dependency matrix are supplie
 - Removed the old recolored machine textures from the Mooring Post.
 - Preserved all water-control, sensor, mooring and Create behavior.
 
-
 ## 0.2.0 — Water Engineering
 
 - Repurposed the Flow Wand as the Flow Calibrator: inspect currents, show horizontal/vertical reach, copy and paste settings, and link controllers.
@@ -66,7 +62,6 @@ The complete feature changelog and exact supported dependency matrix are supplie
 - Added matching Automation, sensor and mooring screens, live utility status, survival recipes and item descriptions.
 - Updated networking for the new settings. Client and server must use matching 0.2.0 builds.
 - Verified NeoForge 1.21.1 / Java 21 / Streams Reflowing 2.16.2, both with and without Create 6.0.10. Other ports are unchanged.
-
 
 ## 0.1.7
 
@@ -97,7 +92,6 @@ The complete feature changelog and exact supported dependency matrix are supplie
 - Save compass directions in block states; preserve old cardinal directions and handle rotations/mirrors.
 - Update server validation and networking for all eight headings.
 
-
 ## 0.1.4 — Controller GUI redesign
 
 - Replace the mixed dark panel and vanilla controls with one warm parchment, walnut and brass style inspired by the Unidentified Loot counters.
@@ -106,13 +100,11 @@ The complete feature changelog and exact supported dependency matrix are supplie
 - Keep redstone status, apply/cancel behavior, connected-water settings and server validation intact.
 - No changes to water physics or particle suppression.
 
-
 ## 0.1.3-beta.3 — all supported ports
 
 - Port the new controller GUI, connected-water settings, stillwater particle suppression and render-refresh fixes to all seven additional version branches.
 - Compile and pass the dedicated-server regression suite on every port; commit matching JARs, checksums and test evidence.
 - All seven ports now use Streams Reflowing 2.15.2. Client visuals still require in-game playtesting.
-
 
 ## 0.1.3-beta.2 — NeoForge 1.21.1 (test build)
 
@@ -133,7 +125,6 @@ The complete feature changelog and exact supported dependency matrix are supplie
 
 - Replace the Flow Wand, generator top, anchor top, shared sides and shared bottoms with the supplied textures, unchanged.
 - Align the generator model with the supplied arrow orientation.
-
 
 ## 0.1.0-beta
 
