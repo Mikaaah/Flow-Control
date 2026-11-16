@@ -1,0 +1,199 @@
+{
+  "credit": "Flow Control nautical / Conduit art kit",
+  "ambientocclusion": true,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "minecraft:entity/conduit/base",
+    "conduit_base": "minecraft:entity/conduit/base",
+    "conduit_eye": "minecraft:entity/conduit/open_eye",
+    "copper": "minecraft:block/copper_block",
+    "cut_copper": "minecraft:block/cut_copper",
+    "dark_prismarine": "minecraft:block/dark_prismarine",
+    "glass": "minecraft:block/glass",
+    "iron": "minecraft:block/iron_block"
+  },
+  "elements": [
+    {
+      "name": "native_conduit_core",
+      "from": [
+        5,
+        5,
+        7
+      ],
+      "to": [
+        11,
+        11,
+        13
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            3.0,
+            6.0,
+            6.0,
+            12.0
+          ],
+          "texture": "#conduit_base"
+        },
+        "south": {
+          "uv": [
+            9.0,
+            6.0,
+            12.0,
+            12.0
+          ],
+          "texture": "#conduit_base"
+        },
+        "east": {
+          "uv": [
+            6.0,
+            6.0,
+            9.0,
+            12.0
+          ],
+          "texture": "#conduit_base"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            6.0,
+            3.0,
+            12.0
+          ],
+          "texture": "#conduit_base"
+        },
+        "up": {
+          "uv": [
+            3.0,
+            0.0,
+            6.0,
+            6.0
+          ],
+          "texture": "#conduit_base"
+        },
+        "down": {
+          "uv": [
+            6.0,
+            0.0,
+            9.0,
+            6.0
+          ],
+          "texture": "#conduit_base"
+        }
+      }
+    },
+    {
+      "name": "full_native_eye_detail",
+      "from": [
+        6,
+        6,
+        6.875
+      ],
+      "to": [
+        10,
+        10,
+        7
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            0.0,
+            8.0,
+            8.0
+          ],
+          "texture": "#conduit_eye"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  }
+}

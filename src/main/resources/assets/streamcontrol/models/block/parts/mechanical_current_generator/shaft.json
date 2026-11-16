@@ -1,0 +1,245 @@
+{
+  "credit": "Flow Control nautical / Conduit art kit",
+  "ambientocclusion": true,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "streamcontrol:block/fallback_create_andesite_casing",
+    "create_andesite_casing": "streamcontrol:block/fallback_create_andesite_casing",
+    "create_brass_block": "streamcontrol:block/fallback_create_brass_block",
+    "create_brass_casing": "streamcontrol:block/fallback_create_brass_casing",
+    "create_copper_casing": "streamcontrol:block/fallback_create_copper_casing",
+    "create_fan_blades": "streamcontrol:block/fallback_create_fan_blades",
+    "create_industrial_iron": "streamcontrol:block/fallback_create_industrial_iron",
+    "shaft": "streamcontrol:block/fallback_shaft",
+    "shaft_top": "streamcontrol:block/fallback_shaft_top"
+  },
+  "elements": [
+    {
+      "name": "bottom_rotating_shaft",
+      "from": [
+        6,
+        0,
+        6
+      ],
+      "to": [
+        10,
+        2,
+        10
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            6.0,
+            14.0,
+            10.0,
+            16.0
+          ],
+          "texture": "#shaft"
+        },
+        "south": {
+          "uv": [
+            6.0,
+            14.0,
+            10.0,
+            16.0
+          ],
+          "texture": "#shaft"
+        },
+        "east": {
+          "uv": [
+            6.0,
+            14.0,
+            10.0,
+            16.0
+          ],
+          "texture": "#shaft"
+        },
+        "west": {
+          "uv": [
+            6.0,
+            14.0,
+            10.0,
+            16.0
+          ],
+          "texture": "#shaft"
+        },
+        "up": {
+          "uv": [
+            6.0,
+            6.0,
+            10.0,
+            10.0
+          ],
+          "texture": "#shaft_top"
+        },
+        "down": {
+          "uv": [
+            6.0,
+            6.0,
+            10.0,
+            10.0
+          ],
+          "texture": "#shaft_top"
+        }
+      }
+    },
+    {
+      "name": "vertical_drive_spindle",
+      "from": [
+        7,
+        4,
+        7
+      ],
+      "to": [
+        9,
+        9,
+        9
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            12.0
+          ],
+          "texture": "#shaft"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            12.0
+          ],
+          "texture": "#shaft"
+        },
+        "east": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            12.0
+          ],
+          "texture": "#shaft"
+        },
+        "west": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            12.0
+          ],
+          "texture": "#shaft"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#shaft_top"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#shaft_top"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  }
+}

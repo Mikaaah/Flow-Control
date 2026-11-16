@@ -1,0 +1,541 @@
+{
+  "namespace": "streamcontrol",
+  "format": "Minecraft Java 1.21.1",
+  "models": [
+    {
+      "id": "current_generator",
+      "title": "Current Generator \u2014 Glazed Nautical Conduit Case",
+      "cuboids": 26,
+      "bounds_pixels": {
+        "from": [
+          0,
+          0,
+          0
+        ],
+        "to": [
+          16,
+          16,
+          16
+        ]
+      },
+      "bones": [
+        {
+          "name": "housing",
+          "origin": [
+            8,
+            0,
+            8
+          ]
+        },
+        {
+          "name": "impeller",
+          "origin": [
+            8,
+            8,
+            4
+          ]
+        },
+        {
+          "name": "conduit_core",
+          "origin": [
+            8,
+            8,
+            10
+          ]
+        },
+        {
+          "name": "glass_windows",
+          "origin": [
+            8,
+            0,
+            8
+          ],
+          "parent": "housing"
+        }
+      ],
+      "parts": [
+        {
+          "bone": "impeller",
+          "pivot_pixels": [
+            8,
+            8,
+            4
+          ],
+          "pivot_blocks": [
+            0.5,
+            0.5,
+            0.25
+          ],
+          "parent": null,
+          "model": "streamcontrol:block/parts/current_generator/impeller",
+          "cuboids": 5
+        },
+        {
+          "bone": "conduit_core",
+          "pivot_pixels": [
+            8,
+            8,
+            10
+          ],
+          "pivot_blocks": [
+            0.5,
+            0.5,
+            0.625
+          ],
+          "parent": null,
+          "model": "streamcontrol:block/parts/current_generator/conduit_core",
+          "cuboids": 2
+        },
+        {
+          "bone": "glass_windows",
+          "pivot_pixels": [
+            8,
+            0,
+            8
+          ],
+          "pivot_blocks": [
+            0.5,
+            0.0,
+            0.5
+          ],
+          "parent": "housing",
+          "model": "streamcontrol:block/parts/current_generator/glass_windows",
+          "cuboids": 4
+        }
+      ],
+      "materials": [
+        "conduit_base",
+        "conduit_eye",
+        "copper",
+        "cut_copper",
+        "dark_prismarine",
+        "glass",
+        "iron"
+      ],
+      "body_model": "streamcontrol:block/parts/current_generator/body",
+      "assembled_static_model": "streamcontrol:block/current_generator",
+      "forward": "north (-Z)",
+      "density": "1 native texture pixel / model unit; explicit semantic eye decals recorded separately"
+    },
+    {
+      "id": "flow_sensor",
+      "title": "Flow Sensor \u2014 Recessed Copper Hydro Gauge",
+      "cuboids": 21,
+      "bounds_pixels": {
+        "from": [
+          0,
+          0,
+          0
+        ],
+        "to": [
+          16,
+          14,
+          16
+        ]
+      },
+      "bones": [
+        {
+          "name": "body",
+          "origin": [
+            8,
+            0,
+            8
+          ]
+        },
+        {
+          "name": "dial_needle",
+          "origin": [
+            8,
+            5,
+            1.25
+          ],
+          "parent": "body"
+        },
+        {
+          "name": "current_vane",
+          "origin": [
+            8,
+            12,
+            8
+          ]
+        },
+        {
+          "name": "output_pin",
+          "origin": [
+            8,
+            5,
+            15.5
+          ],
+          "parent": "body"
+        },
+        {
+          "name": "dial_glass",
+          "origin": [
+            8,
+            0,
+            8
+          ],
+          "parent": "body"
+        }
+      ],
+      "parts": [
+        {
+          "bone": "dial_needle",
+          "pivot_pixels": [
+            8,
+            5,
+            1.25
+          ],
+          "pivot_blocks": [
+            0.5,
+            0.3125,
+            0.078125
+          ],
+          "parent": "body",
+          "model": "streamcontrol:block/parts/flow_sensor/dial_needle",
+          "cuboids": 1
+        },
+        {
+          "bone": "current_vane",
+          "pivot_pixels": [
+            8,
+            12,
+            8
+          ],
+          "pivot_blocks": [
+            0.5,
+            0.75,
+            0.5
+          ],
+          "parent": null,
+          "model": "streamcontrol:block/parts/flow_sensor/current_vane",
+          "cuboids": 3
+        },
+        {
+          "bone": "dial_glass",
+          "pivot_pixels": [
+            8,
+            0,
+            8
+          ],
+          "pivot_blocks": [
+            0.5,
+            0.0,
+            0.5
+          ],
+          "parent": "body",
+          "model": "streamcontrol:block/parts/flow_sensor/dial_glass",
+          "cuboids": 1
+        }
+      ],
+      "materials": [
+        "brass_pivot",
+        "copper",
+        "cut_copper",
+        "dark_prismarine",
+        "dial_face",
+        "glass",
+        "iron",
+        "needle_red",
+        "redstone",
+        "weathered_copper"
+      ],
+      "body_model": "streamcontrol:block/parts/flow_sensor/body",
+      "assembled_static_model": "streamcontrol:block/flow_sensor",
+      "forward": "north (-Z)",
+      "density": "1 native texture pixel / model unit; explicit semantic eye decals recorded separately"
+    },
+    {
+      "id": "mechanical_current_generator",
+      "title": "Hydro-Current Thruster",
+      "cuboids": 35,
+      "bounds_pixels": {
+        "from": [
+          0,
+          0,
+          0
+        ],
+        "to": [
+          16,
+          16,
+          16
+        ]
+      },
+      "bones": [
+        {
+          "name": "root",
+          "origin": [
+            8,
+            9,
+            8
+          ]
+        },
+        {
+          "name": "gearbox",
+          "origin": [
+            8,
+            2,
+            8
+          ],
+          "parent": "root"
+        },
+        {
+          "name": "shaft",
+          "origin": [
+            8,
+            2,
+            8
+          ],
+          "parent": "gearbox"
+        },
+        {
+          "name": "propeller",
+          "origin": [
+            8,
+            9,
+            3
+          ],
+          "parent": "root"
+        }
+      ],
+      "parts": [
+        {
+          "bone": "shaft",
+          "pivot_pixels": [
+            8,
+            2,
+            8
+          ],
+          "pivot_blocks": [
+            0.5,
+            0.125,
+            0.5
+          ],
+          "parent": "gearbox",
+          "model": "streamcontrol:block/parts/mechanical_current_generator/shaft",
+          "cuboids": 2
+        },
+        {
+          "bone": "propeller",
+          "pivot_pixels": [
+            8,
+            9,
+            3
+          ],
+          "pivot_blocks": [
+            0.5,
+            0.5625,
+            0.1875
+          ],
+          "parent": "root",
+          "model": "streamcontrol:block/parts/mechanical_current_generator/propeller",
+          "cuboids": 5
+        }
+      ],
+      "materials": [
+        "create_andesite_casing",
+        "create_brass_block",
+        "create_brass_casing",
+        "create_copper_casing",
+        "create_fan_blades",
+        "create_industrial_iron",
+        "shaft",
+        "shaft_top"
+      ],
+      "body_model": "streamcontrol:block/parts/mechanical_current_generator/body",
+      "assembled_static_model": "streamcontrol:block/mechanical_current_generator",
+      "forward": "north (-Z)",
+      "density": "1 native texture pixel / model unit; explicit semantic eye decals recorded separately"
+    },
+    {
+      "id": "mooring_post",
+      "title": "Mooring Post \u2014 Simple Spruce Piling",
+      "cuboids": 14,
+      "bounds_pixels": {
+        "from": [
+          4,
+          0,
+          3
+        ],
+        "to": [
+          12,
+          18,
+          12
+        ]
+      },
+      "bones": [
+        {
+          "name": "body",
+          "origin": [
+            8,
+            0,
+            8
+          ]
+        },
+        {
+          "name": "rope_anchor",
+          "origin": [
+            8,
+            9,
+            3.5
+          ],
+          "parent": "body"
+        },
+        {
+          "name": "status_indicator",
+          "origin": [
+            8,
+            17,
+            6
+          ],
+          "parent": "body"
+        }
+      ],
+      "parts": [
+        {
+          "bone": "rope_anchor",
+          "pivot_pixels": [
+            8,
+            9,
+            3.5
+          ],
+          "pivot_blocks": [
+            0.5,
+            0.5625,
+            0.21875
+          ],
+          "parent": "body",
+          "model": "streamcontrol:block/parts/mooring_post/rope_anchor",
+          "cuboids": 4
+        },
+        {
+          "bone": "status_indicator",
+          "pivot_pixels": [
+            8,
+            17,
+            6
+          ],
+          "pivot_blocks": [
+            0.5,
+            1.0625,
+            0.375
+          ],
+          "parent": "body",
+          "model": "streamcontrol:block/parts/mooring_post/status_indicator",
+          "cuboids": 1
+        }
+      ],
+      "materials": [
+        "copper",
+        "dark_prismarine",
+        "redstone_lamp_lit",
+        "rusted_iron",
+        "spruce",
+        "spruce_end"
+      ],
+      "body_model": "streamcontrol:block/parts/mooring_post/body",
+      "assembled_static_model": "streamcontrol:block/mooring_post",
+      "forward": "north (-Z)",
+      "density": "1 native texture pixel / model unit; explicit semantic eye decals recorded separately"
+    },
+    {
+      "id": "stillwater_anchor",
+      "title": "Stillwater Anchor \u2014 Framed Conduit Resonator",
+      "cuboids": 28,
+      "bounds_pixels": {
+        "from": [
+          0,
+          0,
+          0
+        ],
+        "to": [
+          16,
+          16,
+          16
+        ]
+      },
+      "bones": [
+        {
+          "name": "plinth",
+          "origin": [
+            8,
+            0,
+            8
+          ]
+        },
+        {
+          "name": "mooring_frame",
+          "origin": [
+            8,
+            3,
+            8
+          ],
+          "parent": "plinth"
+        },
+        {
+          "name": "conduit_outer_cage",
+          "origin": [
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "conduit_eye",
+          "origin": [
+            8,
+            8,
+            8
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "bone": "conduit_outer_cage",
+          "pivot_pixels": [
+            8,
+            8,
+            8
+          ],
+          "pivot_blocks": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "parent": null,
+          "model": "streamcontrol:block/parts/stillwater_anchor/conduit_outer_cage",
+          "cuboids": 1
+        },
+        {
+          "bone": "conduit_eye",
+          "pivot_pixels": [
+            8,
+            8,
+            8
+          ],
+          "pivot_blocks": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "parent": null,
+          "model": "streamcontrol:block/parts/stillwater_anchor/conduit_eye",
+          "cuboids": 1
+        }
+      ],
+      "materials": [
+        "conduit_eye",
+        "conduit_shell",
+        "cut_copper",
+        "dark_prismarine",
+        "oxidized_copper",
+        "prismarine_bricks",
+        "rusted_iron"
+      ],
+      "body_model": "streamcontrol:block/parts/stillwater_anchor/body",
+      "assembled_static_model": "streamcontrol:block/stillwater_anchor",
+      "forward": "north (-Z)",
+      "density": "1 native texture pixel / model unit; explicit semantic eye decals recorded separately"
+    }
+  ]
+}

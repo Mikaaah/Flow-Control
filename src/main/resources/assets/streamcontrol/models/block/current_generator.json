@@ -1,12 +1,1899 @@
 {
-  "parent": "minecraft:block/cube",
+  "credit": "Flow Control nautical / Conduit art kit",
+  "ambientocclusion": true,
+  "render_type": "minecraft:cutout",
   "textures": {
-    "down": "streamcontrol:block/current_generator_bottom",
-    "up": "streamcontrol:block/current_generator_top",
-    "north": "streamcontrol:block/current_generator_side",
-    "south": "streamcontrol:block/current_generator_side",
-    "east": "streamcontrol:block/current_generator_side",
-    "west": "streamcontrol:block/current_generator_side",
-    "particle": "streamcontrol:block/current_generator_side"
+    "particle": "minecraft:entity/conduit/base",
+    "conduit_base": "minecraft:entity/conduit/base",
+    "conduit_eye": "minecraft:entity/conduit/open_eye",
+    "copper": "minecraft:block/copper_block",
+    "cut_copper": "minecraft:block/cut_copper",
+    "dark_prismarine": "minecraft:block/dark_prismarine",
+    "glass": "minecraft:block/glass",
+    "iron": "minecraft:block/iron_block"
+  },
+  "elements": [
+    {
+      "name": "cut_copper_bottom_plate",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        3,
+        16
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            13.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            13.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            13.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            13.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "dark_prismarine_corner_nw",
+      "from": [
+        0,
+        3,
+        0
+      ],
+      "to": [
+        2,
+        13,
+        2
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            14.0,
+            3.0,
+            16.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            3.0,
+            2.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "east": {
+          "uv": [
+            14.0,
+            3.0,
+            16.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            3.0,
+            2.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            0.0,
+            2.0,
+            2.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            14.0,
+            2.0,
+            16.0
+          ],
+          "texture": "#dark_prismarine"
+        }
+      }
+    },
+    {
+      "name": "dark_prismarine_corner_ne",
+      "from": [
+        14,
+        3,
+        0
+      ],
+      "to": [
+        16,
+        13,
+        2
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            3.0,
+            2.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "south": {
+          "uv": [
+            14.0,
+            3.0,
+            16.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "east": {
+          "uv": [
+            14.0,
+            3.0,
+            16.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            3.0,
+            2.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "up": {
+          "uv": [
+            14.0,
+            0.0,
+            16.0,
+            2.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "down": {
+          "uv": [
+            14.0,
+            14.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#dark_prismarine"
+        }
+      }
+    },
+    {
+      "name": "dark_prismarine_corner_sw",
+      "from": [
+        0,
+        3,
+        14
+      ],
+      "to": [
+        2,
+        13,
+        16
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            14.0,
+            3.0,
+            16.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            3.0,
+            2.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            3.0,
+            2.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "west": {
+          "uv": [
+            14.0,
+            3.0,
+            16.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            14.0,
+            2.0,
+            16.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            0.0,
+            2.0,
+            2.0
+          ],
+          "texture": "#dark_prismarine"
+        }
+      }
+    },
+    {
+      "name": "dark_prismarine_corner_se",
+      "from": [
+        14,
+        3,
+        14
+      ],
+      "to": [
+        16,
+        13,
+        16
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            3.0,
+            2.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "south": {
+          "uv": [
+            14.0,
+            3.0,
+            16.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            3.0,
+            2.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "west": {
+          "uv": [
+            14.0,
+            3.0,
+            16.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "up": {
+          "uv": [
+            14.0,
+            14.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "down": {
+          "uv": [
+            14.0,
+            0.0,
+            16.0,
+            2.0
+          ],
+          "texture": "#dark_prismarine"
+        }
+      }
+    },
+    {
+      "name": "top_plate_front",
+      "from": [
+        0,
+        13,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        3
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            13.0,
+            0.0,
+            16.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            0.0,
+            3.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            13.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "top_plate_back",
+      "from": [
+        0,
+        13,
+        13
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            0.0,
+            0.0,
+            3.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            13.0,
+            0.0,
+            16.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            13.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "top_plate_port",
+      "from": [
+        0,
+        13,
+        3
+      ],
+      "to": [
+        3,
+        16,
+        13
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            13.0,
+            0.0,
+            16.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            0.0,
+            0.0,
+            3.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            3.0,
+            0.0,
+            13.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            3.0,
+            0.0,
+            13.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            3.0,
+            3.0,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            3.0,
+            3.0,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "top_plate_starboard",
+      "from": [
+        13,
+        13,
+        3
+      ],
+      "to": [
+        16,
+        16,
+        13
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            0.0,
+            3.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            13.0,
+            0.0,
+            16.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            3.0,
+            0.0,
+            13.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            3.0,
+            0.0,
+            13.0,
+            3.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            13.0,
+            3.0,
+            16.0,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            13.0,
+            3.0,
+            16.0,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "port_clear_glass",
+      "from": [
+        0.5,
+        3,
+        2
+      ],
+      "to": [
+        1,
+        13,
+        14
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            15.0,
+            3.0,
+            15.5,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "south": {
+          "uv": [
+            0.5,
+            3.0,
+            1.0,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "east": {
+          "uv": [
+            2.0,
+            3.0,
+            14.0,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "west": {
+          "uv": [
+            2.0,
+            3.0,
+            14.0,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "up": {
+          "uv": [
+            0.5,
+            2.0,
+            1.0,
+            14.0
+          ],
+          "texture": "#glass"
+        },
+        "down": {
+          "uv": [
+            0.5,
+            2.0,
+            1.0,
+            14.0
+          ],
+          "texture": "#glass"
+        }
+      }
+    },
+    {
+      "name": "starboard_clear_glass",
+      "from": [
+        15,
+        3,
+        2
+      ],
+      "to": [
+        15.5,
+        13,
+        14
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.5,
+            3.0,
+            1.0,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "south": {
+          "uv": [
+            15.0,
+            3.0,
+            15.5,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "east": {
+          "uv": [
+            2.0,
+            3.0,
+            14.0,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "west": {
+          "uv": [
+            2.0,
+            3.0,
+            14.0,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "up": {
+          "uv": [
+            15.0,
+            2.0,
+            15.5,
+            14.0
+          ],
+          "texture": "#glass"
+        },
+        "down": {
+          "uv": [
+            15.0,
+            2.0,
+            15.5,
+            14.0
+          ],
+          "texture": "#glass"
+        }
+      }
+    },
+    {
+      "name": "rear_clear_glass",
+      "from": [
+        2,
+        3,
+        15
+      ],
+      "to": [
+        14,
+        13,
+        15.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            2.0,
+            3.0,
+            14.0,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "south": {
+          "uv": [
+            2.0,
+            3.0,
+            14.0,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "east": {
+          "uv": [
+            0.5,
+            3.0,
+            1.0,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "west": {
+          "uv": [
+            15.0,
+            3.0,
+            15.5,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "up": {
+          "uv": [
+            2.0,
+            15.0,
+            14.0,
+            15.5
+          ],
+          "texture": "#glass"
+        },
+        "down": {
+          "uv": [
+            2.0,
+            0.5,
+            14.0,
+            1.0
+          ],
+          "texture": "#glass"
+        }
+      }
+    },
+    {
+      "name": "top_clear_inspection_window",
+      "from": [
+        3,
+        15,
+        3
+      ],
+      "to": [
+        13,
+        15.5,
+        13
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            3.0,
+            0.5,
+            13.0,
+            1.0
+          ],
+          "texture": "#glass"
+        },
+        "south": {
+          "uv": [
+            3.0,
+            0.5,
+            13.0,
+            1.0
+          ],
+          "texture": "#glass"
+        },
+        "east": {
+          "uv": [
+            3.0,
+            0.5,
+            13.0,
+            1.0
+          ],
+          "texture": "#glass"
+        },
+        "west": {
+          "uv": [
+            3.0,
+            0.5,
+            13.0,
+            1.0
+          ],
+          "texture": "#glass"
+        },
+        "up": {
+          "uv": [
+            3.0,
+            3.0,
+            13.0,
+            13.0
+          ],
+          "texture": "#glass"
+        },
+        "down": {
+          "uv": [
+            3.0,
+            3.0,
+            13.0,
+            13.0
+          ],
+          "texture": "#glass"
+        }
+      }
+    },
+    {
+      "name": "lower_copper_louver",
+      "from": [
+        2,
+        4,
+        0.5
+      ],
+      "to": [
+        14,
+        6,
+        2.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            2.0,
+            10.0,
+            14.0,
+            12.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            2.0,
+            10.0,
+            14.0,
+            12.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            13.5,
+            10.0,
+            15.5,
+            12.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            0.5,
+            10.0,
+            2.5,
+            12.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            2.0,
+            0.5,
+            14.0,
+            2.5
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            2.0,
+            13.5,
+            14.0,
+            15.5
+          ],
+          "texture": "#cut_copper"
+        }
+      },
+      "rotation": {
+        "axis": "x",
+        "angle": 22.5,
+        "origin": [
+          8,
+          5,
+          1.5
+        ],
+        "rescale": false
+      }
+    },
+    {
+      "name": "upper_copper_louver",
+      "from": [
+        2,
+        10,
+        0.5
+      ],
+      "to": [
+        14,
+        12,
+        2.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            2.0,
+            4.0,
+            14.0,
+            6.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            2.0,
+            4.0,
+            14.0,
+            6.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            13.5,
+            4.0,
+            15.5,
+            6.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            0.5,
+            4.0,
+            2.5,
+            6.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            2.0,
+            0.5,
+            14.0,
+            2.5
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            2.0,
+            13.5,
+            14.0,
+            15.5
+          ],
+          "texture": "#cut_copper"
+        }
+      },
+      "rotation": {
+        "axis": "x",
+        "angle": 22.5,
+        "origin": [
+          8,
+          11,
+          1.5
+        ],
+        "rescale": false
+      }
+    },
+    {
+      "name": "port_front_grille_stile",
+      "from": [
+        2,
+        3,
+        0.5
+      ],
+      "to": [
+        3,
+        13,
+        2
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            13.0,
+            3.0,
+            14.0,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            2.0,
+            3.0,
+            3.0,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            14.0,
+            3.0,
+            15.5,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            0.5,
+            3.0,
+            2.0,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            2.0,
+            0.5,
+            3.0,
+            2.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            2.0,
+            14.0,
+            3.0,
+            15.5
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "starboard_front_grille_stile",
+      "from": [
+        13,
+        3,
+        0.5
+      ],
+      "to": [
+        14,
+        13,
+        2
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            2.0,
+            3.0,
+            3.0,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            13.0,
+            3.0,
+            14.0,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            14.0,
+            3.0,
+            15.5,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            0.5,
+            3.0,
+            2.0,
+            13.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            13.0,
+            0.5,
+            14.0,
+            2.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            13.0,
+            14.0,
+            14.0,
+            15.5
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "impeller_iron_hub",
+      "from": [
+        7,
+        7,
+        3
+      ],
+      "to": [
+        9,
+        9,
+        5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#iron"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            7.0,
+            9.0,
+            9.0
+          ],
+          "texture": "#iron"
+        },
+        "east": {
+          "uv": [
+            11.0,
+            7.0,
+            13.0,
+            9.0
+          ],
+          "texture": "#iron"
+        },
+        "west": {
+          "uv": [
+            3.0,
+            7.0,
+            5.0,
+            9.0
+          ],
+          "texture": "#iron"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            3.0,
+            9.0,
+            5.0
+          ],
+          "texture": "#iron"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            11.0,
+            9.0,
+            13.0
+          ],
+          "texture": "#iron"
+        }
+      }
+    },
+    {
+      "name": "impeller_upper_blade",
+      "from": [
+        7,
+        3.25,
+        3.5
+      ],
+      "to": [
+        9,
+        7,
+        4.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            9.0,
+            9.0,
+            12.75
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            9.0,
+            9.0,
+            12.75
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            9.0,
+            12.5,
+            12.75
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            3.5,
+            9.0,
+            4.5,
+            12.75
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            3.5,
+            9.0,
+            4.5
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            11.5,
+            9.0,
+            12.5
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "impeller_starboard_blade",
+      "from": [
+        9,
+        7,
+        3.5
+      ],
+      "to": [
+        12.75,
+        9,
+        4.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            3.25,
+            7.0,
+            7.0,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            9.0,
+            7.0,
+            12.75,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            7.0,
+            12.5,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            3.5,
+            7.0,
+            4.5,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            9.0,
+            3.5,
+            12.75,
+            4.5
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            9.0,
+            11.5,
+            12.75,
+            12.5
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "impeller_lower_blade",
+      "from": [
+        7,
+        9,
+        3.5
+      ],
+      "to": [
+        9,
+        12.75,
+        4.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            3.25,
+            9.0,
+            7.0
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            3.25,
+            9.0,
+            7.0
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            3.25,
+            12.5,
+            7.0
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            3.5,
+            3.25,
+            4.5,
+            7.0
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            3.5,
+            9.0,
+            4.5
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            11.5,
+            9.0,
+            12.5
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "impeller_port_blade",
+      "from": [
+        3.25,
+        7,
+        3.5
+      ],
+      "to": [
+        7,
+        9,
+        4.5
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            9.0,
+            7.0,
+            12.75,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "south": {
+          "uv": [
+            3.25,
+            7.0,
+            7.0,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            7.0,
+            12.5,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "west": {
+          "uv": [
+            3.5,
+            7.0,
+            4.5,
+            9.0
+          ],
+          "texture": "#copper"
+        },
+        "up": {
+          "uv": [
+            3.25,
+            3.5,
+            7.0,
+            4.5
+          ],
+          "texture": "#copper"
+        },
+        "down": {
+          "uv": [
+            3.25,
+            11.5,
+            7.0,
+            12.5
+          ],
+          "texture": "#copper"
+        }
+      }
+    },
+    {
+      "name": "native_conduit_core",
+      "from": [
+        5,
+        5,
+        7
+      ],
+      "to": [
+        11,
+        11,
+        13
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            3.0,
+            6.0,
+            6.0,
+            12.0
+          ],
+          "texture": "#conduit_base"
+        },
+        "south": {
+          "uv": [
+            9.0,
+            6.0,
+            12.0,
+            12.0
+          ],
+          "texture": "#conduit_base"
+        },
+        "east": {
+          "uv": [
+            6.0,
+            6.0,
+            9.0,
+            12.0
+          ],
+          "texture": "#conduit_base"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            6.0,
+            3.0,
+            12.0
+          ],
+          "texture": "#conduit_base"
+        },
+        "up": {
+          "uv": [
+            3.0,
+            0.0,
+            6.0,
+            6.0
+          ],
+          "texture": "#conduit_base"
+        },
+        "down": {
+          "uv": [
+            6.0,
+            0.0,
+            9.0,
+            6.0
+          ],
+          "texture": "#conduit_base"
+        }
+      }
+    },
+    {
+      "name": "conduit_mount_plinth",
+      "from": [
+        6,
+        3,
+        9
+      ],
+      "to": [
+        10,
+        4,
+        12
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            6.0,
+            12.0,
+            10.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "south": {
+          "uv": [
+            6.0,
+            12.0,
+            10.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "east": {
+          "uv": [
+            4.0,
+            12.0,
+            7.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "west": {
+          "uv": [
+            9.0,
+            12.0,
+            12.0,
+            13.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "up": {
+          "uv": [
+            6.0,
+            9.0,
+            10.0,
+            12.0
+          ],
+          "texture": "#dark_prismarine"
+        },
+        "down": {
+          "uv": [
+            6.0,
+            4.0,
+            10.0,
+            7.0
+          ],
+          "texture": "#dark_prismarine"
+        }
+      }
+    },
+    {
+      "name": "conduit_lower_mount",
+      "from": [
+        7,
+        4,
+        9
+      ],
+      "to": [
+        9,
+        5,
+        11
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            11.0,
+            9.0,
+            12.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "south": {
+          "uv": [
+            7.0,
+            11.0,
+            9.0,
+            12.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "east": {
+          "uv": [
+            5.0,
+            11.0,
+            7.0,
+            12.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "west": {
+          "uv": [
+            9.0,
+            11.0,
+            11.0,
+            12.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "up": {
+          "uv": [
+            7.0,
+            9.0,
+            9.0,
+            11.0
+          ],
+          "texture": "#cut_copper"
+        },
+        "down": {
+          "uv": [
+            7.0,
+            5.0,
+            9.0,
+            7.0
+          ],
+          "texture": "#cut_copper"
+        }
+      }
+    },
+    {
+      "name": "full_native_eye_detail",
+      "from": [
+        6,
+        6,
+        6.875
+      ],
+      "to": [
+        10,
+        10,
+        7
+      ],
+      "shade": true,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            0.0,
+            8.0,
+            8.0
+          ],
+          "texture": "#conduit_eye"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
   }
 }

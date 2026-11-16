@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "streamcontrol",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "name": "Streams Flow Control",
   "description": "Water engineering for Streams Reflowing: profiles, automation, flow sensors, moorings and an optional Create kinetic controller.",
   "authors": [
