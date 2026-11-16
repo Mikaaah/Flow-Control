@@ -1,6 +1,12 @@
 ![Changelog](https://i.imgur.com/JGT2lvz.png)
 
 
+
+## 1.0.3 — Flexible Streams Dependency
+
+- Streams Reflowing now requires **2.17.3 or newer**, instead of one exact patch version.
+- Newer Streams updates are no longer blocked by the dependency version check.
+
 ## 1.0.1 — Streams Reflowing Compatibility
 
 - Updated support to **Streams Reflowing 2.17.3** across all nine builds.
