@@ -18,7 +18,6 @@ import nl.townsandkingdoms.streamcontrol.FlowProfile;
 import nl.townsandkingdoms.streamcontrol.ControllerSettings;
 import net.minecraft.nbt.CompoundTag;
 
-/** Slate/copper TNK menu artwork, with native input, focus, tooltips and narration. */
 public final class ControllerScreen extends Screen {
     private static final int PANEL_W = 316, PANEL_H = 238;
     private static final int INK = 0xFFF4EBE5, MUTED = 0xFFA9C3C8, CREAM = 0xFFF4EBE5;
@@ -184,7 +183,6 @@ public final class ControllerScreen extends Screen {
             centered(g, tr("preview_height", vertical), left + 236, top + 162, MUTED);
         }
         }
-        // Keep status within the frame, including when redstone disables the controller.
         boolean paused=snapshot.powered() && settings.getIntOr("RedstoneMode",0)==0;
         Component status=settings.contains("LinkedSource")?engineering("linked_source",net.minecraft.core.BlockPos.of(settings.getLongOr("LinkedSource",0L)).toShortString()):
             settings.getBooleanOr("Kinetic",false)?engineering("drive_rpm",Math.round(settings.getFloatOr("RPM",0f))):tr(paused?"powered_status":"apply_hint");
@@ -228,7 +226,6 @@ public final class ControllerScreen extends Screen {
             g.fill(tx + 1, ty + 2, tx + 4, ty + 3, covered ? TEAL : 0xFF54768B);
         }
         if (snapshot.still()) {
-            // Anchor glyph; the generator uses a heading arrow instead.
             g.fill(cx - 3, cy - 8, cx + 4, cy - 3, CREAM);
             g.fill(cx - 1, cy - 7, cx + 2, cy - 5, EDGE);
             g.fill(cx, cy - 3, cx + 2, cy + 8, CREAM);

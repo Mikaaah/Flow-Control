@@ -1,4 +1,5 @@
 package nl.townsandkingdoms.streamcontrol.mixin;
+
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -7,12 +8,13 @@ import net.minecraft.world.phys.Vec3;
 import nl.townsandkingdoms.streamcontrol.FlowOverrides;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-@Mixin(value=FlowingFluid.class,priority=500)
+
+@Mixin(value = FlowingFluid.class, priority = 500)
 public abstract class WaterFlowMixin {
- // Compose with Streams' return hooks instead of unconditionally cancelling them,
- // including when there is no Flow Control region at the queried position.
- @ModifyReturnValue(method="getFlow",at=@At("RETURN"))
- private Vec3 streamcontrol$flow(Vec3 original,BlockGetter world,BlockPos pos,FluidState state){
-  return FlowOverrides.apply(original,world,pos,state);
- }
+    // Compose with Streams' return hooks instead of unconditionally cancelling them,
+    // including when there is no Flow Control region at the queried position.
+    @ModifyReturnValue(method = "getFlow", at = @At("RETURN"))
+    private Vec3 streamcontrol$flow(Vec3 original, BlockGetter world, BlockPos pos, FluidState state) {
+        return FlowOverrides.apply(original, world, pos, state);
+    }
 }
