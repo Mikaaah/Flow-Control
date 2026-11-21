@@ -1,7 +1,6 @@
 package nl.townsandkingdoms.streamcontrol;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.*;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;

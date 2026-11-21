@@ -5,7 +5,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.*;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
