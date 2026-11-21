@@ -18,19 +18,19 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
-      - name: Fetch pinned Streams dependency
+      - name: fetch streams
         run: |
           mkdir -p libs
           curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/OBnu1pc1/StreamsReflowing-1.21.1-fabric-2.15.2.jar' -o 'libs/StreamsReflowing-1.21.1-fabric-2.15.2.jar'
-      - name: Build
+      - name: build
         run: bash gradlew --no-daemon clean build
-      - name: Prepare disposable regression world
+      - name: prepare test world
         run: |
           mkdir -p run/config
           echo 'forceBakedFluid=true' > run/config/streamsreflowing.properties
           echo 'eula=true' > run/eula.txt
           printf 'level-type=minecraft:flat\ngenerate-structures=false\nonline-mode=false\nview-distance=2\nsimulation-distance=2\n' > run/server.properties
-      - name: Dedicated server regression
+      - name: test server
         run: |
           timeout 300 bash gradlew --no-daemon -Dstreamcontrol.integrationTest=true runServer
           python3 - <<'CHECK'
@@ -40,7 +40,7 @@ jobs:
           assert data.get('controllerGuiAndConnectedWaterRegression') is True, data
           assert data.get('eightHeadingPhysicsPersistenceAndPackets') is True, data
           CHECK
-      - name: Upload JARs and regression evidence
+      - name: upload results
         if: always()
         uses: actions/upload-artifact@v4
         with:
