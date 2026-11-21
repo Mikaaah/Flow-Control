@@ -11,7 +11,6 @@ import nl.townsandkingdoms.streamcontrol.FlowHeading;
 import net.minecraft.network.chat.Component;
 import nl.townsandkingdoms.streamcontrol.ControlNetwork;
 
-/** One parchment-and-brass visual language for every control, with vanilla input/narration. */
 public final class ControllerScreen extends Screen {
     private static final int PANEL_W = 316, PANEL_H = 238;
     private static final int INK = 0xFF493326, MUTED = 0xFF806246, CREAM = 0xFFF4DFAE;
@@ -121,7 +120,6 @@ public final class ControllerScreen extends Screen {
             bevel(g, left + 246, top + 140, 26, 14, 0xFFB79C6C, false);
             g.fill(left + 257, top + 144, left + 261, top + 150, GOLD);
         }
-        // Keep status within the frame, including when redstone disables the controller.
         centered(g, tr(snapshot.powered() ? "powered_status" : "apply_hint"),
             left + PANEL_W / 2, top + 224, snapshot.powered() ? 0xFF88432F : MUTED);
         super.extractRenderState(g, mouseX, mouseY, partialTick);
@@ -229,7 +227,7 @@ public final class ControllerScreen extends Screen {
         @Override public void extractWidgetRenderState(GuiGraphicsExtractor g, int mx, int my, float partialTick) {
             int x = getX(), y = getY(), w = getWidth();
             bevel(g, x, y + 4, w, 8, 0xFF9E8157, false);
-            int handle = x + 3 + (int)Math.round(value * (w - 12));
+            int handle = x + 3 + (int) Math.round(value * (w - 12));
             g.fill(x + 3, y + 7, handle + 4, y + 9, TEAL);
             bevel(g, handle, y + 1, 9, 14, isHoveredOrFocused() ? 0xFFF2D18C : GOLD, true);
             g.fill(handle + 4, y + 5, handle + 5, y + 11, 0xFF815830);
@@ -237,12 +235,12 @@ public final class ControllerScreen extends Screen {
     }
     private final class RadiusSlider extends ParchmentSlider {
         RadiusSlider(int x, int y, int w) {
-            super(x, y, w, (double)(radius - 1) / Math.max(1, snapshot.maxRadius() - 1));
+            super(x, y, w, (double) (radius - 1) / Math.max(1, snapshot.maxRadius() - 1));
             updateMessage();
         }
         @Override protected void updateMessage() { setMessage(tr("radius", radius)); }
         @Override protected void applyValue() {
-            radius = 1 + (int)Math.round(value * (snapshot.maxRadius() - 1));
+            radius = 1 + (int) Math.round(value * (snapshot.maxRadius() - 1));
             updateMessage();
         }
     }
