@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class BakedFlowMixin {
     @ModifyReturnValue(method = "resolve", at = @At("RETURN"), remap = false)
     private static Vec3 streamcontrol$baked(Vec3 original, Vec3 natural, BlockGetter world, BlockPos pos) {
-        return FlowOverrides.apply(original,world,pos,world.getFluidState(pos));
+        return FlowOverrides.apply(original, world, pos, world.getFluidState(pos));
     }
 }
