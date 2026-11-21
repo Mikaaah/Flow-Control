@@ -17,7 +17,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/** Same waterlogged model family as the original controllers. */
 public final class UtilityBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<UtilityBlock> SENSOR_CODEC = simpleCodec(p -> new UtilityBlock(true,p));
     public static final MapCodec<UtilityBlock> MOORING_CODEC = simpleCodec(p -> new UtilityBlock(false,p));
