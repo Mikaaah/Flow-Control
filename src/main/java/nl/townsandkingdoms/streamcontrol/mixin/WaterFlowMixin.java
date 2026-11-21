@@ -13,6 +13,6 @@ public abstract class WaterFlowMixin {
  // including when there is no Flow Control region at the queried position.
  @ModifyReturnValue(method="getFlow",at=@At("RETURN"))
  private Vec3 streamcontrol$flow(Vec3 original,BlockGetter world,BlockPos pos,FluidState state){
-  return FlowOverrides.apply(original,world,pos,state);
+  return FlowOverrides.apply(original, world, pos, state);
  }
 }
