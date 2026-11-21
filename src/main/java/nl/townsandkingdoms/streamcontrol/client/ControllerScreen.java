@@ -15,7 +15,6 @@ import nl.townsandkingdoms.streamcontrol.FlowProfile;
 import nl.townsandkingdoms.streamcontrol.ControllerSettings;
 import net.minecraft.nbt.CompoundTag;
 
-/** Slate/copper TNK menu artwork, with native input, focus, tooltips and narration. */
 public final class ControllerScreen extends Screen {
     private static final int PANEL_W = 316, PANEL_H = 238;
     private static final int INK = 0xFFF4EBE5, MUTED = 0xFFA9C3C8, CREAM = 0xFFF4EBE5;
@@ -181,7 +180,6 @@ public final class ControllerScreen extends Screen {
             centered(g, tr("preview_height", vertical), left + 236, top + 162, MUTED);
         }
         }
-        // Keep status within the frame, including when redstone disables the controller.
         boolean paused=snapshot.powered() && settings.getInt("RedstoneMode")==0;
         Component status=settings.contains("LinkedSource")?engineering("linked_source",net.minecraft.core.BlockPos.of(settings.getLong("LinkedSource")).toShortString()):
             settings.getBoolean("Kinetic")?engineering("drive_rpm",Math.round(settings.getFloat("RPM"))):tr(paused?"powered_status":"apply_hint");
@@ -279,7 +277,7 @@ public final class ControllerScreen extends Screen {
         @Override public void renderWidget(GuiGraphics g, int mx, int my, float partialTick) {
             int x = getX(), y = getY(), w = getWidth();
             g.blit(texture(w == 264 ? "track_wide" : "track_small"), x, y + 4, 0f, 0f, w, 8, w, 8);
-            int handle = x + 3 + (int)Math.round(value * (w - 12));
+            int handle = x + 3 + (int) Math.round(value * (w - 12));
             g.fill(x + 3, y + 7, handle + 4, y + 9, TEAL);
             control(g, "handle", handle, y + 1, 9, 14, !active ? 4 : isHoveredOrFocused() ? 3 : 2);
             g.fill(handle + 4, y + 5, handle + 5, y + 11, 0xFF4D2B32);
@@ -287,12 +285,12 @@ public final class ControllerScreen extends Screen {
     }
     private final class RadiusSlider extends SlateSlider {
         RadiusSlider(int x, int y, int w) {
-            super(x, y, w, (double)(radius - 1) / Math.max(1, snapshot.maxRadius() - 1));
+            super(x, y, w, (double) (radius - 1) / Math.max(1, snapshot.maxRadius() - 1));
             updateMessage();
         }
         @Override protected void updateMessage() { setMessage(tr("radius", radius)); }
         @Override protected void applyValue() {
-            radius = 1 + (int)Math.round(value * (snapshot.maxRadius() - 1));
+            radius = 1 + (int) Math.round(value * (snapshot.maxRadius() - 1));
             updateMessage();
         }
     }
