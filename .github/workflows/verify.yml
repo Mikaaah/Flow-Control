@@ -18,20 +18,20 @@ jobs:
           distribution: temurin
           java-version: '25'
       - uses: gradle/actions/setup-gradle@v4
-      - name: Fetch pinned Streams dependency
+      - name: fetch streams
         run: |
           mkdir -p libs
           curl --fail --location --retry 3 'https://cdn.modrinth.com/data/oLS8HdJ1/versions/ipeb4Pmd/StreamsReflowing-26.3-fabric-2.17.1.jar' -o 'libs/StreamsReflowing-26.3-fabric-2.17.1.jar'
           echo 'abd817a36470e4eabb46a006fdf33d9ede54dd156bbc477894403ac5d35031ba  libs/StreamsReflowing-26.3-fabric-2.17.1.jar' | sha256sum --check
-      - name: Build
+      - name: build
         run: bash gradlew --no-daemon clean build
-      - name: Prepare disposable regression world
+      - name: prepare test world
         run: |
           mkdir -p run/config
           echo 'forceBakedFluid=true' > run/config/streamsreflowing.properties
           echo 'eula=true' > run/eula.txt
           printf 'level-type=minecraft:flat\ngenerate-structures=false\nonline-mode=false\nview-distance=2\nsimulation-distance=2\n' > run/server.properties
-      - name: Dedicated server regression
+      - name: test server
         run: |
           timeout 300 bash gradlew --no-daemon -Dstreamcontrol.integrationTest=true runServer
           python3 - <<'CHECK'
@@ -41,7 +41,7 @@ jobs:
           assert data.get('controllerGuiAndConnectedWaterRegression') is True, data
           assert data.get('eightHeadingPhysicsPersistenceAndPackets') is True, data
           CHECK
-      - name: Upload JARs and regression evidence
+      - name: upload results
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -51,7 +51,7 @@ jobs:
             run/streamcontrol-integration-results.json
             run/logs/latest.log
 
-      - name: Capture client menus and baked block models
+      - name: capture gui
         run: |
           mkdir -p run-client
           printf 'onboardAccessibility:false\nguiScale:3\nfullscreen:false\n' > run-client/options.txt
@@ -65,7 +65,7 @@ jobs:
           done
           timeout 360 xvfb-run -a bash gradlew --no-daemon -Dstreamcontrol.uiPreview=true runClient
           test -s run-client/screenshots/flow-control-block-models.png
-      - name: Upload client screenshots
+      - name: upload screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
