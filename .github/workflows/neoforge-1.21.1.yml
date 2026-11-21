@@ -25,16 +25,16 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: Checkout sources
+      - name: checkout
         uses: actions/checkout@v4
-      - name: Set up Java 21
+      - name: setup java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
-      - name: Set up Gradle
+      - name: setup gradle
         uses: gradle/actions/setup-gradle@v4
-      - name: Fetch Streams Reflowing 2.17.3 (build dependency)
+      - name: fetch streams
         run: |
           mkdir -p libs
           curl --fail --location --retry 3 \
@@ -43,20 +43,20 @@ jobs:
           sha256sum --check <<'HASH'
           cc84b39d122f30412e82978fd95e7a017622a915540f49dd34ae41f26f56a185  libs/StreamsReflowing-1.21.1-neoforge-2.17.3.jar
           HASH
-      - name: Fetch verified optional Create compile fixture
+      - name: fetch create
         run: python3 tools/fetch_create.py
-      - name: Compile and package addon
+      - name: build
         run: |
           chmod +x gradlew
           ./gradlew --no-daemon $CREATE_ARGS clean build
-      - name: Upload test JAR
+      - name: upload jar
         uses: actions/upload-artifact@v4
         with:
           name: flow-control-1.0.1-neoforge-1.21.1-${{ matrix.flavor }}
           path: build/libs/flow-control-*.jar
           if-no-files-found: error
 
-      - name: Check eight-way flow on the dedicated server
+      - name: test server
         run: |
           mkdir -p run/config
           echo 'eula=true' > run/eula.txt
@@ -69,7 +69,7 @@ jobs:
           assert data.get('passed') is True, data
           assert data.get('eightHeadingPhysicsPersistenceAndPackets') is True, data
           CHECK
-      - name: Upload regression results
+      - name: upload results
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -78,7 +78,7 @@ jobs:
             run/streamcontrol-integration-results.json
             run/logs/latest.log
 
-      - name: Capture the actual controller GUIs
+      - name: capture gui
         run: |
           mkdir -p run-client
           printf 'onboardAccessibility:false\nguiScale:3\ntutorialStep:none\nfullscreen:false\n' > run-client/options.txt
@@ -91,7 +91,7 @@ jobs:
           test -s run-client/screenshots/flow-control-mooring-post.png
           test -s run-client/screenshots/flow-control-block-models.png
           test -s run-client/screenshots/flow-control-mechanical-controller.png
-      - name: Upload GUI screenshots
+      - name: upload screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -100,7 +100,7 @@ jobs:
             run-client/screenshots/*.png
             run-client/logs/latest.log
 
-      - name: Exercise real client gameplay against a dedicated server
+      - name: test live client
         run: |
           rm -f run/client-test-ready
           ./gradlew --no-daemon -Dstreamcontrol.clientTestServer=true $CREATE_ARGS runServer > client-test-server.log 2>&1 &
@@ -118,7 +118,7 @@ jobs:
           data=json.load(open('run-client/streamcontrol-client-results.json'))
           assert data.get('passed') is True, data
           CHECK
-      - name: Upload live client results and screenshots
+      - name: upload client results
         if: always()
         uses: actions/upload-artifact@v4
         with:
