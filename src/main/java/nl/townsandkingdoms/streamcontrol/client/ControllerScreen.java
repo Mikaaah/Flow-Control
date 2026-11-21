@@ -15,7 +15,6 @@ import nl.townsandkingdoms.streamcontrol.FlowProfile;
 import nl.townsandkingdoms.streamcontrol.ControllerSettings;
 import net.minecraft.nbt.CompoundTag;
 
-/** Slate/copper TNK menu artwork, with native input, focus, tooltips and narration. */
 public final class ControllerScreen extends Screen {
     private static final int PANEL_W = 316, PANEL_H = 238;
     private static final int INK = 0xFFF4EBE5, MUTED = 0xFFA9C3C8, CREAM = 0xFFF4EBE5;
@@ -96,25 +95,25 @@ public final class ControllerScreen extends Screen {
             },()->false);
             addRenderableWidget(new EngineeringWidgets.RangeSlider(left+26,top+154,264,0,settings.contains("MaxVertical")?settings.getInt("MaxVertical"):16,vertical,"vertical",n->vertical=n));
         } else {
-        var radiusSlider = addRenderableWidget(new RadiusSlider(left + (snapshot.still() ? 26 : 182),
-            top + (snapshot.still() ? 156 : 83), snapshot.still() ? 264 : 108));
-        radiusSlider.active = snapshot.maxRadius() > 1;
-        radiusSlider.setTooltip(Tooltip.create(tr("radius_help")));
-        if (!snapshot.still()) {
-            addRenderableWidget(new SpeedSlider(left + 182, top + 133, 108));
-            for (FlowHeading d : FlowHeading.values()) {
-                final FlowHeading direction = d;
-                // Eight compass points surround the chart. Every hitbox stays inside its card.
-                int cx = 89 + d.stepX() * (d.diagonal() ? 48 : 56);
-                int cy = 112 + d.stepZ() * (d.diagonal() ? 28 : 38);
-                var button = new SlateButton(left + cx - 13, top + cy - 7, 26, 14,
-                    tr("short_" + d.abbreviation()), b -> facing = direction, false) {
-                    @Override protected boolean selected() { return facing == direction; }
-                };
-                button.setTooltip(Tooltip.create(tr("direction", tr(d.key()))));
-                addRenderableWidget(button);
+            var radiusSlider = addRenderableWidget(new RadiusSlider(left + (snapshot.still() ? 26 : 182),
+                top + (snapshot.still() ? 156 : 83), snapshot.still() ? 264 : 108));
+            radiusSlider.active = snapshot.maxRadius() > 1;
+            radiusSlider.setTooltip(Tooltip.create(tr("radius_help")));
+            if (!snapshot.still()) {
+                addRenderableWidget(new SpeedSlider(left + 182, top + 133, 108));
+                for (FlowHeading d : FlowHeading.values()) {
+                    final FlowHeading direction = d;
+                    // Eight compass points surround the chart. Every hitbox stays inside its card.
+                    int cx = 89 + d.stepX() * (d.diagonal() ? 48 : 56);
+                    int cy = 112 + d.stepZ() * (d.diagonal() ? 28 : 38);
+                    var button = new SlateButton(left + cx - 13, top + cy - 7, 26, 14,
+                        tr("short_" + d.abbreviation()), b -> facing = direction, false) {
+                        @Override protected boolean selected() { return facing == direction; }
+                    };
+                    button.setTooltip(Tooltip.create(tr("direction", tr(d.key()))));
+                    addRenderableWidget(button);
+                }
             }
-        }
         }
         var waterToggle = new SlateButton(left + 14, top + 176, 286, 22,
             tr("connected", tr(connected ? "on" : "off")), b -> {
@@ -159,29 +158,28 @@ public final class ControllerScreen extends Screen {
             g.drawString(font,engineering("vertical_range"),left+26,top+141,INK,false);
             right(g,Component.literal("+/- "+vertical),left+290,top+141,TEAL);
         } else {
-        drawWaterPreview(g);
-        if (snapshot.still()) {
-            centered(g, tr(action==FlowProfile.Action.RELEASE?"released_area":"calm_area"), left + 158, top + 54, INK);
-            centered(g, tr("diameter_label"), left + 66, top + 82, MUTED);
-            centered(g, tr("blocks", radius * 2 + 1), left + 66, top + 98, INK);
-            centered(g, tr("height_label"), left + 250, top + 82, MUTED);
-            centered(g, Component.literal("+/- " + vertical), left + 250, top + 98, INK);
-            centered(g, tr(action==FlowProfile.Action.RELEASE?"release_flow":"zero_flow"), left + 158, top + 129, TEAL);
-            g.drawString(font, tr("radius_label"), left + 26, top + 144, INK, false);
-            right(g, tr("blocks", radius), left + 290, top + 144, TEAL);
-        } else {
-            centered(g, tr("heading_label"), left + 89, top + 54, INK);
-            centered(g, tr(facing.key()), left + 89, top + 162, MUTED);
-            centered(g, tr("radius_label"), left + 236, top + 56, INK);
-            centered(g, tr("blocks", radius), left + 236, top + 70, TEAL);
-            centered(g, tr("speed_label"), left + 236, top + 106, INK);
-            centered(g, Component.literal(String.format(Locale.ROOT, "%d%%", Math.round(speed * 100))),
-                left + 236, top + 120, TEAL);
-            centered(g, tr("preview_diameter", radius * 2 + 1), left + 236, top + 151, INK);
-            centered(g, tr("preview_height", vertical), left + 236, top + 162, MUTED);
+            drawWaterPreview(g);
+            if (snapshot.still()) {
+                centered(g, tr(action==FlowProfile.Action.RELEASE?"released_area":"calm_area"), left + 158, top + 54, INK);
+                centered(g, tr("diameter_label"), left + 66, top + 82, MUTED);
+                centered(g, tr("blocks", radius * 2 + 1), left + 66, top + 98, INK);
+                centered(g, tr("height_label"), left + 250, top + 82, MUTED);
+                centered(g, Component.literal("+/- " + vertical), left + 250, top + 98, INK);
+                centered(g, tr(action==FlowProfile.Action.RELEASE?"release_flow":"zero_flow"), left + 158, top + 129, TEAL);
+                g.drawString(font, tr("radius_label"), left + 26, top + 144, INK, false);
+                right(g, tr("blocks", radius), left + 290, top + 144, TEAL);
+            } else {
+                centered(g, tr("heading_label"), left + 89, top + 54, INK);
+                centered(g, tr(facing.key()), left + 89, top + 162, MUTED);
+                centered(g, tr("radius_label"), left + 236, top + 56, INK);
+                centered(g, tr("blocks", radius), left + 236, top + 70, TEAL);
+                centered(g, tr("speed_label"), left + 236, top + 106, INK);
+                centered(g, Component.literal(String.format(Locale.ROOT, "%d%%", Math.round(speed * 100))),
+                    left + 236, top + 120, TEAL);
+                centered(g, tr("preview_diameter", radius * 2 + 1), left + 236, top + 151, INK);
+                centered(g, tr("preview_height", vertical), left + 236, top + 162, MUTED);
+            }
         }
-        }
-        // Keep status within the frame, including when redstone disables the controller.
         boolean paused=snapshot.powered() && settings.getInt("RedstoneMode")==0;
         Component status=settings.contains("LinkedSource")?engineering("linked_source",net.minecraft.core.BlockPos.of(settings.getLong("LinkedSource")).toShortString()):
             settings.getBoolean("Kinetic")?engineering("drive_rpm",Math.round(settings.getFloat("RPM"))):tr(paused?"powered_status":"apply_hint");
@@ -225,7 +223,6 @@ public final class ControllerScreen extends Screen {
             g.fill(tx + 1, ty + 2, tx + 4, ty + 3, covered ? TEAL : 0xFF54768B);
         }
         if (snapshot.still()) {
-            // Anchor glyph; the generator uses a heading arrow instead.
             g.fill(cx - 3, cy - 8, cx + 4, cy - 3, CREAM);
             g.fill(cx - 1, cy - 7, cx + 2, cy - 5, EDGE);
             g.fill(cx, cy - 3, cx + 2, cy + 8, CREAM);
